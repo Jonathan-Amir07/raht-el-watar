@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رهط الوتر</title>
+  <meta name="description" content="عرض تقديمي تفاعلي لفريق رهط الوتر" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-main: #06070d;
+      --gold-bright: #fce182;
+      --gold-mid: #dca038;
+      --gold-dark: #8c5717;
+      --harp-wood-dark: #220c04;
+      --harp-wood-mid: #4a1c09;
+      --harp-wood-light: #7b3312;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: var(--bg-main);
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+      overflow: hidden;
+      color: #fff;
+      user-select: none;
+    }
+
+    /* ── HOME SCREEN ── */
+    #home {
+      position: relative;
+      width: 100vw; height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+      padding: 22px 16px 20px;
+      overflow: hidden;
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    #home.fade-out {
+      opacity: 0;
+      transform: scale(0.96) translateY(-10px);
+      pointer-events: none;
+    }
+
+    /* Cinematic background lighting */
+    #home::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle 500px at 50% 45%, rgba(220, 160, 56, 0.12) 0%, rgba(140, 87, 23, 0.05) 55%, transparent 75%),
+        radial-gradient(circle 700px at 50% 15%, rgba(90, 130, 240, 0.06) 0%, transparent 65%),
+        radial-gradient(circle 400px at 20% 85%, rgba(200, 100, 30, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Floating ambient particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,230,150,0.8), rgba(240,160,50,0.2));
+      animation: drift linear infinite;
+      pointer-events: none;
+    }
+    @keyframes drift {
+      from { transform: translateY(102vh) scale(0.2); opacity: 0; }
+      20%  { opacity: 0.8; }
+      80%  { opacity: 0.4; }
+      to   { transform: translateY(-20px) scale(1.1); opacity: 0; }
+    }
+
+    /* ── HEADER ── */
+    #header {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    
+    .team-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: rgba(220, 160, 56, 0.12);
+      border: 1px solid rgba(220, 160, 56, 0.3);
+      border-radius: 20px;
+      font-size: clamp(0.75rem, 1.2vw, 0.88rem);
+      color: #ffd276;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+      box-shadow: 0 0 16px rgba(220, 160, 56, 0.15);
+    }
+    .team-badge-icon { font-size: 13px; }
+
+    #team-name {
+      font-size: clamp(2.2rem, 5.2vw, 4.2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff2be 0%, #f4cb66 30%, #dda23e 60%, #b86f1f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1.5px;
+      line-height: 1.1;
+      filter: drop-shadow(0 3px 18px rgba(220, 150, 40, 0.35));
+    }
+
+    #team-motto {
+      font-size: clamp(0.88rem, 1.6vw, 1.12rem);
+      color: rgba(255, 235, 195, 0.85);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    #hint-text {
+      font-size: clamp(0.78rem, 1.2vw, 0.92rem);
+      color: rgba(250, 205, 110, 0.65);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: pulseHint 2.4s ease-in-out infinite;
+    }
+    @keyframes pulseHint {
+      0%, 100% { opacity: 0.55; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(2px); }
+    }
+
+    /* ── HARP STAGE (CENTER) ── */
+    #harp-stage {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 900px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    /* Aura glow behind harp */
+    .harp-backdrop-glow {
+      position: absolute;
+      width: 520px;
+      height: 440px;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(230, 160, 45, 0.18) 0%, rgba(140, 75, 15, 0.06) 60%, transparent 80%);
+      filter: blur(25px);
+      pointer-events: none;
+      z-index: 1;
+      animation: harpBreathe 6s ease-in-out infinite alternate;
+    }
+    @keyframes harpBreathe {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      100% { transform: scale(1.05); opacity: 1; }
+    }
+
+    #harp-svg {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      max-height: 52vh;
+      display: block;
+      filter: drop-shadow(0 12px 35px rgba(0, 0, 0, 0.7));
+      overflow: visible;
+    }
+
+    /* Interactive String Paths */
+    .str-group {
+      cursor: pointer;
+    }
+    .str-hit-area {
+      stroke: transparent;
+      stroke-width: 32px;
+      fill: none;
+      stroke-linecap: round;
+      cursor: pointer;
+    }
+    .str-glow {
+      fill: none;
+      stroke-linecap: round;
+      opacity: 0.25;
+      transition: opacity 0.25s, stroke-width 0.25s;
+    }
+    .str-line {
+      fill: none;
+      stroke-linecap: round;
+      transition: filter 0.25s;
+    }
+
+    .str-group:hover .str-glow,
+    .str-group.active .str-glow {
+      opacity: 0.85;
+      stroke-width: 10px !important;
+    }
+    .str-group:hover .str-line,
+    .str-group.active .str-line {
+      filter: brightness(1.4) drop-shadow(0 0 6px var(--str-color));
+    }
+    .str-group:hover .tuning-peg-head,
+    .str-group.active .tuning-peg-head {
+      fill: #fff2be;
+      filter: drop-shadow(0 0 8px var(--str-color));
+    }
+
+    /* Floating Musical Sparkles */
+    .note-particle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 16px;
+      color: #ffd875;
+      font-weight: bold;
+      animation: noteFly 0.9s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+      z-index: 30;
+      text-shadow: 0 0 8px rgba(255, 215, 90, 0.8);
+    }
+    @keyframes noteFly {
+      0% { transform: translate(-50%, -50%) scale(0.4) rotate(0deg); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3) rotate(var(--rot)); opacity: 0; }
+    }
+
+    /* ── STRINGS CONTROL DOCK (BOTTOM) ── */
+    #strings-dock {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      width: min(940px, 96vw);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .dock-card {
+      background: rgba(22, 16, 12, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 3px solid var(--card-color);
+      border-radius: 10px;
+      padding: 8px 6px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dock-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, var(--card-glow) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.25s;
+      pointer-events: none;
+    }
+
+    .dock-card:hover,
+    .dock-card.highlight {
+      transform: translateY(-4px);
+      background: rgba(36, 24, 16, 0.88);
+      border-color: var(--card-color);
+      box-shadow: 0 8px 20px var(--card-glow);
+    }
+    .dock-card:hover::before,
+    .dock-card.highlight::before {
+      opacity: 0.25;
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .card-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.08);
+      width: 17px; height: 17px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-icon {
+      font-size: 17px;
+      line-height: 1;
+    }
+    .card-title {
+      font-size: clamp(0.78rem, 1.1vw, 0.96rem);
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .dock-card:hover .card-title,
+    .dock-card.highlight .card-title {
+      color: var(--card-color);
+    }
+    .card-sub {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.42);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    /* ── SUB-PAGES (DRAWER / OVERLAY) ── */
+    .subpage {
+      position: fixed; inset: 0;
+      background: #080a14;
+      z-index: 500;
+      display: flex; flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s;
+      overflow: hidden;
+    }
+    .subpage.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .subpage::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--str-color), transparent);
+    }
+    .subpage::after {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--str-glow), transparent 70%);
+      opacity: 0.08;
+      top: -250px; right: -250px;
+      pointer-events: none;
+    }
+
+    /* ── SLIDE CORNER LOGO (ALL SLIDES) ── */
+    .slide-corner-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .home-corner-logo {
+      position: absolute;
+      top: 20px;
+      right: 32px;
+      z-index: 25;
+      cursor: pointer;
+    }
+
+    .sp-corner-logo {
+      cursor: pointer;
+    }
+
+    .slide-logo-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid rgba(220, 160, 56, 0.8);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(220, 160, 56, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 3px;
+      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .slide-logo-badge:hover {
+      transform: scale(1.08);
+      border-color: #ffd875;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 24px rgba(220, 160, 56, 0.55);
+    }
+
+    .slide-logo-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* ── TOP LEFT CORNER LOGO (WATAR - TRANSPARENT) ── */
+    .slide-corner-logo-left {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .home-corner-logo-left {
+      position: absolute;
+      top: 18px;
+      left: 32px;
+      z-index: 25;
+    }
+
+    .watar-transparent-logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      background: transparent;
+      filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.25)) drop-shadow(0 0 14px rgba(220, 160, 56, 0.2));
+      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.25s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+      display: block;
+    }
+
+    .slide-corner-logo-left:hover .watar-transparent-logo {
+      transform: scale(1.08);
+      filter: drop-shadow(0 3px 12px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 22px rgba(220, 160, 56, 0.5));
+    }
+
+    .sp-top-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+      direction: rtl;
+      position: relative;
+      z-index: 10;
+    }
+
+    .sp-left-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-inline-start: auto;
+      margin-right: auto;
+      margin-left: 0;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.85);
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .back-btn:hover {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      transform: translateX(3px);
+    }
+    .back-arrow { font-size: 16px; }
+
+    .sp-title-icon { font-size: 32px; }
+    .sp-title {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--str-color);
+    }
+
+    .draft-badge {
+      background: rgba(255,180,50,0.12);
+      border: 1px solid rgba(255,180,50,0.3);
+      color: #f4b832;
+      font-size: 12px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .sp-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 36px 48px;
+      direction: rtl;
+      position: relative;
+      z-index: 10;
+    }
+
+    .draft-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 740px;
+    }
+
+    .draft-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-right: 4px solid var(--str-color);
+      border-radius: 0 12px 12px 0;
+      padding: 15px 22px;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+      transition: background 0.2s, transform 0.2s;
+      animation: slideIn 0.35s ease both;
+    }
+    .draft-item:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateX(-4px);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(25px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .draft-item:nth-child(1) { animation-delay: 0.05s; }
+    .draft-item:nth-child(2) { animation-delay: 0.10s; }
+    .draft-item:nth-child(3) { animation-delay: 0.15s; }
+    .draft-item:nth-child(4) { animation-delay: 0.20s; }
+    .draft-item:nth-child(5) { animation-delay: 0.25s; }
+    .draft-item:nth-child(6) { animation-delay: 0.30s; }
+    .draft-item:nth-child(7) { animation-delay: 0.35s; }
+    .draft-item:nth-child(8) { animation-delay: 0.40s; }
+
+    .draft-note {
+      margin-top: 32px;
+      color: rgba(255,255,255,0.3);
+      font-size: 13px;
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 740px;
+    }
+
+    /* ── RESPONSIVE ADAPTATIONS ── */
+    @media (max-width: 768px) {
+      .home-corner-logo {
+        top: 14px;
+        right: 16px;
+      }
+      .home-corner-logo-left {
+        top: 14px;
+        left: 16px;
+      }
+      .slide-logo-badge {
+        width: 44px;
+        height: 44px;
+        padding: 2px;
+      }
+      .watar-transparent-logo {
+        width: 46px;
+        height: 46px;
+      }
+      .sp-left-actions {
+        gap: 8px;
+      }
+      #strings-dock {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .sp-body { padding: 24px 20px; }
+      .sp-top-bar { padding: 14px 16px; gap: 10px; }
+      #team-motto { font-size: 0.85rem; }
+    }
+    @media (max-width: 480px) {
+      .home-corner-logo {
+        top: 10px;
+        right: 12px;
+      }
+      .home-corner-logo-left {
+        top: 10px;
+        left: 12px;
+      }
+      .slide-logo-badge {
+        width: 38px;
+        height: 38px;
+      }
+      .watar-transparent-logo {
+        width: 40px;
+        height: 40px;
+      }
+      .sp-title {
+        font-size: 1.25rem;
+      }
+      #strings-dock {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card-sub { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ FIRST SLIDE / HOME SCREEN (MAJESTIC HARP) ══════════════ -->
+<div id="home">
+  <!-- Top Left Corner Logo (رهط الوتر) -->
+  <div class="slide-corner-logo-left home-corner-logo-left" onclick="pluckHarpString(392.0, 0.45)" title="رهط الوتر">
+    <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+  </div>
+
+  <!-- Top Right Corner Logo -->
+  <div class="slide-corner-logo home-corner-logo" onclick="pluckHarpString(523.25, 0.4)" title="شعار عشيرة الجوالة - رهط الوتر">
+    <div class="slide-logo-badge">
+      <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div id="header">
+    <div class="team-badge">
+      <span class="team-badge-icon">⚜️</span>
+      <span>عشيرة الجوالة • </span>
+    </div>
+    <h1 id="team-name">رهط الوتر</h1>
+    <p id="team-motto">«مختلفين في شخصياتنا… لكن لما بنجتمع بنعمل لحن واحد» 🎶</p>
+    <p id="hint-text">
+    </p>
+  </div>
+
+  <!-- Harp Visual Centerpiece -->
+  <div id="harp-stage">
+    <div class="harp-backdrop-glow"></div>
+
+    <svg id="harp-svg" viewBox="0 0 880 560" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <!-- Gold pillar / column gradient -->
+        <linearGradient id="pillarGold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fff0b8" />
+          <stop offset="25%" stop-color="#dfa438" />
+          <stop offset="50%" stop-color="#935716" />
+          <stop offset="75%" stop-color="#f5c760" />
+          <stop offset="100%" stop-color="#693b08" />
+        </linearGradient>
+
+        <!-- Harmonic neck wood gradient -->
+        <linearGradient id="neckWood" x1="0%" y1="0%" x2="100%" y2="60%">
+          <stop offset="0%" stop-color="#6a2b0e" />
+          <stop offset="30%" stop-color="#8e3d16" />
+          <stop offset="70%" stop-color="#491b07" />
+          <stop offset="100%" stop-color="#280c02" />
+        </linearGradient>
+
+        <!-- Soundbox resonator back depth -->
+        <linearGradient id="soundboxBody" x1="0%" y1="0%" x2="100%" y2="80%">
+          <stop offset="0%" stop-color="#3b1506" />
+          <stop offset="50%" stop-color="#55220c" />
+          <stop offset="100%" stop-color="#1e0a03" />
+        </linearGradient>
+
+        <!-- Soundboard acoustic top plane -->
+        <linearGradient id="soundboardFace" x1="30%" y1="0%" x2="70%" y2="100%">
+          <stop offset="0%" stop-color="#9c481e" />
+          <stop offset="35%" stop-color="#b65726" />
+          <stop offset="75%" stop-color="#7e3311" />
+          <stop offset="100%" stop-color="#4e1d08" />
+        </linearGradient>
+
+        <!-- Gold inlay / edge strip -->
+        <linearGradient id="goldInlay" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#c98a28" />
+          <stop offset="50%" stop-color="#ffea9f" />
+          <stop offset="100%" stop-color="#915911" />
+        </linearGradient>
+
+        <!-- Sound holes acoustic depth -->
+        <radialGradient id="soundHoleDepth" cx="45%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#050201" />
+          <stop offset="70%" stop-color="#180a04" />
+          <stop offset="100%" stop-color="#4a1e08" />
+        </radialGradient>
+
+        <!-- Tuning peg metallic brass -->
+        <linearGradient id="tuningPegBrass" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#fff2c2" />
+          <stop offset="50%" stop-color="#d49e37" />
+          <stop offset="100%" stop-color="#7a4e11" />
+        </linearGradient>
+
+        <!-- Pedestal base gradient -->
+        <linearGradient id="basePlinth" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2a0f04" />
+          <stop offset="30%" stop-color="#69290e" />
+          <stop offset="70%" stop-color="#4d1c07" />
+          <stop offset="100%" stop-color="#1e0902" />
+        </linearGradient>
+
+        <!-- Floor acoustic shadow -->
+        <radialGradient id="floorShadow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(0,0,0,0.7)" />
+          <stop offset="60%" stop-color="rgba(0,0,0,0.3)" />
+          <stop offset="100%" stop-color="transparent" />
+        </radialGradient>
+
+        <!-- Soft string glow filter -->
+        <filter id="stringGlowFilter" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+
+      <!-- 1. Floor Shadow Under Harp -->
+      <ellipse cx="440" cy="528" rx="360" ry="24" fill="url(#floorShadow)" />
+
+      <!-- 2. Soundbox Resonator Chamber (Hollow Acoustic Body Back) -->
+      <path d="M 610,210 C 675,310 655,420 575,510 L 450,510 C 585,410 615,300 545,230 Z"
+            fill="url(#soundboxBody)" stroke="#1a0701" stroke-width="1.5" />
+
+      <!-- 3. Soundboard (Acoustic Angled Front Plane) -->
+      <path d="M 545,230 L 610,210 L 575,510 L 440,510 Z"
+            fill="url(#soundboardFace)" stroke="#d2963c" stroke-width="1.2" />
+
+      <!-- Golden Inlay Border (Purfling) on Soundboard -->
+      <path d="M 548,236 L 604,217 L 570,504 L 448,504 Z"
+            fill="none" stroke="url(#goldInlay)" stroke-width="1.5" opacity="0.85" />
+
+      <!-- Soundboard Sound Holes (3 Resonant Oval Holes with Ornate Gold Rims) -->
+      <!-- Top Sound Hole -->
+      <ellipse cx="538" cy="285" rx="8" ry="15" transform="rotate(18, 538, 285)"
+               fill="url(#soundHoleDepth)" stroke="url(#goldInlay)" stroke-width="1.5" />
+      <!-- Middle Sound Hole -->
+      <ellipse cx="516" cy="365" rx="11" ry="21" transform="rotate(18, 516, 365)"
+               fill="url(#soundHoleDepth)" stroke="url(#goldInlay)" stroke-width="1.8" />
+      <!-- Bottom Sound Hole -->
+      <ellipse cx="492" cy="450" rx="14" ry="27" transform="rotate(18, 492, 450)"
+               fill="url(#soundHoleDepth)" stroke="url(#goldInlay)" stroke-width="2.0" />
+
+      <!-- Bridge Rib (Hardwood Strip where strings anchor into eyelets) -->
+      <path d="M 235,502 L 560,324" fill="none" stroke="#250d04" stroke-width="11" stroke-linecap="round" />
+      <path d="M 235,502 L 560,324" fill="none" stroke="url(#goldInlay)" stroke-width="2" stroke-linecap="round" opacity="0.6" />
+
+      <!-- Gold String Eyelets on Bridge Rib -->
+      <circle cx="238" cy="500" r="4.5" fill="url(#tuningPegBrass)" stroke="#3e2006" stroke-width="1" />
+      <circle cx="304" cy="466" r="4.5" fill="url(#tuningPegBrass)" stroke="#3e2006" stroke-width="1" />
+      <circle cx="368" cy="432" r="4.5" fill="url(#tuningPegBrass)" stroke="#3e2006" stroke-width="1" />
+      <circle cx="432" cy="397" r="4.5" fill="url(#tuningPegBrass)" stroke="#3e2006" stroke-width="1" />
+      <circle cx="494" cy="362" r="4.5" fill="url(#tuningPegBrass)" stroke="#3e2006" stroke-width="1" />
+      <circle cx="555" cy="326" r="4.5" fill="url(#tuningPegBrass)" stroke="#3e2006" stroke-width="1" />
+
+      <!-- 4. Harmonic Curve (Neck / Arch) -->
+      <!-- Main wooden arched neck -->
+      <path d="M 158,75 C 235,32 335,38 425,98 C 500,150 555,182 610,210 L 590,234 C 540,202 485,168 415,122 C 330,68 240,64 175,98 Z"
+            fill="url(#neckWood)" stroke="#1a0701" stroke-width="1.5" />
+      
+      <!-- Brass Neck Plate Holding Tuning Pins -->
+      <path d="M 195,84 C 265,54 345,62 425,114 C 490,158 540,188 584,214"
+            fill="none" stroke="url(#goldInlay)" stroke-width="6" stroke-linecap="round" opacity="0.95" />
+
+      <!-- 5. Classical Forepillar (Front Column) -->
+      <!-- Pillar Foot / Lower Scroll -->
+      <path d="M 160,490 C 145,498 140,512 155,520 L 215,520 C 228,510 220,496 205,490 Z"
+            fill="url(#basePlinth)" stroke="url(#goldInlay)" stroke-width="1" />
+
+      <!-- Graceful Column Shaft -->
+      <path d="M 162,90 C 122,175 132,350 165,495 L 198,495 C 168,350 156,175 198,90 Z"
+            fill="url(#pillarGold)" stroke="#673906" stroke-width="1.5" />
+
+      <!-- Column Inner Fluting Highlight -->
+      <path d="M 178,98 C 146,180 154,340 182,490"
+            fill="none" stroke="#fff4c4" stroke-width="2.2" stroke-linecap="round" opacity="0.75" />
+      <path d="M 186,102 C 158,185 166,335 190,488"
+            fill="none" stroke="#874a0c" stroke-width="1.8" stroke-linecap="round" opacity="0.6" />
+
+      <!-- Pillar Crown / Capital (تاج العمود المزخرف مع حلية كشفية) -->
+      <g transform="translate(162, 70)">
+        <!-- Capital pedestal -->
+        <rect x="-14" y="0" width="36" height="12" rx="3" fill="url(#tuningPegBrass)" stroke="#502804" stroke-width="1" />
+        <!-- Classical Ionic volute scroll -->
+        <path d="M -10,0 C -22,-14 2,-25 14,-15 C 22,-8 20,4 6,2 C -2,0 -4,-8 4,-10"
+              fill="none" stroke="url(#goldInlay)" stroke-width="3" stroke-linecap="round" />
+        <!-- Scout emblem accent bead -->
+        <circle cx="4" cy="-12" r="4" fill="#ffd972" stroke="#683a08" stroke-width="1" />
+      </g>
+
+      <!-- 6. Pedestal Base (Plinth Joining Pillar and Soundbox) -->
+      <path d="M 145,515 L 585,515 C 595,515 600,524 590,528 L 140,528 C 130,524 135,515 145,515 Z"
+            fill="url(#basePlinth)" stroke="url(#goldInlay)" stroke-width="1.2" />
+
+      <!-- 7. Six Golden Tuning Pins (أوتاد الضبط) with Guiding Pins -->
+      <!-- Peg 0 -->
+      <g id="peg-0">
+        <circle cx="230" cy="74" r="5" class="tuning-peg-head" fill="url(#tuningPegBrass)" stroke="#552c06" stroke-width="1" />
+        <rect x="228" y="77" width="4" height="10" rx="1" fill="#cfa039" />
+        <circle cx="230" cy="87" r="2.5" fill="#ffd875" />
+      </g>
+      <!-- Peg 1 -->
+      <g id="peg-1">
+        <circle cx="295" cy="88" r="5" class="tuning-peg-head" fill="url(#tuningPegBrass)" stroke="#552c06" stroke-width="1" />
+        <rect x="293" y="91" width="4" height="10" rx="1" fill="#cfa039" />
+        <circle cx="295" cy="101" r="2.5" fill="#ffd875" />
+      </g>
+      <!-- Peg 2 -->
+      <g id="peg-2">
+        <circle cx="362" cy="105" r="5" class="tuning-peg-head" fill="url(#tuningPegBrass)" stroke="#552c06" stroke-width="1" />
+        <rect x="360" y="108" width="4" height="10" rx="1" fill="#cfa039" />
+        <circle cx="362" cy="118" r="2.5" fill="#ffd875" />
+      </g>
+      <!-- Peg 3 -->
+      <g id="peg-3">
+        <circle cx="430" cy="128" r="5" class="tuning-peg-head" fill="url(#tuningPegBrass)" stroke="#552c06" stroke-width="1" />
+        <rect x="428" y="131" width="4" height="10" rx="1" fill="#cfa039" />
+        <circle cx="430" cy="141" r="2.5" fill="#ffd875" />
+      </g>
+      <!-- Peg 4 -->
+      <g id="peg-4">
+        <circle cx="496" cy="154" r="5" class="tuning-peg-head" fill="url(#tuningPegBrass)" stroke="#552c06" stroke-width="1" />
+        <rect x="494" y="157" width="4" height="10" rx="1" fill="#cfa039" />
+        <circle cx="496" cy="167" r="2.5" fill="#ffd875" />
+      </g>
+      <!-- Peg 5 -->
+      <g id="peg-5">
+        <circle cx="560" cy="184" r="5" class="tuning-peg-head" fill="url(#tuningPegBrass)" stroke="#552c06" stroke-width="1" />
+        <rect x="558" y="187" width="4" height="10" rx="1" fill="#cfa039" />
+        <circle cx="560" cy="197" r="2.5" fill="#ffd875" />
+      </g>
+
+      <!-- 8. THE SIX INTERACTIVE HARP STRINGS (الوتر 0 إلى الوتر 5) -->
+      <!-- String 0: من نحن؟ (Longest, Deepest Tone C3) -->
+      <g class="str-group" data-idx="0" data-freq="130.81" data-amp="16" data-decay="2.4"
+         style="--str-color:#e5a93c; --str-glow:rgba(229,169,60,0.85);">
+        <path class="str-hit-area" d="M 230,87 L 238,500" />
+        <path class="str-glow" d="M 230,87 L 238,500" stroke="#e5a93c" stroke-width="7" />
+        <path class="str-line" d="M 230,87 L 238,500" stroke="#e5a93c" stroke-width="4.2" filter="url(#stringGlowFilter)" />
+      </g>
+
+      <!-- String 1: التحضيرات (E3) -->
+      <g class="str-group" data-idx="1" data-freq="164.81" data-amp="14" data-decay="2.7"
+         style="--str-color:#f5b842; --str-glow:rgba(245,184,66,0.85);">
+        <path class="str-hit-area" d="M 295,101 L 304,466" />
+        <path class="str-glow" d="M 295,101 L 304,466" stroke="#f5b842" stroke-width="6.5" />
+        <path class="str-line" d="M 295,101 L 304,466" stroke="#f5b842" stroke-width="3.6" filter="url(#stringGlowFilter)" />
+      </g>
+
+      <!-- String 2: التحديات (G3) -->
+      <g class="str-group" data-idx="2" data-freq="196.00" data-amp="13" data-decay="3.0"
+         style="--str-color:#f06d38; --str-glow:rgba(240,109,56,0.85);">
+        <path class="str-hit-area" d="M 362,118 L 368,432" />
+        <path class="str-glow" d="M 362,118 L 368,432" stroke="#f06d38" stroke-width="6" />
+        <path class="str-line" d="M 362,118 L 368,432" stroke="#f06d38" stroke-width="3.2" filter="url(#stringGlowFilter)" />
+      </g>
+
+      <!-- String 3: المشروع (C4) -->
+      <g class="str-group" data-idx="3" data-freq="261.63" data-amp="11" data-decay="3.3"
+         style="--str-color:#4ea8de; --str-glow:rgba(78,168,222,0.85);">
+        <path class="str-hit-area" d="M 430,141 L 432,397" />
+        <path class="str-glow" d="M 430,141 L 432,397" stroke="#4ea8de" stroke-width="5.5" />
+        <path class="str-line" d="M 430,141 L 432,397" stroke="#4ea8de" stroke-width="2.8" filter="url(#stringGlowFilter)" />
+      </g>
+
+      <!-- String 4: الدروس المستفادة (E4) -->
+      <g class="str-group" data-idx="4" data-freq="329.63" data-amp="10" data-decay="3.8"
+         style="--str-color:#48ca8b; --str-glow:rgba(72,202,139,0.85);">
+        <path class="str-hit-area" d="M 496,167 L 494,362" />
+        <path class="str-glow" d="M 496,167 L 494,362" stroke="#48ca8b" stroke-width="5" />
+        <path class="str-line" d="M 496,167 L 494,362" stroke="#48ca8b" stroke-width="2.3" filter="url(#stringGlowFilter)" />
+      </g>
+
+      <!-- String 5: الخطط المستقبلية (G4 - Highest Bright Tone) -->
+      <g class="str-group" data-idx="5" data-freq="392.00" data-amp="9" data-decay="4.2"
+         style="--str-color:#b185db; --str-glow:rgba(177,133,219,0.85);">
+        <path class="str-hit-area" d="M 560,197 L 555,326" />
+        <path class="str-glow" d="M 560,197 L 555,326" stroke="#b185db" stroke-width="4.5" />
+        <path class="str-line" d="M 560,197 L 555,326" stroke="#b185db" stroke-width="1.9" filter="url(#stringGlowFilter)" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- Bottom Navigation Dock for the 6 Strings -->
+  <div id="strings-dock">
+    <div class="dock-card" data-idx="0" style="--card-color:#e5a93c; --card-glow:rgba(229,169,60,0.5)">
+      <div class="card-top-row">
+        <span class="card-num">١</span>
+        <span class="card-icon">👥</span>
+      </div>
+      <div class="card-title">من نحن؟</div>
+      <div class="card-sub">هوية ورسالة الرهط</div>
+    </div>
+
+    <div class="dock-card" data-idx="1" style="--card-color:#f5b842; --card-glow:rgba(245,184,66,0.5)">
+      <div class="card-top-row">
+        <span class="card-num">٢</span>
+        <span class="card-icon">📋</span>
+      </div>
+      <div class="card-title">التحضيرات</div>
+      <div class="card-sub">البيانات والتجهيز</div>
+    </div>
+
+    <div class="dock-card" data-idx="2" style="--card-color:#f06d38; --card-glow:rgba(240,109,56,0.5)">
+      <div class="card-top-row">
+        <span class="card-num">٣</span>
+        <span class="card-icon">⚡</span>
+      </div>
+      <div class="card-title">التحديات</div>
+      <div class="card-sub">المواقف والتغلب عليها</div>
+    </div>
+
+    <div class="dock-card" data-idx="3" style="--card-color:#4ea8de; --card-glow:rgba(78,168,222,0.5)">
+      <div class="card-top-row">
+        <span class="card-num">٤</span>
+        <span class="card-icon">🌟</span>
+      </div>
+      <div class="card-title">المشروع</div>
+      <div class="card-sub">البرنامج والخدمة</div>
+    </div>
+
+    <div class="dock-card" data-idx="4" style="--card-color:#48ca8b; --card-glow:rgba(72,202,139,0.5)">
+      <div class="card-top-row">
+        <span class="card-num">٥</span>
+        <span class="card-icon">📚</span>
+      </div>
+      <div class="card-title">الدروس المستفادة</div>
+      <div class="card-sub">الخبرات والتطوير</div>
+    </div>
+
+    <div class="dock-card" data-idx="5" style="--card-color:#b185db; --card-glow:rgba(177,133,219,0.5)">
+      <div class="card-top-row">
+        <span class="card-num">٦</span>
+        <span class="card-icon">🚀</span>
+      </div>
+      <div class="card-title">الخطط المستقبلية</div>
+      <div class="card-sub">الرؤية والخطوات القادمة</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SUB-PAGES (CONTENT OF EACH STRING) ══════════════ -->
+
+<!-- Subpage 0: من نحن؟ -->
+<div class="subpage" id="sp-0" data-idx="0" style="--str-color:#e5a93c;--str-glow:rgba(229,169,60,0.7)">
+  <div class="sp-top-bar">
+    <div class="slide-corner-logo sp-corner-logo" onclick="closePage()" title="العودة للشاشة الرئيسية">
+      <div class="slide-logo-badge">
+        <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+      </div>
+    </div>
+    <span class="sp-title-icon">👥</span>
+    <h2 class="sp-title">من نحن؟</h2>
+    <span class="draft-badge">مسودة جاهزة للتطوير</span>
+    <div class="sp-left-actions">
+      <button class="back-btn" onclick="closePage()">
+        <span class="back-arrow">&#8594;</span>
+        العودة للقيثارة
+      </button>
+      <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
+        <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+      </div>
+    </div>
+  </div>
+  <div class="sp-body">
+    <ul class="draft-list">
+      <li class="draft-item">تعريف الرهط (أسامي الرهط)</li>
+      <li class="draft-item">اسم الرهط ولماذا اخترناه</li>
+      <li class="draft-item">العهد التجوالي</li>
+      <li class="draft-item">عيد الميلاد</li>
+      <li class="draft-item">الأنشطة الرياضية</li>
+      <li class="draft-item">المعسكر</li>
+    </ul>
+    <p class="draft-note">• سنبدأ معاً في الخطوة التالية بإثراء وكتابة تفاصيل هذا الوتر بالكامل •</p>
+  </div>
+</div>
+
+<!-- Subpage 1: التحضيرات -->
+<div class="subpage" id="sp-1" data-idx="1" style="--str-color:#f5b842;--str-glow:rgba(245,184,66,0.7)">
+  <div class="sp-top-bar">
+    <div class="slide-corner-logo sp-corner-logo" onclick="closePage()" title="العودة للشاشة الرئيسية">
+      <div class="slide-logo-badge">
+        <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+      </div>
+    </div>
+    <span class="sp-title-icon">📋</span>
+    <h2 class="sp-title">التحضيرات</h2>
+    <span class="draft-badge">مسودة جاهزة للتطوير</span>
+    <div class="sp-left-actions">
+      <button class="back-btn" onclick="closePage()">
+        <span class="back-arrow">&#8594;</span>
+        العودة للقيثارة
+      </button>
+      <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
+        <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+      </div>
+    </div>
+  </div>
+  <div class="sp-body">
+    <ul class="draft-list">
+      <li class="draft-item">جمع البيانات: شوفنا البيوت / الاستكشاف</li>
+      <li class="draft-item">الأسباب الرئيسية: أماكن دلع ، مطبخ ، ملاعب للألعاب ، الموقع</li>
+      <li class="draft-item">شوفنا الأكل على حسب البودجت (لو صيام)</li>
+      <li class="draft-item">جلسات تعليمية: إزاي نتعامل مع الأطفال</li>
+      <li class="draft-item">جلسة جون / ميرا: لو حصلت مشكلة إزاي نتصرف ونتكلم مع الأيتام</li>
+    </ul>
+    <p class="draft-note">• سنبدأ معاً في الخطوة التالية بإثراء وكتابة تفاصيل هذا الوتر بالكامل •</p>
+  </div>
+</div>
+
+<!-- Subpage 2: التحديات -->
+<div class="subpage" id="sp-2" data-idx="2" style="--str-color:#f06d38;--str-glow:rgba(240,109,56,0.7)">
+  <div class="sp-top-bar">
+    <div class="slide-corner-logo sp-corner-logo" onclick="closePage()" title="العودة للشاشة الرئيسية">
+      <div class="slide-logo-badge">
+        <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+      </div>
+    </div>
+    <span class="sp-title-icon">⚡</span>
+    <h2 class="sp-title">التحديات</h2>
+    <span class="draft-badge">مسودة جاهزة للتطوير</span>
+    <div class="sp-left-actions">
+      <button class="back-btn" onclick="closePage()">
+        <span class="back-arrow">&#8594;</span>
+        العودة للقيثارة
+      </button>
+      <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
+        <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+      </div>
+    </div>
+  </div>
+  <div class="sp-body">
+    <ul class="draft-list">
+      <li class="draft-item">صفر خبرة مع الأعمار الصغيرة</li>
+      <li class="draft-item">محدش فينا خدم قبل كده السن — فنزلنا الجلسة</li>
+      <li class="draft-item">وجود بنات في المجموعة (كلنا ولاد)</li>
+      <li class="draft-item">فرق السن: إدارة مجموعات بأعمار مختلفة</li>
+    </ul>
+    <p class="draft-note">• سنبدأ معاً في الخطوة التالية بإثراء وكتابة تفاصيل هذا الوتر بالكامل •</p>
+  </div>
+</div>
+
+<!-- Subpage 3: المشروع -->
+<div class="subpage" id="sp-3" data-idx="3" style="--str-color:#4ea8de;--str-glow:rgba(78,168,222,0.7)">
+  <div class="sp-top-bar">
+    <div class="slide-corner-logo sp-corner-logo" onclick="closePage()" title="العودة للشاشة الرئيسية">
+      <div class="slide-logo-badge">
+        <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+      </div>
+    </div>
+    <span class="sp-title-icon">🌟</span>
+    <h2 class="sp-title">المشروع</h2>
+    <span class="draft-badge">مسودة جاهزة للتطوير</span>
+    <div class="sp-left-actions">
+      <button class="back-btn" onclick="closePage()">
+        <span class="back-arrow">&#8594;</span>
+        العودة للقيثارة
+      </button>
+      <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
+        <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+      </div>
+    </div>
+  </div>
+  <div class="sp-body">
+    <ul class="draft-list">
+      <li class="draft-item">الأخلاقيات: صدق ، احترام ، تنمر ، مسؤولية ، مواقف</li>
+      <li class="draft-item">الجانب الروحي: عرس قانا الجليل ، مسرحية ، كلمة</li>
+      <li class="draft-item">الألعاب: جلستان ، 3 مناطق ، 3 ألعاب لكل منطقة</li>
+      <li class="draft-item">أغنية: إحنا نجوم في عيني يسوع</li>
+      <li class="draft-item">مستلزمات: كرات بينج ، كونس ، جرادل ، حبال ، معالق ، كوبايات ، رشاش مية ، كبابات</li>
+      <li class="draft-item">الأكل: حلاوة ، تانج ، فول وطعمية ، سمك ، أوريو</li>
+      <li class="draft-item">هدايا: جبس ، معالم</li>
+      <li class="draft-item">الفئة العمرية: أول ابتدائي → سادس ابتدائي</li>
+    </ul>
+    <p class="draft-note">• سنبدأ معاً في الخطوة التالية بإثراء وكتابة تفاصيل هذا الوتر بالكامل •</p>
+  </div>
+</div>
+
+<!-- Subpage 4: الدروس المستفادة -->
+<div class="subpage" id="sp-4" data-idx="4" style="--str-color:#48ca8b;--str-glow:rgba(72,202,139,0.7)">
+  <div class="sp-top-bar">
+    <div class="slide-corner-logo sp-corner-logo" onclick="closePage()" title="العودة للشاشة الرئيسية">
+      <div class="slide-logo-badge">
+        <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+      </div>
+    </div>
+    <span class="sp-title-icon">📚</span>
+    <h2 class="sp-title">الدروس المستفادة</h2>
+    <span class="draft-badge">مسودة جاهزة للتطوير</span>
+    <div class="sp-left-actions">
+      <button class="back-btn" onclick="closePage()">
+        <span class="back-arrow">&#8594;</span>
+        العودة للقيثارة
+      </button>
+      <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
+        <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+      </div>
+    </div>
+  </div>
+  <div class="sp-body">
+    <ul class="draft-list">
+      <li class="draft-item">🏊 البركة: أهمية وجود منطقة ترفيهية مائية</li>
+      <li class="draft-item">❤️ التعامل مع الأطفال: أهم شيء تعلمناه في هذه الرحلة</li>
+      <li class="draft-item">🔄 المرونة: القدرة على التكيف مع المواقف غير المتوقعة</li>
+      <li class="draft-item">🚑 الإسعافات الأولية: ضرورة في كل رحلة</li>
+    </ul>
+    <p class="draft-note">• سنبدأ معاً في الخطوة التالية بإثراء وكتابة تفاصيل هذا الوتر بالكامل •</p>
+  </div>
+</div>
+
+<!-- Subpage 5: الخطط المستقبلية -->
+<div class="subpage" id="sp-5" data-idx="5" style="--str-color:#b185db;--str-glow:rgba(177,133,219,0.7)">
+  <div class="sp-top-bar">
+    <div class="slide-corner-logo sp-corner-logo" onclick="closePage()" title="العودة للشاشة الرئيسية">
+      <div class="slide-logo-badge">
+        <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+      </div>
+    </div>
+    <span class="sp-title-icon">🚀</span>
+    <h2 class="sp-title">الخطط المستقبلية</h2>
+    <span class="draft-badge">مسودة جاهزة للتطوير</span>
+    <div class="sp-left-actions">
+      <button class="back-btn" onclick="closePage()">
+        <span class="back-arrow">&#8594;</span>
+        العودة للقيثارة
+      </button>
+      <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
+        <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+      </div>
+    </div>
+  </div>
+  <div class="sp-body">
+    <ul class="draft-list">
+      <li class="draft-item">🕌 إقامة شراكات مع كنائس متعددة</li>
+      <li class="draft-item">الخروج معهم على الأقل مرة واحدة كل صيف</li>
+      <li class="draft-item">🌱 الاستمرار في تطوير الفريق وتوسيع نطاق الخدمة</li>
+    </ul>
+    <p class="draft-note">• سنبدأ معاً في الخطوة التالية بإثراء وكتابة تفاصيل هذا الوتر بالكامل •</p>
+  </div>
+</div>
+
+<!-- ══════════════ SCRIPTS: SOUND & VIBRATION PHYSICS ══════════════ -->
+<script>
+// ── 1. Realistic Karplus-Strong Physical Acoustic String Synthesis ──
+let audioCtx = null;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function pluckHarpString(freq, volume = 0.75) {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const sr = ctx.sampleRate;
+    const N = Math.round(sr / freq);
+    const duration = 2.8;
+    const len = Math.floor(sr * duration);
+    const buf = new Float32Array(len);
+
+    // Initial pluck excitation (pink-weighted noise for gut/nylon harp string warmth)
+    let b0 = 0, b1 = 0;
+    for (let i = 0; i < N; i++) {
+      const white = (Math.random() * 2 - 1);
+      b0 = 0.99 * b0 + white * 0.05;
+      b1 = 0.95 * b1 + white * 0.15;
+      buf[i] = (white * 0.4 + b0 + b1);
+    }
+
+    // Karplus-Strong feedback loop with acoustic loss filter (0.4982 for rich natural decay)
+    const feedback = 0.4982;
+    for (let i = N; i < len; i++) {
+      buf[i] = feedback * (buf[i - N] + buf[i - N + 1]);
+    }
+
+    const audioBuf = ctx.createBuffer(1, len, sr);
+    audioBuf.copyToChannel(buf, 0);
+
+    const src = ctx.createBufferSource();
+    src.buffer = audioBuf;
+
+    // Body resonance filter simulating wooden soundbox
+    const bodyFilter = ctx.createBiquadFilter();
+    bodyFilter.type = 'peaking';
+    bodyFilter.frequency.setValueAtTime(420, ctx.currentTime);
+    bodyFilter.Q.setValueAtTime(1.8, ctx.currentTime);
+    bodyFilter.gain.setValueAtTime(3.5, ctx.currentTime);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+    src.connect(bodyFilter);
+    bodyFilter.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch(e) {
+    // Audio context fallback
+  }
+}
+
+// ── 2. Vector Standing-Wave Vibration Physics ──
+// Accurately oscillates any 2D string along its perpendicular normal vector
+const stringCoords = [
+  { x1: 230, y1: 87,  x2: 238, y2: 500 }, // String 0
+  { x1: 295, y1: 101, x2: 304, y2: 466 }, // String 1
+  { x1: 362, y1: 118, x2: 368, y2: 432 }, // String 2
+  { x1: 430, y1: 141, x2: 432, y2: 397 }, // String 3
+  { x1: 496, y1: 167, x2: 494, y2: 362 }, // String 4
+  { x1: 560, y1: 197, x2: 555, y2: 326 }  // String 5
+];
+
+const activeAnimations = {};
+
+function animateVectorString(idx, pathEl, glowEl, amp = 14, decay = 3.0, freq = 200) {
+  if (activeAnimations[idx]) {
+    cancelAnimationFrame(activeAnimations[idx]);
+  }
+
+  const coords = stringCoords[idx];
+  const dx = coords.x2 - coords.x1;
+  const dy = coords.y2 - coords.y1;
+  const len = Math.sqrt(dx * dx + dy * dy);
+
+  // Perpendicular normal vector for transverse oscillation
+  const nx = -dy / len;
+  const ny = dx / len;
+
+  const omega = 2 * Math.PI * Math.min(28, freq / 8); // visual oscillation rate
+  let t0 = null;
+  const steps = 40;
+
+  function resetStraight() {
+    const d = `M ${coords.x1},${coords.y1} L ${coords.x2},${coords.y2}`;
+    pathEl.setAttribute('d', d);
+    if (glowEl) glowEl.setAttribute('d', d);
+  }
+
+  (function step(ts) {
+    if (!t0) t0 = ts;
+    const t = (ts - t0) / 1000;
+    const currentAmp = amp * Math.exp(-t * decay);
+
+    if (currentAmp < 0.35) {
+      resetStraight();
+      delete activeAnimations[idx];
+      return;
+    }
+
+    let d = `M ${coords.x1.toFixed(1)},${coords.y1.toFixed(1)}`;
+    const phase = Math.cos(omega * t);
+
+    for (let i = 1; i <= steps; i++) {
+      const s = i / steps;
+      // Fundamental standing wave: sin(pi * s)
+      const wave = Math.sin(Math.PI * s) * currentAmp * phase;
+      const x = coords.x1 + s * dx + nx * wave;
+      const y = coords.y1 + s * dy + ny * wave;
+      d += ` L ${x.toFixed(1)},${y.toFixed(1)}`;
+    }
+
+    pathEl.setAttribute('d', d);
+    if (glowEl) glowEl.setAttribute('d', d);
+
+    activeAnimations[idx] = requestAnimationFrame(step);
+  })(performance.now());
+}
+
+// ── 3. Musical Sparkle / Note Particle Spawner ──
+const musicalGlyphs = ['♪', '♫', '♩', '✦', '✧'];
+
+function spawnHarpSparkle(e, color) {
+  const stage = document.getElementById('harp-stage');
+  const rect = stage.getBoundingClientRect();
+  const clientX = e.clientX || (rect.left + rect.width / 2);
+  const clientY = e.clientY || (rect.top + rect.height / 2);
+
+  for (let i = 0; i < 3; i++) {
+    const el = document.createElement('div');
+    el.className = 'note-particle';
+    el.textContent = musicalGlyphs[Math.floor(Math.random() * musicalGlyphs.length)];
+    el.style.left = `${clientX - rect.left}px`;
+    el.style.top = `${clientY - rect.top}px`;
+    el.style.setProperty('--dx', `${(Math.random() - 0.5) * 90}px`);
+    el.style.setProperty('--dy', `${-30 - Math.random() * 65}px`);
+    el.style.setProperty('--rot', `${(Math.random() - 0.5) * 60}deg`);
+    if (color) el.style.color = color;
+    stage.appendChild(el);
+    setTimeout(() => el.remove(), 950);
+  }
+}
+
+// ── 4. Navigation & Page Handling ──
+let activePage = null;
+
+function openPage(idx) {
+  if (activePage !== null) return;
+  activePage = idx;
+  const sp = document.getElementById('sp-' + idx);
+  if (!sp) return;
+  sp.classList.add('open');
+
+  sp.querySelectorAll('.draft-item').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // force reflow
+    el.style.animation = '';
+  });
+
+  document.getElementById('home').classList.add('fade-out');
+}
+
+function closePage() {
+  if (activePage === null) return;
+  const sp = document.getElementById('sp-' + activePage);
+  if (sp) sp.classList.remove('open');
+  document.getElementById('home').classList.remove('fade-out');
+  activePage = null;
+}
+
+// ESC key to return
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closePage();
+});
+
+// ── 5. Wire Strings, Cards, Hover, Pluck & Glissando ──
+const strGroups = document.querySelectorAll('.str-group');
+const dockCards = document.querySelectorAll('.dock-card');
+let isPluckingLocked = false;
+let lastPluckTimes = {};
+
+function triggerStringPluck(idx, e, navigate = true) {
+  const group = document.querySelector(`.str-group[data-idx="${idx}"]`);
+  const card = document.querySelector(`.dock-card[data-idx="${idx}"]`);
+  if (!group) return;
+
+  const freq = parseFloat(group.dataset.freq);
+  const amp = parseFloat(group.dataset.amp);
+  const decay = parseFloat(group.dataset.decay);
+  const pathEl = group.querySelector('.str-line');
+  const glowEl = group.querySelector('.str-glow');
+  const color = group.style.getPropertyValue('--str-color') || '#ffd276';
+
+  // Sound
+  pluckHarpString(freq, 0.8);
+
+  // Sparkles
+  if (e) spawnHarpSparkle(e, color);
+
+  // Vibration
+  animateVectorString(idx, pathEl, glowEl, amp, decay, freq);
+
+  // Visual card highlight
+  dockCards.forEach(c => c.classList.remove('highlight'));
+  if (card) card.classList.add('highlight');
+  setTimeout(() => { if (card) card.classList.remove('highlight'); }, 800);
+
+  // Open subpage if requested and not locked
+  if (navigate && !isPluckingLocked) {
+    isPluckingLocked = true;
+    setTimeout(() => {
+      openPage(idx);
+      isPluckingLocked = false;
+    }, 850);
+  }
+}
+
+// String Click & Strum Listeners
+strGroups.forEach(group => {
+  const idx = parseInt(group.dataset.idx);
+
+  // Click string
+  group.addEventListener('click', (e) => {
+    triggerStringPluck(idx, e, true);
+  });
+
+  // Hover / Strum / Glissando (Sweep mouse across harp)
+  group.addEventListener('mouseenter', (e) => {
+    const now = performance.now();
+    if (!lastPluckTimes[idx] || now - lastPluckTimes[idx] > 320) {
+      lastPluckTimes[idx] = now;
+      // Strum sound + gentle vibration without instant navigation
+      pluckHarpString(parseFloat(group.dataset.freq), 0.45);
+      const pathEl = group.querySelector('.str-line');
+      const glowEl = group.querySelector('.str-glow');
+      animateVectorString(idx, pathEl, glowEl, 6, 4.0, parseFloat(group.dataset.freq));
+      spawnHarpSparkle(e, group.style.getPropertyValue('--str-color'));
+    }
+    // Highlight dock card
+    const card = document.querySelector(`.dock-card[data-idx="${idx}"]`);
+    if (card) card.classList.add('highlight');
+  });
+
+  group.addEventListener('mouseleave', () => {
+    const card = document.querySelector(`.dock-card[data-idx="${idx}"]`);
+    if (card) card.classList.remove('highlight');
+  });
+});
+
+// Dock Cards Listeners
+dockCards.forEach(card => {
+  const idx = parseInt(card.dataset.idx);
+  const group = document.querySelector(`.str-group[data-idx="${idx}"]`);
+
+  card.addEventListener('mouseenter', () => {
+    if (group) group.classList.add('active');
+  });
+  card.addEventListener('mouseleave', () => {
+    if (group) group.classList.remove('active');
+  });
+  card.addEventListener('click', (e) => {
+    triggerStringPluck(idx, e, true);
+  });
+});
+
+// ── 6. Ambient Floating Dust Motes ──
+(function spawnAmbientParticles() {
+  const home = document.getElementById('home');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = Math.random() * 3 + 1.2;
+    p.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      left:${Math.random() * 100}%;
+      animation-duration:${7 + Math.random() * 11}s;
+      animation-delay:${Math.random() * -14}s;
+      opacity:${0.15 + Math.random() * 0.4};
+    `;
+    home.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
