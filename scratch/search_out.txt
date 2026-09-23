@@ -1,0 +1,171 @@
+7: <title>رهط الوتر</title>
+8: <meta name="description" content="عرض تقديمي تفاعلي لفريق رهط الوتر" />
+706: .stage-slide {
+712: .stage-slide.active {
+729: .stage-slide.active .stage-badge-wrap {
+733: .stage-slide.active .stage-desc,
+734: .stage-slide.active .quote-card,
+735: .stage-slide.active .covenant-highlight-box,
+736: .stage-slide.active .members-chip-container {
+740: .stage-slide.active .stage-media-slot {
+768: .stage-card {
+783: .stage-card::before {
+793: .stage-content {
+799: .stage-badge-wrap {
+805: .stage-badge {
+816: .stage-title {
+823: .stage-desc {
+939: .stage-media-slot {
+949: .stage-image-wrapper {
+962: .stage-image-wrapper:hover {
+968: .stage-img {
+1713: .stage-card.stage-card-full,
+1714: .stage-card.stage-card-vertical,
+1715: .stage-card:not(:has(.stage-media-slot)) {
+1722: .stage-full-width {
+1834: .stage-slide.active .rejected-card:nth-child(1) {
+1838: .stage-slide.active .rejected-card:nth-child(2) {
+1842: .stage-slide.active .rejected-card:nth-child(3) {
+1846: .stage-slide.active .stage-pivot-footer-banner {
+2089: .stage-pivot-footer-banner {
+2106: .stage-pivot-footer-banner::before {
+2323: .stage-slide.active .church-card-1 {
+2327: .stage-slide.active .church-card-2 {
+2508: .stage-center-title {
+2512: .stage-center-desc {
+2618: #sp-3 .stage-badge-wrap {
+2696: .centerpiece-stage-img {
+2705: .centerpiece-img-card:hover .centerpiece-stage-img {
+3674: .sp4-stage-pills-bar {
+3683: .sp4-stage-pill {
+3699: .sp4-stage-pill:hover {
+3706: .sp4-stage-pill.active {
+3713: .sp4-stage-pill-dot {
+4588: .stage-card {
+4594: .stage-media-slot,
+4595: .stage-image-wrapper {
+5644: .gm-chart-stage-row {
+5843: .gm-chart-stage-row,
+6315: <!-- Top Left Corner Logo (رهط الوتر) -->
+6316: <div class="slide-corner-logo-left home-corner-logo-left" onclick="pluckHarpString(392.0, 0.45)" tit
+6317: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+6322: title="شعار عشيرة الجوالة - رهط الوتر">
+6324: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+6334: <h1 id="team-name">رهط الوتر</h1>
+6545: <!-- 8. THE SIX INTERACTIVE HARP STRINGS (الوتر 0 إلى الوتر 5) -->
+6702: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+6719: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+6740: <div class="stage-slide active" id="stage-0">
+6741: <div class="stage-card">
+6742: <div class="stage-content">
+6744: <span class="stage-badge"> الرهط وأعضاءة</span>
+6745: <h3 class="stage-title">تعريف الرهط وأسماء الأعضاء</h3>
+6764: <div class="stage-media-slot"
+6767: <div class="stage-image-wrapper">
+6768: <img src="assets/introductory image.jpg" alt="صورة رهط الوتر الجماعية" class="stage-img" />
+6774: <!-- Stage 1: سر التسمية «رهط الوتر» -->
+6775: <div class="stage-slide" id="stage-1">
+6776: <div class="stage-card">
+6777: <div class="stage-content">
+6779: <span class="stage-badge"> الاسم</span>
+6780: <h3 class="stage-title">تسمية «رهط الوتر»</h3>
+6790: <div class="stage-media-slot"
+6791: onclick="openStageZoom('assets/day of naming.jpg', 'المشهد الثاني • فلسفة الاسم', 'سر التسمية «رهط ا
+6793: <div class="stage-image-wrapper">
+6794: <img src="assets/day of naming.jpg" alt="يوم اختيار اسم الرهط" class="stage-img" />
+6801: <div class="stage-slide" id="stage-2">
+6802: <div class="stage-card">
+6803: <div class="stage-content">
+6805: <span class="stage-badge"> الميثاق والالتزام</span>
+6806: <h3 class="stage-title">العهد التجوالي والالتزام اليومي</h3>
+6816: <div class="stage-media-slot"
+6819: <div class="stage-image-wrapper">
+6820: <img src="assets/Camp.png" alt="معسكر الرهط والعهد التجوالي" class="stage-img" />
+6827: <div class="stage-slide" id="stage-3">
+6910: <h4 class="ms-title">اختيار اسم «الوتر» وولادة فكرة المشروع</h4>
+6979: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+7002: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+7018: <div class="presentation-stage" id="presentation-stage-1">
+7021: <div class="stage-slide active" id="stage-proj-0">
+7022: <div class="stage-card stage-card-full">
+7023: <div class="stage-content stage-full-width">
+7024: <div class="stage-badge-wrap">
+7025: <span class="stage-badge">
+7032: <h3 class="stage-title">مشاريع مستبعدة</h3>
+7085: <div class="stage-pivot-footer-banner">
+7104: <div class="stage-slide" id="stage-proj-1">
+7105: <div class="stage-card">
+7106: <div class="stage-content">
+7107: <div class="stage-badge-wrap">
+7108: <span class="stage-badge proj-approved-badge">
+7116: <h3 class="stage-title">خدمة الكنائس المحتاجة</h3>
+7160: <div class="stage-media-slot"
+7163: <div class="stage-image-wrapper">
+7164: <img src="assets/project idea day.jpg" alt="يوم ولادة فكرة المشروع" class="stage-img" />
+7175: <div class="stage-slide" id="stage-proj-2">
+7176: <div class="stage-card stage-card-full stage-card-vertical">
+7177: <div class="stage-content stage-full-width">
+7178: <div class="stage-badge-wrap">
+7179: <span class="stage-badge">
+7188: <h3 class="stage-title">محطات الخدمة على مدار يومين</h3>
+7190: <p class="stage-desc">
+7191: صورة تذكارية لرهط الوتر بالكامل في كل كنيسة تمت خدمتها خلال اليومين:
+7260: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+7283: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+7506: <span class="gm-hero-tag">المرحلة الرابعة • الميزانية الكشفية</span>
+7522: <div class="gm-chart-stage-row">
+7646: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+7668: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+7684: <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 8px;">
+7685: <span class="stage-badge" style="border-color: rgba(240,109,56,0.4); color: #ff8c5a;">
+7689: الوتر الرابع
+7729: onclick="openStageZoom('assets/challenges group.jpg', 'الوتر الرابع • التحديات الميدانية', 'فريق رهط
+7730: <img src="assets/challenges group.jpg" alt="فريق رهط الوتر في جلسة التحديات" class="centerpiece-stag
+7732: <span>فريق رهط الوتر • قلب التحدي</span>
+7770: <span class="circle-tag">التحدي الرابع</span>
+7787: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+7813: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+7829: <span class="stage-badge" style="border-color: rgba(72,202,139,0.4); color: #72efb6;">
+7833: <h3 class="stage-title" style="margin: 4px 0 0 0; font-size: 1.25rem;">مراحل اليوم الكشفي من الاستقب
+7976: <img src="assets/logo.png" alt="شعار عشيرة الجوالة - رهط الوتر" />
+7998: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" class="watar-transparent-logo" />
+8024: الشريحة ٤ • الشراكة المستقبلية (رهط الوتر ✕ قلب ابتسامة)
+8030: <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 12px;">
+8031: <span class="stage-badge" style="border-color: rgba(177,133,219,0.4); color: #d8b4fe;">
+8034: <h3 class="stage-title" style="margin: 4px 0 0 0; font-size: 1.3rem;">انطباعات وتقييمات الفئات الثلا
+8081: <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 18px;">
+8082: <span class="stage-badge" style="border-color: rgba(177,133,219,0.4); color: #d8b4fe;">
+8085: <h3 class="stage-title" style="margin: 4px 0 0 0; font-size: 1.3rem;">أهم ٤ دروس وتحديات عملية واجهت
+8144: <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 18px;">
+8145: <span class="stage-badge" style="border-color: rgba(177,133,219,0.4); color: #d8b4fe;">
+8148: <h3 class="stage-title" style="margin: 4px 0 0 0; font-size: 1.3rem;">الخطط المستقبلية لانتشار وتطوي
+8192: <!-- SLIDE 4: COLLABORATION REVEAL (رهط الوتر ✕ قلب ابتسامة) -->
+8194: <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 12px;">
+8206: <img src="assets/watar-logo.png" alt="شعار رهط الوتر" style="max-width: 100%; max-height: 100%; obje
+8208: <span style="font-size: 16px; font-weight: 700; color: #fff; margin-top: 4px;">رهط الوتر</span>
+8238: <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">دمج الانضباط والتنظيم الكشف
+8474: chordTitle = 'الوتر الأول: من نحن؟';
+8480: chordTitle = 'الوتر الثاني: المشروع';
+8486: chordTitle = 'الوتر الثاني: الفكرة ' + (arabicNums[cardIdx] || (cardIdx + 1));
+8496: let chordTitle = 'الوتر الثالث: التحضيرات';
+8498: chordTitle = 'الوتر الثالث: ميزانية اليوم الأول';
+8500: chordTitle = 'الوتر الثالث: ميزانية اليوم الثاني';
+8509: chordTitle = 'الوتر الرابع: التحديات';
+8517: ? 'الوتر الخامس: يوم التنفيذ (اليوم الثاني)'
+8518: : 'الوتر الخامس: يوم التنفيذ (اليوم الأول)';
+8524: chordTitle = 'الوتر السادس: الدروس والمستقبل';
+8826: desc: 'الملعب ليلاً • لقاء العزائم وتأسيس عشيرة رهط الوتر'
+8837: title: 'اختيار اسم «الوتر» وولادة فكرة المشروع',
+8842: tags: ['المحطة الرابعة • المحبة والدفء', 'المحطة الرابعة • الرياضة والنشاط'],
+9026: // Step 1: Stage 1 (سر التسمية «رهط الوتر»)
+9037: document.querySelectorAll('.stage-slide').forEach((slide, idx) => {
+9184: document.querySelectorAll('#presentation-stage-1 .stage-slide').forEach((slide, idx) => {
+9352: caption: "صورة تذكارية لرهط الوتر بالكامل مع خادمي وأطفال كنيسة السلام في ختام اليوم الأول"
+9424: const pill0 = document.getElementById('sp4-stage-pill-0');
+9425: const pill1 = document.getElementById('sp4-stage-pill-1');
+10502: desc: "استقبال حافل للأطفال بأناشيد الكشافة وصيحات رهط الوتر لكسر الجليد، ثم توزيع وجبة إفطار خفيفة 
+10568: desc: "التجمع الكشفي الأخير حول مائدة غداء شهية كعائلة واحدة، ثم التقاط الصورة التذكارية الملحمية لر
+10844: '.card-title', '.card-sub', '.stage-title', '.stage-desc',
+10894: const elements = document.querySelectorAll('h1, h2, h3, h4, h5, p, li, .card-title, .card-sub, .stag
+11051: <span class="ppt-hud-chord-name" id="universal-ppt-chord-name">الوتر الأول: من نحن؟</span>
+11097: <p class="finale-desc">اكتملت محطات رحلة عشيرة رهط الوتر — شكراً لمتابعتكم لعرض خدمة كنيسة السلام وك
