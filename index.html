@@ -518,10 +518,10 @@
                   <span class="node-label">الاسم </span>
                 </button>
                 <button class="staff-node" data-step="3" onclick="setTimelineStep(3)"
-                  title="عيد الميلاد والأنشطة الرياضية">
+                  title="الترابط">
                   <span class="node-note">♬</span>
                   <span class="node-num">٤</span>
-                  <span class="node-label">الكريسماس والرياضة</span>
+                  <span class="node-label">الترابط</span>
                 </button>
                 <button class="staff-node golden-node" data-step="4" onclick="setTimelineStep(4)"
                   title="تجديد الوعد التجوالي">
@@ -574,7 +574,7 @@
               <div class="milestone-slide" id="ms-3">
                 <div class="ms-content">
                   <div class="ms-meta">
-                    <h4 class="ms-title">لقاء الكريسماس والأنشطة الرياضية</h4>
+                    <h4 class="ms-title">الترابط</h4>
                   </div>
                 </div>
                 <div class="ms-media-slot dual-slot" id="slot-media-3">
@@ -594,10 +594,20 @@
                         </span>
                       </div>
                     </div>
-                    <!-- Sports Padel Photo Box -->
-                    <div class="twin-media-item" onclick="openMilestoneZoom(3, 1)">
-                      <img src="assets/post padel.jpg" alt="النشاط الرياضي - مباراة البادل" />
-                      <span class="twin-label">النشاط الرياضي • مباراة البادل</span>
+                    <!-- Sports Padel Video Launch Box (الترابط) -->
+                    <div class="twin-media-item video-launch-item" onclick="openBondingVideo()" style="cursor: pointer; overflow: hidden; background: #000; display: flex; flex-direction: column; position: relative;">
+                      <div class="video-preview-wrap" style="position: relative; width: 100%; height: 180px; overflow: hidden;">
+                        <img src="assets/post padel.jpg" alt="النشاط الرياضي - مباراة البادل" style="width: 100%; height: 100%; object-fit: cover;" />
+                        <div class="video-play-pulse-btn">
+                          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                        </div>
+                      </div>
+                      <div style="padding: 7px 12px; display: flex; align-items: center; justify-content: space-between; background: rgba(22, 16, 12, 0.95); border-top: 1px solid rgba(220, 160, 56, 0.35);">
+                        <span class="twin-label" style="position: static; padding: 0; background: none; font-size: 12px; font-weight: 700; color: #ffd875; display: flex; align-items: center; gap: 6px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                          النشاط الرياضي • فيديو مباراة البادل 🎬
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1463,7 +1473,55 @@
             </div>
 
             <!-- ══════════════ LEVEL 3: برنامج اليوم الأول ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-3" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
+            <div class="gm-level-pane" id="gm-pane-3" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; position: relative;">
+              <!-- ══════════════ DAY 1 LOCKED HIDING SLIDE (GATEWAY OVERLAY) ══════════════ -->
+              <div class="program-map-gate-overlay" id="day1-program-gate" onclick="unlockProgramGate(1)">
+                <div class="program-gate-card" onclick="event.stopPropagation();">
+                  <!-- Grand Lock in Background -->
+                  <svg class="program-gate-lock-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <rect class="gate-shackle" x="6" y="2" width="12" height="10" rx="5" ry="5"></rect>
+                    <rect x="3" y="11" width="18" height="11" rx="3" ry="3" fill="currentColor" fill-opacity="0.15"></rect>
+                    <circle cx="12" cy="16" r="1.5" fill="currentColor"></circle>
+                    <path d="M12 17.5v2" stroke-width="2"></path>
+                  </svg>
+
+                  <div class="program-gate-lock-badge">
+                    <svg class="gate-shackle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>بوابة البرنامج المقفلة • اليوم الأول</span>
+                  </div>
+
+                  <h3 class="gate-church-title">كنيسة السيدة العذراء في السلام</h3>
+                  <div class="gate-day-slogan">«عايزين نبقى شبهك»</div>
+
+                  <div class="gate-verse-box">
+                    <p class="gate-verse-text">«وَتَعَلَّمُوا مِنِّي لأَنِّي وَدِيعٌ وَمُتَوَاضِعُ الْقَلْبِ، فَتَجِدُوا رَاحَةً لِنُفُوسِكُمْ»</p>
+                    <span class="gate-verse-cite">الشاهد: إنجيل متى ١١ : ٢٩</span>
+                  </div>
+
+                  <div class="gate-meta-row">
+                    <div class="gate-meta-pill">
+                      <span>📍</span>
+                      <span>المكان: بيت مار جرجس ألماظة</span>
+                    </div>
+                    <div class="gate-meta-pill">
+                      <span>⚜️</span>
+                      <span>قادة اليوم: جوناثان أمير • جون ماجد</span>
+                    </div>
+                  </div>
+
+                  <button class="gate-unlock-prompt-btn" onclick="unlockProgramGate(1)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                    </svg>
+                    <span>فتح القفل واستكشاف خريطة البرنامج (Space / Next)</span>
+                  </button>
+                </div>
+              </div>
+
               <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Expanded Downwards, Full Height Fit) -->
               <div class="gm-prog-viewport-grid" style="display: grid; grid-template-columns: 3fr 2fr; gap: 14px; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
                 <!-- Map Container (Snippet Viewport) -->
@@ -1564,52 +1622,249 @@
               </div>
             </div>
 
-            <!-- ══════════════ LEVEL 4: تحضيرات اليوم الأول ══════════════ -->
+            <!-- ══════════════ LEVEL 4: التحضيرات (3 محطات: الروحي • الأخلاقي • الترفيهي) ══════════════ -->
             <div class="gm-level-pane" id="gm-pane-4" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
-              <!-- 3 Core Pillars for Day 1 (Full-Height Responsive Grid with Spotlight & Zoom) -->
-              <div class="gm-edu-grid gm-prep1-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 150px); box-sizing: border-box;">
-                <!-- 1. الروحي -->
-                <div class="gm-rule-card gm-edu-card gm-prep1-card" id="gm-prep1-card-0" onclick="handlePrep1CardTap(0)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
-                  <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
-                    <div class="gm-rule-icon" style="background: rgba(114, 239, 182, 0.18); color: #72efb6; border-radius: 8px; padding: 6px; display: flex;">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              <div class="unified-prep-stage">
+                <!-- 3 Station Navigation Pills -->
+                <div class="prep-station-pills">
+                  <button class="prep-station-btn active" id="prep-pill-0" onclick="selectPrepStation(0)">
+                    🕊️ المحطة الأولى: الروحي
+                  </button>
+                  <button class="prep-station-btn" id="prep-pill-1" onclick="selectPrepStation(1)">
+                    💡 المحطة الثانية: الأخلاقي
+                  </button>
+                  <button class="prep-station-btn" id="prep-pill-2" onclick="selectPrepStation(2)">
+                    🎯 المحطة الثالثة: الترفيهي (بطاقات ثلاثية الأبعاد)
+                  </button>
+                </div>
+
+                <!-- STATION 1: الروحي (نصف لليوم الأول ونصف لليوم الثاني) -->
+                <div class="prep-station-pane active" id="prep-station-0">
+                  <div class="prep-halves-grid">
+                    <!-- Day 1 Half -->
+                    <div class="prep-half-col">
+                      <div class="prep-day-badge day-1">اليوم الأول • كنيسة السيدة العذراء في السلام</div>
+                      <h4 class="prep-topic-title">موضوع: «عرس قانا الجليل»</h4>
+                      <div class="prep-topic-img-box">
+                        <img src="assets/religous session day 1.jpg" alt="الفقرة الروحية • اليوم الأول" />
+                      </div>
+                      <div class="prep-lessons-card">
+                        <div class="prep-lessons-header">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          الدروس المستفادة:
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>تعلم الطاعة:</strong> الخضوع والاستجابة الفورية بوصية أم النور «مهما قال لكم فافعلوه».</span>
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>التشبه بالمسيح:</strong> في صنع المعجزات بروح المحبة وبث الفرح في قلوب المخدومين.</span>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">عرص قانا الجليل</h4>
+
+                    <!-- Day 2 Half -->
+                    <div class="prep-half-col">
+                      <div class="prep-day-badge day-2">اليوم الثاني • كنيسة البطحة</div>
+                      <h4 class="prep-topic-title">موضوع: «احنا غالين وموجودين لهدف»</h4>
+                      <div class="prep-topic-img-box">
+                        <img src="assets/religous session day 2.jpg" alt="الفقرة الروحية • اليوم الثاني" />
+                      </div>
+                      <div class="prep-lessons-card">
+                        <div class="prep-lessons-header" style="color: #7dd3fc;">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          الدروس المستفادة:
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>نحسسهم بأهميتهم:</strong> ترسيخ القيمة الذاتية وأن كل طفل محبوب ومميز جداً عند الله.</span>
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>نشجعهم يدوروا على هدف:</strong> إيقاظ الوزنات الكامنة وتوجيه الطاقات نحو رسالة إيجابية.</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
-                    <img src="assets/religous session day 1.jpg" alt="المحاضرة الروحية" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
                 </div>
 
-                <!-- 2. تقويم السلوك -->
-                <div class="gm-rule-card gm-edu-card gm-prep1-card" id="gm-prep1-card-1" onclick="handlePrep1CardTap(1)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
-                  <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
-                    <div class="gm-rule-icon" style="background: rgba(78, 168, 222, 0.2); color: #4ea8de; border-radius: 8px; padding: 6px; display: flex;">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <!-- STATION 2: الأخلاقي (نصف لليوم الأول ونصف لليوم الثاني) -->
+                <div class="prep-station-pane" id="prep-station-1" style="display: none;">
+                  <div class="prep-halves-grid">
+                    <!-- Day 1 Half -->
+                    <div class="prep-half-col">
+                      <div class="prep-day-badge day-1">اليوم الأول • كنيسة السيدة العذراء في السلام</div>
+                      <h4 class="prep-topic-title">موضوع: «التعاون»</h4>
+                      <div class="prep-topic-img-box">
+                        <img src="assets/ethics session day 1.jpg" alt="الفقرة الأخلاقية • اليوم الأول" />
+                      </div>
+                      <div class="prep-lessons-card">
+                        <div class="prep-lessons-header">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          الدروس المستفادة:
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>قوة العمل الجماعي:</strong> إيد على إيد تشيل، ومساندة الرفيق وقت الشدة والتحدي.</span>
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>تكامل الأدوار:</strong> النجاح الحقيقي يتحقق بتوحد الطاقات ونبذ الفردية والأنانية.</span>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;"> الأمانة والاحترام</h4>
+
+                    <!-- Day 2 Half -->
+                    <div class="prep-half-col">
+                      <div class="prep-day-badge day-2">اليوم الثاني • كنيسة البطحة</div>
+                      <h4 class="prep-topic-title">موضوع: «الأمانة»</h4>
+                      <div class="prep-topic-img-box">
+                        <img src="assets/session john and mira.jpg" alt="الفقرة الأخلاقية • اليوم الثاني" />
+                      </div>
+                      <div class="prep-lessons-card">
+                        <div class="prep-lessons-header" style="color: #7dd3fc;">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                          الدروس المستفادة:
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>الأمانة في القليل:</strong> صدق الكلمة وحفظ الوعد والمسؤولية في أداء المهام الموكلة.</span>
+                        </div>
+                        <div class="prep-lesson-item">
+                          <span>✦</span>
+                          <span><strong>نزاهة السلوك والضمير:</strong> التصرف بأمانة أمام الله والناس لبناء جسور الثقة الراسخة.</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
-                    <img src="assets/ethics session day 1.jpg" alt="جلسة الأخلاق والسلوك" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
                 </div>
 
-                <!-- 3. الترفيه -->
-                <div class="gm-rule-card gm-edu-card gm-prep1-card" id="gm-prep1-card-2" onclick="handlePrep1CardTap(2)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
-                  <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
-                    <div class="gm-rule-icon" style="background: rgba(255, 209, 102, 0.18); color: #ffd166; border-radius: 8px; padding: 6px; display: flex;">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                <!-- STATION 3: الترفيهي (3 بطاقات تفاعلية تنقلب عند النقر) -->
+                <div class="prep-station-pane" id="prep-station-2" style="display: none;">
+                  <div class="prep-flip-cards-grid">
+                    <!-- Card 1: الألعاب المأجرة -->
+                    <div class="prep-flip-card-container" id="prep-card-0" onclick="togglePrepCardFlip(0)">
+                      <div class="prep-flip-card-inner">
+                        <!-- Back (Default Initial Face) -->
+                        <div class="prep-card-side prep-card-back">
+                          <div class="prep-card-back-img">
+                            <img src="assets/games day 1.jpg" alt="الألعاب المأجرة" />
+                          </div>
+                          <div class="prep-card-back-info">
+                            <h4 class="prep-card-back-title">الألعاب المأجرة</h4>
+                            <span class="prep-card-tap-hint">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                              انقر للقلب وعرض تفاصيل اليومين
+                            </span>
+                          </div>
+                        </div>
+
+                        <!-- Front (Revealed Face with Image at Top and 2 Halves) -->
+                        <div class="prep-card-side prep-card-front">
+                          <div class="prep-card-front-top-img">
+                            <img src="assets/games day 1.jpg" alt="الألعاب المأجرة" />
+                          </div>
+                          <div class="prep-card-divider-line"></div>
+                          <div class="prep-card-halves-row">
+                            <div class="prep-card-sub-half">
+                              <div class="prep-sub-title d1">اليوم الأول • السلام</div>
+                              <p class="prep-sub-desc">
+                                استئجار النطاطات الهوائية العملاقة وملاعب الصابون الآمنة والمجسمات الترفيهية لتفجير طاقات الأطفال في بيئة مرحة.
+                              </p>
+                            </div>
+                            <div class="prep-card-sub-half">
+                              <div class="prep-sub-title d2">اليوم الثاني • البطحة</div>
+                              <p class="prep-sub-desc">
+                                تجهيز ألعاب التزحلق المائية والزحاليق الهوائية الضخمة المنعشة المناسبة لطقس مزرعة الأمير وعرابي.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">النطاطات</h4>
+
+                    <!-- Card 2: الألعاب المحضرة -->
+                    <div class="prep-flip-card-container" id="prep-card-1" onclick="togglePrepCardFlip(1)">
+                      <div class="prep-flip-card-inner">
+                        <!-- Back (Default Initial Face) -->
+                        <div class="prep-card-side prep-card-back">
+                          <div class="prep-card-back-img">
+                            <img src="assets/games day 1 second session.jpg" alt="الألعاب المحضرة" />
+                          </div>
+                          <div class="prep-card-back-info">
+                            <h4 class="prep-card-back-title">الألعاب المحضرة</h4>
+                            <span class="prep-card-tap-hint">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                              انقر للقلب وعرض تفاصيل اليومين
+                            </span>
+                          </div>
+                        </div>
+
+                        <!-- Front (Revealed Face with Image at Top and 2 Halves) -->
+                        <div class="prep-card-side prep-card-front">
+                          <div class="prep-card-front-top-img">
+                            <img src="assets/games day 1 second session.jpg" alt="الألعاب المحضرة" />
+                          </div>
+                          <div class="prep-card-divider-line"></div>
+                          <div class="prep-card-halves-row">
+                            <div class="prep-card-sub-half">
+                              <div class="prep-sub-title d1">اليوم الأول • السلام</div>
+                              <p class="prep-sub-desc">
+                                مسابقات التتابع الكشفية، سباقات الفرق الجماعية، وتحديات الذكاء الحركي لتعزيز التعاون بين الأولاد.
+                              </p>
+                            </div>
+                            <div class="prep-card-sub-half">
+                              <div class="prep-sub-title d2">اليوم الثاني • البطحة</div>
+                              <p class="prep-sub-desc">
+                                محطات الألعاب المائية في المسبح ومنافسات كرة الماء وتحديات المهارات التنافسية الكبرى.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
-                    <img src="assets/games day 1.jpg" alt="الألعاب الكبرى" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+
+                    <!-- Card 3: أشغال يدوية -->
+                    <div class="prep-flip-card-container" id="prep-card-2" onclick="togglePrepCardFlip(2)">
+                      <div class="prep-flip-card-inner">
+                        <!-- Back (Default Initial Face) -->
+                        <div class="prep-card-side prep-card-back">
+                          <div class="prep-card-back-img">
+                            <img src="assets/Camp.png" alt="أشغال يدوية" />
+                          </div>
+                          <div class="prep-card-back-info">
+                            <h4 class="prep-card-back-title">أشغال يدوية</h4>
+                            <span class="prep-card-tap-hint">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                              انقر للقلب وعرض تفاصيل اليومين
+                            </span>
+                          </div>
+                        </div>
+
+                        <!-- Front (Revealed Face with Image at Top and 2 Halves) -->
+                        <div class="prep-card-side prep-card-front">
+                          <div class="prep-card-front-top-img">
+                            <img src="assets/Camp.png" alt="أشغال يدوية" />
+                          </div>
+                          <div class="prep-card-divider-line"></div>
+                          <div class="prep-card-halves-row">
+                            <div class="prep-card-sub-half">
+                              <div class="prep-sub-title d1">اليوم الأول • السلام</div>
+                              <p class="prep-sub-desc">
+                                ورش صناعة الأساور التذكارية والمجسمات الخشبية البسيطة التي يحتفظ بها الطفل كتذكار دائم لليوم.
+                              </p>
+                            </div>
+                            <div class="prep-card-sub-half">
+                              <div class="prep-sub-title d2">اليوم الثاني • البطحة</div>
+                              <p class="prep-sub-desc">
+                                كرافتس وتلوين بطاقات الشعار، وصناعة هدايا يدوية مبهجة تعبر عن روح الصداقة والمحبة الكشفية.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1761,7 +2016,55 @@
             </div>
 
             <!-- ══════════════ LEVEL 6: برنامج اليوم الثاني ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-6" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
+            <div class="gm-level-pane" id="gm-pane-6" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; position: relative;">
+              <!-- ══════════════ DAY 2 LOCKED HIDING SLIDE (GATEWAY OVERLAY) ══════════════ -->
+              <div class="program-map-gate-overlay" id="day2-program-gate" onclick="unlockProgramGate(2)">
+                <div class="program-gate-card" onclick="event.stopPropagation();">
+                  <!-- Grand Lock in Background -->
+                  <svg class="program-gate-lock-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <rect class="gate-shackle" x="6" y="2" width="12" height="10" rx="5" ry="5"></rect>
+                    <rect x="3" y="11" width="18" height="11" rx="3" ry="3" fill="currentColor" fill-opacity="0.15"></rect>
+                    <circle cx="12" cy="16" r="1.5" fill="currentColor"></circle>
+                    <path d="M12 17.5v2" stroke-width="2"></path>
+                  </svg>
+
+                  <div class="program-gate-lock-badge" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.55); color: #bae6fd;">
+                    <svg class="gate-shackle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>بوابة البرنامج المقفلة • اليوم الثاني</span>
+                  </div>
+
+                  <h3 class="gate-church-title">كنيسة البطحة</h3>
+                  <div class="gate-day-slogan" style="color: #7dd3fc; background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35);">«المراية»</div>
+
+                  <div class="gate-verse-box" style="border-right-color: #38bdf8;">
+                    <p class="gate-verse-text">«امْتَحِنُوا أَنْفُسَكُمْ، هَلْ أَنْتُمْ فِي الإِيمَانِ؟ جَرِّبُوا أَنْفُسَكُمْ. أَمْ لَسْتُمْ تَعْرِفُونَ أَنْفُسَكُمْ أَنَّ يَسُوعَ الْمَسِيحَ هُوَ فِيكُمْ»</p>
+                    <span class="gate-verse-cite" style="color: #38bdf8;">الشاهد: رسالة بولس الرسول الثانية إلى أهل كورنثوس ١٣ : ٥</span>
+                  </div>
+
+                  <div class="gate-meta-row">
+                    <div class="gate-meta-pill">
+                      <span>📍</span>
+                      <span>المكان: مزرعة الأمير في عرابي</span>
+                    </div>
+                    <div class="gate-meta-pill">
+                      <span>⚜️</span>
+                      <span>قادة اليوم: حنا رفعت • توماس تامر</span>
+                    </div>
+                  </div>
+
+                  <button class="gate-unlock-prompt-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff; box-shadow: 0 4px 18px rgba(2, 132, 199, 0.45);" onclick="unlockProgramGate(2)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                    </svg>
+                    <span>فتح القفل واستكشاف خريطة البرنامج (Space / Next)</span>
+                  </button>
+                </div>
+              </div>
+
               <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Expanded Downwards, Full Height Fit) -->
               <div class="gm-prog-viewport-grid" style="display: grid; grid-template-columns: 3fr 2fr; gap: 14px; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
                 <!-- Map Container (Snippet Viewport) -->
@@ -2429,6 +2732,9 @@
         <button class="sp4-day-tab-btn" id="sp5-pill-3" onclick="goToSp5Slide(3)" style="border-radius: 20px; padding: 6px 18px; font-size: 13.5px; font-weight: 700;">
           الشريحة ٣ • شكر وتقدير وإسدال الستار
         </button>
+        <button class="sp4-day-tab-btn" id="sp5-pill-4" onclick="goToSp5Slide(4)" style="border-radius: 20px; padding: 6px 18px; font-size: 13.5px; font-weight: 700;">
+          الشريحة ٤ • شكراً لحضوركم 🎭
+        </button>
       </div>
 
       <!-- SLIDE 1: FUTURE PLANS (3 Points: This year 4 churches, Next year 8 churches, Overnight Camp - Large Screen-Filling Cards) -->
@@ -2614,6 +2920,28 @@
             </div>
             <div class="curtain-thanks-sign">
               عشيرة جوالة رهط الوتر • كشافة كنيسة القديسة دميانة بالهرم
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: THEATRICAL FINALE "شكراً لحضوركم" (صورة fnns.jpg وثيم المسرح والستائر) -->
+      <div class="sp5-slide-pane" id="sp5-slide-4" style="display: none;">
+        <div class="finale-attendance-stage">
+          <div class="finale-theatre-curtains"></div>
+          <div class="finale-valance-drape"></div>
+          <div class="finale-attendance-content">
+            <div class="finale-fnns-frame">
+              <div class="finale-fnns-inner">
+                <img src="assets/fnns.jpg" alt="شكراً لحضوركم • عشيرة جوالة رهط الوتر" />
+              </div>
+            </div>
+            <h2 class="finale-attendance-title">شُكْـراً لِحُضُـورِكُـمْ</h2>
+            <p class="finale-attendance-subtitle">
+              سَعِدْنَا بِمُشَارَكَتِكُمْ رِحْلَتَنَا وَخِدْمَتَنَا.. وَنَلْتَقِي دَوْماً فِي خِدْمَةٍ جَدِيدَةٍ وَلَحْنٍ أَبْهَى
+            </p>
+            <div class="finale-attendance-badge">
+              ✦ عَشِيرَةُ جَوَّالَةِ رَهْطِ الْوَتَرِ • كَشَّافَةُ كَنِيسَةِ الْقِدِّيسَةِ دِمْيَانَةَ بِالْهَرَمِ ✦
             </div>
           </div>
         </div>
@@ -2848,6 +3176,28 @@
       </div>
 
       <div class="cinema-footer">
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ BONDING SPORTS VIDEO CINEMA MODAL ══════════════ -->
+  <div class="two-days-cinema-overlay" id="bonding-cinema-overlay" style="display: none;" onclick="closeBondingVideo()">
+    <div class="two-days-cinema-card" onclick="event.stopPropagation();">
+      <div class="cinema-header">
+        <div class="cinema-badge" style="background: rgba(245,184,66,0.2); border: 1px solid rgba(245,184,66,0.4); color: #ffd875;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span style="font-size: 13.5px; font-weight: 700; margin-right: 6px;">فيديو النشاط الرياضي والترابط 🎬</span>
+        </div>
+        <button class="cinema-close-btn" onclick="closeBondingVideo()" title="إغلاق الفيديو">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="cinema-video-wrapper">
+        <video id="bonding-video-player" controls preload="metadata">
+          <source src="assets/bond.mp4" type="video/mp4">
+          متصفحك لا يدعم تشغيل هذا الفيديو مباشرة
+        </video>
       </div>
     </div>
   </div>

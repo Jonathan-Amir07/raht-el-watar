@@ -202,8 +202,14 @@
       let totalSteps = 1;
 
       if (activePage === 0) {
-        if (currentPptStep === 6 && isChristmasVideoExpanded) {
-          chordTitle = 'الوتر الأول: فيديو لقاء الكريسماس';
+        if (currentPptStep === 6) {
+          if (isChristmasVideoExpanded) {
+            chordTitle = 'الوتر الأول: فيديو لقاء الكريسماس';
+          } else if (typeof isBondingVideoExpanded !== 'undefined' && isBondingVideoExpanded) {
+            chordTitle = 'الوتر الأول: فيديو النشاط الرياضي';
+          } else {
+            chordTitle = 'الوتر الأول: الترابط';
+          }
         } else {
           chordTitle = 'الوتر الأول: من نحن؟';
         }
@@ -284,21 +290,20 @@
             curStep = currentSp2Step2Phase || 1;
             totalSteps = 8;
           } else if (activePane === 3) {
-            chordTitle = 'الوتر الثالث: برنامج فعاليات اليوم الأول';
-            curStep = currentSp2Day1ProgLvl || 1;
-            totalSteps = 5;
-          } else if (activePane === 4) {
-            if (typeof currentSp2Prep1Step !== 'undefined' && currentSp2Prep1Step > 0) {
-              const cardIdx = Math.floor((currentSp2Prep1Step - 1) / 2);
-              const cardTitles = ['الفقرة الروحية', 'تقويم السلوك', 'الترفيه والمسابقات'];
-              chordTitle = 'الوتر الثالث: ' + (cardTitles[cardIdx] || 'تحضيرات اليوم الأول');
-              curStep = currentSp2Prep1Step;
-              totalSteps = 6;
-            } else {
-              chordTitle = 'الوتر الثالث: تحضيرات اليوم الأول';
+            if (typeof isDay1GateUnlocked !== 'undefined' && !isDay1GateUnlocked) {
+              chordTitle = 'الوتر الثالث: بوابة برنامج اليوم الأول (المقفلة)';
               curStep = 1;
               totalSteps = 6;
+            } else {
+              chordTitle = 'الوتر الثالث: برنامج فعاليات اليوم الأول';
+              curStep = (currentSp2Day1ProgLvl || 1) + 1;
+              totalSteps = 6;
             }
+          } else if (activePane === 4) {
+            const stationNames = ['الروحي', 'الأخلاقي', 'الترفيهي (بطاقات ثلاثية الأبعاد)'];
+            chordTitle = 'الوتر الثالث: التحضيرات • ' + (stationNames[currentPrepStationIdx] || 'الروحي');
+            curStep = currentPrepStationIdx + 1;
+            totalSteps = 3;
           } else if (activePane === 11) {
             chordTitle = 'الوتر الثالث: اماكن الخدمة على مدار يومين';
             curStep = 1;
@@ -312,21 +317,19 @@
             curStep = 1;
             totalSteps = 1;
           } else if (activePane === 6) {
-            chordTitle = 'الوتر الثالث: برنامج اليوم الثاني';
-            curStep = currentSp2Day2ProgLvl || 1;
-            totalSteps = 6;
-          } else if (activePane === 7) {
-            if (typeof currentSp2Prep2Step !== 'undefined' && currentSp2Prep2Step > 0) {
-              const cardIdx = Math.floor((currentSp2Prep2Step - 1) / 2);
-              const cardTitles = ['الفقرة الروحية', 'تقويم السلوك والجلسات', 'الترفيه والمسابقات'];
-              chordTitle = 'الوتر الثالث: ' + (cardTitles[cardIdx] || 'تحضيرات اليوم الثاني');
-              curStep = currentSp2Prep2Step;
-              totalSteps = 6;
-            } else {
-              chordTitle = 'الوتر الثالث: تحضيرات اليوم الثاني';
+            if (typeof isDay2GateUnlocked !== 'undefined' && !isDay2GateUnlocked) {
+              chordTitle = 'الوتر الثالث: بوابة برنامج اليوم الثاني (المقفلة)';
               curStep = 1;
-              totalSteps = 6;
+              totalSteps = 7;
+            } else {
+              chordTitle = 'الوتر الثالث: برنامج اليوم الثاني';
+              curStep = (currentSp2Day2ProgLvl || 1) + 1;
+              totalSteps = 7;
             }
+          } else if (activePane === 7) {
+            chordTitle = 'الوتر الثالث: التحضيرات';
+            curStep = 1;
+            totalSteps = 1;
           } else if (activePane === 8) {
             chordTitle = 'الوتر الثالث: ميزانية اليوم الثاني';
             curStep = (currentGmBudgetSlice || 0) + 1;
@@ -348,11 +351,15 @@
         if (prevBtn) prevBtn.disabled = false;
         if (nextBtn) nextBtn.disabled = false;
       } else if (activePage === 4) {
-        chordTitle = 'الوتر الخامس: الدروس والمستقبل';
+        if (currentSp5SlideIdx === 4) {
+          chordTitle = 'الوتر الخامس: شكراً لحضوركم';
+        } else {
+          chordTitle = 'الوتر الخامس: الدروس والمستقبل';
+        }
         curStep = currentSp5SlideIdx;
-        totalSteps = 3;
+        totalSteps = 4;
         const b4 = document.getElementById('ppt-counter-badge-4') || document.getElementById('ppt-counter-badge-5');
-        if (b4) b4.textContent = `${toArabicNum(curStep)} / ٣`;
+        if (b4) b4.textContent = `${toArabicNum(curStep)} / ٤`;
         if (prevBtn) prevBtn.disabled = false;
         if (nextBtn) nextBtn.disabled = false;
       }
@@ -405,12 +412,7 @@
       } else if (activePage === 3) {
         globalSlideNum = 31 + currentChallengeStep + 1; // 32..36
       } else if (activePage === 4) {
-        globalSlideNum = 36 + currentSp5SlideIdx; // 37..39
-        const outroOverlay = document.getElementById('theatrical-outro-overlay');
-        const finaleBanner = document.getElementById('presentation-finale-banner');
-        if ((outroOverlay && outroOverlay.classList.contains('open')) || (finaleBanner && finaleBanner.style.display !== 'none')) {
-          globalSlideNum = 40;
-        }
+        globalSlideNum = 36 + currentSp5SlideIdx; // 37..40
       }
 
       if (evalBox) {
@@ -468,6 +470,7 @@
       closeChristmasCinema(false);
       closeTwoDaysVideo(false);
       if (typeof closeDayVideo === 'function') closeDayVideo();
+      if (typeof closeBondingVideo === 'function') closeBondingVideo();
       closeTheatricalThanksOutro();
       closeGuitarDetails();
       closeCinematicZoom();
@@ -994,8 +997,10 @@
                 showSp2Map(3, true); // Return to Map highlighting Node 3
               }
             } else if (activePane === 3) {
-              // برنامج فعاليات اليوم الأول (5 sub-steps)
-              if (currentSp2Day1ProgLvl < 5) {
+              // برنامج فعاليات اليوم الأول
+              if (typeof isDay1GateUnlocked !== 'undefined' && !isDay1GateUnlocked) {
+                unlockProgramGate(1);
+              } else if (currentSp2Day1ProgLvl < 5) {
                 selectSp2Day1ProgramLevel(currentSp2Day1ProgLvl + 1, true);
               } else {
                 closeCinematicZoom();
@@ -1003,8 +1008,10 @@
                 switchNodeDay(2, true);
               }
             } else if (activePane === 6) {
-              // برنامج فعاليات اليوم الثاني (6 sub-steps)
-              if (currentSp2Day2ProgLvl < 6) {
+              // برنامج فعاليات اليوم الثاني
+              if (typeof isDay2GateUnlocked !== 'undefined' && !isDay2GateUnlocked) {
+                unlockProgramGate(2);
+              } else if (currentSp2Day2ProgLvl < 6) {
                 selectSp2Day2ProgramLevel(currentSp2Day2ProgLvl + 1, true);
               } else {
                 closeCinematicZoom();
@@ -1015,23 +1022,17 @@
                 showSp2Map(4, true); // Return to Map highlighting Node 4
               }
             } else if (activePane === 4) {
-              // تحضيرات اليوم الأول (3 cards, 6 sub-steps: highlight -> zoom)
-              if (currentSp2Prep1Step < 6) {
-                goToSp2Prep1Step(currentSp2Prep1Step + 1);
+              // التحضيرات (المحطات الثلاث: 0: الروحي, 1: الأخلاقي, 2: الترفيهي)
+              if (currentPrepStationIdx === 0) {
+                selectPrepStation(1, true);
+              } else if (currentPrepStationIdx === 1) {
+                selectPrepStation(2, true);
               } else {
-                closeCinematicZoom();
-                // ── ADVANCE TO DAY 2 PREPARATIONS (pane 7) ──
-                switchNodeDay(2, true);
-              }
-            } else if (activePane === 7) {
-              // تحضيرات اليوم الثاني (3 cards, 6 sub-steps: highlight -> zoom)
-              if (currentSp2Prep2Step < 6) {
-                goToSp2Prep2Step(currentSp2Prep2Step + 1);
-              } else {
-                closeCinematicZoom();
                 // ── ADVANCE TO CHURCHES / LOCATIONS SLIDE (pane 11) ──
                 openSp2Node(11, true, true);
               }
+            } else if (activePane === 7) {
+              openSp2Node(11, true, true);
             } else if (activePane === 11) {
               // اماكن الخدمة على مدار يومين -> FINISHED NODE 4
               sp2CompletedNodes.add(4);
@@ -1113,23 +1114,17 @@
                 showSp2Map(5, true);
               }
             } else if (activePane === 11) {
-              // From Locations back to Pane 7 preps at step 6
+              // From Locations back to Pane 4 preps at station 2 (الترفيهي)
               currentGmLevel = 4;
-              currentNodeDay = 2;
-              openSp2Node(7, false, true);
-              goToSp2Prep2Step(6);
+              currentNodeDay = 1;
+              openSp2Node(4, false, true);
+              selectPrepStation(2, true);
             } else if (activePane === 7) {
-              if (currentSp2Prep2Step > 0) {
-                goToSp2Prep2Step(currentSp2Prep2Step - 1);
-              } else {
-                // From Node 4 Day 2 back to Node 4 Day 1 (preps pane 4 step 6)
-                switchNodeDay(1, true);
-                openSp2Node(4, false, true);
-                goToSp2Prep1Step(6);
-              }
+              openSp2Node(4, false, true);
+              selectPrepStation(2, true);
             } else if (activePane === 4) {
-              if (currentSp2Prep1Step > 0) {
-                goToSp2Prep1Step(currentSp2Prep1Step - 1);
+              if (currentPrepStationIdx > 0) {
+                selectPrepStation(currentPrepStationIdx - 1, true);
               } else {
                 // From Node 4 Day 1 back to Map Node 4
                 showSp2Map(4, true);
@@ -1137,6 +1132,8 @@
             } else if (activePane === 6) {
               if (currentSp2Day2ProgLvl > 1) {
                 selectSp2Day2ProgramLevel(currentSp2Day2ProgLvl - 1, true);
+              } else if (typeof isDay2GateUnlocked !== 'undefined' && isDay2GateUnlocked) {
+                resetProgramGate(2);
               } else {
                 // From Node 3 Day 2 back to Node 3 Day 1 (level 5)
                 switchNodeDay(1, true);
@@ -1145,6 +1142,8 @@
             } else if (activePane === 3) {
               if (currentSp2Day1ProgLvl > 1) {
                 selectSp2Day1ProgramLevel(currentSp2Day1ProgLvl - 1, true);
+              } else if (typeof isDay1GateUnlocked !== 'undefined' && isDay1GateUnlocked) {
+                resetProgramGate(1);
               } else {
                 // From Node 3 Day 1 back to Map Node 3
                 showSp2Map(3, true);
@@ -1192,10 +1191,14 @@
               goToSp5Slide(3, true);
             }
           } else if (currentSp5SlideIdx === 3) {
+            goToSp5Slide(4, true); // Go to Slide 4: شكراً لحضوركم
+          } else if (currentSp5SlideIdx === 4) {
             celebratePresentationCompletion();
           }
         } else {
-          if (currentSp5SlideIdx === 3) {
+          if (currentSp5SlideIdx === 4) {
+            goToSp5Slide(3, true);
+          } else if (currentSp5SlideIdx === 3) {
             goToSp5Slide(2, true);
             triggerGrandCollabReveal();
             isGrandCurtainOpened = true;
@@ -1290,6 +1293,16 @@
         } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
           e.preventDefault();
           advanceGlobalPresentation(-1);
+          return;
+        }
+      }
+
+      // 0.55 Bonding Sports Video Modal check (Chord 1 • Slide 7)
+      const bondingOverlay = document.getElementById('bonding-cinema-overlay');
+      if (bondingOverlay && bondingOverlay.style.display !== 'none') {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeBondingVideo();
           return;
         }
       }
@@ -1628,6 +1641,42 @@
         goToSp2FirstStepsPhase(cardIdx * 2 + 1, true);
       }
     }
+
+    // ── Unified 3-Station Preparations Controller (الروحي • الأخلاقي • الترفيهي) ──
+    let currentPrepStationIdx = 0; // 0: الروحي, 1: الأخلاقي, 2: الترفيهي
+
+    function selectPrepStation(idx, playSound = true) {
+      if (idx < 0 || idx > 2) return;
+      currentPrepStationIdx = idx;
+
+      for (let i = 0; i <= 2; i++) {
+        const pane = document.getElementById(`prep-station-${i}`);
+        const pill = document.getElementById(`prep-pill-${i}`);
+        if (pane) {
+          pane.style.display = (i === idx) ? 'flex' : 'none';
+          pane.classList.toggle('active', i === idx);
+        }
+        if (pill) {
+          pill.classList.toggle('active', i === idx);
+        }
+      }
+
+      if (playSound) {
+        const freqs = [246.94, 293.66, 349.23];
+        pluckHarpString(freqs[idx] || 293.66, 0.65);
+      }
+      updateUniversalHud();
+    }
+
+    function togglePrepCardFlip(cardIdx) {
+      const card = document.getElementById(`prep-card-${cardIdx}`);
+      if (!card) return;
+      card.classList.toggle('flipped');
+      const isFlipped = card.classList.contains('flipped');
+      pluckHarpString(isFlipped ? 440.00 : 329.63, 0.6);
+    }
+    window.selectPrepStation = selectPrepStation;
+    window.togglePrepCardFlip = togglePrepCardFlip;
 
     // ── Chord 3 Level 4: Day 1 Preparations Spotlight & Zoom Controller ──
     let currentSp2Prep1Step = 0; // 0: none, 1: card 0 spotlight, 2: card 0 zoom, 3: card 1 spotlight, 4: card 1 zoom, 5: card 2 spotlight, 6: card 2 zoom
@@ -2463,6 +2512,94 @@
       const newIdx = Math.max(0, Math.min(9, currentGuitarStringIdx + direction));
       selectGuitarString(newIdx);
     }
+
+    // ── 10.12 Bonding Sports Video Controller (Slide 7: الترابط) ──
+    let isBondingVideoExpanded = false;
+
+    function openBondingVideo() {
+      const overlay = document.getElementById('bonding-cinema-overlay');
+      const player = document.getElementById('bonding-video-player');
+      if (!overlay) return;
+      isBondingVideoExpanded = true;
+      overlay.style.display = 'flex';
+      if (player) {
+        player.currentTime = 0;
+        player.muted = false;
+        const p = player.play();
+        if (p !== undefined) {
+          p.catch(e => console.log('Autoplay deferred/blocked:', e));
+        }
+      }
+      pluckHarpString(392.00, 0.6);
+      updateUniversalHud();
+    }
+
+    function closeBondingVideo() {
+      const overlay = document.getElementById('bonding-cinema-overlay');
+      const player = document.getElementById('bonding-video-player');
+      isBondingVideoExpanded = false;
+      if (player) {
+        player.pause();
+      }
+      if (overlay) {
+        overlay.style.display = 'none';
+      }
+      updateUniversalHud();
+    }
+    window.openBondingVideo = openBondingVideo;
+    window.closeBondingVideo = closeBondingVideo;
+
+    // ── 10.14 Program Map Locked Hiding Slide Controller (Chord 3) ──
+    let isDay1GateUnlocked = false;
+    let isDay2GateUnlocked = false;
+
+    function unlockProgramGate(dayNum) {
+      const gate = document.getElementById(`day${dayNum}-program-gate`);
+      if (!gate) return;
+
+      if (dayNum === 1) isDay1GateUnlocked = true;
+      if (dayNum === 2) isDay2GateUnlocked = true;
+
+      // Celestial audio feedback for unlocking
+      try {
+        const ctx = getAudioContext();
+        if (ctx) {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(880, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(1760, ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.6, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.26);
+        }
+      } catch (e) {}
+
+      setTimeout(() => pluckHarpString(523.25, 0.7), 100);
+
+      gate.classList.add('unlocking');
+      setTimeout(() => {
+        gate.style.display = 'none';
+        gate.classList.remove('unlocking');
+        updateUniversalHud();
+      }, 1250);
+    }
+
+    function resetProgramGate(dayNum) {
+      const gate = document.getElementById(`day${dayNum}-program-gate`);
+      if (gate) {
+        gate.style.display = 'flex';
+        gate.classList.remove('unlocking');
+      }
+      if (dayNum === 1) isDay1GateUnlocked = false;
+      if (dayNum === 2) isDay2GateUnlocked = false;
+      updateUniversalHud();
+    }
+    window.unlockProgramGate = unlockProgramGate;
+    window.resetProgramGate = resetProgramGate;
 
     // ── 10.15 Service Day Video Modal Controller (Day 1 & Day 2) ──
     function openDayVideo(dayNum) {
@@ -4955,16 +5092,16 @@
       grandRevealTimers.push(t1);
     }
 
-    // ── 15. Chord 5 (الدروس والمستقبل) 3-Slide Presentation Controller ──
+    // ── 15. Chord 5 (الدروس والمستقبل) 4-Slide Presentation Controller ──
     let isGrandCurtainOpened = false;
-    let currentSp5SlideIdx = 1; // 1 to 3
+    let currentSp5SlideIdx = 1; // 1 to 4
 
     function goToSp5Slide(slideNum, playSound = true) {
-      if (slideNum < 1 || slideNum > 3) return;
+      if (slideNum < 1 || slideNum > 4) return;
       currentSp5SlideIdx = slideNum;
 
       // Switch Panes
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 4; i++) {
         const pane = document.getElementById(`sp5-slide-${i}`);
         const pill = document.getElementById(`sp5-pill-${i}`);
         if (pane) {
@@ -4979,12 +5116,12 @@
       // Update counter badge
       const counter = document.getElementById('ppt-counter-badge-4') || document.getElementById('ppt-counter-badge-5');
       if (counter) {
-        const arabicNums = ['١', '٢', '٣'];
-        counter.textContent = `${arabicNums[slideNum - 1]} / ٣`;
+        const arabicNums = ['١', '٢', '٣', '٤'];
+        counter.textContent = `${arabicNums[slideNum - 1]} / ٤`;
       }
 
       if (playSound && slideNum === 1) {
-        const freqs = [392.00, 440.00, 523.25];
+        const freqs = [392.00, 440.00, 523.25, 659.25];
         pluckHarpString(freqs[slideNum - 1] || 440.00, 0.7);
       }
 
@@ -5000,6 +5137,14 @@
       } else if (slideNum === 3) {
         clearGrandRevealTimers();
         if (playSound) pluckHarpString(523.25, 0.75);
+      } else if (slideNum === 4) {
+        clearGrandRevealTimers();
+        if (playSound) {
+          pluckHarpString(523.25, 0.8);
+          if (typeof playGoldenBellChime === 'function') {
+            setTimeout(() => playGoldenBellChime(659.25), 300);
+          }
+        }
       }
 
       updateUniversalHud();
@@ -5014,7 +5159,7 @@
     }
 
     function goToSp5PptStep(step, playSound = true) {
-      const slide = Math.min(3, Math.max(1, step + 1));
+      const slide = Math.min(4, Math.max(1, step + 1));
       goToSp5Slide(slide, playSound);
     }
 
