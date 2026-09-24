@@ -619,13 +619,7 @@ body {
 }
 
 .draft-badge {
-  background: rgba(255, 180, 50, 0.12);
-  border: 1px solid rgba(255, 180, 50, 0.3);
-  color: #f4b832;
-  font-size: 12px;
-  padding: 3px 12px;
-  border-radius: 20px;
-  font-weight: 600;
+  display: none !important;
 }
 
 .sp-body {
@@ -838,20 +832,11 @@ body {
 }
 
 .stage-badge-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: none !important;
 }
 
 .stage-badge {
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffd875;
-  background: rgba(220, 160, 56, 0.14);
-  border: 1px solid rgba(220, 160, 56, 0.35);
-  padding: 4px 14px;
-  border-radius: 20px;
-  width: fit-content;
+  display: none !important;
 }
 
 .stage-title {
@@ -1142,19 +1127,9 @@ body {
   left: 20px;
 }
 
-/* Minimal PPT Slide Counter Badge in Header */
+/* Minimal PPT Slide Counter Badge in Header (Deprecated - Replaced by Global Evaluation Slide Box) */
 .ppt-counter-badge {
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffd875;
-  background: rgba(220, 160, 56, 0.14);
-  border: 1px solid rgba(220, 160, 56, 0.35);
-  padding: 3px 12px;
-  border-radius: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  letter-spacing: 0.5px;
+  display: none !important;
 }
 
 /* 2. Musical Staff Timeline */
@@ -1188,13 +1163,7 @@ body {
 }
 
 .tl-badge {
-  font-size: 12px;
-  font-weight: 600;
-  color: #ffd875;
-  background: rgba(220, 160, 56, 0.14);
-  border: 1px solid rgba(220, 160, 56, 0.35);
-  padding: 3px 12px;
-  border-radius: 20px;
+  display: none !important;
 }
 
 .tl-title {
@@ -1428,17 +1397,7 @@ body {
 }
 
 .ms-tag {
-  font-size: 14px;
-  font-weight: 800;
-  color: #ffd875;
-  background: rgba(220, 160, 56, 0.14);
-  border: 1px solid rgba(220, 160, 56, 0.35);
-  padding: 4px 14px;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  letter-spacing: 0.5px;
+  display: none !important;
 }
 
 .ms-tag.golden-tag {
@@ -5192,11 +5151,12 @@ body.editor-mode-active .challenge-circle {
 }
 
 .gm-drawer-header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  padding: 16px 26px;
+  padding: 14px 26px;
   background: rgba(14, 22, 44, 0.95);
   border-bottom: 1px solid rgba(78, 168, 222, 0.2);
   flex-shrink: 0;
@@ -5227,11 +5187,68 @@ body.editor-mode-active .challenge-circle {
 }
 
 .gm-drawer-title {
-  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(20px, 1.8vw, 28px);
   font-weight: 800;
   color: #fff;
   margin: 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 0 24px rgba(56, 189, 248, 0.45);
+  white-space: nowrap;
+}
+
+/* ── Day 1 / Day 2 Segmented Toggle Switch (Nodes 3, 4, 5, 6) ── */
+.gm-day-toggle-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(10, 20, 42, 0.88);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 30px;
+  padding: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45), inset 0 0 12px rgba(56, 189, 248, 0.12);
+  direction: rtl;
+}
+
+.gm-day-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 24px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.gm-day-toggle-btn .day-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.6);
+  transition: all 0.25s ease;
+}
+
+.gm-day-toggle-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.gm-day-toggle-btn.active {
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.55), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.gm-day-toggle-btn.active .day-toggle-dot {
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+  transform: scale(1.2);
 }
 
 .gm-drawer-controls {
@@ -5963,11 +5980,11 @@ body.editor-mode-active .challenge-circle {
 }
 
 .gm-hero-intro {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 16px;
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .gm-hero-tag {
@@ -7076,6 +7093,298 @@ body.editor-mode-active .challenge-circle {
   color: #fff;
 }
 
+/* ════ EVALUATION PANEL SLIDE COUNTER BOX ════ */
+.eval-slide-counter-box {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 22px;
+  background: rgba(9, 13, 27, 0.95);
+  border: 1.5px solid rgba(255, 216, 117, 0.7);
+  border-radius: 40px;
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.85),
+    0 0 24px rgba(220, 160, 56, 0.32);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: "Cairo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #fff;
+  direction: rtl;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.eval-slide-main-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220, 160, 56, 0.16);
+  border: 1px solid rgba(255, 216, 117, 0.45);
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+.eval-slide-icon {
+  display: flex;
+  align-items: center;
+  color: #ffd875;
+}
+
+.eval-slide-text {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffd875;
+  letter-spacing: 0.5px;
+}
+
+.eval-slide-num {
+  font-size: 22px;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(255, 216, 117, 0.75);
+  padding: 0 2px;
+}
+
+.eval-slide-total {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 216, 117, 0.75);
+}
+
+.eval-slide-sep {
+  width: 1.5px;
+  height: 22px;
+  background: rgba(220, 160, 56, 0.4);
+}
+
+.eval-slide-context {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eval-slide-chord-name {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .eval-slide-counter-box {
+    top: 8px;
+    padding: 5px 16px;
+    gap: 10px;
+  }
+  .eval-slide-text {
+    font-size: 13px;
+  }
+  .eval-slide-num {
+    font-size: 18px;
+  }
+  .eval-slide-chord-name {
+    font-size: 13px;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ════ CHRISTMAS VIDEO CINEMA SPOTLIGHT ════ */
+.christmas-cinema-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(4, 6, 14, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.christmas-cinema-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.christmas-cinema-card {
+  width: 100%;
+  max-width: 960px;
+  background: radial-gradient(circle at 50% 0%, rgba(38, 28, 16, 0.96) 0%, rgba(10, 13, 24, 0.98) 80%);
+  border: 2px solid rgba(255, 216, 117, 0.7);
+  border-radius: 24px;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.95),
+    0 0 45px rgba(220, 160, 56, 0.4);
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  direction: rtl;
+  transform: scale(0.65) translateY(24px);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.christmas-cinema-overlay.open .christmas-cinema-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.cinema-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 216, 117, 0.2);
+}
+
+.cinema-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffd875;
+  font-family: "Cairo", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.cinema-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cinema-close-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  transform: scale(1.08);
+}
+
+.cinema-video-wrapper {
+  position: relative;
+  width: 100%;
+  max-height: 68vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cinema-video-wrapper video {
+  width: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+  display: block;
+  outline: none;
+}
+
+.cinema-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.cinema-hint {
+  font-family: "Cairo", sans-serif;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cinema-next-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, rgba(220, 160, 56, 0.35), rgba(220, 160, 56, 0.15));
+  border: 1.5px solid rgba(255, 216, 117, 0.65);
+  border-radius: 24px;
+  color: #ffd875;
+  font-family: "Cairo", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cinema-next-action-btn:hover {
+  background: rgba(220, 160, 56, 0.5);
+  border-color: #fff;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 160, 56, 0.45);
+}
+
+/* Video Preview Pulse Button in Slide 7 */
+.video-play-pulse-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(220, 160, 56, 0.9);
+  color: #0b0e1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(255, 216, 117, 0.7);
+  transition: transform 0.3s ease, background 0.3s ease;
+  pointer-events: none;
+}
+
+.video-launch-item:hover .video-play-pulse-btn {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: #ffd875;
+  box-shadow: 0 0 30px rgba(255, 216, 117, 1);
+}
+
+.video-tap-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  left: 8px;
+  text-align: center;
+  font-family: "Cairo", sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 4px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  border: 1px solid rgba(255, 216, 117, 0.3);
+}
+
 /* Table & Card Active Highlight Styles */
 .sp4-table-row.row-active {
   background: rgba(220, 160, 56, 0.2) !important;
@@ -7362,80 +7671,477 @@ body.editor-mode-active #editor-floating-banner {
   background: currentColor;
 }
 
-/* ── PREPARATION STEPS GRID (MATCHING ATTACHED SCREENSHOT) ── */
-.gm-first-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  width: 100%;
-  box-sizing: border-box;
-  direction: rtl;
+/* ── PREPARATION STEPS STRIP (Slide 15: الخطوات الأولى واستكشاف الميدان) ── */
+#gm-pane-2.active {
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex !important;
+  flex-direction: column;
 }
 
-.gm-step-box-card {
-  background: linear-gradient(145deg, rgba(16, 26, 46, 0.9), rgba(10, 18, 34, 0.95));
-  border: 1.5px solid rgba(56, 189, 248, 0.42);
-  border-radius: 14px;
-  padding: 12px 14px;
+.gm-drawer-content:has(#gm-pane-2.active) {
+  overflow: hidden !important;
+  padding: 10px 24px 14px !important;
+}
+
+.gm-first-steps-wrapper {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-  transition: all 0.25s ease;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 160px);
   box-sizing: border-box;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.gm-step-box-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(56, 189, 248, 0.75);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 18px rgba(56, 189, 248, 0.25);
-}
-
-.gm-step-box-header {
+/* 4 Cards Strip - Fits in One Single Frame Without Scrolling */
+.gm-first-steps-strip {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  align-items: stretch;
   direction: rtl;
 }
 
+/* The Base Card */
+.gm-step-box-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(16, 26, 48, 0.9), rgba(9, 16, 32, 0.98));
+  border: 1.5px solid rgba(56, 189, 248, 0.28);
+  border-radius: 20px;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  max-height: 100%;
+}
+
+/* Ambient Card Glow */
+.gm-step-card-glow-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.18), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.gm-step-box-card:hover .gm-step-card-glow-overlay {
+  opacity: 0.6;
+}
+
+.gm-step-box-card:hover:not(.is-expanded) {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+/* ── PHASE 1: HIGHLIGHTED CARD ── */
+.gm-step-box-card.is-highlighted {
+  flex: 1.35;
+  background: linear-gradient(160deg, rgba(18, 34, 64, 0.96), rgba(11, 22, 42, 0.98));
+  border: 2.2px solid #38bdf8;
+  box-shadow: 0 0 38px rgba(56, 189, 248, 0.42), 0 16px 45px rgba(0, 0, 0, 0.7);
+  transform: translateY(-4px) scale(1.015);
+  z-index: 5;
+}
+
+.gm-step-box-card.is-highlighted .gm-step-card-glow-overlay {
+  opacity: 1;
+  background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.28), transparent 75%);
+}
+
+.gm-step-box-card.is-highlighted .gm-step-box-icon {
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  border-color: #7dd3fc;
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.65);
+  transform: scale(1.06);
+}
+
+/* ── PHASE 2: EXPANDED CARD (GROWS EXPANDING SHOWING BULLET POINTS) ── */
+.gm-step-box-card.is-expanded {
+  flex: 3.6; /* Dramatic expansion giving massive width to bullets */
+  background: linear-gradient(160deg, rgba(16, 38, 72, 0.96), rgba(9, 22, 46, 0.99));
+  border: 2.5px solid #72efb6;
+  box-shadow: 0 0 55px rgba(114, 239, 182, 0.38), 0 22px 60px rgba(0, 0, 0, 0.85);
+  transform: translateY(-6px);
+  z-index: 10;
+}
+
+.gm-step-box-card.is-expanded .gm-step-card-glow-overlay {
+  opacity: 1;
+  background: radial-gradient(circle at 50% 0%, rgba(114, 239, 182, 0.24), transparent 75%);
+}
+
+.gm-step-box-card.is-expanded .gm-step-box-icon {
+  background: linear-gradient(135deg, #059669, #72efb6);
+  border-color: #a7f3d0;
+  box-shadow: 0 0 28px rgba(114, 239, 182, 0.75);
+  transform: scale(1.08);
+}
+
+/* Compress background cards when one is expanded */
+.gm-first-steps-strip.has-expanded .gm-step-box-card:not(.is-expanded) {
+  flex: 0.72;
+  opacity: 0.65;
+  filter: saturate(0.85);
+}
+
+.gm-first-steps-strip.has-expanded .gm-step-box-card:not(.is-expanded):hover {
+  opacity: 0.92;
+  flex: 0.9;
+  filter: none;
+}
+
+/* Card Header - Centered Layout so Cards Don't Look Empty */
+.gm-step-box-header {
+  display: flex;
+  direction: rtl;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+/* In Unexpanded / Highlighted State: SVG and Title in the EXACT Center/Middle of the Card */
+.gm-step-box-card:not(.is-expanded) .gm-step-box-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  margin: 0;
+  width: 100%;
+}
+
+.gm-step-box-card:not(.is-expanded) .gm-step-header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 7px;
+  width: 100%;
+}
+
+/* Large, Prominent SVG Icon Container */
 .gm-step-box-icon {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  border-radius: 10px;
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  border-radius: 18px;
   background: linear-gradient(135deg, #0284c7, #0369a1);
-  border: 1px solid rgba(56, 189, 248, 0.6);
+  border: 1.5px solid rgba(56, 189, 248, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 14px rgba(14, 165, 233, 0.4);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.45);
   flex-shrink: 0;
   color: #ffffff;
+  transition: all 0.4s ease;
 }
 
+.gm-step-box-card:not(.is-expanded) .gm-step-box-icon {
+  width: 82px;
+  height: 82px;
+  min-width: 82px;
+  border-radius: 22px;
+  box-shadow: 0 0 28px rgba(14, 165, 233, 0.55);
+}
+
+/* Large Crisp Vector SVGs */
 .gm-step-box-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 42px;
+  height: 42px;
   stroke: #ffffff;
-  stroke-width: 2.2;
+  stroke-width: 2.3;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+.gm-step-box-card:not(.is-expanded) .gm-step-box-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.gm-step-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gm-step-stage-badge {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(14px, 1.05vw, 17px);
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gm-step-box-card:not(.is-expanded) .gm-step-stage-badge {
+  font-size: clamp(14px, 1.05vw, 17px);
+  padding: 5px 16px;
+  border-radius: 20px;
+  background: rgba(56, 189, 248, 0.16);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  white-space: nowrap;
+}
+
+.gm-step-box-card.is-expanded .gm-step-stage-badge {
+  color: #72efb6;
+  font-size: clamp(13px, 0.95vw, 15px);
+  white-space: nowrap;
 }
 
 .gm-step-box-title {
   margin: 0;
-  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(21px, 1.55vw, 29px);
   font-weight: 800;
   color: #ffffff;
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
-.gm-step-box-desc {
-  color: #cbd5e1;
-  font-size: 12.5px;
-  line-height: 1.55;
-  font-weight: 500;
+.gm-step-box-card:not(.is-expanded) .gm-step-box-title {
+  font-size: clamp(23px, 1.65vw, 30px);
+  text-align: center;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.gm-step-box-sub {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(11.5px, 0.85vw, 13.5px);
+  color: #94a3b8;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.gm-step-box-card:not(.is-expanded) .gm-step-box-sub {
+  font-size: clamp(12.5px, 0.9vw, 14.5px);
+  text-align: center;
+  max-width: 90%;
+}
+
+/* When Expanded: Header is centered at the top, leaving ample room for bullets */
+.gm-step-box-card.is-expanded .gm-step-box-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.gm-step-box-card.is-expanded .gm-step-header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  gap: 3px;
+  flex: none;
+}
+
+.gm-step-box-card.is-expanded .gm-step-box-icon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 16px;
+}
+
+.gm-step-box-card.is-expanded .gm-step-box-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+/* ── LARGE EXPANDED BULLETS CONTAINER (Fits in one frame without scrolling) ── */
+.gm-step-bullets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden; /* No scrollbar needed! */
+  justify-content: center;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease 0.08s,
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+  pointer-events: none;
+}
+
+.gm-step-box-card:not(.is-expanded) .gm-step-bullets-list {
+  display: none;
+  flex: 0;
   margin: 0;
+  padding: 0;
+}
+
+.gm-step-box-card.is-expanded .gm-step-bullets-list {
+  display: flex;
+  flex: 1;
+  max-height: 100%;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Individual Large Bullet Card - Compact enough to fit in 1 frame */
+.gm-step-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.045);
+  border-radius: 12px;
+  border-right: 4px solid #72efb6;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
   direction: rtl;
   text-align: right;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.gm-step-bullet-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-right-color: #38bdf8;
+  border-right-width: 6px;
+  transform: translateX(-4px);
+}
+
+.gm-bullet-icon {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.gm-bullet-text {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(14px, 1.05vw, 17.5px); /* Large, clear, high-contrast text */
+  line-height: 1.5;
+  color: #f1f5f9;
+  font-weight: 500;
+  margin: 0;
+}
+
+.gm-bullet-text strong {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.04em;
+  margin-left: 5px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Card Footer */
+.gm-step-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 14px;
+  padding-bottom: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  gap: 10px;
+  width: 100%;
+}
+
+.fs-card-summary-tag {
+  font-family: 'Cairo', sans-serif;
+  font-size: clamp(13px, 0.95vw, 16px);
+  font-weight: 700;
+  color: #e2e8f0;
+  white-space: nowrap;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+.gm-step-box-card.is-highlighted .fs-card-summary-tag {
+  color: #90e0ef;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.gm-step-box-card.is-expanded .fs-card-summary-tag {
+  color: #72efb6;
+  text-shadow: 0 0 12px rgba(114, 239, 182, 0.5);
+}
+
+.fs-expand-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  font-family: 'Cairo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.fs-expand-toggle-btn:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.gm-step-box-card.is-expanded .fs-expand-toggle-btn {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(114, 239, 182, 0.4);
+  color: #72efb6;
+}
+
+/* Responsive adjustment for tablets & smaller devices */
+@media (max-width: 1024px) {
+  .gm-first-steps-strip {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .gm-step-box-card {
+    flex: none !important;
+    width: 100%;
+  }
+  .gm-step-box-card.is-expanded .gm-step-bullets-list {
+    max-height: 380px;
+  }
 }
 
 /* ── Chord 6 (الدروس والمستقبل) Styles ── */
@@ -8257,5 +8963,2445 @@ body.editor-mode-active #editor-floating-banner {
     transform: translate(var(--tx), var(--ty)) scale(1.6) rotate(var(--rot));
   }
 }
+
+/* ══════════════ MAP BACKGROUND FLOATING MUSIC NOTES (CHORD 3) ══════════════ */
+.floating-notes-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floating-note-item {
+  position: absolute;
+  font-family: "Segoe UI Symbol", "Tajawal", "Cairo", sans-serif;
+  color: inherit;
+  opacity: 0.6;
+  text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+  animation: floatMapNote linear infinite alternate;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes floatMapNote {
+  0% {
+    transform: translateY(0px) rotate(-10deg) scale(0.9);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-24px) rotate(14deg) scale(1.15);
+    opacity: 0.5;
+  }
+}
+
+/* ══════════════ CHORD 2: 10-STRING ACOUSTIC GUITAR SLIDE ══════════════ */
+#stage-proj-2 {
+  width: 100%;
+  height: 100%;
+}
+
+.guitar-slide-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 4px 16px 8px;
+  overflow: hidden;
+  position: relative;
+  gap: 6px;
+}
+
+.guitar-stage-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.guitar-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(229,169,60,0.22), rgba(180,93,23,0.15));
+  border: 1.5px solid rgba(229,169,60,0.5);
+  border-radius: 20px;
+  padding: 4px 16px;
+  color: #fce182;
+  font-size: 13.5px;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+
+.guitar-header-desc {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.72);
+  margin: 0;
+  max-width: 650px;
+}
+
+/* Two-Column Flexible Layout */
+.guitar-interactive-workspace {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 20px;
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.guitar-instrument-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 760px;
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+  position: relative;
+}
+
+.acoustic-guitar-svg-wrap {
+  width: 100%;
+  height: clamp(380px, 75vh, 660px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#acoustic-guitar-svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  filter: drop-shadow(0 16px 36px rgba(0,0,0,0.85));
+  overflow: visible;
+}
+
+/* Guitar Strings Physics & Hover */
+.guitar-str-group {
+  cursor: pointer;
+  outline: none;
+}
+
+.guitar-str-hit-area {
+  stroke: transparent;
+  stroke-width: 18;
+  fill: none;
+  pointer-events: stroke;
+}
+
+.guitar-str-glow {
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, stroke-width 0.2s ease;
+}
+
+.guitar-str-line {
+  fill: none;
+  transition: filter 0.25s ease, stroke 0.25s ease;
+}
+
+.guitar-str-group:hover .guitar-str-glow,
+.guitar-str-group.active .guitar-str-glow {
+  opacity: 0.95;
+}
+
+.guitar-str-group:hover .guitar-str-line,
+.guitar-str-group.active .guitar-str-line {
+  filter: drop-shadow(0 0 6px var(--gstr-color)) drop-shadow(0 0 14px var(--gstr-color));
+}
+
+/* Quick Shelf with 10 Pills */
+.guitar-strings-quick-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  max-width: 640px;
+  padding: 4px;
+}
+
+.g-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 4px 10px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.g-pill:hover {
+  background: rgba(229,169,60,0.2);
+  border-color: rgba(229,169,60,0.6);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.g-pill.active {
+  background: linear-gradient(135deg, rgba(229,169,60,0.35), rgba(180,93,23,0.3));
+  border-color: #ffd875;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(229,169,60,0.4);
+}
+
+.g-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Right Details Panel (Opens on String Click) */
+.guitar-details-panel {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(145deg, rgba(20, 24, 38, 0.96), rgba(12, 14, 24, 0.98));
+  border: 2px solid rgba(229, 169, 60, 0.5);
+  border-radius: 24px;
+  padding: 28px 34px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(229, 169, 60, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-sizing: border-box;
+}
+
+/* Split Active Mode: Guitar left, Details right */
+.guitar-interactive-workspace.split-active {
+  gap: 32px;
+  padding: 0 12px;
+}
+
+.guitar-interactive-workspace.split-active .guitar-instrument-col {
+  width: 36%;
+  max-width: 420px;
+  flex-shrink: 0;
+  transform: none;
+}
+
+.guitar-interactive-workspace.split-active .acoustic-guitar-svg-wrap {
+  height: clamp(380px, 76vh, 680px);
+}
+
+.guitar-interactive-workspace.split-active .guitar-details-panel {
+  display: flex;
+  flex: 1;
+  width: 62%;
+  max-width: 900px;
+  min-height: clamp(420px, 72vh, 680px);
+  max-height: clamp(480px, 80vh, 760px);
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.g-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(229, 169, 60, 0.3);
+  padding-bottom: 18px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.g-panel-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.g-panel-string-chip {
+  background: #e5a93c;
+  color: #120803;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 6px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(229, 169, 60, 0.4);
+  letter-spacing: 0.3px;
+}
+
+.g-panel-title {
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 0 18px rgba(229, 169, 60, 0.45);
+  letter-spacing: 0.3px;
+}
+
+.g-panel-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.g-panel-close-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+  border-color: #ef4444;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.g-members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+  flex: 1;
+  align-content: center;
+  padding: 16px 0;
+}
+
+.g-member-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.g-member-card:hover {
+  background: rgba(229, 169, 60, 0.18);
+  border-color: rgba(229, 169, 60, 0.7);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), 0 0 22px rgba(229, 169, 60, 0.3);
+}
+
+.g-member-name {
+  font-size: clamp(21px, 2.1vw, 28px);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.g-member-role-chip {
+  font-size: clamp(13px, 1.15vw, 16px);
+  font-weight: 800;
+  color: #ffd875;
+  background: rgba(229, 169, 60, 0.18);
+  padding: 5px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(229, 169, 60, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.g-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 16px;
+  border-top: 2px solid rgba(229, 169, 60, 0.2);
+  flex-shrink: 0;
+}
+
+.g-footer-nav-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(229, 169, 60, 0.35);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.g-footer-nav-btn:hover {
+  background: rgba(229, 169, 60, 0.25);
+  border-color: #ffd875;
+  box-shadow: 0 0 16px rgba(229, 169, 60, 0.4);
+  transform: translateY(-2px);
+}
+
+.g-footer-counter {
+  font-size: 17px;
+  color: #ffd875;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+/* ══════════════ CHORD 2: HORIZONTAL GUITAR & 2-DAYS VIDEO RECAP ══════════════ */
+#stage-proj-3 {
+  width: 100%;
+  height: 100%;
+}
+
+.two-days-recap-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.horizontal-guitar-showcase {
+  width: 100%;
+  max-width: 860px;
+  height: clamp(260px, 48vh, 400px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 36px;
+  transform: translateY(20px);
+  cursor: pointer;
+}
+
+.horizontal-guitar-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.h-guitar-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 14px 32px rgba(0,0,0,0.85));
+}
+
+/* Soundhole Glowing Portal & Light Rays */
+.soundhole-rays-burst {
+  position: absolute;
+  left: 37%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 224, 71, 0.35) 0%, rgba(245, 158, 11, 0.2) 40%, transparent 70%);
+  pointer-events: none;
+  animation: rotateSoundholeRays 14s linear infinite;
+  z-index: 2;
+}
+
+@keyframes rotateSoundholeRays {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.soundhole-pulsing-rings {
+  position: absolute;
+  left: 37%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(253, 224, 71, 0.8);
+  pointer-events: none;
+  animation: soundholeRingPulse 2s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  z-index: 2;
+}
+
+@keyframes soundholeRingPulse {
+  0% {
+    width: 60px;
+    height: 60px;
+    opacity: 0.9;
+    box-shadow: 0 0 10px rgba(253, 224, 71, 0.8);
+  }
+  100% {
+    width: 160px;
+    height: 160px;
+    opacity: 0;
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0);
+  }
+}
+
+.soundhole-portal-trigger {
+  position: absolute;
+  left: 37%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff7ed 0%, #f59e0b 55%, #92400e 100%);
+  border: 2.5px solid #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.9), 0 0 45px rgba(253, 224, 71, 0.6);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.soundhole-portal-trigger:hover {
+  transform: translate(-50%, -50%) scale(1.18);
+  box-shadow: 0 0 35px rgba(245, 158, 11, 1), 0 0 70px rgba(253, 224, 71, 0.85);
+}
+
+.portal-play-icon {
+  width: 26px;
+  height: 26px;
+  color: #1a0802;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2px;
+}
+
+.portal-glow-label {
+  position: absolute;
+  bottom: -24px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffd875;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.95);
+  background: rgba(14,10,8,0.85);
+  padding: 1px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(229,169,60,0.4);
+}
+
+.two-days-bottom-action {
+  margin-top: 4px;
+}
+
+.two-days-play-btn {
+  background: linear-gradient(135deg, #e5a93c, #b45d17);
+  border: 1.5px solid #ffd875;
+  color: #1a0802;
+  font-size: 13.5px;
+  font-weight: 800;
+  padding: 8px 22px;
+  border-radius: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 18px rgba(229,169,60,0.4);
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.two-days-play-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6), 0 0 25px rgba(229,169,60,0.6);
+  background: linear-gradient(135deg, #fcd34d, #d97706);
+}
+
+/* ══════════════ TWO DAYS VIDEO CINEMA MODAL ══════════════ */
+.two-days-cinema-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(3, 4, 8, 0.95);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.two-days-cinema-overlay.open {
+  opacity: 1;
+}
+
+.two-days-cinema-card {
+  width: 90vw;
+  max-width: 980px;
+  background: #090a10;
+  border: 1.5px solid rgba(229, 169, 60, 0.4);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(229, 169, 60, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.two-days-cinema-card video {
+  width: 100%;
+  max-height: 68vh;
+  background: #000;
+  display: block;
+}
+
+/* ══════════════ CHORD 5: THEATER VALANCE CLICKABLE OUTRO CUE ══════════════ */
+.theater-valance {
+  pointer-events: auto !important;
+  cursor: pointer;
+  position: relative;
+}
+
+.valance-outro-badge {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #d4af37, #854d0e);
+  border: 1.5px solid #fff;
+  border-radius: 14px;
+  padding: 3px 14px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.8), 0 0 16px rgba(212,175,55,0.7);
+  pointer-events: auto;
+  cursor: pointer;
+  white-space: nowrap;
+  animation: valanceBadgeGlow 1.8s infinite alternate;
+  z-index: 40;
+}
+
+.collab-curtains-wrap.opened .valance-outro-badge {
+  display: flex;
+}
+
+@keyframes valanceBadgeGlow {
+  0% { transform: translateX(-50%) scale(0.96); box-shadow: 0 0 10px rgba(212,175,55,0.4); }
+  100% { transform: translateX(-50%) scale(1.04); box-shadow: 0 0 22px rgba(212,175,55,0.9); }
+}
+
+/* ══════════════ VINTAGE THEATRICAL OUTRO CREDITS OVERLAY ══════════════ */
+.theatrical-outro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: #080302;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.theatrical-outro-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Descending Velvet Curtains Backing */
+.outro-curtains-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.outro-curtain-top-valance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: radial-gradient(ellipse at 50% 0%, #991b1b, #450a0a);
+  border-bottom: 4px solid #d4af37;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+  z-index: 3;
+}
+
+.outro-curtain-left,
+.outro-curtain-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  background: repeating-linear-gradient(90deg, #5c0d0d 0px, #7f1d1d 30px, #450a0a 60px);
+  border-bottom: 6px solid #d4af37;
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+  transition: transform 1.2s cubic-bezier(0.2, 0.9, 0.3, 1);
+  z-index: 2;
+}
+
+.outro-curtain-left {
+  left: 0;
+  transform: translateY(-100%);
+}
+
+.outro-curtain-right {
+  right: 0;
+  transform: translateY(-100%);
+}
+
+.theatrical-outro-overlay.curtains-pulled .outro-curtain-left,
+.theatrical-outro-overlay.curtains-pulled .outro-curtain-right {
+  transform: translateY(0);
+}
+
+/* Theatrical Playbill Thank-You Card */
+.theatrical-playbill-container {
+  position: relative;
+  z-index: 10;
+  width: 90vw;
+  max-width: 820px;
+  max-height: 90vh;
+  margin: auto;
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+  transition: all 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s;
+}
+
+.theatrical-outro-overlay.curtains-pulled .theatrical-playbill-container {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.playbill-vintage-card {
+  background: radial-gradient(circle at 50% 30%, #1c0e0b 0%, #0d0605 80%, #050202 100%);
+  border: 3px double #d4af37;
+  outline: 1.5px solid rgba(212, 175, 55, 0.35);
+  outline-offset: -10px;
+  border-radius: 16px;
+  padding: clamp(20px, 3vh, 32px) clamp(20px, 3vw, 36px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 50px rgba(212,175,55,0.25);
+  text-align: center;
+  position: relative;
+}
+
+.playbill-crest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.playbill-crest-icon {
+  font-size: 38px;
+  filter: drop-shadow(0 0 10px rgba(212,175,55,0.6));
+}
+
+.playbill-laurel-decor {
+  color: #d4af37;
+  font-size: 13px;
+  letter-spacing: 4px;
+}
+
+.playbill-sub-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fce182;
+  letter-spacing: 1px;
+}
+
+.playbill-main-title {
+  font-size: clamp(1.6rem, 3.2vh, 2.2rem);
+  font-weight: 900;
+  color: #fff;
+  margin: 4px 0 6px;
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.playbill-divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px auto 14px;
+  width: 160px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  position: relative;
+}
+
+.line-star {
+  color: #fce182;
+  font-size: 14px;
+  background: #1c0e0b;
+  padding: 0 6px;
+}
+
+.playbill-paragraph {
+  font-size: clamp(13px, 1.8vh, 15px);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.7;
+  margin: 0 auto 16px;
+  max-width: 680px;
+}
+
+/* 10 Honored Names Grid */
+.playbill-names-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px 12px;
+  margin: 14px auto 18px;
+  max-width: 720px;
+}
+
+.playbill-name-item {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.playbill-name-item:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #ffd875;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.playbill-name-item.highlight-team {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(180, 93, 23, 0.2));
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+.name-wreath {
+  color: #d4af37;
+  font-size: 13px;
+}
+
+.name-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.3px;
+}
+
+.playbill-closing-note {
+  margin: 14px 0 16px;
+}
+
+.closing-quote {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fce182;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.playbill-signature {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 1px;
+}
+
+.playbill-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.playbill-btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.playbill-close-btn {
+  background: linear-gradient(135deg, #d4af37, #92400e);
+  border: 1px solid #ffe488;
+  color: #1a0802;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+}
+
+.playbill-close-btn:hover {
+  background: linear-gradient(135deg, #fde047, #b45309);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+.playbill-replay-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e2e8f0;
+}
+
+.playbill-replay-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: #d4af37;
+  color: #fff;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   3D CINEMATIC HOLY BIBLE & VERSE REVEAL (Stage 1 • تسمية «رهط الوتر»)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Trigger Button on Stage 1 */
+.bible-verse-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(60, 20, 10, 0.35));
+  border: 1.5px solid rgba(255, 215, 0, 0.55);
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), inset 0 0 14px rgba(255, 215, 0, 0.15);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: biblePulseBorder 2.8s infinite ease-in-out;
+}
+
+.bible-verse-trigger-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(120, 40, 20, 0.5));
+  border-color: #ffe066;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 26px rgba(212, 175, 55, 0.45), inset 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.bible-trigger-halo {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  animation: bibleHaloRotate 10s linear infinite;
+}
+
+.bible-trigger-icon {
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.bible-trigger-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+  flex: 1;
+}
+
+.bible-trigger-label {
+  font-family: "Cairo", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff2a8;
+  letter-spacing: 0.3px;
+}
+
+.bible-trigger-hint {
+  font-family: "Cairo", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.bible-trigger-badge {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 8px;
+  color: #ffd700;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+@keyframes biblePulseBorder {
+  0%, 100% {
+    border-color: rgba(255, 215, 0, 0.45);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(255, 215, 0, 0.1);
+  }
+  50% {
+    border-color: rgba(255, 225, 120, 0.85);
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.25);
+  }
+}
+
+@keyframes bibleHaloRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fullscreen Cinematic Overlay */
+.bible-cinematic-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(6, 4, 3, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.bible-cinematic-overlay.open {
+  opacity: 1;
+}
+
+.bible-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(140, 80, 20, 0.22) 0%, rgba(5, 3, 2, 0.95) 75%);
+  pointer-events: none;
+}
+
+/* Celestial Golden Rays */
+.bible-celestial-burst {
+  position: absolute;
+  width: 140vw;
+  height: 140vw;
+  max-width: 1400px;
+  max-height: 1400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.28) 0%, rgba(212, 175, 55, 0.12) 35%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  animation: celestialSpin 24s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes celestialSpin {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(0.95); }
+}
+
+/* 3D Stage */
+.bible-3d-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1800px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  z-index: 10;
+}
+
+.bible-book-container {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* ── Closed Bible (Used during Spin-in and Fly-out) ── */
+.bible-closed-book {
+  width: 320px;
+  height: 440px;
+  max-width: 82vw;
+  max-height: 65vh;
+  position: relative;
+  transform-style: preserve-3d;
+  border-radius: 12px 24px 24px 12px;
+  box-shadow: 
+    -12px 18px 45px rgba(0, 0, 0, 0.85),
+    0 0 50px rgba(212, 175, 55, 0.45);
+}
+
+.bible-leather-cover {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(140deg, #380d12 0%, #200609 50%, #150305 100%);
+  border-radius: 12px 24px 24px 12px;
+  border-left: 18px solid #140305;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9), inset 0 0 8px rgba(255, 215, 0, 0.25);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bible-cover-border {
+  position: absolute;
+  inset: 14px;
+  border: 2px solid rgba(255, 215, 0, 0.65);
+  border-radius: 6px 16px 16px 6px;
+  pointer-events: none;
+  box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.bible-gold-corner {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 3px solid #d4af37;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.corner-tl { top: 18px; left: 18px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
+.corner-tr { top: 18px; right: 18px; border-left: none; border-bottom: none; border-radius: 0 12px 0 0; }
+.corner-bl { bottom: 18px; left: 18px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
+.corner-br { bottom: 18px; right: 18px; border-left: none; border-top: none; border-radius: 0 0 12px 0; }
+
+.bible-cover-emboss {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 3;
+  padding: 20px;
+}
+
+.bible-gold-cross-svg {
+  width: 90px;
+  height: 115px;
+  margin-bottom: 16px;
+}
+
+.bible-cover-cross-halo {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.bible-cover-embossed-title {
+  font-family: "Cairo", serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.6);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.bible-cover-subtitle {
+  font-family: "Cairo", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 235, 175, 0.85);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+.bible-bookmark-ribbon {
+  position: absolute;
+  bottom: -28px;
+  left: 45%;
+  width: 22px;
+  height: 60px;
+  background: linear-gradient(to right, #990000, #d60000, #800000);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
+  z-index: 4;
+}
+
+.bible-gilded-pages-edge {
+  position: absolute;
+  right: -10px;
+  top: 10px;
+  bottom: 10px;
+  width: 12px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #ffd700 0px,
+    #aa7c11 2px,
+    #ffd700 4px
+  );
+  border-radius: 0 4px 4px 0;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Open Bible Spread ── */
+.bible-open-book {
+  width: 1020px;
+  height: 580px;
+  max-width: 95vw;
+  max-height: 84vh;
+  position: relative;
+  display: flex;
+  transform-style: preserve-3d;
+  box-shadow: 
+    0 30px 85px rgba(0, 0, 0, 0.92),
+    0 0 85px rgba(212, 175, 55, 0.45);
+  border-radius: 14px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.bible-open-leather-case {
+  position: absolute;
+  inset: -14px -18px;
+  background: linear-gradient(135deg, #2b0b0e 0%, #150305 100%);
+  border-radius: 18px;
+  z-index: 1;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.95);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+}
+
+.bible-spread-page {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 50%, #fffef8 0%, #f6efe0 70%, #ece1ca 100%);
+  z-index: 3;
+  overflow: hidden;
+  box-shadow: inset 0 0 25px rgba(120, 85, 30, 0.2);
+}
+
+.page-right {
+  border-radius: 0 10px 10px 0;
+  box-shadow: inset 24px 0 35px rgba(0, 0, 0, 0.16), inset 0 0 25px rgba(120, 85, 30, 0.15);
+}
+
+.page-left {
+  border-radius: 10px 0 0 10px;
+  box-shadow: inset -24px 0 35px rgba(0, 0, 0, 0.16), inset 0 0 25px rgba(120, 85, 30, 0.15);
+}
+
+.parchment-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 32px 38px 26px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #2a1a10;
+}
+
+.parchment-gold-frame {
+  position: absolute;
+  inset: 12px;
+  border: 1.5px solid rgba(180, 135, 45, 0.45);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.glowing-frame {
+  border-color: rgba(212, 175, 55, 0.9);
+  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.25);
+}
+
+/* Page Headers & Ornaments */
+.bible-page-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.cross-icon-mini {
+  color: #990000;
+  font-size: 15px;
+}
+
+.bible-verse-top-badge,
+.bible-reflection-top-badge {
+  display: inline-block;
+  padding: 5px 18px;
+  background: rgba(180, 135, 45, 0.18);
+  border: 1.5px solid rgba(180, 135, 45, 0.6);
+  border-radius: 16px;
+  font-family: "Cairo", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #7a2200;
+  letter-spacing: 0.6px;
+}
+
+.bible-gilded-sep {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0 10px;
+  width: 80%;
+}
+
+.sep-line {
+  flex: 1;
+  max-width: 80px;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, #b8860b, transparent);
+}
+
+.sep-cross {
+  color: #990000;
+  font-size: 13px;
+}
+
+/* Center Spine Crease & Ribbon */
+.bible-spine-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  z-index: 5;
+  background: linear-gradient(to right, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+
+.bible-hanging-ribbon {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 108%;
+  background: linear-gradient(to right, #800000, #c40000, #800000);
+  box-shadow: 2px 6px 14px rgba(0, 0, 0, 0.6);
+  border-radius: 0 0 4px 4px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 50% 100%, 0% 92%);
+}
+
+/* ── Target Verse Page (Right Page) ── */
+.highlight-verse-parchment {
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 245, 215, 0.98) 0%, rgba(246, 237, 218, 0.92) 100%);
+}
+
+.bible-focal-verse-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6px 14px;
+  position: relative;
+}
+
+.gilded-quote-icon {
+  font-size: 32px;
+  color: #d4af37;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.gilded-quote-icon.closing {
+  margin-top: 4px;
+}
+
+.bible-scripture-highlight {
+  font-family: "Amiri", "Cairo", "Traditional Arabic", serif;
+  font-size: 29px;
+  line-height: 1.85;
+  font-weight: 800;
+  color: #1a0802;
+  margin: 10px 0 14px;
+  padding: 0;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.2px;
+}
+
+/* Citation (الشاهد) */
+.bible-citation-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  margin: 6px 0 4px;
+}
+
+.citation-div-line {
+  flex: 1;
+  max-width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #b8860b, transparent);
+}
+
+.bible-citation-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 26px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(180, 120, 20, 0.22));
+  border: 2px solid #d4af37;
+  border-radius: 24px;
+  box-shadow: 0 4px 14px rgba(180, 135, 45, 0.3);
+}
+
+.citation-label {
+  font-family: "Cairo", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #5c2d00;
+}
+
+.citation-text {
+  font-family: "Cairo", serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #990000;
+  letter-spacing: 0.8px;
+}
+
+/* ── Spiritual Reflection Page (Left Page) ── */
+.bible-focal-reflection-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px 16px;
+  gap: 8px;
+}
+
+.reflection-holy-dove {
+  font-size: 32px;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.4));
+}
+
+.bible-reflection-core-quote {
+  font-family: "Cairo", "Amiri", serif;
+  font-size: 23px;
+  line-height: 1.8;
+  font-weight: 800;
+  color: #2b1104;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  margin: 4px 0;
+}
+
+.bible-reflection-body-text {
+  font-family: "Cairo", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.75;
+  font-weight: 700;
+  color: #54331a;
+  max-width: 90%;
+  margin: 4px 0 0;
+}
+
+/* ── 3D Page Shuffling Leaves (Strictly Contained Inside Book Spread) ── */
+.bible-shuffle-stack {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 50% !important;
+  right: auto !important;
+  width: calc(50% - 18px);
+  pointer-events: none;
+  z-index: 12;
+  transform-style: preserve-3d;
+  direction: ltr !important;
+}
+
+.shuffle-page-leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 50%, #fffef8 0%, #f6efe0 70%, #ece1ca 100%);
+  border: 1.5px solid rgba(180, 135, 45, 0.45);
+  border-radius: 4px 8px 8px 4px;
+  transform-origin: left center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  backface-visibility: visible;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.shuffle-page-leaf::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(180, 135, 45, 0.3);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.shuffle-page-leaf::after {
+  content: "";
+  position: absolute;
+  inset: 22px 16px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 8px,
+    rgba(140, 100, 50, 0.12) 9px,
+    transparent 10px
+  );
+  pointer-events: none;
+}
+
+/* ── Action HUD Controls ── */
+.bible-hud-controls {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 20;
+}
+
+.bible-action-continue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.4), rgba(120, 60, 10, 0.6));
+  border: 1.5px solid #ffd700;
+  border-radius: 28px;
+  color: #fff9d6;
+  font-family: "Cairo", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.35);
+  transition: all 0.25s ease;
+}
+
+.bible-action-continue-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.6), rgba(160, 80, 20, 0.8));
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(212, 175, 55, 0.6);
+}
+
+.hud-continue-key {
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 215, 0, 0.6);
+  border-radius: 6px;
+  color: #ffd700;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.hud-arrow-symbol {
+  font-size: 16px;
+  color: #ffd700;
+}
+
+.bible-action-esc-btn {
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Cairo", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.bible-action-esc-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* ── ANIMATION PHASES ── */
+
+/* 1. Spin-in Entrance (Spins cleanly to final rest position) */
+.bible-book-container.spinning-in {
+  animation: bibleSpinInAnimation 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bibleSpinInAnimation {
+  0% {
+    transform: scale(0.12) rotateY(-720deg) rotateX(25deg) rotateZ(-20deg);
+    opacity: 0;
+    filter: blur(8px) drop-shadow(0 0 10px rgba(255, 215, 0, 0.2));
+  }
+  70% {
+    transform: scale(1.04) rotateY(15deg) rotateX(-3deg) rotateZ(2deg);
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 0 45px rgba(255, 215, 0, 0.7));
+  }
+  100% {
+    transform: scale(1) rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    opacity: 1;
+    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.8));
+  }
+}
+
+/* 1.5 Book Unfolds Open in Center */
+.bible-open-book.opening {
+  animation: bookOpenAnimation 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bookOpenAnimation {
+  0% {
+    transform: scale(0.72) rotateY(-40deg) rotateX(10deg);
+    opacity: 0.2;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.8));
+  }
+  60% {
+    transform: scale(1.03) rotateY(4deg) rotateX(-1deg);
+    opacity: 1;
+    filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 50px rgba(212, 175, 55, 0.5));
+  }
+  100% {
+    transform: scale(1) rotateY(0deg) rotateX(0deg);
+    opacity: 1;
+    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.8));
+  }
+}
+
+.bible-open-book.opening .page-right {
+  animation: pageRightUnfold 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: left center;
+}
+
+@keyframes pageRightUnfold {
+  0% {
+    transform: rotateY(70deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+.bible-open-book.opening .page-left {
+  animation: pageLeftUnfold 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: right center;
+}
+
+@keyframes pageLeftUnfold {
+  0% {
+    transform: rotateY(-70deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/* 2. Page Shuffling Animation (Strictly within open book borders) */
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-1,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-1 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0s forwards;
+}
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-2,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-2 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0.11s forwards;
+}
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-3,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-3 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0.22s forwards;
+}
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-4,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-4 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0.33s forwards;
+}
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-5,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-5 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0.44s forwards;
+}
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-6,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-6 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0.55s forwards;
+}
+.bible-book-container.shuffling .shuffle-page-leaf.leaf-7,
+.bible-open-book.shuffling .shuffle-page-leaf.leaf-7 {
+  animation: leafFlipAnim 0.62s cubic-bezier(0.25, 0.8, 0.25, 1) 0.66s forwards;
+}
+
+@keyframes leafFlipAnim {
+  0% {
+    transform: rotateY(0deg);
+    opacity: 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  8% {
+    opacity: 1;
+    box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    transform: rotateY(-90deg) scaleY(1.02);
+    opacity: 1;
+    box-shadow: 0 0 25px rgba(120, 80, 20, 0.4);
+  }
+  92% {
+    opacity: 1;
+    box-shadow: -4px 6px 16px rgba(0, 0, 0, 0.25);
+  }
+  100% {
+    transform: rotateY(-180deg);
+    opacity: 0;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* 3. Settled Open Animation */
+.bible-book-container.settled-open {
+  animation: bibleSettledGlow 3s infinite ease-in-out alternate;
+}
+
+@keyframes bibleSettledGlow {
+  0% {
+    filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.35));
+    transform: scale(1);
+  }
+  100% {
+    filter: drop-shadow(0 25px 55px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 45px rgba(255, 215, 0, 0.55));
+    transform: scale(1.015);
+  }
+}
+
+/* 4. Closing Animation */
+.bible-book-container.closing-book {
+  animation: bibleCloseAnimation 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes bibleCloseAnimation {
+  0% {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.92) rotateY(-85deg);
+    opacity: 0.95;
+  }
+}
+
+.bible-book-container.closing-book .page-right {
+  animation: pageRightCloseShut 0.42s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+  transform-origin: left center;
+}
+
+@keyframes pageRightCloseShut {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-170deg);
+    opacity: 0.85;
+  }
+}
+
+/* 5. Fly-out Animation */
+.bible-book-container.flying-out {
+  animation: bibleFlyOutAnimation 0.75s cubic-bezier(0.4, 0, 0.1, 1) forwards;
+}
+
+@keyframes bibleFlyOutAnimation {
+  0% {
+    transform: scale(0.92) translateY(0) rotateY(-85deg) rotateZ(0deg);
+    opacity: 0.95;
+    filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.6));
+  }
+  25% {
+    transform: scale(1.05) translateY(25px) rotateY(-40deg) rotateZ(-3deg);
+    opacity: 1;
+    filter: drop-shadow(0 25px 60px rgba(255, 215, 0, 0.8));
+  }
+  100% {
+    transform: scale(1.4) translateY(-170%) rotateY(180deg) rotateZ(16deg);
+    opacity: 0;
+    filter: blur(6px) drop-shadow(0 0 100px rgba(255, 235, 120, 1));
+  }
+}
+
+/* Responsive & Large Screen Scaling for Holy Bible Modal */
+@media (min-width: 1400px) {
+  .bible-open-book {
+    width: 1140px;
+    height: 640px;
+  }
+  .bible-scripture-highlight {
+    font-size: 34px;
+    line-height: 1.9;
+  }
+  .citation-text {
+    font-size: 26px;
+  }
+  .citation-label {
+    font-size: 17px;
+  }
+  .bible-reflection-core-quote {
+    font-size: 27px;
+    line-height: 1.85;
+  }
+  .bible-reflection-body-text {
+    font-size: 19px;
+  }
+  .bible-verse-top-badge,
+  .bible-reflection-top-badge {
+    font-size: 17px;
+    padding: 6px 22px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bible-open-book {
+    width: 94vw;
+    height: 500px;
+  }
+  .bible-scripture-highlight {
+    font-size: 22px;
+  }
+  .bible-reflection-core-quote {
+    font-size: 18px;
+  }
+  .bible-reflection-body-text {
+    font-size: 14px;
+  }
+  .parchment-inner {
+    padding: 22px 24px 20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .bible-open-book {
+    flex-direction: column;
+    height: auto;
+    max-height: 84vh;
+  }
+  .page-left {
+    display: none; /* Keep the holy verse page visible on narrow mobile portrait */
+  }
+  .page-right {
+    border-radius: 10px;
+  }
+  .bible-spine-gutter {
+    display: none;
+  }
+}
+
+/* ══════════════ FAST CONTENT & TEXT EDITOR DASHBOARD MODAL ══════════════ */
+
+/* Floating Quick Button */
+.floating-content-manager-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, rgba(32, 14, 6, 0.95), rgba(18, 6, 2, 0.98));
+  border: 1.5px solid rgba(229, 169, 60, 0.65);
+  border-radius: 30px;
+  color: #fff9e6;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.75), 0 0 20px rgba(229, 169, 60, 0.25);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.floating-content-manager-trigger:hover {
+  background: linear-gradient(135deg, #e5a93c, #b37919);
+  color: #1a0802;
+  border-color: #ffd700;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.85), 0 0 35px rgba(229, 169, 60, 0.6);
+}
+
+.floating-content-manager-trigger .trigger-icon {
+  font-size: 17px;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+}
+
+.floating-content-manager-trigger .trigger-shortcut {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: inherit;
+  font-family: monospace;
+}
+
+/* Modal Overlay */
+.content-manager-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(8, 4, 2, 0.82);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  animation: cmFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes cmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.content-manager-container {
+  width: 100%;
+  max-width: 1240px;
+  height: 92vh;
+  max-height: 900px;
+  background: linear-gradient(145deg, #180c06 0%, #100603 50%, #0a0301 100%);
+  border: 1.5px solid rgba(229, 169, 60, 0.45);
+  border-radius: 18px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(229, 169, 60, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  animation: cmSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cmSlideUp {
+  from { transform: translateY(25px) scale(0.97); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Header */
+.cm-header {
+  padding: 18px 26px;
+  background: rgba(26, 12, 5, 0.85);
+  border-bottom: 1.5px solid rgba(229, 169, 60, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.cm-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cm-title-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.25), rgba(160, 90, 15, 0.4));
+  border: 1.5px solid #e5a93c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 0 20px rgba(229, 169, 60, 0.3);
+}
+
+.cm-title {
+  font-family: 'Cairo', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: #fff9e6;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.cm-subtitle {
+  font-family: 'Cairo', sans-serif;
+  font-size: 12.5px;
+  color: rgba(255, 235, 190, 0.7);
+  margin: 3px 0 0;
+}
+
+.cm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.cm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.cm-btn-primary {
+  background: linear-gradient(135deg, #e5a93c, #b37919);
+  color: #1a0802;
+  border-color: #ffd700;
+  box-shadow: 0 3px 14px rgba(229, 169, 60, 0.35);
+}
+
+.cm-btn-primary:hover {
+  background: linear-gradient(135deg, #ffd700, #d4952b);
+  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+  transform: translateY(-1.5px);
+}
+
+.cm-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(229, 169, 60, 0.35);
+  color: #fff9e6;
+}
+
+.cm-btn-secondary:hover {
+  background: rgba(229, 169, 60, 0.2);
+  border-color: #e5a93c;
+  color: #ffffff;
+}
+
+.cm-btn-danger {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+.cm-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+}
+
+.cm-btn-ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cm-btn-ghost:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.cm-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cm-close-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* Toolbar (Search & Tabs) */
+.cm-toolbar {
+  padding: 14px 26px;
+  background: rgba(18, 8, 3, 0.95);
+  border-bottom: 1px solid rgba(229, 169, 60, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cm-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.cm-search-icon {
+  position: absolute;
+  right: 16px;
+  font-size: 17px;
+  color: rgba(229, 169, 60, 0.8);
+  pointer-events: none;
+}
+
+.cm-search-input {
+  width: 100%;
+  padding: 12px 48px 12px 42px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(229, 169, 60, 0.35);
+  border-radius: 12px;
+  color: #fff9e6;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.cm-search-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: #e5a93c;
+  box-shadow: 0 0 18px rgba(229, 169, 60, 0.3);
+}
+
+.cm-search-clear {
+  position: absolute;
+  left: 14px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.cm-search-clear:hover {
+  color: #fff;
+}
+
+/* Category Tabs */
+.cm-tabs-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cm-tabs-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.cm-category-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.cm-tab {
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(229, 169, 60, 0.2);
+  border-radius: 20px;
+  color: rgba(255, 235, 190, 0.75);
+  font-family: 'Cairo', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cm-tab:hover {
+  background: rgba(229, 169, 60, 0.15);
+  border-color: rgba(229, 169, 60, 0.5);
+  color: #fff;
+}
+
+.cm-tab.active {
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.3), rgba(180, 110, 20, 0.4));
+  border-color: #e5a93c;
+  color: #ffd875;
+  box-shadow: 0 2px 10px rgba(229, 169, 60, 0.25);
+}
+
+/* Items List Body */
+.cm-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(229, 169, 60, 0.35) transparent;
+}
+
+.cm-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cm-body::-webkit-scrollbar-thumb {
+  background: rgba(229, 169, 60, 0.35);
+  border-radius: 6px;
+}
+
+/* Single Item Card */
+.cm-item-card {
+  background: rgba(26, 13, 6, 0.65);
+  border: 1px solid rgba(229, 169, 60, 0.2);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.cm-item-card:hover {
+  background: rgba(34, 17, 8, 0.85);
+  border-color: rgba(229, 169, 60, 0.45);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+}
+
+.cm-item-card.is-dirty {
+  border-color: #ffd700;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+}
+
+.cm-item-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.cm-item-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cm-pill-cat {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: rgba(229, 169, 60, 0.15);
+  border: 1px solid rgba(229, 169, 60, 0.35);
+  color: #ffd875;
+}
+
+.cm-pill-slide {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cm-item-field-title {
+  font-family: 'Cairo', sans-serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #fff9e6;
+}
+
+.cm-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cm-action-icon-btn {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Cairo', sans-serif;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cm-action-icon-btn:hover {
+  background: rgba(229, 169, 60, 0.2);
+  border-color: #e5a93c;
+  color: #fff;
+}
+
+.cm-item-editor-wrap {
+  width: 100%;
+}
+
+.cm-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(229, 169, 60, 0.3);
+  border-radius: 10px;
+  color: #fffbf0;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 48px;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.cm-textarea:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.65);
+  border-color: #ffd700;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
+}
+
+.cm-original-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Footer */
+.cm-footer {
+  padding: 14px 26px;
+  background: rgba(20, 9, 4, 0.95);
+  border-top: 1.5px solid rgba(229, 169, 60, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.cm-status-text {
+  font-family: 'Cairo', sans-serif;
+  font-size: 12.5px;
+  color: rgba(255, 235, 190, 0.8);
+}
+
+.cm-status-text kbd {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(229, 169, 60, 0.5);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #ffd700;
+}
+
+.cm-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Toast Notification */
+.cm-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: linear-gradient(135deg, #1f1105, #140702);
+  border: 1.5px solid #ffd700;
+  color: #fff9e6;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.45);
+  z-index: 100000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cm-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .content-manager-container {
+    height: 96vh;
+    max-height: none;
+  }
+  .cm-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cm-header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+
 
 

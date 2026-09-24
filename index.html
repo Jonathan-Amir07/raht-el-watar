@@ -9,22 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <!-- ══════════════ GLOBAL IN-BROWSER LIVE TEXT EDITOR BANNER ══════════════ -->
-  <div id="editor-floating-banner">
-    <span style="display:flex; align-items:center; gap:6px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f5b842" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-      <strong>وضع التحرير المباشر مُفعّل:</strong> انقر على أي عنوان أو نص في العرض لتعديله أو حذفه فوراً
-    </span>
-    <button class="editor-banner-btn" onclick="saveEditorEdits()">حفظ التعديلات</button>
-    <button class="editor-banner-btn editor-banner-btn-secondary" onclick="resetEditorEdits()">استعادة الأصل</button>
-    <button class="editor-banner-btn editor-banner-btn-secondary" onclick="toggleEditorMode()">إنهاء التحرير</button>
-  </div>
+
 
 
   <!-- ══════════════ FIRST SLIDE / HOME SCREEN (MAJESTIC HARP) ══════════════ -->
@@ -387,15 +378,8 @@
       </div>
       <span class="sp-title-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
       <h2 class="sp-title">احنا مين؟</h2>
-      <span class="draft-badge">هوية ومسيرة الرهط</span>
-      <span class="ppt-counter-badge" id="ppt-counter-badge" title="رقم الشريحة الحالية">١ / ٨</span>
       <div class="sp-left-actions">
-                <button class="editor-mode-toggle-btn" onclick="toggleEditorMode()" title="تعديل نصوص العرض">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          <span>تعديل النصوص</span>
-        </button>
         <button class="back-btn" onclick="closePage()">
-          <span class="back-arrow">&#8594;</span>
           العودة للقيثارة
         </button>
         <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
@@ -406,11 +390,11 @@
 
     <!-- Floating Discreet PPT Navigation Arrows (Never overlap content) -->
     <button class="ppt-nav-btn ppt-prev-btn" id="ppt-prev-btn" onclick="prevPresentationStep()"
-      title="السابق (سهم يمين)">
+      title="السابق">
       <span>&#10095;</span>
     </button>
     <button class="ppt-nav-btn ppt-next-btn" id="ppt-next-btn" onclick="nextPresentationStep()"
-      title="التالي (مسافة / سهم يسار)">
+      title="التالي">
       <span>&#10094;</span>
     </button>
 
@@ -423,8 +407,6 @@
         <div class="stage-slide active" id="stage-0">
           <div class="stage-card">
             <div class="stage-content">
-
-                <span class="stage-badge"> الرهط وأعضاءة</span>
                 <h3 class="stage-title">تعريف الرهط وأسماء الأعضاء</h3>
               
               <div class="members-chip-container">
@@ -458,19 +440,17 @@
         <div class="stage-slide" id="stage-1">
           <div class="stage-card">
             <div class="stage-content">
-
-              <span class="stage-badge"> الاسم</span>
               <h3 class="stage-title">تسمية «رهط الوتر»</h3>
 
-              <div class="quote-card">
+              <div class="quote-card" onclick="openBibleVerseModal()" style="cursor: pointer;" title="آية التسمية">
                 <span class="quote-symbol">❝</span>
                 <p class="quote-text">
-                الوتر: تنوّعٌ في المواهب، ووحدةٌ في الروح، لنصنع لحناً يمسّ القلوب
+                الوتر: تنوّعٌ في المواهب، ووحدةٌ في الروح، علشان نعمل لحناً يئثار القلوب
                 </p>
               </div>
             </div>
             <div class="stage-media-slot"
-              onclick="openStageZoom('assets/day of naming.jpg', 'المشهد الثاني • فلسفة الاسم', 'سر التسمية «رهط الوتر»', 'اللحظة التي استقرينا فيها على هوية الوتر')"
+              onclick="openStageZoom('assets/day of naming.jpg', 'المشهد الثاني • سر التسمية', 'سر التسمية «رهط الوتر»', 'اللحظة التي استقرينا فيها على هوية الوتر')"
               style="cursor:pointer;">
               <div class="stage-image-wrapper">
                 <img src="assets/day of naming.jpg" alt="يوم اختيار اسم الرهط" class="stage-img" />
@@ -483,8 +463,6 @@
         <div class="stage-slide" id="stage-2">
           <div class="stage-card">
             <div class="stage-content">
-
-              <span class="stage-badge"> الميثاق والالتزام</span>
               <h3 class="stage-title">العهد التجوالي والالتزام اليومي</h3>
 
 
@@ -510,7 +488,6 @@
           <div class="timeline-section">
             <div class="timeline-header">
               <div class="tl-title-wrap">
-                <span class="tl-badge"> مسيرة الذكريات</span>
                 <h3 class="tl-title">رحلتنا</h3>
               </div>
             </div>
@@ -538,7 +515,7 @@
                   title="اختيار الاسم وفكرة المشروع">
                   <span class="node-note">♩</span>
                   <span class="node-num">٣</span>
-                  <span class="node-label">الاسم والمشروع</span>
+                  <span class="node-label">الاسم </span>
                 </button>
                 <button class="staff-node" data-step="3" onclick="setTimelineStep(3)"
                   title="عيد الميلاد والأنشطة الرياضية">
@@ -561,7 +538,6 @@
               <div class="milestone-slide active" id="ms-0">
                 <div class="ms-content">
                   <div class="ms-meta">
-                    <span class="ms-tag"> البداية</span>
                     <h4 class="ms-title">يوم تكوين وتأسيس الرهط</h4>
                   </div>
                 </div>
@@ -587,8 +563,7 @@
               <div class="milestone-slide" id="ms-2">
                 <div class="ms-content">
                   <div class="ms-meta">
-                    <h4 class="ms-title">اختيار اسم «الوتر» و فكرة المشروع</h4>
-                  </div>
+                    <h4 class="ms-title">اختيار اسم «الوتر» </h4>                  </div>
                 </div>
                 <div class="ms-media-slot" id="slot-media-2" onclick="openMilestoneZoom(2)">
                   <img src="assets/day of naming.jpg" alt="يوم اختيار الاسم وولادة فكرة المشروع" />
@@ -604,16 +579,17 @@
                 </div>
                 <div class="ms-media-slot dual-slot" id="slot-media-3">
                   <div class="twin-media-grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <!-- Christmas Video Player Box -->
-                    <div class="twin-media-item" style="cursor: default; overflow: hidden; background: #000; display: flex; flex-direction: column;">
-                      <video controls poster="assets/christmas gathering.jpg" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px 8px 0 0;" id="christmas-video-player">
-                        <source src="assets/christmas video.mp4" type="video/mp4">
-                        <source src="assets/christmas gathering.jpg" type="image/jpeg">
-                        متصفحك لا يدعم تشغيل هذا الفيديو مباشرة
-                      </video>
-                      <div style="padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; background: rgba(22, 16, 12, 0.9);">
-                        <span class="twin-label" style="position: static; padding: 0; background: none; font-size: 11px; display: flex; align-items: center; gap: 4px;">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <!-- Christmas Video Player Launch Box -->
+                    <div class="twin-media-item video-launch-item" onclick="openChristmasCinema()" style="cursor: pointer; overflow: hidden; background: #000; display: flex; flex-direction: column; position: relative;">
+                      <div class="video-preview-wrap" style="position: relative; width: 100%; height: 180px; overflow: hidden;">
+                        <img src="assets/christmas gathering.jpg" alt="فيديو لقاء الكريسماس" style="width: 100%; height: 100%; object-fit: cover;" />
+                        <div class="video-play-pulse-btn">
+                          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                        </div>
+                      </div>
+                      <div style="padding: 7px 12px; display: flex; align-items: center; justify-content: space-between; background: rgba(22, 16, 12, 0.95); border-top: 1px solid rgba(220, 160, 56, 0.35);">
+                        <span class="twin-label" style="position: static; padding: 0; background: none; font-size: 12px; font-weight: 700; color: #ffd875; display: flex; align-items: center; gap: 6px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                           فيديو لقاء الكريسماس
                         </span>
                       </div>
@@ -666,14 +642,8 @@
         </svg>
       </div>
       <h2 class="sp-title">المشروع</h2>
-      <span class="ppt-counter-badge" id="ppt-counter-badge-1" title="رقم الشريحة الحالية">١ / ٢</span>
       <div class="sp-left-actions">
-                <button class="editor-mode-toggle-btn" onclick="toggleEditorMode()" title="تعديل نصوص العرض">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          <span>تعديل النصوص</span>
-        </button>
         <button class="back-btn" onclick="closePage()">
-          <span class="back-arrow">&#8594;</span>
           العودة للقيثارة
         </button>
         <div class="slide-corner-logo-left sp-corner-logo-left" onclick="closePage()" title="العودة للشاشة الرئيسية">
@@ -683,11 +653,11 @@
     </div>
 
     <!-- Floating Discreet PPT Navigation Arrows for Chord 2 -->
-    <button class="ppt-nav-btn ppt-prev-btn" id="ppt-prev-btn-1" onclick="prevProjStep()" title="السابق (سهم يمين)">
+    <button class="ppt-nav-btn ppt-prev-btn" id="ppt-prev-btn-1" onclick="prevProjStep()" title="السابق">
       <span>&#10095;</span>
     </button>
     <button class="ppt-nav-btn ppt-next-btn" id="ppt-next-btn-1" onclick="nextProjStep()"
-      title="التالي (مسافة / سهم يسار)">
+      title="التالي">
       <span>&#10094;</span>
     </button>
 
@@ -699,17 +669,6 @@
         <div class="stage-slide active" id="stage-proj-0">
           <div class="stage-card stage-card-full">
             <div class="stage-content stage-full-width">
-              <div class="stage-badge-wrap">
-                <span class="stage-badge">
-                  <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M12 6v6l4 2"></path>
-                  </svg>
-                  مشاريع مستبعدة
-                </span>
-                <h3 class="stage-title">مشاريع مستبعدة</h3>
-              </div>
-
               <!-- 3 Rejected Concept Cards with Vector Graphics -->
               <div class="rejected-cards-grid">
                 <!-- Card 1: Mental Wellbeing Awareness Campaign -->
@@ -767,17 +726,6 @@
         <div class="stage-slide" id="stage-proj-1">
           <div class="stage-card" style="grid-template-columns: 60% 40%;">
             <div class="stage-content">
-              <div class="stage-badge-wrap">
-                <span class="stage-badge proj-approved-badge">
-                  <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 21h18"></path>
-                    <path d="M5 21V7l7-4 7 4v14"></path>
-                    <path d="M9 10a3 3 0 0 1 6 0v11"></path>
-                  </svg> الهوية والرسالة المعتمدة
-                </span>
-                <h3 class="stage-title">خدمة الكنائس المحتاجة</h3>
-              </div>
-
               <!-- THE CORE GOAL SPOTLIGHT (Very Important Highlight) -->
               <div class="mission-goal-card">
                 <div class="goal-header">
@@ -789,7 +737,7 @@
                       <circle cx="12" cy="2" r="2"></circle>
                     </svg>
                   </div>
-                  <span class="goal-label" style="font-size: 1.4rem;"> The Core Goal</span>
+                  <span class="goal-label" style="font-size: 1.4rem;">الهدف الأساسي</span>
                 </div>
                 <div class="goal-quote-box">
                   <span class="goal-quote-symbol">«</span>
@@ -813,77 +761,416 @@
           </div>
         </div>
 
-        <!-- Stage 2: محطات الخدمة على مدار يومين (Day 1: كنيسة السلام vs Day 2: كنيسة البطحة) -->
+        <!-- Stage 2: جيتار المسؤوليات وتوزيع المهام (10-String Interactive Acoustic Guitar) -->
         <div class="stage-slide" id="stage-proj-2">
-          <div class="stage-card stage-card-full stage-card-vertical">
-            <div class="stage-content stage-full-width">
-              <div class="stage-badge-wrap">
-                <span class="stage-badge">
-                  <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
+          <div class="guitar-slide-container" id="guitar-slide-container">
+            
+            <!-- Stage Header -->
+            <div class="guitar-stage-header">
+              <div class="guitar-header-badge">
+                <span class="guitar-badge-icon">🎸</span>
+                <span>توزيع المهام والمسؤوليات</span>
+              </div>
+            </div>
+
+            <!-- Two-Column Flexible Layout: Left Guitar | Right Details Drawer -->
+            <div class="guitar-interactive-workspace" id="guitar-workspace">
+              
+              <!-- Guitar Visual Column -->
+              <div class="guitar-instrument-col" id="guitar-instrument-col">
+                <div class="acoustic-guitar-svg-wrap" id="acoustic-guitar-svg-wrap">
+                  <svg id="acoustic-guitar-svg" viewBox="0 0 540 680" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                      <!-- Guitar Body Sunburst / Mahogany Gradient -->
+                      <radialGradient id="guitarBodyGrad" cx="50%" cy="58%" r="55%" fx="50%" fy="52%">
+                        <stop offset="0%" stop-color="#df8e35" />
+                        <stop offset="42%" stop-color="#b45d17" />
+                        <stop offset="78%" stop-color="#552206" />
+                        <stop offset="100%" stop-color="#1e0a02" />
+                      </radialGradient>
+
+                      <!-- Guitar Neck & Headstock Wood Gradient -->
+                      <linearGradient id="guitarNeckWood" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#2a1207" />
+                        <stop offset="50%" stop-color="#4a220f" />
+                        <stop offset="100%" stop-color="#220e05" />
+                      </linearGradient>
+
+                      <!-- Fretboard Ebony Gradient -->
+                      <linearGradient id="guitarFretboard" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#141416" />
+                        <stop offset="50%" stop-color="#2a2a2e" />
+                        <stop offset="100%" stop-color="#121214" />
+                      </linearGradient>
+
+                      <!-- Rosette Mosaic Ring Gradient -->
+                      <radialGradient id="rosetteGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="65%" stop-color="#0f0704" />
+                        <stop offset="75%" stop-color="#d4af37" />
+                        <stop offset="85%" stop-color="#803309" />
+                        <stop offset="93%" stop-color="#ffd700" />
+                        <stop offset="100%" stop-color="#251006" />
+                      </radialGradient>
+
+                      <!-- Golden Tuning Peg Gradient -->
+                      <linearGradient id="goldHardware" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fff0aa" />
+                        <stop offset="45%" stop-color="#e5a93c" />
+                        <stop offset="85%" stop-color="#915a13" />
+                        <stop offset="100%" stop-color="#ffe488" />
+                      </linearGradient>
+
+                      <!-- Glow Filter for Active Plucked String -->
+                      <filter id="guitarStringGlow" x="-60%" y="-20%" width="220%" height="140%">
+                        <feGaussianBlur stdDeviation="3.5" result="blur" />
+                        <feMerge>
+                          <feMergeNode in="blur" />
+                          <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                      </filter>
+
+                      <!-- Drop Shadow for Guitar Silhouette -->
+                      <filter id="guitarShadow" x="-20%" y="-10%" width="140%" height="120%">
+                        <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#000000" flood-opacity="0.75" />
+                      </filter>
+                    </defs>
+
+                    <!-- 1. Ambient Drop Shadow Under Guitar -->
+                    <g filter="url(#guitarShadow)">
+                      <!-- Guitar Body Silhouette -->
+                      <!-- Waist curves from neck joint y=240, upper bout x=110/430, waist x=175/365, lower bout x=80/460, heel y=650 -->
+                      <path d="M 230,240 
+                               C 170,242 110,268 110,320 
+                               C 110,370 148,405 174,425 
+                               C 130,455 80,510 80,570 
+                               C 80,630 150,652 270,652 
+                               C 390,652 460,630 460,570 
+                               C 460,510 410,455 366,425 
+                               C 392,405 430,370 430,320 
+                               C 430,268 370,242 310,240 Z"
+                            fill="url(#guitarBodyGrad)" stroke="#6d2e0b" stroke-width="2.5" />
+                    </g>
+
+                    <!-- 2. Dual Purfling & Binding Inlays (إطار وحواف خشبية راقية) -->
+                    <path d="M 230,244 
+                             C 172,246 116,271 116,320 
+                             C 116,368 152,402 176,422 
+                             C 134,452 86,506 86,568 
+                             C 86,624 154,646 270,646 
+                             C 386,646 454,624 454,568 
+                             C 454,506 406,452 364,422 
+                             C 388,402 424,368 424,320 
+                             C 424,271 368,246 310,244 Z"
+                          fill="none" stroke="#fce182" stroke-width="1.8" opacity="0.85" />
+                    <path d="M 230,248 
+                             C 174,250 122,274 122,320 
+                             C 122,366 156,399 178,419 
+                             C 138,449 92,502 92,566 
+                             C 92,618 158,640 270,640 
+                             C 382,640 448,618 448,566 
+                             C 448,502 402,449 362,419 
+                             C 384,399 418,366 418,320 
+                             C 418,274 366,250 310,248 Z"
+                          fill="none" stroke="#3b1706" stroke-width="2" opacity="0.7" />
+
+                    <!-- 3. Classic Tortoiseshell Pickguard (مضرب الريشة الكلاسيكي) -->
+                    <path d="M 314,350 C 375,355 385,410 380,450 C 375,485 335,488 322,460 C 315,445 314,390 314,350 Z" 
+                          fill="#421404" stroke="#d97706" stroke-width="1.2" opacity="0.65" />
+
+                    <!-- 4. Rosette Multi-Ring Outer Trim (زخارف فتحة الصوت الدائرية) -->
+                    <circle cx="270" cy="375" r="58" fill="url(#rosetteGrad)" />
+                    <circle cx="270" cy="375" r="54" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-dasharray="4,2" />
+                    <circle cx="270" cy="375" r="50" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.7" />
+                    <circle cx="270" cy="375" r="46" fill="none" stroke="#b45309" stroke-width="2.5" />
+                    <!-- The Deep Dark Soundhole Chamber -->
+                    <circle cx="270" cy="375" r="43" fill="#090503" id="guitar-body-soundhole" />
+
+                    <!-- 5. Acoustic Guitar Neck & Fretboard (زند الجيتار ورقبة العزف) -->
+                    <!-- Neck Base Wood -->
+                    <polygon points="234,94 306,94 316,260 224,260" fill="url(#guitarNeckWood)" stroke="#1a0802" stroke-width="1" />
+                    <!-- Ebony Fingerboard -->
+                    <polygon points="236,95 304,95 314,258 226,258" fill="url(#guitarFretboard)" />
+
+                    <!-- Metal Frets (تقسيمات الفريتات) -->
+                    <line x1="237" y1="116" x2="303" y2="116" stroke="#c0c0c8" stroke-width="1.6" />
+                    <line x1="236" y1="138" x2="304" y2="138" stroke="#c0c0c8" stroke-width="1.6" />
+                    <line x1="234" y1="160" x2="306" y2="160" stroke="#c0c0c8" stroke-width="1.6" />
+                    <line x1="232" y1="182" x2="308" y2="182" stroke="#c0c0c8" stroke-width="1.6" />
+                    <line x1="230" y1="204" x2="310" y2="204" stroke="#c0c0c8" stroke-width="1.6" />
+                    <line x1="228" y1="224" x2="312" y2="224" stroke="#c0c0c8" stroke-width="1.6" />
+                    <line x1="226" y1="242" x2="314" y2="242" stroke="#c0c0c8" stroke-width="1.6" />
+
+                    <!-- Mother-of-Pearl Position Markers (نقاط علامات الفريتات) -->
+                    <circle cx="270" cy="149" r="3" fill="#f8fafc" opacity="0.9" />
+                    <circle cx="270" cy="193" r="3" fill="#f8fafc" opacity="0.9" />
+                    <circle cx="265" cy="233" r="2.5" fill="#f8fafc" opacity="0.9" />
+                    <circle cx="275" cy="233" r="2.5" fill="#f8fafc" opacity="0.9" />
+
+                    <!-- 6. Slotted Acoustic Headstock (رأس الجيتار مع الأوتاد العشرة) -->
+                    <!-- Headstock Wood Shape -->
+                    <path d="M 234,94 L 222,22 C 222,12 250,8 270,14 C 290,8 318,12 318,22 L 306,94 Z" 
+                          fill="url(#guitarNeckWood)" stroke="#160803" stroke-width="1.5" />
+                    <!-- Headstock Open Twin Slots -->
+                    <rect x="238" y="22" width="22" height="64" rx="5" fill="#140602" stroke="#451a03" stroke-width="1" />
+                    <rect x="280" y="22" width="22" height="64" rx="5" fill="#140602" stroke="#451a03" stroke-width="1" />
+                    <!-- Golden Scout Badge Inlay in Headstock -->
+                    <circle cx="270" cy="16" r="4.5" fill="url(#goldHardware)" />
+
+                    <!-- 10 Tuning Pegs (5 on Left, 5 on Right) -->
+                    <!-- Left Pegs (0..4) -->
+                    <g id="g-tuner-0"><rect x="210" y="24" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="210" cy="26" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-1"><rect x="210" y="38" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="210" cy="40" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-2"><rect x="210" y="52" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="210" cy="54" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-3"><rect x="210" y="66" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="210" cy="68" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-4"><rect x="210" y="80" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="210" cy="82" r="3.5" fill="url(#goldHardware)" /></g>
+                    <!-- Right Pegs (5..9) -->
+                    <g id="g-tuner-5"><rect x="318" y="24" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="330" cy="26" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-6"><rect x="318" y="38" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="330" cy="40" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-7"><rect x="318" y="52" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="330" cy="54" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-8"><rect x="318" y="66" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="330" cy="68" r="3.5" fill="url(#goldHardware)" /></g>
+                    <g id="g-tuner-9"><rect x="318" y="80" width="12" height="5" rx="2" fill="url(#goldHardware)" /><circle cx="330" cy="82" r="3.5" fill="url(#goldHardware)" /></g>
+
+                    <!-- Bone Nut (المشط العظمي العلوي) -->
+                    <rect x="236" y="93" width="68" height="5" rx="1.5" fill="#fdfbf7" stroke="#94a3b8" stroke-width="0.8" />
+
+                    <!-- 7. Acoustic Bridge Assembly (فرسة الجيتار ومثبتات الأوتار) -->
+                    <!-- Wooden Rosewood Bridge Base -->
+                    <path d="M 195,515 C 240,510 300,510 345,515 C 352,525 348,542 342,546 C 300,544 240,544 198,546 C 192,542 188,525 195,515 Z" 
+                          fill="#1c0a03" stroke="#632608" stroke-width="1.5" />
+                    <!-- Bone Saddle Bar (المشط السفلي) -->
+                    <rect x="228" y="518" width="84" height="4" rx="1" fill="#fffdfa" stroke="#cbd5e1" stroke-width="0.6" />
+                    <!-- 10 Bridge Pins (مسامير تثبيت الأوتار) -->
+                    <circle cx="234" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="242" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="250" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="258" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="266" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="274" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="282" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="290" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="298" cy="534" r="3" fill="url(#goldHardware)" />
+                    <circle cx="306" cy="534" r="3" fill="url(#goldHardware)" />
+
+                    <!-- 8. THE 10 INTERACTIVE ACOUSTIC GUITAR STRINGS (أوتار الجيتار العشرة) -->
+                    <!-- S0: الروحي (E2 - 130.81 Hz) -->
+                    <g class="guitar-str-group" data-idx="0" data-name="الروحي" data-freq="130.81" data-color="#e5a93c"
+                       style="--gstr-color:#e5a93c; --gstr-glow:rgba(229,169,60,0.85);">
+                      <path class="guitar-str-hit-area" d="M 241,96 L 234,520" />
+                      <path class="guitar-str-glow" d="M 241,96 L 234,520" stroke="#e5a93c" stroke-width="7" />
+                      <path class="guitar-str-line" d="M 241,96 L 234,520" stroke="#e5a93c" stroke-width="3.6" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S1: الأخلاقي (G2 - 146.83 Hz) -->
+                    <g class="guitar-str-group" data-idx="1" data-name="الأخلاقي" data-freq="146.83" data-color="#38bdf8"
+                       style="--gstr-color:#38bdf8; --gstr-glow:rgba(56,189,248,0.85);">
+                      <path class="guitar-str-hit-area" d="M 247,96 L 242,520" />
+                      <path class="guitar-str-glow" d="M 247,96 L 242,520" stroke="#38bdf8" stroke-width="6.5" />
+                      <path class="guitar-str-line" d="M 247,96 L 242,520" stroke="#38bdf8" stroke-width="3.3" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S2: الميزانيه (A2 - 164.81 Hz) -->
+                    <g class="guitar-str-group" data-idx="2" data-name="الميزانيه" data-freq="164.81" data-color="#4ade80"
+                       style="--gstr-color:#4ade80; --gstr-glow:rgba(74,222,128,0.85);">
+                      <path class="guitar-str-hit-area" d="M 253,96 L 250,520" />
+                      <path class="guitar-str-glow" d="M 253,96 L 250,520" stroke="#4ade80" stroke-width="6" />
+                      <path class="guitar-str-line" d="M 253,96 L 250,520" stroke="#4ade80" stroke-width="3.0" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S3: اللوجيستيات (C3 - 196.00 Hz) -->
+                    <g class="guitar-str-group" data-idx="3" data-name="اللوجيستيات" data-freq="196.00" data-color="#f472b6"
+                       style="--gstr-color:#f472b6; --gstr-glow:rgba(244,114,182,0.85);">
+                      <path class="guitar-str-hit-area" d="M 260,96 L 258,520" />
+                      <path class="guitar-str-glow" d="M 260,96 L 258,520" stroke="#f472b6" stroke-width="5.8" />
+                      <path class="guitar-str-line" d="M 260,96 L 258,520" stroke="#f472b6" stroke-width="2.7" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S4: الألعاب (D3 - 220.00 Hz) -->
+                    <g class="guitar-str-group" data-idx="4" data-name="الألعاب" data-freq="220.00" data-color="#fb923c"
+                       style="--gstr-color:#fb923c; --gstr-glow:rgba(251,146,60,0.85);">
+                      <path class="guitar-str-hit-area" d="M 267,96 L 266,520" />
+                      <path class="guitar-str-glow" d="M 267,96 L 266,520" stroke="#fb923c" stroke-width="5.5" />
+                      <path class="guitar-str-line" d="M 267,96 L 266,520" stroke="#fb923c" stroke-width="2.5" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S5: قائد اليوم الأول (E3 - 246.94 Hz) -->
+                    <g class="guitar-str-group" data-idx="5" data-name="قائد اليوم الأول" data-freq="246.94" data-color="#a78bfa"
+                       style="--gstr-color:#a78bfa; --gstr-glow:rgba(167,139,250,0.85);">
+                      <path class="guitar-str-hit-area" d="M 273,96 L 274,520" />
+                      <path class="guitar-str-glow" d="M 273,96 L 274,520" stroke="#a78bfa" stroke-width="5.2" />
+                      <path class="guitar-str-line" d="M 273,96 L 274,520" stroke="#a78bfa" stroke-width="2.3" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S6: قائد اليوم التاني (G3 - 293.66 Hz) -->
+                    <g class="guitar-str-group" data-idx="6" data-name="قائد اليوم التاني" data-freq="293.66" data-color="#34d399"
+                       style="--gstr-color:#34d399; --gstr-glow:rgba(52,211,153,0.85);">
+                      <path class="guitar-str-hit-area" d="M 280,96 L 282,520" />
+                      <path class="guitar-str-glow" d="M 280,96 L 282,520" stroke="#34d399" stroke-width="5.0" />
+                      <path class="guitar-str-line" d="M 280,96 L 282,520" stroke="#34d399" stroke-width="2.1" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S7: كرافتس (A3 - 329.63 Hz) -->
+                    <g class="guitar-str-group" data-idx="7" data-name="كرافتس" data-freq="329.63" data-color="#facc15"
+                       style="--gstr-color:#facc15; --gstr-glow:rgba(250,204,21,0.85);">
+                      <path class="guitar-str-hit-area" d="M 286,96 L 290,520" />
+                      <path class="guitar-str-glow" d="M 286,96 L 290,520" stroke="#facc15" stroke-width="4.7" />
+                      <path class="guitar-str-line" d="M 286,96 L 290,520" stroke="#facc15" stroke-width="1.9" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S8: الفقره الافتتاحيه (B3 - 392.00 Hz) -->
+                    <g class="guitar-str-group" data-idx="8" data-name="الفقره الافتتاحيه" data-freq="392.00" data-color="#f87171"
+                       style="--gstr-color:#f87171; --gstr-glow:rgba(248,113,113,0.85);">
+                      <path class="guitar-str-hit-area" d="M 293,96 L 298,520" />
+                      <path class="guitar-str-glow" d="M 293,96 L 298,520" stroke="#f87171" stroke-width="4.4" />
+                      <path class="guitar-str-line" d="M 293,96 L 298,520" stroke="#f87171" stroke-width="1.7" filter="url(#guitarStringGlow)" />
+                    </g>
+
+                    <!-- S9: الاكل (D4 - 440.00 Hz) -->
+                    <g class="guitar-str-group" data-idx="9" data-name="الاكل" data-freq="440.00" data-color="#60a5fa"
+                       style="--gstr-color:#60a5fa; --gstr-glow:rgba(96,165,250,0.85);">
+                      <path class="guitar-str-hit-area" d="M 299,96 L 306,520" />
+                      <path class="guitar-str-glow" d="M 299,96 L 306,520" stroke="#60a5fa" stroke-width="4.2" />
+                      <path class="guitar-str-line" d="M 299,96 L 306,520" stroke="#60a5fa" stroke-width="1.5" filter="url(#guitarStringGlow)" />
+                    </g>
                   </svg>
-                  محطات الخدمة 
-                </span>
-                <h3 class="stage-title">اماكن الخدمة على مدار يومين</h3>
+                </div>
               </div>
 
-              <!-- 2 Large Church Photo Cards (Day 1: كنيسة السلام & Day 2: كنيسة البطحة) -->
-              <div class="churches-grid-container">
-                <!-- Church 1: كنيسة السلام (اليوم الأول) -->
-                <div class="church-pillar-card church-card-1">
-                  <div class="church-header-row">
-                    <div class="church-title-group">
-                      <span class="church-day-pill pill-day-1">اليوم الأول</span>
-                      <h4 class="church-main-name">كنيسة السيدة العذراء مريم بالسلام</h4>
-                    </div>
-                    <div class="church-badge-icon" title="كنيسة السلام">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M3 21h18"></path>
-                        <path d="M5 21V7l7-4 7 4v14"></path>
-                        <path d="M9 10a3 3 0 0 1 6 0v11"></path>
-                      </svg>
-                    </div>
+              <!-- Right Creative Responsibility Details Panel (Opens on String Click) -->
+              <div class="guitar-details-panel" id="guitar-details-panel">
+                <div class="g-panel-header">
+                  <div class="g-panel-badge-wrap">
+                    <span class="g-panel-string-chip" id="g-panel-chip">الوتر ١</span>
+                    <h3 class="g-panel-title" id="g-panel-title">الفقرة الروحية</h3>
                   </div>
-
-                  <div class="church-large-photo-box"
-                    onclick="openStageZoom('assets/first day raht image.jpg', 'اليوم الأول', 'كنيسة السلام', 'صورة الرهط بالكامل • كنيسة السلام')"
-                    style="cursor: pointer; padding: 0; border: 2px solid rgba(72,202,139,0.3); background: transparent;">
-                    <img src="assets/first day raht image.jpg" alt="صورة الرهط بالكامل • كنيسة السلام"
-                      style="width: 100%; height: auto; border-radius: inherit; display: block;" />
-                  </div>
+                  <button class="g-panel-close-btn" onclick="closeGuitarDetails()" title="الرجوع لمركز الشاشة">
+                    <span>✕</span>
+                  </button>
                 </div>
 
-                <!-- Church 2: كنيسة البطحة (اليوم الثاني) -->
-                <div class="church-pillar-card church-card-2">
-                  <div class="church-header-row">
-                    <div class="church-title-group">
-                      <span class="church-day-pill pill-day-2">اليوم الثاني</span>
-                      <h4 class="church-main-name"> البطحة</h4>
-                    </div>
-                    <div class="church-badge-icon" title="كنيسة البطحة">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M3 21h18"></path>
-                        <path d="M5 21V7l7-4 7 4v14"></path>
-                        <path d="M9 10a3 3 0 0 1 6 0v11"></path>
-                      </svg>
-                    </div>
-                  </div>
+                <!-- Responsible Members Grid -->
+                <div class="g-members-grid" id="g-members-grid">
+                  <!-- Dynamically populated via script.js -->
+                </div>
 
-                  <div class="church-large-photo-box"
-                    onclick="openStageZoom('assets/second day raht image.jpeg', 'اليوم الثاني', 'كنيسة البطحة', 'صورة الرهط بالكامل • كنيسة البطحة')"
-                    style="cursor: pointer; padding: 0; border: 2px solid rgba(72,202,139,0.3); background: transparent;">
-                    <img src="assets/second day raht image.jpeg" alt="صورة الرهط بالكامل • كنيسة البطحة"
-                      style="width: 100%; height: auto; border-radius: inherit; display: block;" />
-                  </div>
+                <!-- Navigation Controls inside Drawer -->
+                <div class="g-panel-footer">
+                  <button class="g-footer-nav-btn" onclick="navigateGuitarString(-1)">
+                    <span>&#8594; الوتر السابق</span>
+                  </button>
+                  <span class="g-footer-counter" id="g-footer-counter">١ / ١٠</span>
+                  <button class="g-footer-nav-btn" onclick="navigateGuitarString(1)">
+                    <span>الوتر التالي &#8592;</span>
+                  </button>
                 </div>
               </div>
 
             </div>
+
+          </div>
+        </div>
+
+        <!-- Stage 3: فيديو ملخص اليومين الكشفيين مع انتقال الجيتار الأفقي المضيء -->
+        <div class="stage-slide" id="stage-proj-3">
+          <div class="two-days-recap-stage">
+
+            <!-- Horizontal Illuminated Guitar Centerpiece -->
+            <div class="horizontal-guitar-showcase" onclick="openTwoDaysVideo()">
+              <div class="horizontal-guitar-frame">
+                
+                <!-- Rotating Sunburst Rays Radiating from Soundhole -->
+                <div class="soundhole-rays-burst"></div>
+                <div class="soundhole-pulsing-rings"></div>
+
+                <!-- Horizontal Guitar SVG Visual -->
+                <svg class="h-guitar-svg" viewBox="0 0 760 360" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <!-- Body Gradient (Horizontal Orientation) -->
+                    <radialGradient id="hBodyGrad" cx="38%" cy="50%" r="55%">
+                      <stop offset="0%" stop-color="#df8e35" />
+                      <stop offset="42%" stop-color="#b45d17" />
+                      <stop offset="78%" stop-color="#552206" />
+                      <stop offset="100%" stop-color="#1e0a02" />
+                    </radialGradient>
+                    <radialGradient id="hSoundholePortal" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#fff9db" />
+                      <stop offset="35%" stop-color="#f59e0b" />
+                      <stop offset="70%" stop-color="#d97706" />
+                      <stop offset="90%" stop-color="#78350f" />
+                      <stop offset="100%" stop-color="#0a0502" />
+                    </radialGradient>
+                  </defs>
+
+                  <!-- Horizontal Guitar Body: Headstock on right (x=680), Bridge on left (x=160), Soundhole at (x=280, y=180) -->
+                  <!-- Body Shape -->
+                  <path d="M 400,140 
+                           C 400,85 365,40 310,40 
+                           C 265,40 240,75 220,95 
+                           C 185,55 130,20 70,20 
+                           C 20,20 8,85 8,180 
+                           C 8,275 20,340 70,340 
+                           C 130,340 185,305 220,265 
+                           C 240,285 265,320 310,320 
+                           C 365,320 400,275 400,220 Z" 
+                        fill="url(#hBodyGrad)" stroke="#d97706" stroke-width="2.5" />
+
+                  <!-- Purfling Binding -->
+                  <path d="M 395,142 
+                           C 395,90 362,48 310,48 
+                           C 268,48 244,80 224,98 
+                           C 188,60 134,28 76,28 
+                           C 28,28 16,90 16,180 
+                           C 16,270 28,332 76,332 
+                           C 134,332 188,300 224,262 
+                           C 244,280 268,312 310,312 
+                           C 362,312 395,270 395,218 Z" 
+                        fill="none" stroke="#fef08a" stroke-width="1.8" opacity="0.8" />
+
+                  <!-- Neck Extending to Right -->
+                  <rect x="390" y="152" width="220" height="56" fill="url(#guitarNeckWood)" stroke="#1a0802" />
+                  <rect x="390" y="154" width="218" height="52" fill="url(#guitarFretboard)" />
+                  <!-- Frets -->
+                  <line x1="420" y1="154" x2="420" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+                  <line x1="450" y1="154" x2="450" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+                  <line x1="480" y1="154" x2="480" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+                  <line x1="510" y1="154" x2="510" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+                  <line x1="540" y1="154" x2="540" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+                  <line x1="570" y1="154" x2="570" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+                  <line x1="600" y1="154" x2="600" y2="206" stroke="#c0c0c8" stroke-width="1.5" />
+
+                  <!-- Headstock -->
+                  <path d="M 608,150 L 720,138 C 735,138 740,165 736,180 C 740,195 735,222 720,222 L 608,210 Z" 
+                        fill="url(#guitarNeckWood)" stroke="#160803" stroke-width="1.5" />
+                  
+                  <!-- Bridge on Left -->
+                  <rect x="90" y="145" width="22" height="70" rx="3" fill="#1c0a03" stroke="#632608" stroke-width="1.5" />
+                  <rect x="98" y="150" width="4" height="60" rx="1" fill="#fffdfa" />
+
+                  <!-- 10 Horizontal Strings running from bridge to headstock -->
+                  <line x1="102" y1="154" x2="608" y2="158" stroke="#e5a93c" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="160" x2="608" y2="163" stroke="#38bdf8" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="166" x2="608" y2="168" stroke="#4ade80" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="172" x2="608" y2="173" stroke="#f472b6" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="177" x2="608" y2="177" stroke="#fb923c" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="183" x2="608" y2="183" stroke="#a78bfa" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="188" x2="608" y2="187" stroke="#34d399" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="194" x2="608" y2="192" stroke="#facc15" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="200" x2="608" y2="197" stroke="#f87171" stroke-width="1.6" opacity="0.85" />
+                  <line x1="102" y1="206" x2="608" y2="202" stroke="#60a5fa" stroke-width="1.6" opacity="0.85" />
+                </svg>
+
+                <!-- Glowing Interactive Soundhole Portal Button (Directly Aligned Over the Hole) -->
+                <div class="soundhole-portal-trigger" onclick="openTwoDaysVideo()" title="ملخص اليومين">
+                  <div class="portal-halo-core"></div>
+                  <div class="portal-play-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                    </svg>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -907,12 +1194,7 @@
         </svg>
       </div>
       <h2 class="sp-title">التحضيرات والتنفيذ</h2>
-      <span class="ppt-counter-badge" id="ppt-counter-badge-2" title="المرحلة الحالية">المحطة ١ / ٧</span>
       <div class="sp-left-actions">
-        <button class="editor-mode-toggle-btn" onclick="toggleEditorMode()" title="تعديل نصوص العرض">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          <span>تعديل النصوص</span>
-        </button>
         <button class="back-btn" onclick="closePage()">
           <span class="back-arrow">&#8594;</span>
           العودة للقيثارة
@@ -931,6 +1213,17 @@
           <div class="gm-drawer-header">
             <div class="gm-drawer-title-group">
               <h3 class="gm-drawer-title" id="gm-header-title">الجلسات التعليمية وإعداد القادة</h3>
+            </div>
+            <!-- Day 1 / Day 2 Segmented Toggle (For Nodes 3, 4, 5, 6) -->
+            <div class="gm-day-toggle-container" id="gm-day-toggle-container" style="display: none;">
+              <button class="gm-day-toggle-btn active" id="gm-day-btn-1" onclick="switchNodeDay(1)" type="button">
+                <span class="day-toggle-dot"></span>
+                <span>اليوم الأول</span>
+              </button>
+              <button class="gm-day-toggle-btn" id="gm-day-btn-2" onclick="switchNodeDay(2)" type="button">
+                <span class="day-toggle-dot"></span>
+                <span>اليوم الثاني</span>
+              </button>
             </div>
             <div class="gm-drawer-controls">
               <button class="gm-nav-level-btn" id="gm-prev-btn" onclick="navigateGameLevel(-1)" title="المحطة السابقة">
@@ -954,12 +1247,8 @@
 
             <!-- ══════════════ LEVEL 1: الجلسات التعليمية ══════════════ -->
             <div class="gm-level-pane active" id="gm-pane-1">
-              <div class="gm-hero-intro" style="margin-bottom: 8px; flex-shrink: 0;">
-                <h3 class="gm-hero-title" style="margin: 0; font-size: 1.3rem;">الجلسات التعليمية</h3>
-              </div>
-
               <!-- 3 Core Educational Pillars Grid (Integrated & Compact) -->
-              <div class="gm-edu-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; height: calc(100vh - 245px); min-height: 280px; max-height: 440px;">
+              <div class="gm-edu-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; height: calc(100vh - 215px); min-height: 280px; max-height: 520px;">
                 <!-- Part 1: كورس إعداد القادة -->
                 <div class="gm-rule-card gm-edu-card" id="gm-edu-card-0" onclick="handleEduCardTap(0)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden;">
                   <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
@@ -1000,101 +1289,207 @@
                 </div>
               </div>
             </div>
-
-            <!-- ══════════════ LEVEL 2: تحضيرات in general ══════════════ -->
-            <!-- ══════════════ LEVEL 2: الخطوات الأولى واستكشاف الميدان ══════════════ -->
+            <!-- ══════════════ LEVEL 2: الخطوات الأولى واستكشاف الميدان (Slide 15) ══════════════ -->
             <div class="gm-level-pane" id="gm-pane-2">
-              <div class="gm-hero-intro" style="margin-bottom: 8px;">
-                <span class="gm-hero-tag" style="color: #38bdf8;">المحطة الثانية • التجهيز والاستكشاف</span>
-                <h3 class="gm-hero-title" style="margin: 2px 0 0 0;">الخطوات الأولى واستكشاف الميدان</h3>
-              </div>
+              <div class="gm-first-steps-wrapper">
 
-              <!-- 4 Preparation Pillars Grid (Matching the attached screenshot) -->
-              <div class="gm-first-steps-grid" style="margin-top: 14px;">
-                <!-- 1. الكنائس المرشحة -->
-                <div class="gm-step-box-card" style="padding: 18px 16px;">
-                  <div class="gm-step-box-header" style="margin-bottom: 12px;">
-                    <div class="gm-step-box-icon" style="width: 44px; height: 44px; min-width: 44px;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
-                        <path d="M3 21h18"></path>
-                        <path d="M5 21V7l7-4 7 4v14"></path>
-                        <path d="M9 10a3 3 0 0 1 6 0v11"></path>
-                      </svg>
+                <!-- 4 Interactive Large Preparation Cards Strip -->
+                <div class="gm-first-steps-strip has-highlighted" id="gm-first-steps-strip">
+                  
+                  <!-- Card 1: الكنائس المرشحة -->
+                  <div class="gm-step-box-card is-highlighted" id="gm-step-card-0" data-card-idx="0" onclick="handleFirstStepCardTap(0)">
+                    <div class="gm-step-card-glow-overlay"></div>
+                    <div class="gm-step-box-header">
+                      <div class="gm-step-box-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M3 21h18"></path>
+                          <path d="M5 21V7l7-4 7 4v14"></path>
+                          <path d="M9 10a3 3 0 0 1 6 0v11"></path>
+                        </svg>
+                      </div>
+                      <div class="gm-step-header-text">
+                        <div class="gm-step-stage-badge">المرحلة الأولى</div>
+                        <h4 class="gm-step-box-title">الكنائس المرشحة</h4>
+                      </div>
                     </div>
-                    <h4 class="gm-step-box-title" style="font-size: 16px;">الكنائس المرشحة</h4>
-                  </div>
-                  <p class="gm-step-box-desc" style="font-size: 13.5px; line-height: 1.6;">
-                    • حصرنا الكنائس الأكثر احتياجاً ونسقنا كل التفاصيل مع الآباء والخدام.
-                  </p>
-                </div>
 
-                <!-- 2. الأراضي والأماكن -->
-                <div class="gm-step-box-card" style="padding: 18px 16px;">
-                  <div class="gm-step-box-header" style="margin-bottom: 12px;">
-                    <div class="gm-step-box-icon" style="width: 44px; height: 44px; min-width: 44px;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
+                    <!-- Large Bullets Container -->
+                    <div class="gm-step-bullets-list" id="fs-bullets-0">
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🏛️</span>
+                        <p class="gm-bullet-text"><strong>كنيسة العذراء بالسلام</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🤝</span>
+                        <p class="gm-bullet-text"><strong>خدمة البطحة</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">⛪</span>
+                        <p class="gm-bullet-text"><strong>كنيسة العذراء الوجوه</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">✝️</span>
+                        <p class="gm-bullet-text"><strong>كنيسة مار بولس البساتين</strong></p>
+                      </div>
                     </div>
-                    <h4 class="gm-step-box-title" style="font-size: 16px;">الأراضي والأماكن</h4>
-                  </div>
-                  <p class="gm-step-box-desc" style="font-size: 13.5px; line-height: 1.6;">
-                    • عاينا الفلل والملاعب والمسبح وتأكدنا بنفسنا من الأمان والخصوصية.
-                  </p>
-                </div>
 
-                <!-- 3. العشور والتمويل -->
-                <div class="gm-step-box-card" style="padding: 18px 16px;">
-                  <div class="gm-step-box-header" style="margin-bottom: 12px;">
-                    <div class="gm-step-box-icon" style="width: 44px; height: 44px; min-width: 44px;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 6v12M15 9.5a3 3 0 0 0-3-2.5h-1a2.5 2.5 0 0 0 0 5h2a2.5 2.5 0 0 1 0 5h-1a3 3 0 0 1-3-2.5"></path>
-                      </svg>
+                    <div class="gm-step-card-footer">
+                      <span class="fs-card-summary-tag">🏛️ ٤ كنائس وخدمات مرشحة</span>
                     </div>
-                    <h4 class="gm-step-box-title" style="font-size: 16px;">العشور والتمويل</h4>
                   </div>
-                  <p class="gm-step-box-desc" style="font-size: 13.5px; line-height: 1.6;">
-                    • جمعنا تكاليف اليومين كاملة من عشور الرهط بدون ما نحمّل الكنيسة مليم.
-                  </p>
-                </div>
 
-                <!-- 4. البرنامج المقترح -->
-                <div class="gm-step-box-card" style="padding: 18px 16px;">
-                  <div class="gm-step-box-header" style="margin-bottom: 12px;">
-                    <div class="gm-step-box-icon" style="width: 44px; height: 44px; min-width: 44px;">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                      </svg>
+                  <!-- Card 2: الأراضي والأماكن -->
+                  <div class="gm-step-box-card" id="gm-step-card-1" data-card-idx="1" onclick="handleFirstStepCardTap(1)">
+                    <div class="gm-step-card-glow-overlay"></div>
+                    <div class="gm-step-box-header">
+                      <div class="gm-step-box-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                          <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                      </div>
+                      <div class="gm-step-header-text">
+                        <div class="gm-step-stage-badge">المرحلة الثانية</div>
+                        <h4 class="gm-step-box-title">الأراضي والأماكن</h4>
+                      </div>
                     </div>
-                    <h4 class="gm-step-box-title" style="font-size: 16px;">البرنامج المقترح</h4>
+
+                    <!-- Large Bullets Container -->
+                    <div class="gm-step-bullets-list" id="fs-bullets-1">
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🏡</span>
+                        <p class="gm-bullet-text"><strong>بيت مار مرقس في هليوبوليس الجديدة</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🌴</span>
+                        <p class="gm-bullet-text"><strong>مزرعة نيمو</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🎡</span>
+                        <p class="gm-bullet-text"><strong>فن فالي</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🏰</span>
+                        <p class="gm-bullet-text"><strong>مزرعة الأمير</strong></p>
+                      </div>
+                    </div>
+
+                    <div class="gm-step-card-footer">
+                      <span class="fs-card-summary-tag">📍 ٤ أماكن تمت معاينتها</span>
+                    </div>
                   </div>
-                  <p class="gm-step-box-desc" style="font-size: 13.5px; line-height: 1.6;">
-                    • ظبطنا جدول اليوم بالدقيقة من فترات الملاعب للمسبح وتوزيع القادة.
-                  </p>
+
+                  <!-- Card 3: العشور والميزانية -->
+                  <div class="gm-step-box-card" id="gm-step-card-2" data-card-idx="2" onclick="handleFirstStepCardTap(2)">
+                    <div class="gm-step-card-glow-overlay"></div>
+                    <div class="gm-step-box-header">
+                      <div class="gm-step-box-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M12 6v12M15 9.5a3 3 0 0 0-3-2.5h-1a2.5 2.5 0 0 0 0 5h2a2.5 2.5 0 0 1 0 5h-1a3 3 0 0 1-3-2.5"></path>
+                        </svg>
+                      </div>
+                      <div class="gm-step-header-text">
+                        <div class="gm-step-stage-badge">المرحلة الثالثة</div>
+                        <h4 class="gm-step-box-title">العشور والميزانية</h4>
+                      </div>
+                    </div>
+
+                    <!-- Large Bullets Container -->
+                    <div class="gm-step-bullets-list" id="fs-bullets-2">
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">💰</span>
+                        <p class="gm-bullet-text"><strong>ميزانية مفصلة لكل يوم لوحده</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🎯</span>
+                        <p class="gm-bullet-text"><strong>تارجت وأهداف شخصية لكل فرد</strong> </p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🪙</span>
+                        <p class="gm-bullet-text"><strong>تغطية كاملة من عشور الرهط</strong> </p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">📊</span>
+                        <p class="gm-bullet-text"><strong>حساب طوارئ ومرونة مالية</strong> </p>
+                      </div>
+                    </div>
+
+                    <div class="gm-step-card-footer">
+                      <span class="fs-card-summary-tag">💰 ميزانية يومية وتارجت شخصي</span>
+                    </div>
+                  </div>
+
+                  <!-- Card 4: تخطيط البرنامج -->
+                  <div class="gm-step-box-card" id="gm-step-card-3" data-card-idx="3" onclick="handleFirstStepCardTap(3)">
+                    <div class="gm-step-card-glow-overlay"></div>
+                    <div class="gm-step-box-header">
+                      <div class="gm-step-box-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                      </div>
+                      <div class="gm-step-header-text">
+                        <div class="gm-step-stage-badge">المرحلة الرابعة</div>
+                        <h4 class="gm-step-box-title">تخطيط البرنامج</h4>
+                      </div>
+                    </div>
+
+                    <!-- Large Bullets Container -->
+                    <div class="gm-step-bullets-list" id="fs-bullets-3">
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🎨</span>
+                        <p class="gm-bullet-text"><strong>فقرات تشد كل الفئات العمرية</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">🏃‍♂️</span>
+                        <p class="gm-bullet-text"><strong>ألعاب حماسية للأشبال والزهرات</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">💡</span>
+                        <p class="gm-bullet-text"><strong>تحديات فكرية وورش تفاعلية</strong></p>
+                      </div>
+                      <div class="gm-step-bullet-item">
+                        <span class="gm-bullet-icon">⏱️</span>
+                        <p class="gm-bullet-text"><strong>توزيع زمني مضبوط بالثانية</strong></p>
+                      </div>
+                    </div>
+
+                    <div class="gm-step-card-footer">
+                      <span class="fs-card-summary-tag">🎯 برنامج متكامل وشيق لكل الأعمار</span>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
 
             <!-- ══════════════ LEVEL 3: برنامج اليوم الأول ══════════════ -->
             <div class="gm-level-pane" id="gm-pane-3">
-              <div class="gm-hero-intro" style="margin-bottom: 6px; flex-shrink: 0;">
-                <span class="gm-hero-tag" style="background: rgba(72,202,139,0.2); color: #72efb6; border-color: rgba(72,202,139,0.4); padding: 2px 10px; font-size: 12px;">المحطة الثالثة • كنيسة السلام</span>
-                <h3 class="gm-hero-title" style="margin: 2px 0 0 0; font-size: 1.25rem;">برنامج فعاليات اليوم الأول (80 فرد)</h3>
-              </div>
-
               <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Extended to bottom) -->
               <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 12px; height: calc(100vh - 245px); min-height: 280px; max-height: 440px;">
                 <!-- Map Container (Snippet Viewport) -->
                 <div style="position: relative; background: rgba(16, 24, 20, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 12px; overflow: hidden; height: 100%;">
                   <div class="floating-notes-layer" style="color: #72efb6;">
-                    <span class="floating-note-item" style="top: 15%; left: 20%; animation-delay: 0s;">♪</span>
-                    <span class="floating-note-item" style="top: 50%; left: 80%; animation-delay: 2s;">♫</span>
-                    <span class="floating-note-item" style="top: 80%; left: 30%; animation-delay: 4s;">♬</span>
+                    <span class="floating-note-item" style="top: 8%; left: 12%; animation-delay: 0s; font-size: 22px;">♪</span>
+                    <span class="floating-note-item" style="top: 18%; left: 82%; animation-delay: 1.2s; font-size: 19px;">♫</span>
+                    <span class="floating-note-item" style="top: 28%; left: 25%; animation-delay: 2.5s; font-size: 24px;">♬</span>
+                    <span class="floating-note-item" style="top: 38%; left: 75%; animation-delay: 0.8s; font-size: 18px;">♩</span>
+                    <span class="floating-note-item" style="top: 48%; left: 15%; animation-delay: 3.2s; font-size: 22px;">𝄞</span>
+                    <span class="floating-note-item" style="top: 58%; left: 88%; animation-delay: 1.8s; font-size: 20px;">✦</span>
+                    <span class="floating-note-item" style="top: 68%; left: 32%; animation-delay: 2.1s; font-size: 23px;">♪</span>
+                    <span class="floating-note-item" style="top: 78%; left: 78%; animation-delay: 4.0s; font-size: 19px;">♫</span>
+                    <span class="floating-note-item" style="top: 88%; left: 20%; animation-delay: 1.5s; font-size: 25px;">♬</span>
+                    <span class="floating-note-item" style="top: 12%; left: 55%; animation-delay: 3.0s; font-size: 17px;">✧</span>
+                    <span class="floating-note-item" style="top: 42%; left: 45%; animation-delay: 2.7s; font-size: 21px;">♪</span>
+                    <span class="floating-note-item" style="top: 72%; left: 60%; animation-delay: 0.5s; font-size: 20px;">♫</span>
+                    <span class="floating-note-item" style="top: 84%; left: 48%; animation-delay: 3.8s; font-size: 22px;">♩</span>
+                    <span class="floating-note-item" style="top: 24%; left: 40%; animation-delay: 1.9s; font-size: 19px;">✦</span>
+                    <span class="floating-note-item" style="top: 62%; left: 10%; animation-delay: 2.3s; font-size: 20px;">𝄞</span>
+                    <span class="floating-note-item" style="top: 92%; left: 85%; animation-delay: 0.3s; font-size: 24px;">♪</span>
                   </div>
 
                   <div id="sp2-prog1-scroll-pane" style="position: absolute; inset: 0; height: 720px; width: 100%; transform: translateY(-340px); transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);">
@@ -1114,7 +1509,7 @@
                         <div class="sp4-node-orb" id="sp2-p1-orb-1" style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #48ca8b, #1b5e3d); display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 0 20px rgba(72,202,139,0.85); border: 2.5px solid #fff; color: #fff;">
                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">Opening and Breakfast</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">الافتتاح و الفطار</div>
                         <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٩:٠٠ ص – ١٠:٠٠ ص</div>
                       </div>
 
@@ -1123,7 +1518,7 @@
                         <div class="sp4-node-orb" id="sp2-p1-orb-2" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">Games 1</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">العاب 1</div>
                         <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">١٠:٠٠ ص – ١٢:٠٠ م</div>
                       </div>
 
@@ -1168,7 +1563,7 @@
                   </div>
 
                   <div id="sp2-p1-media-wrap" style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden; border: 1.5px solid rgba(72,202,139,0.4); flex: 1; min-height: 0; background: #07130e;"
-                    onclick="zoomSp2ProgramMedia(1)" title="انقر لتكبير اللقطة">
+                    onclick="zoomSp2ProgramMedia(1)" title="تكبير اللقطة">
                     <img id="sp2-p1-detail-img" src="assets/opening day 1.jpg" alt="Opening and Breakfast" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
                 </div>
@@ -1177,12 +1572,8 @@
 
             <!-- ══════════════ LEVEL 4: تحضيرات اليوم الأول ══════════════ -->
             <div class="gm-level-pane" id="gm-pane-4">
-              <div class="gm-hero-intro" style="margin-bottom: 8px; flex-shrink: 0;">
-                <h3 class="gm-hero-title" style="margin: 2px 0 0 0; font-size: 1.25rem;">تحضيرات اليوم الأول • كنيسة العزراء بالسلام</h3>
-              </div>
-
               <!-- 3 Core Pillars for Day 1 (Full-Height Responsive Grid with Spotlight & Zoom) -->
-              <div class="gm-edu-grid gm-prep1-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: calc(100vh - 240px); min-height: 280px; max-height: 450px;">
+              <div class="gm-edu-grid gm-prep1-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: calc(100vh - 215px); min-height: 280px; max-height: 520px;">
                 <!-- 1. الروحي -->
                 <div class="gm-rule-card gm-edu-card gm-prep1-card" id="gm-prep1-card-0" onclick="handlePrep1CardTap(0)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
                   <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
@@ -1228,6 +1619,62 @@
                   </div>
                   <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
                     <img src="assets/games day 1.jpg" alt="الألعاب الكبرى" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ══════════════ LEVEL 4b: أماكن الخدمة على مدار يومين ══════════════ -->
+            <div class="gm-level-pane" id="gm-pane-11">
+              <!-- 2 Large Church Photo Cards (Day 1: كنيسة السلام & Day 2: كنيسة البطحة) -->
+              <div class="churches-grid-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: calc(100vh - 215px); min-height: 280px; max-height: 520px; margin-top: 4px;">
+                <!-- Church 1: كنيسة السلام (اليوم الأول) -->
+                <div class="church-pillar-card church-card-1" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 12px 16px; overflow: hidden;">
+                  <div class="church-header-row" style="margin-bottom: 8px; flex-shrink: 0;">
+                    <div class="church-title-group">
+                      <span class="church-day-pill pill-day-1">اليوم الأول</span>
+                      <h4 class="church-main-name">كنيسة السيدة العذراء مريم بالسلام</h4>
+                    </div>
+                    <div class="church-badge-icon" title="كنيسة السلام">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M3 21h18"></path>
+                        <path d="M5 21V7l7-4 7 4v14"></path>
+                        <path d="M9 10a3 3 0 0 1 6 0v11"></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="church-large-photo-box"
+                    onclick="openStageZoom('assets/first day raht image.jpg', 'اليوم الأول', 'كنيسة السلام', 'صورة الرهط بالكامل • كنيسة السلام')"
+                    style="cursor: pointer; padding: 0; border: 2px solid rgba(72,202,139,0.3); background: transparent; flex: 1; min-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
+                    <img src="assets/first day raht image.jpg" alt="صورة الرهط بالكامل • كنيسة السلام"
+                      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                </div>
+
+                <!-- Church 2: كنيسة البطحة (اليوم الثاني) -->
+                <div class="church-pillar-card church-card-2" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 12px 16px; overflow: hidden;">
+                  <div class="church-header-row" style="margin-bottom: 8px; flex-shrink: 0;">
+                    <div class="church-title-group">
+                      <span class="church-day-pill pill-day-2">اليوم الثاني</span>
+                      <h4 class="church-main-name"> البطحة</h4>
+                    </div>
+                    <div class="church-badge-icon" title="كنيسة البطحة">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M3 21h18"></path>
+                        <path d="M5 21V7l7-4 7 4v14"></path>
+                        <path d="M9 10a3 3 0 0 1 6 0v11"></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="church-large-photo-box"
+                    onclick="openStageZoom('assets/second day raht image.jpeg', 'اليوم الثاني', 'كنيسة البطحة', 'صورة الرهط بالكامل • كنيسة البطحة')"
+                    style="cursor: pointer; padding: 0; border: 2px solid rgba(72,202,139,0.3); background: transparent; flex: 1; min-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
+                    <img src="assets/second day raht image.jpeg" alt="صورة الرهط بالكامل • كنيسة البطحة"
+                      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
                 </div>
               </div>
@@ -1310,19 +1757,27 @@
 
             <!-- ══════════════ LEVEL 6: برنامج اليوم الثاني ══════════════ -->
             <div class="gm-level-pane" id="gm-pane-6">
-              <div class="gm-hero-intro" style="margin-bottom: 8px;">
-                <span class="gm-hero-tag" style="background: rgba(72,202,139,0.2); color: #72efb6; border-color: rgba(72,202,139,0.4);">المحطة السادسة • كنيسة البطحة والفيلا</span>
-                <h3 class="gm-hero-title" style="margin: 4px 0 0 0;">برنامج فعاليات اليوم الثاني (٧ مراحل كشفية)</h3>
-              </div>
-
               <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Extended to bottom, 1-View Fit) -->
               <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 12px; height: calc(100vh - 245px); min-height: 280px; max-height: 440px;">
                 <!-- Map Container (Snippet Viewport) -->
                 <div style="position: relative; background: rgba(16, 24, 20, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 12px; overflow: hidden; height: 100%;">
                   <div class="floating-notes-layer" style="color: #72efb6;">
-                    <span class="floating-note-item" style="top: 15%; left: 20%; animation-delay: 0s;">♪</span>
-                    <span class="floating-note-item" style="top: 50%; left: 80%; animation-delay: 2s;">♫</span>
-                    <span class="floating-note-item" style="top: 80%; left: 30%; animation-delay: 4s;">♬</span>
+                    <span class="floating-note-item" style="top: 8%; left: 12%; animation-delay: 0s; font-size: 22px;">♪</span>
+                    <span class="floating-note-item" style="top: 18%; left: 82%; animation-delay: 1.2s; font-size: 19px;">♫</span>
+                    <span class="floating-note-item" style="top: 28%; left: 25%; animation-delay: 2.5s; font-size: 24px;">♬</span>
+                    <span class="floating-note-item" style="top: 38%; left: 75%; animation-delay: 0.8s; font-size: 18px;">♩</span>
+                    <span class="floating-note-item" style="top: 48%; left: 15%; animation-delay: 3.2s; font-size: 22px;">𝄞</span>
+                    <span class="floating-note-item" style="top: 58%; left: 88%; animation-delay: 1.8s; font-size: 20px;">✦</span>
+                    <span class="floating-note-item" style="top: 68%; left: 32%; animation-delay: 2.1s; font-size: 23px;">♪</span>
+                    <span class="floating-note-item" style="top: 78%; left: 78%; animation-delay: 4.0s; font-size: 19px;">♫</span>
+                    <span class="floating-note-item" style="top: 88%; left: 20%; animation-delay: 1.5s; font-size: 25px;">♬</span>
+                    <span class="floating-note-item" style="top: 12%; left: 55%; animation-delay: 3.0s; font-size: 17px;">✧</span>
+                    <span class="floating-note-item" style="top: 42%; left: 45%; animation-delay: 2.7s; font-size: 21px;">♪</span>
+                    <span class="floating-note-item" style="top: 72%; left: 60%; animation-delay: 0.5s; font-size: 20px;">♫</span>
+                    <span class="floating-note-item" style="top: 84%; left: 48%; animation-delay: 3.8s; font-size: 22px;">♩</span>
+                    <span class="floating-note-item" style="top: 24%; left: 40%; animation-delay: 1.9s; font-size: 19px;">✦</span>
+                    <span class="floating-note-item" style="top: 62%; left: 10%; animation-delay: 2.3s; font-size: 20px;">𝄞</span>
+                    <span class="floating-note-item" style="top: 92%; left: 85%; animation-delay: 0.3s; font-size: 24px;">♪</span>
                   </div>
 
                   <div id="sp2-prog2-scroll-pane" style="position: absolute; inset: 0; height: 980px; width: 100%; transform: translateY(-400px); transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);">
@@ -1414,7 +1869,7 @@
                   </div>
 
                   <div id="sp2-p2-media-wrap" style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden; border: 1.5px solid rgba(72,202,139,0.4); flex: 1; min-height: 0; background: #07130e;"
-                    onclick="zoomSp2ProgramMedia(2)" title="انقر لتكبير اللقطة">
+                    onclick="zoomSp2ProgramMedia(2)" title="تكبير اللقطة">
                     <img id="sp2-p2-detail-img" src="assets/opening day 2.jpg" alt="لقطة المرحلة" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
 
@@ -1427,11 +1882,6 @@
 
             <!-- ══════════════ LEVEL 7: تحضيرات اليوم الثاني ══════════════ -->
             <div class="gm-level-pane" id="gm-pane-7">
-              <div class="gm-hero-intro" style="margin-bottom: 8px;">
-                <span class="gm-hero-tag">المحطة السابعة • تحضيرات اليوم الثاني • كنيسة البطحة والفيلا</span>
-                <h3 class="gm-hero-title" style="margin: 4px 0 0 0;">الخطوات الأولى واستكشاف الميدان</h3>
-              </div>
-
               <!-- 4 Preparation Pillars Grid (Matching the attached screenshot) -->
               <div class="gm-first-steps-grid" style="margin-bottom: 12px;">
                 <!-- 1. الكنائس المرشحة -->
@@ -1631,19 +2081,12 @@
                 </button>
               </div>
 
-              <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 10px;">
-                <span class="stage-badge" style="border-color: rgba(177,133,219,0.4); color: #d8b4fe;">
-                  التقييم الخارجي • أصوات الشركاء والمخدومين (اليوم الأول)
-                </span>
-                <h3 class="stage-title" style="margin: 4px 0 0 0; font-size: 1.3rem;">انطباعات وتقييمات الفئات الثلاث المشاركة</h3>
-              </div>
-
               <!-- Center Paper Pile Showcase (3 Feedback Images stacked with angle & throwing animation) -->
               <div class="feedback-pile-section">
                 <div class="feedback-pile-stage-container">
                   <div class="feedback-paper-stage throw-active" id="feedback-paper-stage">
                     <!-- Paper 1 (Bottom of pile) -->
-                    <div class="feedback-paper-card paper-card-1" id="fb-paper-1" onclick="openStageZoom('assets/feedback 1.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (١)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="انقر لتكبير الاستمارة الأولى">
+                    <div class="feedback-paper-card paper-card-1" id="fb-paper-1" onclick="openStageZoom('assets/feedback 1.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (١)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ١">
                       <div class="paper-pin"></div>
                       <img src="assets/feedback 1.jpg" alt="استمارة تقييم 1" />
                       <div class="paper-footer-badge">
@@ -1653,7 +2096,7 @@
                     </div>
 
                     <!-- Paper 2 (Middle of pile) -->
-                    <div class="feedback-paper-card paper-card-2" id="fb-paper-2" onclick="openStageZoom('assets/feedback 2.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٢)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="انقر لتكبير الاستمارة الثانية">
+                    <div class="feedback-paper-card paper-card-2" id="fb-paper-2" onclick="openStageZoom('assets/feedback 2.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٢)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ٢">
                       <div class="paper-pin"></div>
                       <img src="assets/feedback 2.jpg" alt="استمارة تقييم 2" />
                       <div class="paper-footer-badge">
@@ -1663,7 +2106,7 @@
                     </div>
 
                     <!-- Paper 3 (Top of pile) -->
-                    <div class="feedback-paper-card paper-card-3" id="fb-paper-3" onclick="openStageZoom('assets/feedback 3.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٣)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="انقر لتكبير الاستمارة الثالثة">
+                    <div class="feedback-paper-card paper-card-3" id="fb-paper-3" onclick="openStageZoom('assets/feedback 3.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٣)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ٣">
                       <div class="paper-pin"></div>
                       <img src="assets/feedback 3.jpg" alt="استمارة تقييم 3" />
                       <div class="paper-footer-badge">
@@ -1677,7 +2120,7 @@
                   <div class="feedback-pile-toolbar">
                     <span class="pile-toolbar-hint">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                      أوراق واستمارات التقييم الميدانية • مرر الفأرة لنشر الأوراق أو انقر لتكبير أي استمارة
+                      أوراق واستمارات التقييم الميدانية
                     </span>
                     <button class="pile-rethrow-btn" onclick="replayFeedbackPaperThrow(event)" title="إعادة تشغيل حركة رمي الأوراق">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
@@ -1738,13 +2181,6 @@
                 <button class="sp4-day-tab-btn active" id="gm-feedback-pill-2b" onclick="openSp2Node(10)" style="border-radius: 20px; padding: 6px 16px; font-size: 13px;">
                   الشريحة ٢ • التقييم الداخلي (الشمس • المياه • تغير التحضير • الترامبولين)
                 </button>
-              </div>
-
-              <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 18px;">
-                <span class="stage-badge" style="border-color: rgba(177,133,219,0.4); color: #d8b4fe;">
-                  التقييم الداخلي • الدروس المستفادة ميدانياً (اليوم الثاني)
-                </span>
-                <h3 class="stage-title" style="margin: 4px 0 0 0; font-size: 1.3rem;">أهم ٤ دروس وتحديات عملية واجهت فريق رهط الوتر</h3>
               </div>
 
               <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 980px; margin: 30px auto;">
@@ -1822,12 +2258,6 @@
           </div>
 
           <div class="gm-map-stage">
-            <!-- ── LARGE FLOATING DAY LABEL (NO BOX, NO BORDERS) ── -->
-            <div class="gm-floating-day-display" onclick="toggleLoopRotation()" title="انقر للتبديل بين اليوم الأول واليوم الثاني">
-              <div class="gm-floating-day-label" id="gm-floating-day-label">اليوم الأول</div>
-              <div class="gm-floating-day-sub" id="gm-floating-day-sub">كنيسة العذراء مريم بالسلام (٨٠ فرداً)</div>
-            </div>
-
             <!-- Straight Horizontal Path SVG Line (1120,220 -> 80,220) -->
             <svg class="gm-svg-path-layer" viewBox="0 0 1200 400" preserveAspectRatio="none" id="gm-svg-track">
               <!-- Straight Road Path -->
@@ -1869,40 +2299,37 @@
               </div>
 
               <!-- Node 3: البرنامج -->
-              <div class="gm-node gm-node-loop" id="gm-node-3" data-level="3" onclick="selectGameLevel(3)"
+              <div class="gm-node" id="gm-node-3" data-level="3" onclick="selectGameLevel(3)"
                 style="top: 55%; left: 58%;">
                 <div class="gm-node-orb">
                   <span class="gm-node-num">٣</span>
                   <span class="gm-node-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                  <span class="gm-node-lap-badge" id="gm-lap-badge-3">د١</span>
                 </div>
                 <div class="gm-node-label">البرنامج</div>
               </div>
 
               <!-- Node 4: التحضيرات -->
-              <div class="gm-node gm-node-loop" id="gm-node-4" data-level="4" onclick="selectGameLevel(4)"
+              <div class="gm-node" id="gm-node-4" data-level="4" onclick="selectGameLevel(4)"
                 style="top: 55%; left: 42%;">
                 <div class="gm-node-orb">
                   <span class="gm-node-num">٤</span>
                   <span class="gm-node-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
-                  <span class="gm-node-lap-badge" id="gm-lap-badge-4">د١</span>
                 </div>
                 <div class="gm-node-label">التحضيرات</div>
               </div>
 
               <!-- Node 5: الميزانية -->
-              <div class="gm-node gm-node-loop" id="gm-node-5" data-level="5" onclick="selectGameLevel(5)"
+              <div class="gm-node" id="gm-node-5" data-level="5" onclick="selectGameLevel(5)"
                 style="top: 55%; left: 25%;">
                 <div class="gm-node-orb">
                   <span class="gm-node-num">٥</span>
                   <span class="gm-node-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v12M15 9.5a3 3 0 0 0-3-2.5h-1a2.5 2.5 0 0 0 0 5h2a2.5 2.5 0 0 1 0 5h-1a3 3 0 0 1-3-2.5"></path></svg></span>
-                  <span class="gm-node-lap-badge" id="gm-lap-badge-5">د١</span>
                 </div>
                 <div class="gm-node-label">الميزانية</div>
               </div>
 
               <!-- Node 6: التقييم (Feedback) -->
-              <div class="gm-node gm-node-loop" id="gm-node-6" data-level="6" onclick="selectGameLevel(6)"
+              <div class="gm-node" id="gm-node-6" data-level="6" onclick="selectGameLevel(6)"
                 style="top: 55%; left: 8%;">
                 <div class="gm-node-orb">
                   <span class="gm-node-num">٦</span>
@@ -1911,7 +2338,6 @@
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                   </span>
-                  <span class="gm-node-lap-badge" id="gm-lap-badge-6">د١</span>
                 </div>
                 <div class="gm-node-label">التقييم</div>
               </div>
@@ -1938,13 +2364,7 @@
         </svg>
       </div>
       <h2 class="sp-title">التحديات</h2>
-      <span class="draft-badge">المواقف والتغلب عليها</span>
-      <span class="ppt-counter-badge" id="ppt-counter-badge-3" title="الخطوة الحالية">١ / ٥</span>
       <div class="sp-left-actions">
-        <button class="editor-mode-toggle-btn" onclick="toggleEditorMode()" title="تعديل نصوص العرض">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          <span>تعديل النصوص</span>
-        </button>
         <button class="back-btn" onclick="closePage()">
           <span class="back-arrow">&#8594;</span>
           العودة للقيثارة
@@ -1957,23 +2377,16 @@
 
     <!-- Floating Discreet PPT Navigation Arrows for Chord 4 (Challenges) -->
     <button class="ppt-nav-btn ppt-prev-btn" id="ppt-prev-btn-3" onclick="prevChallengeStep()"
-      title="السابق (سهم يمين)">
+      title="السابق">
       <span>&#10095;</span>
     </button>
     <button class="ppt-nav-btn ppt-next-btn" id="ppt-next-btn-3" onclick="nextChallengeStep()"
-      title="التالي (مسافة / سهم يسار)">
+      title="التالي">
       <span>&#10094;</span>
     </button>
 
     <div class="sp-body sp0-container">
-      <div class="stage-badge-wrap" style="text-align: center; margin-bottom: 8px;">
-        <span class="stage-badge" style="border-color: rgba(240,109,56,0.4); color: #ff8c5a;">
-          <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-          </svg>
-          الوتر الرابع
-        </span>
-      </div>
+
 
       <!-- Orbital Stage: Centerpiece Image + Circular Challenge Orbs -->
       <div class="challenges-orbit-stage">
@@ -2058,12 +2471,7 @@
         </svg>
       </div>
       <h2 class="sp-title">الخطط المستقبلية</h2>
-      <span class="ppt-counter-badge" id="ppt-counter-badge-4" title="الشريحة الحالية">١ / ٢</span>
       <div class="sp-left-actions">
-        <button class="editor-mode-toggle-btn" onclick="toggleEditorMode()" title="تعديل نصوص العرض">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          <span>تعديل النصوص</span>
-        </button>
         <button class="back-btn" onclick="closePage()">
           <span class="back-arrow">&#8594;</span>
           العودة للقيثارة
@@ -2075,10 +2483,10 @@
     </div>
 
     <!-- Floating Discreet PPT Navigation Arrows for Chord 5 -->
-    <button class="ppt-nav-btn ppt-prev-btn" id="ppt-prev-btn-5" onclick="prevSp5Slide()" title="السابق (سهم يمين)">
+    <button class="ppt-nav-btn ppt-prev-btn" id="ppt-prev-btn-5" onclick="prevSp5Slide()" title="السابق">
       <span>&#10095;</span>
     </button>
-    <button class="ppt-nav-btn ppt-next-btn" id="ppt-next-btn-5" onclick="nextSp5Slide()" title="التالي (مسافة / سهم يسار)">
+    <button class="ppt-nav-btn ppt-next-btn" id="ppt-next-btn-5" onclick="nextSp5Slide()" title="التالي">
       <span>&#10094;</span>
     </button>
 
@@ -2095,13 +2503,6 @@
 
       <!-- SLIDE 1: FUTURE PLANS (3 Points: This year 4 churches, Next year 8 churches, Overnight Camp - Large Screen-Filling Cards) -->
       <div class="sp5-slide-pane active" id="sp5-slide-1">
-        <div class="stage-badge-wrap sp5-header-wrap">
-          <span class="stage-badge">
-            الرؤية المستقبلية 
-          </span>
-          <h3 class="stage-title">الخطط المستقبلية لانتشار وتطوير خدمة رهط الوتر</h3>
-        </div>
-
         <div class="sp5-plans-grid">
           
           <!-- Point 1: هذا العام ٤ كنائس -->
@@ -2215,11 +2616,15 @@
           </button>
 
           <!-- THE GRAND THEATER VELVET CURTAINS OVERLAY -->
-          <div id="collab-curtains-wrap" class="collab-curtains-wrap" onclick="triggerGrandCollabReveal()" title="انقر لافتتاح الستار والحدث الكبير">
+          <div id="collab-curtains-wrap" class="collab-curtains-wrap" onclick="triggerGrandCollabReveal()" title="افتتاح الستار والحدث الكبير">
             
-            <!-- Top Theater Valance with Gold Fringe -->
-            <div class="theater-valance">
+            <!-- Top Theater Valance with Gold Fringe (Clickable after reveal for outro credits) -->
+            <div class="theater-valance" id="theater-valance" onclick="handleValanceCurtainClick(event)" title="إسدال الستار وشكر وتقدير">
               <div class="valance-gold-trim"></div>
+              <div class="valance-outro-badge" id="valance-outro-badge">
+                <span class="valance-outro-icon">📜</span>
+                <span>إسدال الستار • كلمة شكر وتقدير</span>
+              </div>
             </div>
 
             <!-- Left Heavy Velvet Curtain -->
@@ -2240,7 +2645,7 @@
             <!-- Interactive Click Prompt -->
             <div id="curtain-start-prompt" class="curtain-start-prompt">
               <div style="font-size: 36px; animation: drumBounce 0.9s infinite alternate;">🥁</div>
-              <span style="font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px;">انقر لافتتاح الستار والحدث الكبير</span>
+              <span style="font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px;">افتتاح الستار والحدث الكبير</span>
               <small style="color: #fbbf24; font-size: 12px; font-weight: 700;">Grand Curtain Reveal 🎬</small>
             </div>
 
@@ -2254,7 +2659,7 @@
 <!-- Fullscreen Cinematic Lightbox Modal (Zoom In / Zoom Out) -->
   <div class="cinematic-lightbox" id="cinematic-lightbox" onclick="closeCinematicZoom()">
     <div class="lightbox-inner" onclick="event.stopPropagation()">
-      <button class="lightbox-close" onclick="closeCinematicZoom()" title="إغلاق (Esc)">✕</button>
+      <button class="lightbox-close" onclick="closeCinematicZoom()" title="إغلاق">✕</button>
       <div class="lightbox-media-wrap">
         <img id="lightbox-img" class="lightbox-img" src="" alt="عرض سينمائي مكبر" />
       </div>
@@ -2267,6 +2672,26 @@
   <!-- ══════════════ SCRIPTS: SOUND & VIBRATION PHYSICS ══════════════ -->
   <script src="script.js"></script>
 
+
+  <!-- ══════════════ EVALUATION PANEL SLIDE COUNTER BOX ══════════════ -->
+  <div class="eval-slide-counter-box" id="eval-slide-counter-box" style="display: none;">
+    <div class="eval-slide-main-badge">
+      <span class="eval-slide-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </span>
+      <span class="eval-slide-text">شريحة</span>
+      <span class="eval-slide-num" id="eval-slide-num">١</span>
+      <span class="eval-slide-total" id="eval-slide-total">/ ٣٢</span>
+    </div>
+    <div class="eval-slide-sep"></div>
+    <div class="eval-slide-context">
+      <span class="eval-slide-chord-name" id="eval-slide-chord-name">الوتر الأول: احنا مين؟</span>
+    </div>
+  </div>
 
   <!-- ══════════════ UNIVERSAL PPT PRESENTATION HUD ══════════════ -->
   <div class="universal-ppt-hud" id="universal-ppt-hud" style="display: none;">
@@ -2299,6 +2724,269 @@
     </button>
   </div>
 
+  <!-- ══════════════ 3D CINEMATIC HOLY BIBLE MODAL (Stage 1 • تسمية «رهط الوتر») ══════════════ -->
+  <div class="bible-cinematic-overlay" id="bible-verse-overlay" style="display: none;" onclick="handleBibleOverlayClick(event)">
+    <div class="bible-overlay-backdrop"></div>
+    <div class="bible-celestial-burst"></div>
+
+    <div class="bible-3d-stage" id="bible-3d-stage">
+      <div class="bible-book-container" id="bible-book-container">
+        
+        <!-- Closed Bible State (active during spin-in entrance and fly-out exit) -->
+        <div class="bible-closed-book" id="bible-closed-book">
+          <div class="bible-leather-cover">
+            <div class="bible-gold-corner corner-tl"></div>
+            <div class="bible-gold-corner corner-tr"></div>
+            <div class="bible-gold-corner corner-bl"></div>
+            <div class="bible-gold-corner corner-br"></div>
+            <div class="bible-cover-border"></div>
+            
+            <div class="bible-cover-emboss">
+              <div class="bible-cover-cross-halo"></div>
+              <svg viewBox="0 0 100 130" class="bible-gold-cross-svg">
+                <defs>
+                  <linearGradient id="goldCoverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff2a8"/>
+                    <stop offset="35%" stop-color="#d4af37"/>
+                    <stop offset="70%" stop-color="#aa7c11"/>
+                    <stop offset="100%" stop-color="#ffd700"/>
+                  </linearGradient>
+                  <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                  </filter>
+                </defs>
+                <path d="M44 8 H56 V38 H86 V50 H56 V122 H44 V50 H14 V38 H44 Z" fill="url(#goldCoverGrad)" stroke="#664603" stroke-width="2" filter="url(#goldGlow)"/>
+                <circle cx="50" cy="44" r="14" fill="none" stroke="url(#goldCoverGrad)" stroke-width="2.5"/>
+                <circle cx="50" cy="44" r="10" fill="none" stroke="#aa7c11" stroke-width="1" stroke-dasharray="2 2"/>
+              </svg>
+              <h2 class="bible-cover-embossed-title">الكِتَابُ المُقَدَّسُ</h2>
+              <div class="bible-cover-subtitle">سِفْرُ الْحَيَاةِ • كَلِمَةُ اللهِ</div>
+            </div>
+
+            <div class="bible-bookmark-ribbon"></div>
+            <div class="bible-gilded-pages-edge"></div>
+          </div>
+        </div>
+
+        <!-- Open Bible Spread (Right Page: Focal Scripture Verse | Left Page: Spiritual Reflection) -->
+        <div class="bible-open-book" id="bible-open-book" style="display: none;" onclick="event.stopPropagation(); closeAndDismissBible(true);">
+          <!-- 3D Shuffling Leaves (animated strictly inside the book during shuffle phase) -->
+          <div class="bible-shuffle-stack" id="bible-shuffle-stack">
+            <div class="shuffle-page-leaf leaf-1"></div>
+            <div class="shuffle-page-leaf leaf-2"></div>
+            <div class="shuffle-page-leaf leaf-3"></div>
+            <div class="shuffle-page-leaf leaf-4"></div>
+            <div class="shuffle-page-leaf leaf-5"></div>
+            <div class="shuffle-page-leaf leaf-6"></div>
+            <div class="shuffle-page-leaf leaf-7"></div>
+          </div>
+
+          <!-- Open Leather Case Background -->
+          <div class="bible-open-leather-case"></div>
+
+          <!-- ═════ RIGHT PAGE: الآية الكريمة والشاهد المقدس ═════ -->
+          <div class="bible-spread-page page-right focal-verse-spread">
+            <div class="parchment-inner highlight-verse-parchment">
+              <div class="parchment-gold-frame glowing-frame"></div>
+              
+              <div class="bible-page-top-header">
+                <span class="cross-icon-mini">✝</span>
+                <span class="bible-verse-top-badge">آيَةُ تَسْمِيَةِ «رَهْطِ الْوَتَرِ»</span>
+                <span class="cross-icon-mini">✝</span>
+              </div>
+
+              <div class="bible-focal-verse-wrapper">
+                <div class="gilded-quote-icon">❝</div>
+                
+                <blockquote class="bible-scripture-highlight" id="bible-scripture-highlight">
+                  فَإِنَّهُ كَمَا فِي جَسَدٍ وَاحِدٍ لَنَا أَعْضَاءٌ كَثِيرَةٌ وَلَكِنْ لَيْسَ جَمِيعُ الأَعْضَاءِ لَهَا عَمَلٌ وَاحِدٌ
+                </blockquote>
+
+                <div class="gilded-quote-icon closing">❞</div>
+
+                <!-- Citation (الشاهد) -->
+                <div class="bible-citation-block" id="bible-citation-block">
+                  <div class="citation-div-line"></div>
+                  <div class="bible-citation-pill">
+                    <span class="citation-label">الشاهد:</span>
+                    <span class="citation-text">رومية ١٢ :٤</span>
+                  </div>
+                  <div class="citation-div-line"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Middle Spine Gutter & Silk Ribbon Marker -->
+          <div class="bible-spine-gutter">
+            <div class="bible-hanging-ribbon"></div>
+          </div>
+
+          <!-- ═════ LEFT PAGE: التأمل الروحي وفلسفة الاسم ═════ -->
+          <div class="bible-spread-page page-left focal-reflection-spread">
+            <div class="parchment-inner">
+              <div class="parchment-gold-frame"></div>
+
+              <div class="bible-page-top-header">
+                <span class="cross-icon-mini">✝</span>
+                <span class="bible-reflection-top-badge">التَّأَمُّلُ الرُّوحِي </span>
+                <span class="cross-icon-mini">✝</span>
+              </div>
+
+              <div class="bible-focal-reflection-wrapper">
+                <div class="reflection-holy-dove">🕊️</div>
+
+                <div class="bible-reflection-core-quote">
+                  «الْوَتَرُ: تَنَوُّعٌ فِي الْمَوَاهِبِ، وَوَحْدَةٌ فِي الرُّوحِ، لِنَصْنَعَ لَحْناً يَمَسُّ الْقُلُوبَ»
+                </div>
+
+                <div class="bible-gilded-sep">
+                  <div class="sep-line"></div>
+                  <div class="sep-cross">✟</div>
+                  <div class="sep-line"></div>
+                </div>
+
+                <div class="bible-reflection-body-text">
+                  أعضاءٌ كثيرة في جسدٍ واحد، تتكامل مواهبها معاً لخدمة ورعاية أولاد الله بروح المحبة والعطاء
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ CHRISTMAS VIDEO CINEMA SPOTLIGHT ══════════════ -->
+  <div class="christmas-cinema-overlay" id="christmas-cinema-overlay" style="display: none;" onclick="closeChristmasCinema(false)">
+    <div class="christmas-cinema-card" onclick="event.stopPropagation();">
+      <div class="cinema-header">
+        <div class="cinema-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </div>
+        <button class="cinema-close-btn" onclick="closeChristmasCinema(false)" title="تصغير الفيديو">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="cinema-video-wrapper">
+        <video id="christmas-cinema-player" controls preload="auto" poster="assets/christmas gathering.jpg">
+          <source src="assets/christmas video.mp4" type="video/mp4">
+          متصفحك لا يدعم تشغيل هذا الفيديو مباشرة
+        </video>
+      </div>
+
+      <div class="cinema-footer">
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ TWO DAYS RECAP VIDEO CINEMA MODAL ══════════════ -->
+  <div class="two-days-cinema-overlay" id="two-days-cinema-overlay" style="display: none;" onclick="closeTwoDaysVideo(false)">
+    <div class="two-days-cinema-card" onclick="event.stopPropagation();">
+      <div class="cinema-header">
+        <div class="cinema-badge" style="background: rgba(220,160,56,0.2); border: 1px solid rgba(220,160,56,0.4); color: #ffd875;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span style="font-size: 13px; font-weight: 700; margin-right: 6px;">ملخص  اليومين </span>
+        </div>
+        <button class="cinema-close-btn" onclick="closeTwoDaysVideo(false)" title="تصغير الفيديو">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="cinema-video-wrapper">
+        <video id="two-days-video-player" controls preload="metadata">
+          <source src="assets/2 days viddd.mp4" type="video/mp4">
+          متصفحك لا يدعم تشغيل هذا الفيديو مباشرة
+        </video>
+      </div>
+
+      <div class="cinema-footer" style="padding: 10px 18px; display: flex; align-items: center; justify-content: flex-end; background: rgba(14,10,8,0.95); border-top: 1px solid rgba(220,160,56,0.3);">
+        <button onclick="closeTwoDaysVideo(true)" style="background: #e5a93c; color: #1a0a03; border: none; font-weight: 800; border-radius: 8px; padding: 6px 14px; font-size: 12px; cursor: pointer;">
+          الانتقال للوتر التالي &#8592;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ DRAMATIC VINTAGE THEATRICAL OUTRO CREDITS ══════════════ -->
+  <div class="theatrical-outro-overlay" id="theatrical-outro-overlay" style="display: none;">
+    <!-- Descending Velvet Curtains Backing -->
+    <div class="outro-curtains-stage" id="outro-curtains-stage">
+      <div class="outro-curtain-top-valance"></div>
+      <div class="outro-curtain-left"></div>
+      <div class="outro-curtain-right"></div>
+    </div>
+
+    <!-- Center Vintage Playbill / Parchment Thank-You Letter -->
+    <div class="theatrical-playbill-container" id="theatrical-playbill-container" onclick="event.stopPropagation();">
+      <div class="playbill-scroll-wrap">
+        <!-- Antique Baroque Frame -->
+        <div class="playbill-vintage-card">
+          <!-- Top Classical Theater Medallion -->
+          <div class="playbill-crest">
+            <span class="playbill-crest-icon">🎭</span>
+            <div class="playbill-laurel-decor">❖ ❖ ❖</div>
+          </div>
+
+          <!-- Titles -->
+          <div class="playbill-headings">
+            <span class="playbill-sub-header">إسدال الستار • الختام والتكريم</span>
+            <h1 class="playbill-main-title">شُكْرٌ وَتَقْدِيرٌ وَاجِبْ</h1>
+            <div class="playbill-divider-line">
+              <span class="line-star">✦</span>
+            </div>
+          </div>
+
+          <!-- Heartfelt Thank-you Letter Text -->
+          <div class="playbill-letter-body">
+            <p class="playbill-paragraph">
+              بكل آيات المحبة والعرفان، تتقدم <strong>عشيرة جوالة رهط الوتر</strong> بخالص الشكر وعميق الامتنان لكل من وضع بصمة حب، وكان سنداً وشريكاً حقيقياً ومصدر تشجيع لا ينقطع في سبيل إنجاح أيام هذه الخدمة المباركة ورسم البسمة على وجوه أولاد كنيستي العذراء بالسلام والبطحة:
+            </p>
+          </div>
+
+          <!-- 10 Honored Names Vintage Cards Grid -->
+          <div class="playbill-names-grid">
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">مينا امجد</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">فيرونيا اسامه</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">بشوي جورج</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">ميرنا ناجي</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">جون صفوت</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">ميرا هاني</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">جورج فننس</span></div>
+            <div class="playbill-name-item"><span class="name-wreath">⚜</span><span class="name-text">ساندرا</span></div>
+            <div class="playbill-name-item highlight-team"><span class="name-wreath">⭐</span><span class="name-text">رهط ايكو</span></div>
+            <div class="playbill-name-item highlight-team"><span class="name-wreath">💖</span><span class="name-text">خدمه قلب ابتسامه</span></div>
+          </div>
+
+          <!-- Classical Closing Blessing -->
+          <div class="playbill-closing-note">
+            <p class="closing-quote">« كُنْتُمْ سَبَباً فِي بَسْمَةٍ لا تُنْسَى.. دُمْتُمْ دَوْماً أَهْلاً لِلْعَطَاءِ وَالْخِدْمَةِ »</p>
+            <div class="playbill-signature">
+              <span>— عشيرة جوالة رهط الوتر —</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="playbill-actions">
+            <button class="playbill-btn playbill-replay-btn" onclick="replayTheatricalOutro()">
+              <span>🎬 إعادة تشغيل الإسدال</span>
+            </button>
+            <button class="playbill-btn playbill-close-btn" onclick="closeTheatricalThanksOutro()">
+              <span>🎭 رفع الستار والعودة للعرض</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══════════════ REJECTED REASON SPOTLIGHT MODAL ══════════════ -->
   <div class="rejected-modal-overlay" id="rejected-modal-overlay" onclick="advanceGlobalPresentation(1)" style="display: none;">
     <div class="rejected-modal-card" onclick="event.stopPropagation(); advanceGlobalPresentation(1);">
@@ -2313,11 +3001,89 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
           <span>سبب استبعاد الفكرة:</span>
         </div>
-        <p class="rej-modal-reason-text" id="rej-modal-reason-text">الجلسات محتاجة دكاترة ومتخصصين مش إحنا</p>
+        <p class="rej-modal-reason-text" id="rej-modal-reason-text">الجلسات محتاجة ومتخصصين مش إحنا</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-manager-overlay" class="content-manager-overlay" style="display: none;" onclick="handleContentOverlayClick(event)">
+    <div class="content-manager-container" onclick="event.stopPropagation();">
+      <!-- Modal Header -->
+      <div class="cm-header">
+        <div class="cm-title-wrap">
+          <div class="cm-title-icon">⚡</div>
+          <div>
+            <h2 class="cm-title">لوحة تعديل نصوص العرض التقديمي</h2>
+            <p class="cm-subtitle">ابحث عن أي نص، عنوان، أو فقرة في كل العرض وعدلها فوراً بضغطة زر</p>
+          </div>
+        </div>
+        <div class="cm-header-actions">
+          <button class="cm-btn cm-btn-primary" onclick="saveAllContentEdits()" title="تطبيق كافة التعديلات وحفظها في المتصفح">
+            <span>💾 حفظ وتطبيق التعديلات</span>
+          </button>
+          <button class="cm-btn cm-btn-secondary" onclick="copyContentEditsJson()" title="نسخ التعديلات بتنسيق JSON">
+            <span>📋 نسخ التعديلات</span>
+          </button>
+          <button class="cm-btn cm-btn-secondary" onclick="downloadContentEditsJson()" title="تنزيل ملف التعديلات">
+            <span>📥 تنزيل JSON</span>
+          </button>
+          <button class="cm-btn cm-btn-danger" onclick="resetAllContentEdits()" title="استعادة النصوص الأصلية بالكامل">
+            <span>🔄 استعادة الأصل</span>
+          </button>
+          <button class="cm-close-btn" onclick="closeContentManagerModal()" title="إغلاق اللوحة">
+            ✕
+          </button>
+        </div>
       </div>
 
-      
+      <!-- Search & Category Filters Bar -->
+      <div class="cm-toolbar">
+        <div class="cm-search-wrap">
+          <span class="cm-search-icon">🔍</span>
+          <input type="text" id="cm-search-input" class="cm-search-input" placeholder="ابحث عن أي كلمة أو نص في كل الشرائح (مثال: الهدف، الآية، التحديات، اسم...)" oninput="filterContentManagerItems()" />
+          <button class="cm-search-clear" onclick="clearContentSearch()" title="مسح البحث">✕</button>
+        </div>
+        
+        <div class="cm-tabs-scroll">
+          <div class="cm-category-tabs" id="cm-category-tabs">
+            <button class="cm-tab active" data-cat="all" onclick="setCategoryFilter('all')">الكل (<span id="cm-count-all">0</span>)</button>
+            <button class="cm-tab" data-cat="chord0" onclick="setCategoryFilter('chord0')">الوتر 1: احنا مين؟</button>
+            <button class="cm-tab" data-cat="chord1" onclick="setCategoryFilter('chord1')">الوتر 2: فكرة المشروع</button>
+            <button class="cm-tab" data-cat="chord2" onclick="setCategoryFilter('chord2')">الوتر 3: التحضيرات</button>
+            <button class="cm-tab" data-cat="chord3" onclick="setCategoryFilter('chord3')">الوتر 4: التحديات</button>
+            <button class="cm-tab" data-cat="chord4" onclick="setCategoryFilter('chord4')">الوتر 5: يوم التنفيذ</button>
+            <button class="cm-tab" data-cat="chord5" onclick="setCategoryFilter('chord5')">الوتر 6: الدروس والمستقبل</button>
+            <button class="cm-tab" data-cat="home" onclick="setCategoryFilter('home')">الرئيسية والقيثارة</button>
+            <button class="cm-tab" data-cat="modals" onclick="setCategoryFilter('modals')">النوافذ والختام</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Items List -->
+      <div class="cm-body" id="cm-items-container">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+
+      <!-- Modal Footer Status -->
+      <div class="cm-footer">
+        <div class="cm-status-text" id="cm-status-text">
+          💡 يمكنك البحث والتعديل المباشر، ثم الضغط على <strong>حفظ وتطبيق التعديلات</strong> لحفظها فوراً في المتصفح. اختصار الفتح والإغلاق: <kbd>Ctrl + E</kbd>
+        </div>
+        <div class="cm-footer-right">
+          <button class="cm-btn cm-btn-primary" onclick="saveAllContentEdits()">
+            <span>💾 حفظ وتطبيق التعديلات</span>
+          </button>
+          <button class="cm-btn cm-btn-ghost" onclick="closeContentManagerModal()">
+            <span>إغلاق</span>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div id="cm-toast-notification" class="cm-toast">
+    <span style="font-size: 18px;">✨</span>
+    <span id="cm-toast-msg">تم حفظ التعديلات بنجاح!</span>
   </div>
 </body>
 

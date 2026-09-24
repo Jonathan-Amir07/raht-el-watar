@@ -183,14 +183,15 @@
 
     function updateUniversalHud() {
       const hud = document.getElementById('universal-ppt-hud');
-      if (!hud) return;
+      const evalBox = document.getElementById('eval-slide-counter-box');
 
       if (activePage === null) {
-        hud.style.display = 'none';
+        if (hud) hud.style.display = 'none';
+        if (evalBox) evalBox.style.display = 'none';
         return;
       }
 
-      hud.style.display = 'flex';
+      if (hud) hud.style.display = 'flex';
       const nameEl = document.getElementById('universal-ppt-chord-name');
       const badgeEl = document.getElementById('universal-ppt-step-badge');
       const prevBtn = document.getElementById('universal-ppt-prev');
@@ -201,25 +202,43 @@
       let totalSteps = 1;
 
       if (activePage === 0) {
-        chordTitle = 'الوتر الأول: من نحن؟';
+        if (currentPptStep === 6 && isChristmasVideoExpanded) {
+          chordTitle = 'الوتر الأول: فيديو لقاء الكريسماس';
+        } else {
+          chordTitle = 'الوتر الأول: من نحن؟';
+        }
         curStep = currentPptStep + 1;
         totalSteps = 8;
-        if (prevBtn) prevBtn.disabled = (currentPptStep === 0);
+        if (prevBtn) prevBtn.disabled = (currentPptStep === 0 && !isChristmasVideoExpanded);
         if (nextBtn) nextBtn.disabled = false;
       } else if (activePage === 1) {
-        chordTitle = 'الوتر الثاني: المشروع';
-        if (currentProjStep === 0 && currentRejectedStep > 0) {
-          curStep = currentRejectedStep;
-          totalSteps = 6;
-          const cardIdx = Math.floor((currentRejectedStep - 1) / 2);
-          const arabicNums = ['الأولى', 'الثانية', 'الثالثة'];
-          chordTitle = 'الوتر الثاني: الفكرة ' + (arabicNums[cardIdx] || (cardIdx + 1));
-        } else {
-          curStep = currentProjStep + 1;
-          totalSteps = 3;
+        if (currentProjStep === 0) {
+          if (currentRejectedStep > 0) {
+            curStep = currentRejectedStep;
+            totalSteps = 6;
+            const cardIdx = Math.floor((currentRejectedStep - 1) / 2);
+            const arabicNums = ['الأولى', 'الثانية', 'الثالثة'];
+            chordTitle = 'الوتر الثاني: الفكرة ' + (arabicNums[cardIdx] || (cardIdx + 1));
+          } else {
+            curStep = 1;
+            totalSteps = 4;
+            chordTitle = 'الوتر الثاني: المشاريع المستبعدة';
+          }
+        } else if (currentProjStep === 1) {
+          curStep = 2;
+          totalSteps = 4;
+          chordTitle = 'الوتر الثاني: الهدف الأساسي';
+        } else if (currentProjStep === 2) {
+          curStep = 3;
+          totalSteps = 4;
+          chordTitle = 'الوتر الثاني: جيتار المسؤوليات والمهام';
+        } else if (currentProjStep === 3) {
+          curStep = 4;
+          totalSteps = 4;
+          chordTitle = 'الوتر الثاني: فيديو ملخص اليومين';
         }
         const b1 = document.getElementById('ppt-counter-badge-1');
-        if (b1) b1.textContent = `${toArabicNum(curStep)} / ${toArabicNum(totalSteps)}`;
+        if (b1) b1.textContent = `${toArabicNum(curStep)} / ٤`;
         if (prevBtn) prevBtn.disabled = (currentProjStep === 0 && currentRejectedStep === 0);
         if (nextBtn) nextBtn.disabled = false;
       } else if (activePage === 2) {
@@ -233,7 +252,14 @@
           if (nextBtn) nextBtn.disabled = false;
         } else {
           // Sub-point Pane mode
-          const activePane = (typeof getActivePaneId === 'function') ? getActivePaneId(currentGmLevel, currentLoopRotation) : currentGmLevel;
+          let activePane = currentGmLevel;
+          for (let i = 1; i <= 11; i++) {
+            const p = document.getElementById(`gm-pane-${i}`);
+            if (p && p.classList.contains('active')) {
+              activePane = i;
+              break;
+            }
+          }
           if (activePane === 1) {
             if (typeof currentSp2EduStep !== 'undefined' && currentSp2EduStep > 0) {
               const cardIdx = Math.floor((currentSp2EduStep - 1) / 2);
@@ -247,9 +273,12 @@
               totalSteps = 6;
             }
           } else if (activePane === 2) {
-            chordTitle = 'الوتر الثالث: تحضيرات in general';
-            curStep = 1;
-            totalSteps = 1;
+            const cardNames = ['الكنائس المرشحة', 'الأراضي والأماكن', 'العشور والميزانية', 'تخطيط البرنامج'];
+            const curCard = Math.floor(((currentSp2Step2Phase || 1) - 1) / 2);
+            const isExp = ((currentSp2Step2Phase || 1) % 2 === 0);
+            chordTitle = 'الوتر الثالث: ' + (cardNames[curCard] || 'استكشاف الميدان') + (isExp ? ' (عرض التفاصيل)' : ' (استكشاف)');
+            curStep = currentSp2Step2Phase || 1;
+            totalSteps = 8;
           } else if (activePane === 3) {
             chordTitle = 'الوتر الثالث: برنامج فعاليات اليوم الأول';
             curStep = currentSp2Day1ProgLvl || 1;
@@ -266,6 +295,10 @@
               curStep = 1;
               totalSteps = 6;
             }
+          } else if (activePane === 11) {
+            chordTitle = 'الوتر الثالث: اماكن الخدمة على مدار يومين';
+            curStep = 1;
+            totalSteps = 1;
           } else if (activePane === 5) {
             chordTitle = 'الوتر الثالث: ميزانية اليوم الأول';
             curStep = (currentGmBudgetSlice || 0) + 1;
@@ -314,6 +347,57 @@
 
       if (nameEl) nameEl.textContent = chordTitle;
       if (badgeEl) badgeEl.textContent = `${toArabicNum(curStep)} / ${toArabicNum(totalSteps)}`;
+
+      // ── Update Evaluation Panel Slide Counter Box ──
+      let globalSlideNum = 1;
+      const totalGlobalSlides = 32;
+
+      if (activePage === 0) {
+        globalSlideNum = currentPptStep + 1; // 1..8
+      } else if (activePage === 1) {
+        globalSlideNum = 8 + currentProjStep + 1; // 9..12
+      } else if (activePage === 2) {
+        if (sp2ViewMode === 'map') {
+          globalSlideNum = (currentLoopRotation === 1) ? 13 : 21;
+        } else {
+          let activePane = currentGmLevel;
+          for (let i = 1; i <= 11; i++) {
+            const p = document.getElementById(`gm-pane-${i}`);
+            if (p && p.classList.contains('active')) {
+              activePane = i;
+              break;
+            }
+          }
+          if (activePane === 1) globalSlideNum = 14;
+          else if (activePane === 2) globalSlideNum = 15;
+          else if (activePane === 3) globalSlideNum = 16;
+          else if (activePane === 4) globalSlideNum = 17;
+          else if (activePane === 11) globalSlideNum = 18;
+          else if (activePane === 5) globalSlideNum = 19;
+          else if (activePane === 9) globalSlideNum = 20;
+          else if (activePane === 6) globalSlideNum = 22;
+          else if (activePane === 7) globalSlideNum = 23;
+          else if (activePane === 8) globalSlideNum = 24;
+          else if (activePane === 10) globalSlideNum = 25;
+          else globalSlideNum = (currentLoopRotation === 1) ? 13 : 21;
+        }
+      } else if (activePage === 3) {
+        globalSlideNum = 25 + currentChallengeStep + 1; // 26..30
+      } else if (activePage === 4) {
+        globalSlideNum = 30 + currentSp5SlideIdx; // 31..32
+      }
+
+      if (evalBox) {
+        evalBox.style.display = 'flex';
+        const evalNum = document.getElementById('eval-slide-num');
+        const evalTotal = document.getElementById('eval-slide-total');
+        const evalChord = document.getElementById('eval-slide-chord-name');
+        if (evalNum) evalNum.textContent = toArabicNum(globalSlideNum);
+        if (evalTotal) evalTotal.textContent = `/ ${toArabicNum(totalGlobalSlides)}`;
+        if (evalChord) {
+          evalChord.textContent = chordTitle;
+        }
+      }
     }
 
     let isChordTransitioning = false;
@@ -354,6 +438,11 @@
 
     function closePage() {
       if (activePage === null) return;
+      forceResetBibleModal();
+      closeChristmasCinema(false);
+      closeTwoDaysVideo(false);
+      closeTheatricalThanksOutro();
+      closeGuitarDetails();
       closeCinematicZoom();
       closeDaySectionModal();
       closeRejectedReasonModal();
@@ -402,6 +491,317 @@
       }, 480);
     }
 
+    // ── Christmas Video Cinema Spotlight Mode ──
+    let isChristmasVideoExpanded = false;
+
+    function openChristmasCinema() {
+      const overlay = document.getElementById('christmas-cinema-overlay');
+      const player = document.getElementById('christmas-cinema-player');
+      if (!overlay) return;
+      isChristmasVideoExpanded = true;
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => {
+        overlay.classList.add('open');
+      });
+      if (player) {
+        player.currentTime = 0;
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.log('Video autoplay deferred:', e);
+          });
+        }
+      }
+      updateUniversalHud();
+    }
+
+    function closeChristmasCinema(autoAdvance = false) {
+      const overlay = document.getElementById('christmas-cinema-overlay');
+      const player = document.getElementById('christmas-cinema-player');
+      if (!overlay) return;
+      isChristmasVideoExpanded = false;
+      overlay.classList.remove('open');
+      if (player) {
+        player.pause();
+      }
+      setTimeout(() => {
+        if (!isChristmasVideoExpanded) {
+          overlay.style.display = 'none';
+        }
+      }, 400);
+
+      if (autoAdvance) {
+        goToPptStep(7, true);
+      } else {
+        updateUniversalHud();
+      }
+    }
+
+    function toggleChristmasVideo() {
+      if (isChristmasVideoExpanded) {
+        closeChristmasCinema(false);
+      } else {
+        openChristmasCinema();
+      }
+    }
+
+    // ── 3D Cinematic Holy Bible & Verse Controller (Stage 1 • تسمية «رهط الوتر») ──
+    let isBibleOpenOnStage1 = false;
+    let isBibleAnimating = false;
+    let bibleAnimTimers = [];
+
+    function clearBibleTimers() {
+      bibleAnimTimers.forEach(t => clearTimeout(t));
+      bibleAnimTimers = [];
+    }
+
+    function playBibleCelestialChime() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const freqs = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+        freqs.forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const now = ctx.currentTime + (idx * 0.08);
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now);
+
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.09, now + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 1.8);
+        });
+      } catch (e) { }
+    }
+
+    function playBiblePageShuffleSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        for (let i = 0; i < 5; i++) {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const filter = ctx.createBiquadFilter();
+          const now = ctx.currentTime + (i * 0.14);
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(140 + Math.random() * 80, now);
+          osc.frequency.exponentialRampToValueAtTime(320 + Math.random() * 100, now + 0.12);
+
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1200, now);
+          filter.Q.setValueAtTime(1.8, now);
+
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.045, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(now);
+          osc.stop(now + 0.15);
+        }
+      } catch (e) { }
+    }
+
+    function playBibleCloseSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const now = ctx.currentTime;
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(120, now);
+        osc.frequency.exponentialRampToValueAtTime(45, now + 0.28);
+
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.32);
+      } catch (e) { }
+    }
+
+    function playBibleFlyoutSound() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const now = ctx.currentTime;
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(340, now);
+        osc.frequency.exponentialRampToValueAtTime(1100, now + 0.6);
+
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.68);
+      } catch (e) { }
+    }
+
+    function openBibleVerseModal() {
+      if (isBibleAnimating || isBibleOpenOnStage1) return;
+      clearBibleTimers();
+
+      const overlay = document.getElementById('bible-verse-overlay');
+      const bookContainer = document.getElementById('bible-book-container');
+      const closedBook = document.getElementById('bible-closed-book');
+      const openBook = document.getElementById('bible-open-book');
+      if (!overlay || !bookContainer) return;
+
+      isBibleAnimating = true;
+      isBibleOpenOnStage1 = false;
+
+      // 1. Setup closed book for spinning entrance
+      bookContainer.className = 'bible-book-container';
+      if (closedBook) closedBook.style.display = 'block';
+      if (openBook) {
+        openBook.classList.remove('opening');
+        openBook.style.display = 'none';
+      }
+
+      overlay.style.display = 'flex';
+      overlay.offsetHeight; // force repaint
+      overlay.classList.add('open');
+
+      // Phase A: Spin into center (1.0s) and reach final position
+      bookContainer.classList.add('spinning-in');
+      playBibleCelestialChime();
+
+      // Phase B: At 1150ms (after book completely settles in final position), open the book smoothly in center
+      const t1 = setTimeout(() => {
+        if (!overlay.classList.contains('open')) return;
+        bookContainer.classList.remove('spinning-in');
+        if (closedBook) closedBook.style.display = 'none';
+        if (openBook) {
+          openBook.style.display = 'flex';
+          openBook.classList.add('opening');
+        }
+      }, 1150);
+      bibleAnimTimers.push(t1);
+
+      // Phase C: At 1650ms (book is open and in position), start shuffling pages strictly inside the book
+      const t2 = setTimeout(() => {
+        if (!overlay.classList.contains('open')) return;
+        if (openBook) openBook.classList.remove('opening');
+        bookContainer.classList.add('shuffling');
+        if (openBook) openBook.classList.add('shuffling');
+        playBiblePageShuffleSound();
+      }, 1650);
+      bibleAnimTimers.push(t2);
+
+      // Phase D: At 2950ms, settle on the verse and citation spread with golden radiance
+      const t3 = setTimeout(() => {
+        if (!overlay.classList.contains('open')) return;
+        bookContainer.classList.remove('shuffling');
+        if (openBook) openBook.classList.remove('shuffling');
+        bookContainer.classList.add('settled-open');
+        isBibleOpenOnStage1 = true;
+        isBibleAnimating = false;
+        playBibleCelestialChime();
+      }, 2950);
+      bibleAnimTimers.push(t3);
+    }
+
+    function closeAndDismissBible(advanceToNext = true) {
+      if (isBibleAnimating) return;
+      const overlay = document.getElementById('bible-verse-overlay');
+      const bookContainer = document.getElementById('bible-book-container');
+      const closedBook = document.getElementById('bible-closed-book');
+      const openBook = document.getElementById('bible-open-book');
+      if (!overlay || !bookContainer) return;
+
+      clearBibleTimers();
+      isBibleAnimating = true;
+
+      // Phase 1: Fold open spread shut
+      bookContainer.classList.remove('settled-open');
+      bookContainer.classList.remove('shuffling');
+      if (openBook) openBook.classList.remove('shuffling');
+      bookContainer.classList.add('closing-book');
+      playBibleCloseSound();
+
+      // Phase 2: Switch to closed cover and fly out
+      const t1 = setTimeout(() => {
+        bookContainer.classList.remove('closing-book');
+        if (openBook) {
+          openBook.className = 'bible-open-book';
+          openBook.style.display = 'none';
+        }
+        if (closedBook) closedBook.style.display = 'block';
+        bookContainer.classList.add('flying-out');
+        playBibleFlyoutSound();
+      }, 420);
+      bibleAnimTimers.push(t1);
+
+      // Phase 3: Hide overlay, reset flags and advance slide if requested
+      const t2 = setTimeout(() => {
+        overlay.classList.remove('open');
+        overlay.style.display = 'none';
+        bookContainer.className = 'bible-book-container';
+        if (closedBook) closedBook.style.display = 'block';
+        if (openBook) {
+          openBook.className = 'bible-open-book';
+          openBook.style.display = 'none';
+        }
+        isBibleOpenOnStage1 = false;
+        isBibleAnimating = false;
+
+        if (advanceToNext) {
+          goToPptStep(2, true);
+        }
+      }, 1200);
+      bibleAnimTimers.push(t2);
+    }
+
+    function forceResetBibleModal() {
+      clearBibleTimers();
+      const overlay = document.getElementById('bible-verse-overlay');
+      const bookContainer = document.getElementById('bible-book-container');
+      const closedBook = document.getElementById('bible-closed-book');
+      const openBook = document.getElementById('bible-open-book');
+      if (overlay) {
+        overlay.classList.remove('open');
+        overlay.style.display = 'none';
+      }
+      if (bookContainer) {
+        bookContainer.className = 'bible-book-container';
+      }
+      if (openBook) {
+        openBook.className = 'bible-open-book';
+        openBook.style.display = 'none';
+      }
+      if (closedBook) closedBook.style.display = 'block';
+      isBibleOpenOnStage1 = false;
+      isBibleAnimating = false;
+    }
+
+    function handleBibleOverlayClick(event) {
+      if (isBibleOpenOnStage1 && !isBibleAnimating) {
+        closeAndDismissBible(true);
+      }
+    }
+
     function advanceGlobalPresentation(direction) {
       if (isChordTransitioning) return;
 
@@ -420,12 +820,42 @@
 
       if (activePage === 0) {
         if (direction > 0) {
+          // Special Bible sequence on Slide 2 (stage-1: تسمية «رهط الوتر»)
+          if (currentPptStep === 1) {
+            if (!isBibleOpenOnStage1 && !isBibleAnimating) {
+              openBibleVerseModal();
+              return;
+            } else if (isBibleOpenOnStage1 && !isBibleAnimating) {
+              closeAndDismissBible(true);
+              return;
+            } else if (isBibleAnimating) {
+              return;
+            }
+          }
+
+          if (currentPptStep === 6 && !isChristmasVideoExpanded) {
+            openChristmasCinema();
+            return;
+          }
+          if (isChristmasVideoExpanded) {
+            closeChristmasCinema(false);
+          }
           if (currentPptStep < 7) {
             goToPptStep(currentPptStep + 1, true);
           } else {
             stepToNextChord(1, 0);
           }
         } else {
+          // If Bible is open or animating, dismiss back to slide 1 view
+          if (currentPptStep === 1 && (isBibleOpenOnStage1 || isBibleAnimating)) {
+            closeAndDismissBible(false);
+            return;
+          }
+
+          if (isChristmasVideoExpanded) {
+            closeChristmasCinema(false);
+            return;
+          }
           if (currentPptStep > 0) {
             goToPptStep(currentPptStep - 1, true);
           } else {
@@ -441,22 +871,49 @@
               goToRejectedStep(0);
               goToProjStep(1);
             }
-          } else if (currentProjStep < 2) {
-            goToProjStep(currentProjStep + 1);
-          } else {
-            stepToNextChord(2, 0);
+          } else if (currentProjStep === 1) {
+            goToProjStep(2);
+          } else if (currentProjStep === 2) {
+            // Slide 11: Open guitar strings sequentially on Space / Next
+            if (currentGuitarStringIdx < 9) {
+              selectGuitarString(currentGuitarStringIdx + 1);
+            } else {
+              goToProjStep(3);
+            }
+          } else if (currentProjStep === 3) {
+            // Slide 12: Start video playing on Space / Next without clicking play button
+            if (!isTwoDaysVideoExpanded) {
+              openTwoDaysVideo();
+              return;
+            } else {
+              closeTwoDaysVideo(true);
+            }
           }
         } else {
-          if (currentProjStep === 0) {
+          if (currentProjStep === 3) {
+            if (isTwoDaysVideoExpanded) {
+              closeTwoDaysVideo(false);
+              return;
+            } else {
+              goToProjStep(2);
+              selectGuitarString(9);
+            }
+          } else if (currentProjStep === 2) {
+            if (currentGuitarStringIdx > 0) {
+              selectGuitarString(currentGuitarStringIdx - 1);
+            } else if (currentGuitarStringIdx === 0) {
+              closeGuitarDetails();
+            } else {
+              goToProjStep(1);
+            }
+          } else if (currentProjStep === 1) {
+            goToProjStep(0);
+            goToRejectedStep(6);
+          } else if (currentProjStep === 0) {
             if (currentRejectedStep > 0) {
               goToRejectedStep(currentRejectedStep - 1);
             } else {
               stepToNextChord(0, 7);
-            }
-          } else if (currentProjStep > 0) {
-            goToProjStep(currentProjStep - 1);
-            if (currentProjStep === 0) {
-              goToRejectedStep(6);
             }
           } else {
             stepToNextChord(0, 7);
@@ -467,10 +924,18 @@
           // ── NEXT ──
           if (sp2ViewMode === 'map') {
             // In map mode, pressing Next enters the currently highlighted node
-            openSp2Node(currentGmLevel, true, true);
+            selectGameLevel(currentGmLevel, true);
           } else {
-            // In pane mode, advance through sub-steps or complete node and return to map
-            const activePane = (typeof getActivePaneId === 'function') ? getActivePaneId(currentGmLevel, currentLoopRotation) : currentGmLevel;
+            // In pane mode, advance through sub-steps or complete node and seamlessly progress
+            let activePane = currentGmLevel;
+            for (let i = 1; i <= 11; i++) {
+              const p = document.getElementById(`gm-pane-${i}`);
+              if (p && p.classList.contains('active')) {
+                activePane = i;
+                break;
+              }
+            }
+
             if (activePane === 1) {
               if (currentSp2EduStep < 6) {
                 goToSp2EduStep(currentSp2EduStep + 1);
@@ -478,79 +943,90 @@
                 closeCinematicZoom();
                 sp2CompletedNodes.add(1);
                 playMilestoneCompletionSound();
-                showSp2Map(2, true);
+                currentGmLevel = 2;
+                currentNodeDay = 1;
+                openSp2Node(2, true, true);
               }
             } else if (activePane === 2) {
-              // تحضيرات in general (single step -> completes to map)
-              sp2CompletedNodes.add(2);
-              playMilestoneCompletionSound();
-              showSp2Map(3, true);
+              // Slide 15: 4 Preparation Pillars (8 sub-steps)
+              if (currentSp2Step2Phase < 8) {
+                goToSp2FirstStepsPhase(currentSp2Step2Phase + 1, true);
+              } else {
+                sp2CompletedNodes.add(2);
+                playMilestoneCompletionSound();
+                currentGmLevel = 3;
+                currentNodeDay = 1;
+                openSp2Node(3, true, true); // Node 3: Program Day 1
+              }
             } else if (activePane === 3) {
               // برنامج فعاليات اليوم الأول (5 sub-steps)
               if (currentSp2Day1ProgLvl < 5) {
                 selectSp2Day1ProgramLevel(currentSp2Day1ProgLvl + 1, true);
               } else {
                 closeCinematicZoom();
+                // ── FINISHED DAY 1 OF PROGRAM -> AUTOMATICALLY GO TO DAY 2 ──
+                switchNodeDay(2, true);
+              }
+            } else if (activePane === 6) {
+              // برنامج فعاليات اليوم الثاني (7 sub-steps)
+              if (currentSp2Day2ProgLvl < 7) {
+                selectSp2Day2ProgramLevel(currentSp2Day2ProgLvl + 1, true);
+              } else {
+                closeCinematicZoom();
                 sp2CompletedNodes.add(3);
                 playMilestoneCompletionSound();
-                showSp2Map(4, true);
+                // ── FINISHED DAY 2 OF PROGRAM -> ADVANCE TO NODE 4 (التحضيرات) DAY 1 ──
+                currentGmLevel = 4;
+                currentNodeDay = 1;
+                openSp2Node(4, true, true);
               }
             } else if (activePane === 4) {
-              // تحضيرات اليوم الأول (3 cards, 6 sub-steps: highlight -> zoom for each)
+              // تحضيرات اليوم الأول (3 cards, 6 sub-steps: highlight -> zoom)
               if (currentSp2Prep1Step < 6) {
                 goToSp2Prep1Step(currentSp2Prep1Step + 1);
               } else {
                 closeCinematicZoom();
-                sp2CompletedNodes.add(4);
-                playMilestoneCompletionSound();
-                showSp2Map(5, true);
+                // ── ADVANCE TO CHURCHES / LOCATIONS SLIDE (pane 11) ──
+                openSp2Node(11, true, true);
               }
+            } else if (activePane === 11) {
+              // اماكن الخدمة على مدار يومين -> FINISHED DAY 1 OF NODE 4 -> AUTOMATICALLY GO TO DAY 2
+              switchNodeDay(2, true);
+            } else if (activePane === 7) {
+              // تحضيرات اليوم الثاني -> FINISHED DAY 2 OF PREPARATIONS -> ADVANCE TO NODE 5 (الميزانية) DAY 1
+              sp2CompletedNodes.add(4);
+              playMilestoneCompletionSound();
+              currentGmLevel = 5;
+              currentNodeDay = 1;
+              openSp2Node(5, true, true);
             } else if (activePane === 5) {
               // ميزانية اليوم الأول (7 slices)
               const maxSlice = (gmBudgetData[1] && gmBudgetData[1].items) ? gmBudgetData[1].items.length - 1 : 6;
               if (currentGmBudgetSlice < maxSlice) {
                 selectBudgetSlice(currentGmBudgetSlice + 1, true);
               } else {
-                sp2CompletedNodes.add(5);
-                playMilestoneCompletionSound();
-                // ── ADVANCE TO NODE 6 (FEEDBACK - ROTATION 1) ──
-                showSp2Map(6, true);
+                // ── FINISHED DAY 1 OF BUDGET -> AUTOMATICALLY GO TO DAY 2 ──
+                switchNodeDay(2, true);
               }
-            } else if (activePane === 9) {
-              // التقييم الخارجي (اليوم الأول) -> نهاية اللفة الأولى والانتقال لليوم الثاني
-              sp2CompletedNodes.add(9);
-              playMilestoneCompletionSound();
-              currentLoopRotation = 2;
-              showSp2Map(3, true);
-            } else if (activePane === 6) {
-              // برنامج اليوم الثاني
-              if (currentSp2Day2ProgLvl < 7) {
-                selectSp2Day2ProgramLevel(currentSp2Day2ProgLvl + 1, true);
-              } else {
-                closeCinematicZoom();
-                sp2CompletedNodes.add(6);
-                playMilestoneCompletionSound();
-                showSp2Map(4, true);
-              }
-            } else if (activePane === 7) {
-              // تحضيرات اليوم الثاني
-              sp2CompletedNodes.add(7);
-              playMilestoneCompletionSound();
-              showSp2Map(5, true);
             } else if (activePane === 8) {
-              // ميزانية اليوم الثاني
+              // ميزانية اليوم الثاني (6 slices)
               const maxSlice = (gmBudgetData[2] && gmBudgetData[2].items) ? gmBudgetData[2].items.length - 1 : 5;
               if (currentGmBudgetSlice < maxSlice) {
                 selectBudgetSlice(currentGmBudgetSlice + 1, true);
               } else {
-                sp2CompletedNodes.add(8);
+                sp2CompletedNodes.add(5);
                 playMilestoneCompletionSound();
-                // ── ADVANCE TO NODE 6 (FEEDBACK - ROTATION 2) ──
-                showSp2Map(6, true);
+                // ── FINISHED DAY 2 OF BUDGET -> ADVANCE TO NODE 6 (التقييم) DAY 1 ──
+                currentGmLevel = 6;
+                currentNodeDay = 1;
+                openSp2Node(9, true, true);
               }
+            } else if (activePane === 9) {
+              // التقييم الخارجي (اليوم الأول) -> FINISHED DAY 1 -> AUTOMATICALLY GO TO DAY 2
+              switchNodeDay(2, true);
             } else if (activePane === 10) {
-              // التقييم الداخلي (اليوم الثاني) -> نهاية خريطة العمل والانتقال للوتر الرابع
-              sp2CompletedNodes.add(10);
+              // التقييم الداخلي (اليوم الثاني) -> FINISHED NODE 6 -> ADVANCE TO CHORD 4
+              sp2CompletedNodes.add(6);
               playMilestoneCompletionSound();
               stepToNextChord(3, 0); // Advances to Chord 4 (التحديات)
             }
@@ -558,64 +1034,101 @@
         } else {
           // ── PREVIOUS ──
           if (sp2ViewMode === 'map') {
-            if (currentGmLevel === 1) {
-              stepToNextChord(1, 2); // Back to Chord 2 (المشروع)
-            } else if (currentGmLevel === 3 && currentLoopRotation === 2) {
-              // Go back from rotation 2 start to rotation 1 end (Node 6)
-              currentLoopRotation = 1;
-              currentGmLevel = 6;
-              showSp2Map(6, true);
+            if (currentGmLevel <= 1) {
+              stepToNextChord(1, 3); // Back to Chord 2 (Step 3: 2-days recap video)
             } else {
               currentGmLevel--;
               showSp2Map(currentGmLevel, true);
             }
           } else {
-            // Inside a sub-point, go to previous sub-step or return to map
-            const activePane = (typeof getActivePaneId === 'function') ? getActivePaneId(currentGmLevel, currentLoopRotation) : currentGmLevel;
-            if (activePane === 1) {
-              if (currentSp2EduStep > 0) {
-                goToSp2EduStep(currentSp2EduStep - 1);
-              } else {
-                showSp2Map(1, true);
+            // Inside a sub-point, go to previous sub-step or previous section
+            let activePane = currentGmLevel;
+            for (let i = 1; i <= 11; i++) {
+              const p = document.getElementById(`gm-pane-${i}`);
+              if (p && p.classList.contains('active')) {
+                activePane = i;
+                break;
               }
-            } else if (activePane === 2) {
-              showSp2Map(2, true);
-            } else if (activePane === 3) {
-              if (currentSp2Day1ProgLvl > 1) {
-                selectSp2Day1ProgramLevel(currentSp2Day1ProgLvl - 1, true);
+            }
+
+            if (activePane === 10) {
+              // From Node 6 Day 2 back to Node 6 Day 1
+              switchNodeDay(1, true);
+            } else if (activePane === 9) {
+              // From Node 6 Day 1 back to Node 5 Day 2 (last slice)
+              currentGmLevel = 5;
+              currentNodeDay = 2;
+              openSp2Node(8, false, true);
+              const maxSlice = (gmBudgetData[2] && gmBudgetData[2].items) ? gmBudgetData[2].items.length - 1 : 5;
+              selectBudgetSlice(maxSlice, true);
+            } else if (activePane === 8) {
+              if (currentGmBudgetSlice > 0) {
+                selectBudgetSlice(currentGmBudgetSlice - 1, true);
               } else {
-                showSp2Map(3, true);
-              }
-            } else if (activePane === 4) {
-              if (currentSp2Prep1Step > 0) {
-                goToSp2Prep1Step(currentSp2Prep1Step - 1);
-              } else {
-                showSp2Map(4, true);
+                // From Node 5 Day 2 back to Node 5 Day 1 (last slice)
+                switchNodeDay(1, true);
+                const maxSlice = (gmBudgetData[1] && gmBudgetData[1].items) ? gmBudgetData[1].items.length - 1 : 6;
+                selectBudgetSlice(maxSlice, true);
               }
             } else if (activePane === 5) {
               if (currentGmBudgetSlice > 0) {
                 selectBudgetSlice(currentGmBudgetSlice - 1, true);
               } else {
-                showSp2Map(5, true);
+                // From Node 5 Day 1 back to Node 4 Day 2
+                currentGmLevel = 4;
+                currentNodeDay = 2;
+                openSp2Node(7, true, true);
               }
-            } else if (activePane === 9) {
-              showSp2Map(6, true);
+            } else if (activePane === 7) {
+              // From Node 4 Day 2 back to Node 4 Day 1 (locations pane 11)
+              switchNodeDay(1, true);
+              openSp2Node(11, true, true);
+            } else if (activePane === 11) {
+              // From Locations back to Pane 4 preps at step 6
+              openSp2Node(4, false, true);
+              goToSp2Prep1Step(6);
+            } else if (activePane === 4) {
+              if (currentSp2Prep1Step > 0) {
+                goToSp2Prep1Step(currentSp2Prep1Step - 1);
+              } else {
+                // From Node 4 Day 1 back to Node 3 Day 2 (level 7)
+                currentGmLevel = 3;
+                currentNodeDay = 2;
+                openSp2Node(6, false, true);
+                selectSp2Day2ProgramLevel(7, true);
+              }
             } else if (activePane === 6) {
               if (currentSp2Day2ProgLvl > 1) {
                 selectSp2Day2ProgramLevel(currentSp2Day2ProgLvl - 1, true);
               } else {
-                showSp2Map(3, true);
+                // From Node 3 Day 2 back to Node 3 Day 1 (level 5)
+                switchNodeDay(1, true);
+                selectSp2Day1ProgramLevel(5, true);
               }
-            } else if (activePane === 7) {
-              showSp2Map(4, true);
-            } else if (activePane === 8) {
-              if (currentGmBudgetSlice > 0) {
-                selectBudgetSlice(currentGmBudgetSlice - 1, true);
+            } else if (activePane === 3) {
+              if (currentSp2Day1ProgLvl > 1) {
+                selectSp2Day1ProgramLevel(currentSp2Day1ProgLvl - 1, true);
               } else {
-                showSp2Map(5, true);
+                // From Node 3 Day 1 back to Node 2 (phase 8)
+                currentGmLevel = 2;
+                openSp2Node(2, false, true);
+                goToSp2FirstStepsPhase(8, true);
               }
-            } else if (activePane === 10) {
-              showSp2Map(6, true);
+            } else if (activePane === 2) {
+              if (currentSp2Step2Phase > 1) {
+                goToSp2FirstStepsPhase(currentSp2Step2Phase - 1, true);
+              } else {
+                // From Node 2 back to Node 1 (step 6)
+                currentGmLevel = 1;
+                openSp2Node(1, false, true);
+                goToSp2EduStep(6);
+              }
+            } else if (activePane === 1) {
+              if (currentSp2EduStep > 0) {
+                goToSp2EduStep(currentSp2EduStep - 1);
+              } else {
+                stepToNextChord(1, 3); // Back to Chord 2 (Step 3: 2-days recap video)
+              }
             }
           }
         }
@@ -651,6 +1164,28 @@
     }
 // ESC key to return & Space / Arrow keys for presentation sequence
     document.addEventListener('keydown', e => {
+      // 0. Toggle Fast Content & Text Editor Modal with F2, Alt+E, Ctrl+Shift+E, or Ctrl+E
+      const isContentShortcut = (e.key === 'F2') ||
+                                (e.altKey && e.key.toLowerCase() === 'e') ||
+                                ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'e') ||
+                                ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e');
+
+      if (isContentShortcut) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleContentManagerModal();
+        return;
+      }
+
+      // If Content Manager Modal is open, handle Escape or allow editing inside modal
+      if (typeof isContentManagerOpen !== 'undefined' && isContentManagerOpen) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeContentManagerModal();
+        }
+        return;
+      }
+
       // 0. Disable key interception when in live editor mode or actively editing an element
       const isEditing = isEditorModeActive || 
                         (document.activeElement && document.activeElement.isContentEditable) || 
@@ -670,6 +1205,69 @@
       if (isChordTransitioning) {
         e.preventDefault();
         return;
+      }
+
+      // 0.4 Holy Bible Verse 3D Modal check (Chord 0 • Stage 1)
+      if (isBibleOpenOnStage1 || isBibleAnimating) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeAndDismissBible(false);
+          return;
+        } else if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (isBibleOpenOnStage1 && !isBibleAnimating) {
+            closeAndDismissBible(true);
+          }
+          return;
+        } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          closeAndDismissBible(false);
+          return;
+        }
+      }
+
+      // 0.5 Christmas Cinema Spotlight check
+      if (isChristmasVideoExpanded) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeChristmasCinema(false);
+          return;
+        } else if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          advanceGlobalPresentation(1);
+          return;
+        } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          advanceGlobalPresentation(-1);
+          return;
+        }
+      }
+
+      // 0.6 Two Days Cinema Spotlight check
+      if (isTwoDaysVideoExpanded) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeTwoDaysVideo(false);
+          return;
+        } else if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          closeTwoDaysVideo(true);
+          return;
+        } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          closeTwoDaysVideo(false);
+          return;
+        }
+      }
+
+      // 0.7 Theatrical Outro Credits check
+      const outroOverlay = document.getElementById('theatrical-outro-overlay');
+      if (outroOverlay && outroOverlay.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeTheatricalThanksOutro();
+          return;
+        }
       }
 
       // 1. Lightbox check
@@ -698,6 +1296,12 @@
 
       // 2. Escape key
       if (e.key === 'Escape') {
+        const guitarWs = document.getElementById('guitar-workspace');
+        if (guitarWs && guitarWs.classList.contains('split-active')) {
+          e.preventDefault();
+          closeGuitarDetails();
+          return;
+        }
         const finaleBanner = document.getElementById('presentation-finale-banner');
         if (finaleBanner && finaleBanner.style.display !== 'none') {
           e.preventDefault();
@@ -896,6 +1500,69 @@
       } else {
         // Second tap on the already highlighted card: open larger popup
         goToSp2EduStep(cardIdx * 2 + 2);
+      }
+    }
+
+    // ── Chord 3 Level 2 (Slide 15): First Steps & Field Exploration Controller ──
+    let currentSp2Step2Phase = 1; // 1..8 (1: card 0 high, 2: card 0 exp, 3: card 1 high, 4: card 1 exp, ...)
+
+    function goToSp2FirstStepsPhase(phase, playSound = true) {
+      if (phase < 1) phase = 1;
+      if (phase > 8) phase = 8;
+      currentSp2Step2Phase = phase;
+
+      const targetCardIdx = Math.floor((phase - 1) / 2);
+      const isExpanded = (phase % 2 === 0);
+
+      const strip = document.getElementById('gm-first-steps-strip');
+      if (strip) {
+        strip.classList.toggle('has-highlighted', !isExpanded);
+        strip.classList.toggle('has-expanded', isExpanded);
+      }
+
+      // Update 4 cards
+      for (let i = 0; i < 4; i++) {
+        const card = document.getElementById(`gm-step-card-${i}`);
+        const btnLabel = document.getElementById(`fs-btn-label-${i}`);
+
+        if (card) {
+          const isThisCard = (i === targetCardIdx);
+          card.classList.toggle('is-highlighted', isThisCard && !isExpanded);
+          card.classList.toggle('is-expanded', isThisCard && isExpanded);
+
+          if (btnLabel) {
+            btnLabel.textContent = (isThisCard && isExpanded) ? 'تصغير التفاصيل' : 'عرض التفاصيل';
+          }
+        }
+      }
+
+      if (playSound && typeof pluckHarpString === 'function') {
+        if (isExpanded) {
+          pluckHarpString(523.25, 0.45); // High rich chime on expansion
+        } else {
+          pluckHarpString(392.00, 0.35); // Gentle focus chime on highlight
+        }
+      }
+
+      if (typeof updateUniversalHud === 'function') {
+        updateUniversalHud();
+      }
+    }
+
+    function handleFirstStepCardTap(cardIdx) {
+      if (cardIdx < 0 || cardIdx > 3) return;
+      const curTarget = Math.floor((currentSp2Step2Phase - 1) / 2);
+      const isExp = (currentSp2Step2Phase % 2 === 0);
+
+      if (curTarget !== cardIdx) {
+        // Tap another card: highlight it
+        goToSp2FirstStepsPhase(cardIdx * 2 + 1, true);
+      } else if (!isExp) {
+        // Tap highlighted card: expand it showing bullets
+        goToSp2FirstStepsPhase(cardIdx * 2 + 2, true);
+      } else {
+        // Tap expanded card: collapse to highlight
+        goToSp2FirstStepsPhase(cardIdx * 2 + 1, true);
       }
     }
 
@@ -1152,6 +1819,12 @@
 
     function goToPptStep(step, isManual = false) {
       if (step < 0 || step > 7) return;
+      if (step !== 1 && (isBibleOpenOnStage1 || isBibleAnimating)) {
+        forceResetBibleModal();
+      }
+      if (step !== 6 && isChristmasVideoExpanded) {
+        closeChristmasCinema(false);
+      }
       currentPptStep = step;
       updatePptPresentation(isManual);
     }
@@ -1170,14 +1843,14 @@
       goToPptStep(3 + milestoneIdx, true);
     }
 
-    // ── 10. Chord 1 (The Project) Seamless PPT Presentation (3 Steps + 3 Reason Spotlight Steps) ──
-    let currentProjStep = 0; // 0: Rejected Projects, 1: Approved Idea & Goal, 2: Two Churches Showcase
+    // ── 10. Chord 1 (The Project) Seamless PPT Presentation (2 Steps + 3 Reason Spotlight Steps) ──
+    let currentProjStep = 0; // 0: Rejected Projects, 1: Approved Idea & Goal
     let currentRejectedStep = 0; // 0: No modal, 1: Card 1 reason modal, 2: Card 2 reason modal, 3: Card 3 reason modal
 
     const rejectedCardsData = [
       {
         title: 'حملة التوعية النفسية',
-        reason: 'الجلسات محتاجة دكاترة ومتخصصين مش إحنا',
+        reason: 'الجلسات محتاجة ومتخصصين مش إحنا',
         iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>'
       },
       {
@@ -1261,8 +1934,8 @@
       updateUniversalHud();
       const counterEl = document.getElementById('ppt-counter-badge-1');
       if (counterEl) {
-        const arabicNums = ['١', '٢', '٣'];
-        counterEl.textContent = `${arabicNums[currentProjStep] || (currentProjStep + 1)} / ٣`;
+        const arabicNums = ['١', '٢', '٣', '٤'];
+        counterEl.textContent = `${arabicNums[currentProjStep] || (currentProjStep + 1)} / ٤`;
       }
 
       const prevBtn = document.getElementById('ppt-prev-btn-1');
@@ -1277,30 +1950,460 @@
         closeRejectedReasonModal();
         highlightRejectedCard(-1);
       }
+      if (currentProjStep === 2) {
+        init10StringGuitar();
+      } else if (currentProjStep === 3) {
+        closeGuitarDetails();
+      }
     }
 
     function goToProjStep(step) {
-      if (step < 0 || step > 2) return;
+      if (step < 0 || step > 3) return;
       currentProjStep = step;
       updateProjPresentation();
     }
 
     function nextProjStep() {
-      if (currentProjStep < 2) {
-        goToProjStep(currentProjStep + 1);
-      } else {
-        // End of chord 2 (scene 3): seamlessly transition into chord 3 (التحديات - index 2)
-        stepToNextChord(2);
-      }
+      advanceGlobalPresentation(1);
     }
 
     function prevProjStep() {
-      if (currentProjStep > 0) {
-        goToProjStep(currentProjStep - 1);
+      advanceGlobalPresentation(-1);
+    }
+
+    // ── 10.1 Ten-String Acoustic Guitar Responsibilities System ──
+    const guitarStringsData = [
+      {
+        name: 'الروحي',
+        title: 'الفقرة الروحية',
+        desc: '',
+        color: '#e5a93c',
+        freq: 130.81,
+        icon: '🕊️',
+        members: [
+          { name: 'جونثان امير', role: 'الفقرة الروحية' },
+          { name: 'كيرلس مشيل', role: 'الفقرة الروحية' },
+          { name: 'فيلوباتير عصام', role: 'الفقرة الروحية' }
+        ]
+      },
+      {
+        name: 'الأخلاقي',
+        title: 'الفقرة الأخلاقية',
+        desc: '',
+        color: '#38bdf8',
+        freq: 146.83,
+        icon: '💡',
+        members: [
+          { name: 'مينا كريم', role: 'الفقرة الأخلاقية' },
+          { name: 'أبرأم نعيم', role: 'الفقرة الأخلاقية' },
+          { name: 'مايكل هاني', role: 'الفقرة الأخلاقية' },
+          { name: 'كيرلس سامي', role: 'الفقرة الأخلاقية' }
+        ]
+      },
+      {
+        name: 'الميزانيه',
+        title: 'الميزانية',
+        desc: '',
+        color: '#4ade80',
+        freq: 164.81,
+        icon: '💰',
+        members: [
+          { name: 'جون ماجد', role: 'الميزانية والحسابات' },
+          { name: 'ابرام مدحت', role: 'الميزانية والحسابات' }
+        ]
+      },
+      {
+        name: 'اللوجيستيات',
+        title: 'اللوجيستيات',
+        desc: '',
+        color: '#f472b6',
+        freq: 196.00,
+        icon: '📦',
+        members: [
+          { name: 'توماس تامر', role: 'اللوجيستيات والتجهيز' },
+          { name: 'حنا رفعت', role: 'اللوجيستيات والتجهيز' }
+        ]
+      },
+      {
+        name: 'الألعاب',
+        title: 'الألعاب',
+        desc: '',
+        color: '#fb923c',
+        freq: 220.00,
+        icon: '🎯',
+        members: [
+          { name: 'حنا رفعت', role: 'الألعاب الكبرى' },
+          { name: 'ابرام مدحت', role: 'الألعاب الكبرى' },
+          { name: 'فيلوباتير عصام', role: 'الألعاب الكبرى' },
+          { name: 'ابرام نعيم', role: 'الألعاب الكبرى' },
+          { name: 'كيرلس سامي', role: 'الألعاب الكبرى' }
+        ]
+      },
+      {
+        name: 'قائد اليوم الأول',
+        title: 'قيادة اليوم الأول (العذراء بالسلام)',
+        desc: '',
+        color: '#a78bfa',
+        freq: 246.94,
+        icon: '⚜️',
+        members: [
+          { name: 'جون ماجد', role: 'قائد اليوم الأول' },
+          { name: 'جونثان امير', role: 'قائد اليوم الأول' }
+        ]
+      },
+      {
+        name: 'قائد اليوم التاني',
+        title: 'قيادة اليوم التاني (خدمة السلام)',
+        desc: '',
+        color: '#34d399',
+        freq: 293.66,
+        icon: '⚜️',
+        members: [
+          { name: 'حنا رفعت', role: 'قائد اليوم الثاني' },
+          { name: 'توماس تامر', role: 'قائد اليوم الثاني' }
+        ]
+      },
+      {
+        name: 'كرافتس',
+        title: 'ورش الكرافتس',
+        desc: '',
+        color: '#facc15',
+        freq: 329.63,
+        icon: '✂️',
+        members: [
+          { name: 'جون ماجد', role: 'ورش الكرافتس' },
+          { name: 'ابرام مدحت', role: 'ورش الكرافتس' },
+          { name: 'مينا سامح', role: 'ورش الكرافتس' },
+          { name: 'كيرلس سامي', role: 'ورش الكرافتس' }
+        ]
+      },
+      {
+        name: 'الفقره الافتتاحيه',
+        title: 'الفقرة الافتتاحية',
+        desc: '',
+        color: '#f87171',
+        freq: 392.00,
+        icon: '🎉',
+        members: [
+          { name: 'مينا سامح', role: 'الفقرة الافتتاحية' },
+          { name: 'ابرام نعيم', role: 'الفقرة الافتتاحية' },
+          { name: 'جوناثان امير', role: 'الفقرة الافتتاحية' }
+        ]
+      },
+      {
+        name: 'الاكل',
+        title: 'تجهيز الاكل',
+        desc: '',
+        color: '#60a5fa',
+        freq: 440.00,
+        icon: '🥪',
+        members: [
+          { name: 'جون ماجد', role: 'مسؤول الاكل' },
+          { name: 'ابرام مدحت', role: 'مسؤول الاكل' }
+        ]
+      }
+    ];
+
+    let currentGuitarStringIdx = -1;
+    let isGuitarInitialized = false;
+    const guitarActiveAnimations = {};
+
+    const guitarStringCoordinates = [
+      { x1: 241, y1: 96, x2: 234, y2: 520 }, // 0
+      { x1: 247, y1: 96, x2: 242, y2: 520 }, // 1
+      { x1: 253, y1: 96, x2: 250, y2: 520 }, // 2
+      { x1: 260, y1: 96, x2: 258, y2: 520 }, // 3
+      { x1: 267, y1: 96, x2: 266, y2: 520 }, // 4
+      { x1: 273, y1: 96, x2: 274, y2: 520 }, // 5
+      { x1: 280, y1: 96, x2: 282, y2: 520 }, // 6
+      { x1: 286, y1: 96, x2: 290, y2: 520 }, // 7
+      { x1: 293, y1: 96, x2: 298, y2: 520 }, // 8
+      { x1: 299, y1: 96, x2: 306, y2: 520 }  // 9
+    ];
+
+    function animateGuitarVectorString(idx, pathEl, glowEl, amp = 14, decay = 3.0, freq = 220) {
+      if (guitarActiveAnimations[idx]) {
+        cancelAnimationFrame(guitarActiveAnimations[idx]);
+      }
+
+      const coords = guitarStringCoordinates[idx] || { x1: 270, y1: 96, x2: 270, y2: 520 };
+      const dx = coords.x2 - coords.x1;
+      const dy = coords.y2 - coords.y1;
+      const len = Math.sqrt(dx * dx + dy * dy);
+      const nx = -dy / len;
+      const ny = dx / len;
+
+      const omega = 2 * Math.PI * Math.min(28, freq / 8);
+      let t0 = null;
+      const steps = 36;
+      const origD = `M ${coords.x1},${coords.y1} L ${coords.x2},${coords.y2}`;
+
+      function resetStraight() {
+        if (pathEl) pathEl.setAttribute('d', origD);
+        if (glowEl) glowEl.setAttribute('d', origD);
+      }
+
+      (function step(ts) {
+        if (!t0) t0 = ts;
+        const t = (ts - t0) / 1000;
+        const currentAmp = amp * Math.exp(-t * decay);
+
+        if (currentAmp < 0.35) {
+          resetStraight();
+          delete guitarActiveAnimations[idx];
+          return;
+        }
+
+        let d = `M ${coords.x1.toFixed(1)},${coords.y1.toFixed(1)}`;
+        const phase = Math.cos(omega * t);
+
+        for (let i = 1; i <= steps; i++) {
+          const s = i / steps;
+          const wave = Math.sin(Math.PI * s) * currentAmp * phase;
+          const x = coords.x1 + s * dx + nx * wave;
+          const y = coords.y1 + s * dy + ny * wave;
+          d += ` L ${x.toFixed(1)},${y.toFixed(1)}`;
+        }
+
+        if (pathEl) pathEl.setAttribute('d', d);
+        if (glowEl) glowEl.setAttribute('d', d);
+
+        guitarActiveAnimations[idx] = requestAnimationFrame(step);
+      })(performance.now());
+    }
+
+    function spawnGuitarSparkle(e, color) {
+      const container = document.getElementById('guitar-instrument-col');
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      const clientX = e.clientX || (rect.left + rect.width / 2);
+      const clientY = e.clientY || (rect.top + rect.height / 2);
+
+      const glyphs = ['♪', '♫', '♩', '✦', '✧', '🎸'];
+      for (let i = 0; i < 3; i++) {
+        const el = document.createElement('div');
+        el.className = 'note-particle';
+        el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        el.style.left = `${clientX - rect.left}px`;
+        el.style.top = `${clientY - rect.top}px`;
+        el.style.setProperty('--dx', `${(Math.random() - 0.5) * 80}px`);
+        el.style.setProperty('--dy', `${-25 - Math.random() * 60}px`);
+        el.style.setProperty('--rot', `${(Math.random() - 0.5) * 60}deg`);
+        if (color) el.style.color = color;
+        container.appendChild(el);
+        setTimeout(() => el.remove(), 950);
       }
     }
 
+    function init10StringGuitar() {
+      if (isGuitarInitialized) return;
+      isGuitarInitialized = true;
 
+      const groups = document.querySelectorAll('.guitar-str-group');
+      groups.forEach(group => {
+        const idx = parseInt(group.dataset.idx, 10);
+        const data = guitarStringsData[idx];
+        if (!data) return;
+
+        const pathEl = group.querySelector('.guitar-str-line');
+        const glowEl = group.querySelector('.guitar-str-glow');
+
+        // Hover: Pluck audio + standing wave animation + sparkles
+        group.addEventListener('mouseenter', e => {
+          pluckHarpString(data.freq, 0.62);
+          animateGuitarVectorString(idx, pathEl, glowEl, 14, 2.8, data.freq);
+          spawnGuitarSparkle(e, data.color);
+        });
+
+        // Click: Select string and open details panel
+        group.addEventListener('click', e => {
+          selectGuitarString(idx);
+          spawnGuitarSparkle(e, data.color);
+        });
+      });
+    }
+
+    function selectGuitarString(idx) {
+      if (idx < 0 || idx >= guitarStringsData.length) return;
+      currentGuitarStringIdx = idx;
+      const data = guitarStringsData[idx];
+
+      const workspace = document.getElementById('guitar-workspace');
+      if (workspace) workspace.classList.add('split-active');
+
+      // Highlight active string in SVG
+      document.querySelectorAll('.guitar-str-group').forEach((g, i) => {
+        g.classList.toggle('active', i === idx);
+        const line = g.querySelector('.guitar-str-line');
+        const glow = g.querySelector('.guitar-str-glow');
+        if (i === idx) {
+          animateGuitarVectorString(idx, line, glow, 16, 2.6, data.freq);
+        }
+      });
+
+      // Highlight active pill
+      document.querySelectorAll('.g-pill').forEach((pill, i) => {
+        pill.classList.toggle('active', i === idx);
+      });
+
+      // Populate details panel
+      const titleEl = document.getElementById('g-panel-title');
+      const chipEl = document.getElementById('g-panel-chip');
+      const descEl = document.getElementById('g-panel-desc');
+      const counterEl = document.getElementById('g-footer-counter');
+      const grid = document.getElementById('g-members-grid');
+
+      if (titleEl) {
+        titleEl.textContent = `${data.icon} ${data.title}`;
+        titleEl.style.textShadow = `0 0 14px ${data.color}`;
+      }
+      if (chipEl) {
+        chipEl.textContent = `الوتر ${toArabicNum(idx + 1)}`;
+        chipEl.style.background = data.color;
+      }
+      if (descEl) descEl.textContent = data.desc;
+      if (counterEl) counterEl.textContent = `${toArabicNum(idx + 1)} / ١٠`;
+
+      if (grid) {
+        grid.innerHTML = data.members.map((m, mIdx) => `
+          <div class="g-member-card">
+            <div class="g-member-name">${m.name}</div>
+            <span class="g-member-role-chip" style="color: ${data.color}; background: rgba(255,255,255,0.08);">${m.role}</span>
+          </div>
+        `).join('');
+      }
+
+      // Audio chord feedback
+      pluckHarpString(data.freq, 0.7);
+      setTimeout(() => pluckHarpString(data.freq * 1.25, 0.45), 70);
+    }
+
+    function closeGuitarDetails() {
+      currentGuitarStringIdx = -1;
+      const workspace = document.getElementById('guitar-workspace');
+      if (workspace) workspace.classList.remove('split-active');
+
+      document.querySelectorAll('.guitar-str-group').forEach(g => g.classList.remove('active'));
+      document.querySelectorAll('.g-pill').forEach(p => p.classList.remove('active'));
+    }
+
+    function navigateGuitarString(direction) {
+      if (currentGuitarStringIdx === -1) {
+        selectGuitarString(0);
+        return;
+      }
+      if (direction > 0 && currentGuitarStringIdx === 9) {
+        goToProjStep(3);
+        return;
+      }
+      if (direction < 0 && currentGuitarStringIdx === 0) {
+        closeGuitarDetails();
+        return;
+      }
+      const newIdx = Math.max(0, Math.min(9, currentGuitarStringIdx + direction));
+      selectGuitarString(newIdx);
+    }
+
+    // ── 10.2 Two Days Recap Video Modal Controller ──
+    let isTwoDaysVideoExpanded = false;
+
+    function openTwoDaysVideo() {
+      const overlay = document.getElementById('two-days-cinema-overlay');
+      const player = document.getElementById('two-days-video-player');
+      if (!overlay) return;
+      isTwoDaysVideoExpanded = true;
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => {
+        overlay.classList.add('open');
+      });
+      if (player) {
+        player.currentTime = 0;
+        player.muted = false;
+        const playPromise = player.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.log('Two-days video autoplay deferred:', e);
+          });
+        }
+      }
+      pluckHarpString(392.00, 0.6);
+      updateUniversalHud();
+    }
+
+    function closeTwoDaysVideo(autoAdvance = false) {
+      const overlay = document.getElementById('two-days-cinema-overlay');
+      const player = document.getElementById('two-days-video-player');
+      if (!overlay) return;
+      isTwoDaysVideoExpanded = false;
+      overlay.classList.remove('open');
+      if (player) {
+        player.pause();
+      }
+      setTimeout(() => {
+        if (!isTwoDaysVideoExpanded) {
+          overlay.style.display = 'none';
+        }
+      }, 400);
+
+      if (autoAdvance) {
+        stepToNextChord(2, 0); // Advance seamlessly to Chord 3
+      } else {
+        updateUniversalHud();
+      }
+    }
+
+    // ── 10.3 Theatrical Vintage Outro Credits (Curtain Pull Down) ──
+    function handleValanceCurtainClick(e) {
+      const curtainsWrap = document.getElementById('collab-curtains-wrap');
+      if (curtainsWrap && curtainsWrap.classList.contains('opened')) {
+        if (e) e.stopPropagation();
+        openTheatricalThanksOutro();
+      }
+    }
+
+    function openTheatricalThanksOutro() {
+      const overlay = document.getElementById('theatrical-outro-overlay');
+      if (!overlay) return;
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => {
+        overlay.classList.add('open');
+        // Descend velvet curtains
+        setTimeout(() => {
+          overlay.classList.add('curtains-pulled');
+        }, 80);
+      });
+
+      // Majestic vintage bells & fanfare
+      try {
+        const chord = [220.00, 277.18, 329.63, 440.00, 554.37, 659.25];
+        chord.forEach((freq, i) => {
+          setTimeout(() => pluckHarpString(freq, 0.75 - i * 0.04), i * 90);
+        });
+        if (typeof playGoldenBellChime === 'function') {
+          setTimeout(() => playGoldenBellChime(554.37), 300);
+          setTimeout(() => playGoldenBellChime(880.00), 550);
+        }
+      } catch (err) {}
+    }
+
+    function closeTheatricalThanksOutro() {
+      const overlay = document.getElementById('theatrical-outro-overlay');
+      if (!overlay) return;
+      overlay.classList.remove('curtains-pulled');
+      overlay.classList.remove('open');
+      setTimeout(() => {
+        if (!overlay.classList.contains('open')) {
+          overlay.style.display = 'none';
+        }
+      }, 550);
+    }
+
+    function replayTheatricalOutro() {
+      closeTheatricalThanksOutro();
+      setTimeout(() => {
+        openTheatricalThanksOutro();
+      }, 600);
+    }
 
     // ── 11. Chord 4 (Challenges) Sequential Presentation (Steps 0 to 4) ──
     let currentChallengeStep = 0;
@@ -1788,8 +2891,9 @@
     // ══════════════════════════════════════════════════════════════════
     // ── SUBPAGE 2 (التحضيرات): GAME LEVELS MAP & PROCESS CONTROLLER ──
     // ══════════════════════════════════════════════════════════════════
-    let currentGmLevel = 1; // 1 to 5 (visual node on map)
-    let currentLoopRotation = 1; // 1: Day 1 (Lap 1), 2: Day 2 (Lap 2)
+    let currentGmLevel = 1; // 1 to 6 (visual node on map)
+    let currentNodeDay = 1; // 1: Day 1, 2: Day 2 for nodes 3, 4, 5, 6
+    let currentLoopRotation = 1; // Kept for backwards compatibility
     let sp2ViewMode = 'map'; // 'map' (full-screen map) or 'pane' (full-screen sub-point)
     let sp2CompletedNodes = new Set();
     let currentGmCategory = 'villas';
@@ -1799,30 +2903,74 @@
     let currentGmBudgetDay = 1;
     let currentGmBudgetSlice = 0;
 
-    // Helper: Map Node (1..6) + Rotation (1..2) -> Actual Slide Pane ID (1..10)
-    function getActivePaneId(mapNode = currentGmLevel, rotation = currentLoopRotation) {
+    // Helper: Given Slide Pane ID (1..11) -> Map Node (1..6) & Day (1..2)
+    function getNodeAndDayFromPane(paneIdx) {
+      if (paneIdx === 1) return { node: 1, day: 1 };
+      if (paneIdx === 2) return { node: 2, day: 1 };
+      if (paneIdx === 3) return { node: 3, day: 1 };
+      if (paneIdx === 6) return { node: 3, day: 2 };
+      if (paneIdx === 4 || paneIdx === 11) return { node: 4, day: 1 };
+      if (paneIdx === 7) return { node: 4, day: 2 };
+      if (paneIdx === 5) return { node: 5, day: 1 };
+      if (paneIdx === 8) return { node: 5, day: 2 };
+      if (paneIdx === 9) return { node: 6, day: 1 };
+      if (paneIdx === 10) return { node: 6, day: 2 };
+      return { node: 1, day: 1 };
+    }
+
+    // Helper: Map Node (1..6) + Day (1..2) -> Actual Slide Pane ID
+    function getActivePaneId(mapNode = currentGmLevel, day = currentNodeDay) {
       if (mapNode === 1) return 1;
       if (mapNode === 2) return 2;
-      if (mapNode === 3) return rotation === 1 ? 3 : 6;
-      if (mapNode === 4) return rotation === 1 ? 4 : 7;
-      if (mapNode === 5) return rotation === 1 ? 5 : 8;
-      if (mapNode === 6) return rotation === 1 ? 9 : 10;
+      if (mapNode === 3) return day === 2 ? 6 : 3;
+      if (mapNode === 4) return day === 2 ? 7 : 4;
+      if (mapNode === 5) return day === 2 ? 8 : 5;
+      if (mapNode === 6) return day === 2 ? 10 : 9;
       return 1;
     }
 
-    // Helper: Given Slide Pane ID (1..10) -> Map Node (1..6) & Rotation (1..2)
     function getMapNodeFromPane(paneIdx) {
-      if (paneIdx === 1) return { node: 1, rotation: 1 };
-      if (paneIdx === 2) return { node: 2, rotation: 1 };
-      if (paneIdx === 3) return { node: 3, rotation: 1 };
-      if (paneIdx === 4) return { node: 4, rotation: 1 };
-      if (paneIdx === 5) return { node: 5, rotation: 1 };
-      if (paneIdx === 6) return { node: 3, rotation: 2 };
-      if (paneIdx === 7) return { node: 4, rotation: 2 };
-      if (paneIdx === 8) return { node: 5, rotation: 2 };
-      if (paneIdx === 9) return { node: 6, rotation: 1 };
-      if (paneIdx === 10) return { node: 6, rotation: 2 };
-      return { node: 1, rotation: 1 };
+      const res = getNodeAndDayFromPane(paneIdx);
+      return { node: res.node, rotation: res.day };
+    }
+
+    // ── DAY 1 / DAY 2 TOGGLE CONTROLLER (NODES 3, 4, 5, 6) ──
+    function updateDayToggleUI(node, day) {
+      const container = document.getElementById('gm-day-toggle-container');
+      if (!container) return;
+
+      if (node >= 3 && node <= 6) {
+        container.style.display = 'inline-flex';
+        const btn1 = document.getElementById('gm-day-btn-1');
+        const btn2 = document.getElementById('gm-day-btn-2');
+        if (btn1) btn1.classList.toggle('active', day === 1);
+        if (btn2) btn2.classList.toggle('active', day === 2);
+      } else {
+        container.style.display = 'none';
+      }
+    }
+
+    function switchNodeDay(dayNum, playAudio = true) {
+      if (dayNum !== 1 && dayNum !== 2) return;
+      if (currentGmLevel < 3 || currentGmLevel > 6) return;
+
+      currentNodeDay = dayNum;
+      currentLoopRotation = dayNum;
+      let targetPane = 1;
+      if (currentGmLevel === 3) {
+        targetPane = (dayNum === 1 ? 3 : 6);
+      } else if (currentGmLevel === 4) {
+        targetPane = (dayNum === 1 ? 4 : 7);
+      } else if (currentGmLevel === 5) {
+        targetPane = (dayNum === 1 ? 5 : 8);
+      } else if (currentGmLevel === 6) {
+        targetPane = (dayNum === 1 ? 9 : 10);
+      }
+
+      openSp2Node(targetPane, true, playAudio);
+      if (playAudio && typeof pluckHarpString === 'function') {
+        pluckHarpString(dayNum === 1 ? 329.63 : 440.00, 0.45);
+      }
     }
 
     const gmLevelData = {
@@ -1844,6 +2992,11 @@
       4: {
         badge: 'التحضيرات • اليوم الأول',
         title: 'تحضيرات اليوم الأول • كنيسة العزراء بالسلام',
+        chord: [246.94, 293.66, 369.99, 493.88]
+      },
+      11: {
+        badge: 'أماكن الخدمة • اليومين',
+        title: 'اماكن الخدمة على مدار يومين',
         chord: [246.94, 293.66, 369.99, 493.88]
       },
       5: {
@@ -1905,16 +3058,16 @@
         if (highlightNode <= 6) {
           currentGmLevel = highlightNode;
         } else {
-          const info = getMapNodeFromPane(highlightNode);
+          const info = getNodeAndDayFromPane(highlightNode);
           currentGmLevel = info.node;
-          currentLoopRotation = info.rotation;
+          currentNodeDay = info.day;
         }
       }
 
       updateMapNodesVisuals();
-      updateLoopHubDisplay();
+      updateDayToggleUI(0, 1);
 
-      const activePane = getActivePaneId(currentGmLevel, currentLoopRotation);
+      const activePane = getActivePaneId(currentGmLevel, currentNodeDay);
       if (playAudio && gmLevelData[activePane]) {
         try {
           pluckHarpString(gmLevelData[activePane].chord[0] || 261.63, 0.55);
@@ -1928,10 +3081,6 @@
       if (rotation !== 1 && rotation !== 2) return;
       currentLoopRotation = rotation;
       updateMapNodesVisuals();
-      updateLoopHubDisplay();
-      try {
-        pluckHarpString(rotation === 1 ? 293.66 : 440.00, 0.5);
-      } catch (e) {}
       updateUniversalHud();
     }
 
@@ -1945,22 +3094,8 @@
         const node = document.getElementById(`gm-node-${i}`);
         if (node) {
           node.classList.toggle('active', i === currentGmLevel);
-          let isDone = false;
-          if (i === 1) isDone = sp2CompletedNodes.has(1);
-          else if (i === 2) isDone = sp2CompletedNodes.has(2);
-          else if (i === 3) isDone = (currentLoopRotation === 1 ? sp2CompletedNodes.has(3) : sp2CompletedNodes.has(6));
-          else if (i === 4) isDone = (currentLoopRotation === 1 ? sp2CompletedNodes.has(4) : sp2CompletedNodes.has(7));
-          else if (i === 5) isDone = (currentLoopRotation === 1 ? sp2CompletedNodes.has(5) : sp2CompletedNodes.has(8));
-          else if (i === 6) isDone = (currentLoopRotation === 1 ? sp2CompletedNodes.has(9) : sp2CompletedNodes.has(10));
+          let isDone = sp2CompletedNodes.has(i);
           node.classList.toggle('completed', isDone);
-        }
-      }
-
-      // Update lap badges on loop nodes 3, 4, 5, 6
-      for (let n = 3; n <= 6; n++) {
-        const badge = document.getElementById(`gm-lap-badge-${n}`);
-        if (badge) {
-          badge.textContent = currentLoopRotation === 1 ? 'د١' : 'د٢';
         }
       }
 
@@ -1973,37 +3108,20 @@
     }
 
     function updateLoopHubDisplay() {
-      const mapPane = document.getElementById('gm-map-pane');
-      if (mapPane) {
-        mapPane.classList.toggle('rotation-2', currentLoopRotation === 2);
-      }
-
-      const dayLabel = document.getElementById('gm-floating-day-label');
-      const daySub = document.getElementById('gm-floating-day-sub');
-      if (dayLabel) {
-        dayLabel.textContent = currentLoopRotation === 1 ? 'اليوم الأول' : 'اليوم الثاني';
-      }
-      if (daySub) {
-        daySub.textContent = currentLoopRotation === 1
-          ? 'كنيسة العذراء مريم بالسلام (٨٠ فرداً)'
-          : 'كنيسة البطحة والفيلا (اليوم الميداني)';
-      }
+      // Retained as clean stub for backwards compatibility
     }
 
-    function openSp2Node(targetLevel, resetSubStep = true, playAudio = true) {
-      if (targetLevel < 1 || targetLevel > 10) return;
+    function openSp2Node(paneId, resetSubStep = true, playAudio = true) {
+      if (paneId < 1 || paneId > 11) return;
       sp2ViewMode = 'pane';
 
-      let paneId = targetLevel;
-      if (targetLevel <= 6) {
-        paneId = getActivePaneId(targetLevel, currentLoopRotation);
-        currentGmLevel = targetLevel;
-      } else {
-        const info = getMapNodeFromPane(targetLevel);
-        currentLoopRotation = info.rotation;
-        currentGmLevel = info.node;
-        paneId = targetLevel;
-      }
+      const info = getNodeAndDayFromPane(paneId);
+      currentGmLevel = info.node;
+      currentNodeDay = info.day;
+      currentLoopRotation = info.day;
+
+      // Update the Day Toggle UI in the drawer header
+      updateDayToggleUI(currentGmLevel, currentNodeDay);
 
       const vp = document.getElementById('gm-viewport');
       if (vp) {
@@ -2012,7 +3130,7 @@
       }
 
       // Switch Panes (only target pane visible)
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 11; i++) {
         const pane = document.getElementById(`gm-pane-${i}`);
         if (pane) {
           pane.classList.toggle('active', i === paneId);
@@ -2030,11 +3148,13 @@
         if (paneId === 1) {
           if (typeof goToSp2EduStep === 'function') goToSp2EduStep(0);
         } else if (paneId === 2) {
-          // تحضيرات in general (single step)
+          if (typeof goToSp2FirstStepsPhase === 'function') goToSp2FirstStepsPhase(1, false);
         } else if (paneId === 3) {
           selectSp2Day1ProgramLevel(1, false);
         } else if (paneId === 4) {
           if (typeof goToSp2Prep1Step === 'function') goToSp2Prep1Step(0);
+        } else if (paneId === 11) {
+          // اماكن الخدمة على مدار يومين
         } else if (paneId === 5) {
           renderBudgetPieChart(1);
           selectBudgetSlice(0, false);
@@ -2086,14 +3206,31 @@
     }
 
     function selectGameLevel(levelIdx, playAudio = true) {
-      // Called when user clicks a node on the map -> opens that node full-screen
-      openSp2Node(levelIdx, true, playAudio);
+      // Called when user clicks a node on the map -> opens that node full-screen at Day 1
+      if (levelIdx < 1 || levelIdx > 6) return;
+      currentGmLevel = levelIdx;
+      currentNodeDay = 1;
+      const pane = (levelIdx === 1) ? 1 :
+                   (levelIdx === 2) ? 2 :
+                   (levelIdx === 3) ? 3 :
+                   (levelIdx === 4) ? 4 :
+                   (levelIdx === 5) ? 5 : 9;
+      openSp2Node(pane, true, playAudio);
     }
 
     function navigateGameLevel(dir) {
-      const curPane = getActivePaneId(currentGmLevel, currentLoopRotation);
-      let targetPane = curPane + dir;
-      if (targetPane >= 1 && targetPane <= 10) {
+      let curPane = 1;
+      for (let i = 1; i <= 11; i++) {
+        const p = document.getElementById(`gm-pane-${i}`);
+        if (p && p.classList.contains('active')) { curPane = i; break; }
+      }
+      const paneOrder = [1, 2, 3, 6, 4, 11, 7, 5, 8, 9, 10];
+      let curIdx = paneOrder.indexOf(curPane);
+      if (curIdx === -1) curIdx = 0;
+
+      let nextIdx = curIdx + dir;
+      if (nextIdx >= 0 && nextIdx < paneOrder.length) {
+        const targetPane = paneOrder[nextIdx];
         openSp2Node(targetPane, true, true);
       }
     }
@@ -2103,9 +3240,17 @@
       if (sp2ViewMode === 'pane') {
         showSp2Map(currentGmLevel, true);
       } else {
-        openSp2Node(currentGmLevel, false, true);
+        const p = getActivePaneId(currentGmLevel, currentNodeDay);
+        openSp2Node(p, false, true);
       }
     }
+
+    // Expose core map & day toggle controllers to window
+    window.openSp2Node = openSp2Node;
+    window.switchNodeDay = switchNodeDay;
+    window.selectGameLevel = selectGameLevel;
+    window.showSp2Map = showSp2Map;
+    window.toggleGameMapDrawer = toggleGameMapDrawer;
 
     function updateDrawerToggleBtn(isOpen) {
       // Backward compatibility stub
@@ -3700,13 +4845,18 @@
         if (isEditorModeActive) {
           el.setAttribute('contenteditable', 'true');
           el.setAttribute('spellcheck', 'false');
+          el.onblur = () => {
+            saveEditorEdits();
+          };
         } else {
           el.removeAttribute('contenteditable');
+          el.onblur = null;
         }
       });
 
       if (isEditorModeActive) {
         pluckHarpString(523.25, 0.7);
+        showEditorNotification('وضع التحرير المباشر مُفعّل');
       } else {
         saveEditorEdits();
         pluckHarpString(392.00, 0.5);
@@ -3723,6 +4873,7 @@
         });
         localStorage.setItem('raht_presentation_custom_edits', JSON.stringify(edits));
         showEditorNotification('تم حفظ كافة تعديلات النصوص بنجاح في المتصفح!');
+        showCmToast('💾 تم حفظ تعديلات النصوص تلقائياً في المتصفح!');
       } catch (e) {
         console.error('Error saving edits:', e);
       }
@@ -3772,34 +4923,34 @@
 
     // ── Ambient Floating Notes for sp-2 and sp-4 Map Panes ──
     function spawnMapAmbientNotes() {
-      const noteGlyphs = ['♪', '♫', '♩', '♬', '✦', '✧'];
+      const noteGlyphs = ['♪', '♫', '♩', '♬', '✦', '✧', '𝄞'];
 
-      // sp-2 (blue theme)
-      const sp2Layer = document.querySelector('#sp-2 .floating-notes-layer');
-      if (sp2Layer) {
-        sp2Layer.innerHTML = '';
+      // sp-2 (blue/mint theme - both gm-pane-3 and gm-pane-6)
+      const sp2Layers = document.querySelectorAll('#sp-2 .floating-notes-layer');
+      sp2Layers.forEach(sp2Layer => {
         const blueColors = [
           'rgba(114, 239, 182, 0.85)',
           'rgba(78, 168, 222, 0.9)',
           'rgba(144, 224, 239, 0.85)',
           'rgba(90, 190, 240, 0.8)',
-          'rgba(160, 240, 210, 0.75)'
+          'rgba(160, 240, 210, 0.75)',
+          'rgba(253, 224, 71, 0.8)'
         ];
-        for (let i = 0; i < 14; i++) {
+        for (let i = 0; i < 20; i++) {
           const el = document.createElement('div');
           el.className = 'map-ambient-note';
           el.textContent = noteGlyphs[Math.floor(Math.random() * noteGlyphs.length)];
-          const sz = Math.floor(Math.random() * 10 + 14); // 14 to 24px
+          const sz = Math.floor(Math.random() * 12 + 14); // 14 to 26px
           const rot = ((Math.random() - 0.5) * 45).toFixed(1);
-          const op = (Math.random() * 0.4 + 0.35).toFixed(2);
+          const op = (Math.random() * 0.45 + 0.35).toFixed(2);
           const color = blueColors[Math.floor(Math.random() * blueColors.length)];
-          const dur = (7 + Math.random() * 8).toFixed(1);
-          const delay = (Math.random() * -15).toFixed(1);
-          const left = (Math.random() * 90 + 5).toFixed(1);
+          const dur = (6 + Math.random() * 9).toFixed(1);
+          const delay = (Math.random() * -16).toFixed(1);
+          const left = (Math.random() * 92 + 4).toFixed(1);
           el.style.cssText = `
             left: ${left}%;
             color: ${color};
-            text-shadow: 0 0 8px ${color}, 0 0 16px rgba(78, 168, 222, 0.4);
+            text-shadow: 0 0 8px ${color}, 0 0 16px rgba(78, 168, 222, 0.45);
             --note-size: ${sz}px;
             --note-rot: ${rot}deg;
             --note-opacity: ${op};
@@ -3808,34 +4959,34 @@
           `;
           sp2Layer.appendChild(el);
         }
-      }
+      });
 
-      // sp-4 (green theme)
-      const sp4Layer = document.querySelector('#sp-4 .floating-notes-layer');
-      if (sp4Layer) {
-        sp4Layer.innerHTML = '';
+      // sp-4 (green/gold theme)
+      const sp4Layers = document.querySelectorAll('#sp-4 .floating-notes-layer');
+      sp4Layers.forEach(sp4Layer => {
         const greenColors = [
           'rgba(72, 202, 139, 0.85)',
           'rgba(114, 239, 182, 0.9)',
           'rgba(167, 243, 208, 0.85)',
           'rgba(52, 211, 153, 0.8)',
-          'rgba(110, 231, 183, 0.75)'
+          'rgba(110, 231, 183, 0.75)',
+          'rgba(251, 191, 36, 0.8)'
         ];
-        for (let i = 0; i < 14; i++) {
+        for (let i = 0; i < 20; i++) {
           const el = document.createElement('div');
           el.className = 'map-ambient-note';
           el.textContent = noteGlyphs[Math.floor(Math.random() * noteGlyphs.length)];
-          const sz = Math.floor(Math.random() * 10 + 14); // 14 to 24px
+          const sz = Math.floor(Math.random() * 12 + 14); // 14 to 26px
           const rot = ((Math.random() - 0.5) * 45).toFixed(1);
-          const op = (Math.random() * 0.4 + 0.35).toFixed(2);
+          const op = (Math.random() * 0.45 + 0.35).toFixed(2);
           const color = greenColors[Math.floor(Math.random() * greenColors.length)];
-          const dur = (7 + Math.random() * 8).toFixed(1);
-          const delay = (Math.random() * -15).toFixed(1);
-          const left = (Math.random() * 90 + 5).toFixed(1);
+          const dur = (6 + Math.random() * 9).toFixed(1);
+          const delay = (Math.random() * -16).toFixed(1);
+          const left = (Math.random() * 92 + 4).toFixed(1);
           el.style.cssText = `
             left: ${left}%;
             color: ${color};
-            text-shadow: 0 0 8px ${color}, 0 0 16px rgba(72, 202, 139, 0.4);
+            text-shadow: 0 0 8px ${color}, 0 0 16px rgba(72, 202, 139, 0.45);
             --note-size: ${sz}px;
             --note-rot: ${rot}deg;
             --note-opacity: ${op};
@@ -3844,9 +4995,8 @@
           `;
           sp4Layer.appendChild(el);
         }
-      }
+      });
     }
-
 
     // ── 6. Ambient Floating Musical Notes ──
     (function spawnAmbientNotes() {
@@ -3885,3 +5035,799 @@
         home.appendChild(p);
       }
     })();
+
+    // ══════════════════════════════════════════════════════════════════
+    // ⚡ FAST CONTENT & TEXT EDITOR DASHBOARD CONTROLLER (لوحة تعديل النصوص)
+    // ══════════════════════════════════════════════════════════════════
+    var isContentManagerOpen = false;
+    var cmCurrentCategory = 'all';
+    var cmSavedEdits = {};
+
+    // 1. Comprehensive Registry of Presentation Texts
+    var CM_REGISTRY = [
+      // ── الرئيسية والقيثارة ──
+      {
+        id: 'home_team_name',
+        category: 'home',
+        catLabel: 'الرئيسية والقيثارة',
+        slideLabel: 'الشاشة الافتتاحية',
+        fieldLabel: 'اسم الفريق الرئيسي',
+        selector: '#team-name',
+        getDefault: () => 'رهط الوتر'
+      },
+      {
+        id: 'home_team_motto',
+        category: 'home',
+        catLabel: 'الرئيسية والقيثارة',
+        slideLabel: 'الشاشة الافتتاحية',
+        fieldLabel: 'الشعار اللفظي للرهط',
+        selector: '#team-motto',
+        getDefault: () => '«مختلفين في شخصياتنا… لكن لما بنجتمع بنعمل لحن واحد»'
+      },
+
+      // ── الوتر الأول: احنا مين؟ ──
+      {
+        id: 'c0_s0_title',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'شريحة 1: من نحن؟',
+        fieldLabel: 'عنوان الشريحة',
+        selector: '#stage-0 .stage-title',
+        chordIdx: 0,
+        stepIdx: 0,
+        getDefault: () => 'من نحن؟'
+      },
+      {
+        id: 'c0_s1_title',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'شريحة 2: سر التسمية',
+        fieldLabel: 'عنوان شريحة التسمية',
+        selector: '#stage-1 .stage-title',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'تسمية «رهط الوتر»'
+      },
+      {
+        id: 'c0_s1_quote',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'شريحة 2: سر التسمية',
+        fieldLabel: 'اقتباس بطاقة التسمية (Quote Card)',
+        selector: '#stage-1 .quote-text',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'الوتر: تنوّعٌ في المواهب، ووحدةٌ في الروح، علشان نعمل لحناً يئثار القلوب'
+      },
+      {
+        id: 'c0_bible_badge_verse',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'الكتاب المقدس (الصفحة اليمنى)',
+        fieldLabel: 'شارة ترويسة الآية',
+        selector: '.bible-verse-top-badge',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'آيَةُ تَسْمِيَةِ «رَهْطِ الْوَتَرِ»'
+      },
+      {
+        id: 'c0_bible_verse',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'الكتاب المقدس (الصفحة اليمنى)',
+        fieldLabel: 'نص الآية الكريمة (بالتشكيل)',
+        selector: '#bible-scripture-highlight',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'فَإِنَّهُ كَمَا فِي جَسَدٍ وَاحِدٍ لَنَا أَعْضَاءٌ كَثِيرَةٌ وَلَكِنْ لَيْسَ جَمِيعُ الأَعْضَاءِ لَهَا عَمَلٌ وَاحِدٌ'
+      },
+      {
+        id: 'c0_bible_citation',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'الكتاب المقدس (الصفحة اليمنى)',
+        fieldLabel: 'شاهد الآية الكريمة (الشاهد)',
+        selector: '.bible-citation-pill .citation-text',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'رومية ١٢ :٤'
+      },
+      {
+        id: 'c0_bible_badge_refl',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'الكتاب المقدس (الصفحة اليسرى)',
+        fieldLabel: 'شارة ترويسة التأمل',
+        selector: '.bible-reflection-top-badge',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'التَّأَمُّلُ الرُّوحِي'
+      },
+      {
+        id: 'c0_bible_refl_core',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'الكتاب المقدس (الصفحة اليسرى)',
+        fieldLabel: 'التأمل الروحي الجوهري',
+        selector: '.bible-reflection-core-quote',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => '«الْوَتَرُ: تَنَوُّعٌ فِي الْمَوَاهِبِ، وَوَحْدَةٌ فِي الرُّوحِ، لِنَصْنَعَ لَحْناً يَمَسُّ الْقُلُوبَ»'
+      },
+      {
+        id: 'c0_bible_refl_body',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'الكتاب المقدس (الصفحة اليسرى)',
+        fieldLabel: 'نص التأمل الكنسي والتكامل',
+        selector: '.bible-reflection-body-text',
+        chordIdx: 0,
+        stepIdx: 1,
+        getDefault: () => 'أعضاءٌ كثيرة في جسدٍ واحد، تتكامل مواهبها معاً لخدمة ورعاية أولاد الله بروح المحبة والعطاء'
+      },
+      {
+        id: 'c0_s2_title',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'شريحة 3: العهد التجوالي',
+        fieldLabel: 'عنوان شريحة العهد',
+        selector: '#stage-2 .stage-title',
+        chordIdx: 0,
+        stepIdx: 2,
+        getDefault: () => 'العهد التجوالي والالتزام اليومي'
+      },
+      {
+        id: 'c0_s2_covenant',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'شريحة 3: العهد التجوالي',
+        fieldLabel: 'نص العهد التجوالي',
+        selector: '.covenant-text',
+        chordIdx: 0,
+        stepIdx: 2,
+        getDefault: () => 'نصلي ابانا الذي و صلاة الجوال'
+      },
+      {
+        id: 'c0_s3_tl_title',
+        category: 'chord0',
+        catLabel: 'الوتر الأول: احنا مين؟',
+        slideLabel: 'شرائح 4-8: رحلتنا (الخط الزمني)',
+        fieldLabel: 'عنوان قسم الرحلة',
+        selector: '#stage-3 .tl-title',
+        chordIdx: 0,
+        stepIdx: 3,
+        getDefault: () => 'رحلتنا'
+      },
+
+      // ── الوتر الثاني: فكرة المشروع ──
+      {
+        id: 'c1_rej_card_1_title',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 1: الأفكار المستبعدة',
+        fieldLabel: 'عنوان الفكرة المستبعدة الأولى',
+        chordIdx: 1,
+        stepIdx: 0,
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0] ? rejectedCardsData[0].title : 'حملة التوعية النفسية'),
+        setter: (v) => {
+          if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0]) rejectedCardsData[0].title = v;
+          const el = document.querySelectorAll('.rej-card-title')[0];
+          if (el) el.textContent = v;
+        },
+        getDefault: () => 'حملة التوعية النفسية'
+      },
+      {
+        id: 'c1_rej_card_1_reason',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 1: الأفكار المستبعدة',
+        fieldLabel: 'سبب استبعاد الفكرة الأولى',
+        chordIdx: 1,
+        stepIdx: 0,
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0] ? rejectedCardsData[0].reason : 'الجلسات محتاجة ومتخصصين مش إحنا'),
+        setter: (v) => {
+          if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0]) rejectedCardsData[0].reason = v;
+          const el = document.getElementById('rej-modal-reason-text');
+          if (el) el.textContent = v;
+        },
+        getDefault: () => 'الجلسات محتاجة ومتخصصين مش إحنا'
+      },
+      {
+        id: 'c1_rej_card_2_title',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 1: الأفكار المستبعدة',
+        fieldLabel: 'عنوان الفكرة المستبعدة الثانية',
+        chordIdx: 1,
+        stepIdx: 0,
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1] ? rejectedCardsData[1].title : 'رحلات الهايكينج للآخرين'),
+        setter: (v) => {
+          if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1]) rejectedCardsData[1].title = v;
+          const el = document.querySelectorAll('.rej-card-title')[1];
+          if (el) el.textContent = v;
+        },
+        getDefault: () => 'رحلات الهايكينج للآخرين'
+      },
+      {
+        id: 'c1_rej_card_2_reason',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 1: الأفكار المستبعدة',
+        fieldLabel: 'سبب استبعاد الفكرة الثانية',
+        chordIdx: 1,
+        stepIdx: 0,
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1] ? rejectedCardsData[1].reason : 'الرحلات مكنش فيها خدمة ولا أثر حقيقي للأولاد'),
+        setter: (v) => {
+          if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1]) rejectedCardsData[1].reason = v;
+        },
+        getDefault: () => 'الرحلات مكنش فيها خدمة ولا أثر حقيقي للأولاد'
+      },
+      {
+        id: 'c1_rej_card_3_title',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 1: الأفكار المستبعدة',
+        fieldLabel: 'عنوان الفكرة المستبعدة الثالثة',
+        chordIdx: 1,
+        stepIdx: 0,
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2] ? rejectedCardsData[2].title : 'فريق الأنشطة الرياضية'),
+        setter: (v) => {
+          if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2]) rejectedCardsData[2].title = v;
+          const el = document.querySelectorAll('.rej-card-title')[2];
+          if (el) el.textContent = v;
+        },
+        getDefault: () => 'فريق الأنشطة الرياضية'
+      },
+      {
+        id: 'c1_rej_card_3_reason',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 1: الأفكار المستبعدة',
+        fieldLabel: 'سبب استبعاد الفكرة الثالثة',
+        chordIdx: 1,
+        stepIdx: 0,
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2] ? rejectedCardsData[2].reason : 'تنظيم الملاعب والألعاب أصلاً شغل قادة المعسكر'),
+        setter: (v) => {
+          if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2]) rejectedCardsData[2].reason = v;
+        },
+        getDefault: () => 'تنظيم الملاعب والألعاب أصلاً شغل قادة المعسكر'
+      },
+      {
+        id: 'c1_goal_label',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 2: الفكرة المعتمدة',
+        fieldLabel: 'عنوان شارة الهدف (Goal Label)',
+        selector: '.goal-label',
+        chordIdx: 1,
+        stepIdx: 1,
+        getDefault: () => 'الهدف الأساسي'
+      },
+      {
+        id: 'c1_goal_main_text',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 2: الفكرة المعتمدة',
+        fieldLabel: 'نص الهدف الأساسي للمشروع',
+        selector: '.goal-main-text',
+        chordIdx: 1,
+        stepIdx: 1,
+        getDefault: () => '"نمنحهم يومًا استثنائيًّا لا يُنسى"'
+      },
+
+      // ── جيتار المسؤوليات والأدوار (الوتر الثاني) ──
+      {
+        id: 'c1_guitar_ro7y_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'مسؤولو الروحي (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[0] ? guitarStringsData[0].members.map(m => m.name).join(' , ') : 'جونثان امير , كيرلس مشيل , فيلوباتير عصام'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[0]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[0].members = names.map(n => ({ name: n, role: 'الفقرة الروحية' }));
+          }
+        },
+        getDefault: () => 'جونثان امير , كيرلس مشيل , فيلوباتير عصام'
+      },
+      {
+        id: 'c1_guitar_akhlaqy_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'مسؤولو الأخلاقي (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[1] ? guitarStringsData[1].members.map(m => m.name).join(', ') : 'مينا كريم, أبرأم نعيم, مايكل هاني, كيرلس سامي'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[1]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[1].members = names.map(n => ({ name: n, role: 'الفقرة الأخلاقية' }));
+          }
+        },
+        getDefault: () => 'مينا كريم, أبرأم نعيم, مايكل هاني, كيرلس سامي'
+      },
+      {
+        id: 'c1_guitar_budget_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'مسؤولو الميزانية (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[2] ? guitarStringsData[2].members.map(m => m.name).join(', ') : 'جون ماجد, ابرام مدحت'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[2]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[2].members = names.map(n => ({ name: n, role: 'الميزانية والحسابات' }));
+          }
+        },
+        getDefault: () => 'جون ماجد, ابرام مدحت'
+      },
+      {
+        id: 'c1_guitar_logistics_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'مسؤولو اللوجيستيات (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[3] ? guitarStringsData[3].members.map(m => m.name).join(', ') : 'توماس تامر, حنا رفعت'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[3]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[3].members = names.map(n => ({ name: n, role: 'اللوجيستيات والتجهيز' }));
+          }
+        },
+        getDefault: () => 'توماس تامر, حنا رفعت'
+      },
+      {
+        id: 'c1_guitar_games_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'مسؤولو الألعاب (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[4] ? guitarStringsData[4].members.map(m => m.name).join(', ') : 'حنا رفعت, ابرام مدحت, فيلوباتير عصام, ابرام نعيم, كيرلس سامي'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[4]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[4].members = names.map(n => ({ name: n, role: 'الألعاب والمسابقات' }));
+          }
+        },
+        getDefault: () => 'حنا رفعت, ابرام مدحت, فيلوباتير عصام, ابرام نعيم, كيرلس سامي'
+      },
+      {
+        id: 'c1_guitar_day1_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'قادة اليوم الأول (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[5] ? guitarStringsData[5].members.map(m => m.name).join(' , ') : 'جون ماجد , جونثان امير'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[5]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[5].members = names.map(n => ({ name: n, role: 'قائد اليوم الأول' }));
+          }
+        },
+        getDefault: () => 'جون ماجد , جونثان امير'
+      },
+      {
+        id: 'c1_guitar_day2_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'قادة اليوم الثاني (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[6] ? guitarStringsData[6].members.map(m => m.name).join(', ') : 'حنا رفعت, توماس تامر'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[6]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[6].members = names.map(n => ({ name: n, role: 'قائد اليوم الثاني' }));
+          }
+        },
+        getDefault: () => 'حنا رفعت, توماس تامر'
+      },
+      {
+        id: 'c1_guitar_crafts_members',
+        category: 'chord1',
+        catLabel: 'الوتر الثاني: فكرة المشروع',
+        slideLabel: 'شريحة 3: جيتار المسؤوليات',
+        fieldLabel: 'مسؤولو الكرافتس والأشغال (الأسماء)',
+        chordIdx: 1,
+        stepIdx: 2,
+        getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[7] ? guitarStringsData[7].members.map(m => m.name).join(' , ') : 'جون ماجد , ابرام مدحت, مينا سامح, كيرلس سامي'),
+        setter: (v) => {
+          if (typeof guitarStringsData !== 'undefined' && guitarStringsData[7]) {
+            const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
+            guitarStringsData[7].members = names.map(n => ({ name: n, role: 'الأشغال والكرافتس' }));
+          }
+        },
+        getDefault: () => 'جون ماجد , ابرام مدحت, مينا سامح, كيرلس سامي'
+      },
+
+      // ── النوافذ المنبثقة والختام ──
+      {
+        id: 'modals_outro_title',
+        category: 'modals',
+        catLabel: 'النوافذ والختام',
+        slideLabel: 'إسدال الستار وشكر وتقدير',
+        fieldLabel: 'العنوان الرئيسي للختام',
+        selector: '.playbill-main-title',
+        getDefault: () => 'شُكْرٌ وَتَقْدِيرٌ وَاجِبْ'
+      },
+      {
+        id: 'modals_outro_letter',
+        category: 'modals',
+        catLabel: 'النوافذ والختام',
+        slideLabel: 'إسدال الستار وشكر وتقدير',
+        fieldLabel: 'رسالة الشكر والعرفان',
+        selector: '.playbill-paragraph',
+        getDefault: () => 'بكل آيات المحبة والعرفان، تتقدم عشيرة جوالة رهط الوتر بخالص الشكر وعميق الامتنان لكل من وضع بصمة حب، وكان سنداً وشريكاً حقيقياً ومصدر تشجيع لا ينقطع في سبيل إنجاح أيام هذه الخدمة المباركة ورسم البسمة على وجوه أولاد كنيستي العذراء بالسلام والبطحة:'
+      },
+      {
+        id: 'modals_outro_quote',
+        category: 'modals',
+        catLabel: 'النوافذ والختام',
+        slideLabel: 'إسدال الستار وشكر وتقدير',
+        fieldLabel: 'المقولة الختامية',
+        selector: '.closing-quote',
+        getDefault: () => '« كُنْتُمْ سَبَباً فِي بَسْمَةٍ لا تُنْسَى.. دُمْتُمْ دَوْماً أَهْلاً لِلْعَطَاءِ وَالْخِدْمَةِ »'
+      }
+    ];
+
+    // Helper: read current value for a registry entry
+    function getCmItemValue(item) {
+      if (item.getter) return item.getter();
+      if (item.selector) {
+        const el = document.querySelector(item.selector);
+        if (el) return el.textContent.trim();
+      }
+      return item.getDefault ? item.getDefault() : '';
+    }
+
+    // Helper: set value for a registry entry
+    function setCmItemValue(item, newVal) {
+      if (item.setter) {
+        item.setter(newVal);
+      } else if (item.selector) {
+        const el = document.querySelector(item.selector);
+        if (el) {
+          el.textContent = newVal;
+        }
+      }
+    }
+
+    // Open Content Manager Modal
+    function openContentManagerModal() {
+      const overlay = document.getElementById('content-manager-overlay');
+      if (!overlay) return;
+      isContentManagerOpen = true;
+      overlay.style.display = 'flex';
+      renderContentManagerItems();
+      const input = document.getElementById('cm-search-input');
+      if (input) {
+        setTimeout(() => input.focus(), 80);
+      }
+    }
+
+    // Close Content Manager Modal
+    function closeContentManagerModal() {
+      const overlay = document.getElementById('content-manager-overlay');
+      if (!overlay) return;
+      isContentManagerOpen = false;
+      overlay.style.display = 'none';
+    }
+
+    // Toggle Content Manager Modal
+    function toggleContentManagerModal() {
+      if (isContentManagerOpen) {
+        closeContentManagerModal();
+      } else {
+        openContentManagerModal();
+      }
+    }
+
+    function handleContentOverlayClick(e) {
+      if (e.target.id === 'content-manager-overlay') {
+        closeContentManagerModal();
+      }
+    }
+
+    // Set Active Category Filter
+    function setCategoryFilter(cat) {
+      cmCurrentCategory = cat;
+      const tabs = document.querySelectorAll('.cm-tab');
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-cat') === cat) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      filterContentManagerItems();
+    }
+
+    // Clear Search Bar
+    function clearContentSearch() {
+      const input = document.getElementById('cm-search-input');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      filterContentManagerItems();
+    }
+
+    // Render Items into DOM
+    function renderContentManagerItems() {
+      const container = document.getElementById('cm-items-container');
+      const countAllBadge = document.getElementById('cm-count-all');
+      if (!container) return;
+
+      if (countAllBadge) {
+        countAllBadge.textContent = CM_REGISTRY.length;
+      }
+
+      container.innerHTML = '';
+
+      CM_REGISTRY.forEach(item => {
+        const currentVal = getCmItemValue(item);
+        const defaultVal = item.getDefault ? item.getDefault() : '';
+        const isModified = cmSavedEdits[item.id] !== undefined || (defaultVal && currentVal !== defaultVal);
+
+        const card = document.createElement('div');
+        card.className = 'cm-item-card' + (isModified ? ' is-dirty' : '');
+        card.setAttribute('data-id', item.id);
+        card.setAttribute('data-cat', item.category);
+
+        let jumpBtnHtml = '';
+        if (typeof item.chordIdx !== 'undefined' && item.chordIdx !== null) {
+          jumpBtnHtml = `
+            <button class="cm-action-icon-btn" onclick="jumpToSlideForText(${item.chordIdx}, ${item.stepIdx || 0})" title="الانتقال الفوري لهذه الشريحة في العرض">
+              <span>👁️ معاينة الشريحة</span>
+            </button>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="cm-item-card-top">
+            <div class="cm-item-badges">
+              <span class="cm-pill-cat">${item.catLabel}</span>
+              <span class="cm-pill-slide">${item.slideLabel}</span>
+              <span class="cm-item-field-title">${item.fieldLabel}</span>
+            </div>
+            <div class="cm-item-actions">
+              ${jumpBtnHtml}
+              <button class="cm-action-icon-btn" onclick="revertContentItem('${item.id}')" title="استعادة النص الأصلي لهذا الحقل">
+                <span>↩ استعادة الأصل</span>
+              </button>
+            </div>
+          </div>
+          <div class="cm-item-editor-wrap">
+            <textarea class="cm-textarea" id="cm_field_${item.id}" rows="2" placeholder="اكتب النص هنا...">${escapeHtml(currentVal)}</textarea>
+            ${defaultVal && defaultVal !== currentVal ? `<div class="cm-original-hint"><span>الأصل:</span> <em>${escapeHtml(defaultVal)}</em></div>` : ''}
+          </div>
+        `;
+
+        const textarea = card.querySelector('textarea');
+        if (textarea) {
+          textarea.addEventListener('input', () => {
+            card.classList.add('is-dirty');
+            const newVal = textarea.value.trim();
+            setCmItemValue(item, newVal);
+            cmSavedEdits[item.id] = newVal;
+            try {
+              localStorage.setItem('raht_presentation_custom_edits_v2', JSON.stringify(cmSavedEdits));
+            } catch (e) { }
+          });
+        }
+
+        container.appendChild(card);
+      });
+
+      filterContentManagerItems();
+    }
+
+    // Live Search & Category Filter
+    function filterContentManagerItems() {
+      const searchInput = document.getElementById('cm-search-input');
+      const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+      const cards = document.querySelectorAll('.cm-item-card');
+
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        const textContent = card.textContent.toLowerCase();
+        const textarea = card.querySelector('textarea');
+        const val = textarea ? textarea.value.toLowerCase() : '';
+
+        const matchesCat = (cmCurrentCategory === 'all' || cat === cmCurrentCategory);
+        const matchesQuery = !query || textContent.includes(query) || val.includes(query);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      const status = document.getElementById('cm-status-text');
+      if (status) {
+        status.innerHTML = `عرض <strong>${visibleCount}</strong> من أصل <strong>${cards.length}</strong> نصاً في العرض. اختصار الفتح والإغلاق: <kbd>F2</kbd> أو <kbd>Alt + E</kbd>`;
+      }
+    }
+
+    // Save All Edits to DOM, JS state, and localStorage
+    function saveAllContentEdits() {
+      const edits = {};
+      CM_REGISTRY.forEach(item => {
+        const textarea = document.getElementById('cm_field_' + item.id);
+        if (textarea) {
+          const newVal = textarea.value.trim();
+          setCmItemValue(item, newVal);
+          edits[item.id] = newVal;
+        }
+      });
+
+      cmSavedEdits = edits;
+      try {
+        localStorage.setItem('raht_presentation_custom_edits_v2', JSON.stringify(edits));
+      } catch (e) {
+        console.error('Error saving edits to localStorage:', e);
+      }
+
+      showCmToast('💾 تم حفظ وتطبيق كافة التعديلات بنجاح في العرض والمتصفح!');
+    }
+
+    // Revert a Single Item
+    function revertContentItem(itemId) {
+      const item = CM_REGISTRY.find(i => i.id === itemId);
+      if (!item) return;
+
+      const defaultVal = item.getDefault ? item.getDefault() : '';
+      const textarea = document.getElementById('cm_field_' + itemId);
+      if (textarea) {
+        textarea.value = defaultVal;
+      }
+      setCmItemValue(item, defaultVal);
+
+      delete cmSavedEdits[itemId];
+      try {
+        localStorage.setItem('raht_presentation_custom_edits_v2', JSON.stringify(cmSavedEdits));
+      } catch (e) { }
+
+      const card = document.querySelector(`.cm-item-card[data-id="${itemId}"]`);
+      if (card) card.classList.remove('is-dirty');
+
+      showCmToast('↩ تم استعادة النص الأصلي لهذا الحقل!');
+    }
+
+    // Reset All Content Edits
+    function resetAllContentEdits() {
+      if (!confirm('هل تريد بالتأكيد إلغاء كافة التعديلات واستعادة النصوص الأصلية لجميع الشرائح؟')) return;
+
+      CM_REGISTRY.forEach(item => {
+        const defaultVal = item.getDefault ? item.getDefault() : '';
+        setCmItemValue(item, defaultVal);
+        const textarea = document.getElementById('cm_field_' + item.id);
+        if (textarea) textarea.value = defaultVal;
+      });
+
+      cmSavedEdits = {};
+      try {
+        localStorage.removeItem('raht_presentation_custom_edits_v2');
+      } catch (e) { }
+
+      const cards = document.querySelectorAll('.cm-item-card');
+      cards.forEach(c => c.classList.remove('is-dirty'));
+
+      showCmToast('🔄 تم استعادة كافة النصوص الأصلية للعرض بالكامل!');
+    }
+
+    // Jump to Slide behind Modal
+    function jumpToSlideForText(chordIdx, stepIdx) {
+      if (typeof openPage === 'function') {
+        openPage(chordIdx);
+      }
+      if (typeof goToPptStep === 'function') {
+        setTimeout(() => {
+          goToPptStep(stepIdx, false);
+        }, 150);
+      }
+      showCmToast('👁️ تم الانتقال للشريحة المطلوبة في الخلفية لمعاينتها!');
+    }
+
+    // Copy Edits as JSON to Clipboard
+    function copyContentEditsJson() {
+      const data = {};
+      CM_REGISTRY.forEach(item => {
+        const textarea = document.getElementById('cm_field_' + item.id);
+        const val = textarea ? textarea.value.trim() : getCmItemValue(item);
+        data[item.id] = val;
+      });
+
+      const jsonStr = JSON.stringify(data, null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(jsonStr).then(() => {
+          showCmToast('📋 تم نسخ ملف التعديلات JSON إلى الحافظة! يمكنك لصقه في الشات.');
+        }).catch(() => {
+          prompt('انسخ نص التعديلات التالي:', jsonStr);
+        });
+      } else {
+        prompt('انسخ نص التعديلات التالي:', jsonStr);
+      }
+    }
+
+    // Download Edits as JSON File
+    function downloadContentEditsJson() {
+      const data = {};
+      CM_REGISTRY.forEach(item => {
+        const textarea = document.getElementById('cm_field_' + item.id);
+        const val = textarea ? textarea.value.trim() : getCmItemValue(item);
+        data[item.id] = val;
+      });
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'raht_presentation_texts_edits.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showCmToast('📥 تم تنزيل ملف التعديلات (JSON) بنجاح!');
+    }
+
+    // Restore All Edits on Startup
+    function restoreAllContentEdits() {
+      try {
+        const saved = localStorage.getItem('raht_presentation_custom_edits_v2');
+        if (!saved) return;
+        cmSavedEdits = JSON.parse(saved);
+        CM_REGISTRY.forEach(item => {
+          if (cmSavedEdits[item.id] !== undefined) {
+            setCmItemValue(item, cmSavedEdits[item.id]);
+          }
+        });
+      } catch (e) {
+        console.error('Error restoring content edits:', e);
+      }
+    }
+
+    // Sleek Toast Notification
+    function showCmToast(msg) {
+      let toast = document.getElementById('cm-toast-notification');
+      if (!toast) return;
+      const msgSpan = document.getElementById('cm-toast-msg');
+      if (msgSpan) msgSpan.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    // Helper: Escape HTML
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Initialize Content Manager on DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', () => {
+      restoreAllContentEdits();
+    });
+
