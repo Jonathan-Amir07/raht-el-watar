@@ -358,7 +358,7 @@
 
       // ── Update Evaluation Panel Slide Counter Box ──
       let globalSlideNum = 1;
-      const totalGlobalSlides = 32;
+      const totalGlobalSlides = 38;
 
       if (activePage === 0) {
         globalSlideNum = currentPptStep + 1; // 1..8
@@ -366,7 +366,16 @@
         globalSlideNum = 8 + currentProjStep + 1; // 9..12
       } else if (activePage === 2) {
         if (sp2ViewMode === 'map') {
-          globalSlideNum = (currentLoopRotation === 1) ? 13 : 21;
+          if (currentGmLevel === 1) globalSlideNum = 13;
+          else if (currentGmLevel === 2) globalSlideNum = 15;
+          else if (currentGmLevel === 3) globalSlideNum = 17;
+          else if (currentGmLevel === 4) globalSlideNum = 20;
+          else if (currentGmLevel === 5) globalSlideNum = 24;
+          else if (currentGmLevel === 6) {
+            globalSlideNum = (typeof sp2CompletedNodes !== 'undefined' && sp2CompletedNodes.has(6)) ? 30 : 27;
+          } else {
+            globalSlideNum = 13;
+          }
         } else {
           let activePane = currentGmLevel;
           for (let i = 1; i <= 11; i++) {
@@ -377,22 +386,27 @@
             }
           }
           if (activePane === 1) globalSlideNum = 14;
-          else if (activePane === 2) globalSlideNum = 15;
-          else if (activePane === 3) globalSlideNum = 16;
-          else if (activePane === 6) globalSlideNum = 17;
-          else if (activePane === 4) globalSlideNum = 18;
-          else if (activePane === 7) globalSlideNum = 19;
-          else if (activePane === 11) globalSlideNum = 20;
-          else if (activePane === 5) globalSlideNum = 21;
-          else if (activePane === 8) globalSlideNum = 22;
-          else if (activePane === 9) globalSlideNum = 23;
-          else if (activePane === 10) globalSlideNum = 24;
-          else globalSlideNum = (currentLoopRotation === 1) ? 13 : 24;
+          else if (activePane === 2) globalSlideNum = 16;
+          else if (activePane === 3) globalSlideNum = 18;
+          else if (activePane === 6) globalSlideNum = 19;
+          else if (activePane === 4) globalSlideNum = 21;
+          else if (activePane === 7) globalSlideNum = 22;
+          else if (activePane === 11) globalSlideNum = 23;
+          else if (activePane === 5) globalSlideNum = 25;
+          else if (activePane === 8) globalSlideNum = 26;
+          else if (activePane === 9) globalSlideNum = 28;
+          else if (activePane === 10) globalSlideNum = 29;
+          else globalSlideNum = 13;
         }
       } else if (activePage === 3) {
-        globalSlideNum = 24 + currentChallengeStep + 1; // 25..29
+        globalSlideNum = 30 + currentChallengeStep + 1; // 31..35
       } else if (activePage === 4) {
-        globalSlideNum = 29 + currentSp5SlideIdx; // 30..31
+        globalSlideNum = 35 + currentSp5SlideIdx; // 36..37
+        const outroOverlay = document.getElementById('theatrical-outro-overlay');
+        const finaleBanner = document.getElementById('presentation-finale-banner');
+        if ((outroOverlay && outroOverlay.classList.contains('open')) || (finaleBanner && finaleBanner.style.display !== 'none')) {
+          globalSlideNum = 38;
+        }
       }
 
       if (evalBox) {
