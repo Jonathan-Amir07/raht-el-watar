@@ -221,24 +221,28 @@
             chordTitle = 'الوتر الثاني: الفكرة ' + (arabicNums[cardIdx] || (cardIdx + 1));
           } else {
             curStep = 1;
-            totalSteps = 4;
+            totalSteps = 5;
             chordTitle = 'الوتر الثاني: المشاريع المستبعدة';
           }
         } else if (currentProjStep === 1) {
           curStep = 2;
-          totalSteps = 4;
+          totalSteps = 5;
           chordTitle = 'الوتر الثاني: الهدف الأساسي';
         } else if (currentProjStep === 2) {
           curStep = 3;
-          totalSteps = 4;
-          chordTitle = 'الوتر الثاني: جيتار المسؤوليات والمهام';
+          totalSteps = 5;
+          chordTitle = 'الوتر الثاني: محطات الخدمة والكنائس';
         } else if (currentProjStep === 3) {
           curStep = 4;
-          totalSteps = 4;
+          totalSteps = 5;
+          chordTitle = 'الوتر الثاني: قيثارة المسؤوليات والمهام';
+        } else if (currentProjStep === 4) {
+          curStep = 5;
+          totalSteps = 5;
           chordTitle = 'الوتر الثاني: فيديو ملخص اليومين';
         }
         const b1 = document.getElementById('ppt-counter-badge-1');
-        if (b1) b1.textContent = `${toArabicNum(curStep)} / ٤`;
+        if (b1) b1.textContent = `${toArabicNum(curStep)} / ٥`;
         if (prevBtn) prevBtn.disabled = (currentProjStep === 0 && currentRejectedStep === 0);
         if (nextBtn) nextBtn.disabled = false;
       } else if (activePage === 2) {
@@ -346,9 +350,9 @@
       } else if (activePage === 4) {
         chordTitle = 'الوتر الخامس: الدروس والمستقبل';
         curStep = currentSp5SlideIdx;
-        totalSteps = 2;
-        const b4 = document.getElementById('ppt-counter-badge-4');
-        if (b4) b4.textContent = `${toArabicNum(curStep)} / ٢`;
+        totalSteps = 3;
+        const b4 = document.getElementById('ppt-counter-badge-4') || document.getElementById('ppt-counter-badge-5');
+        if (b4) b4.textContent = `${toArabicNum(curStep)} / ٣`;
         if (prevBtn) prevBtn.disabled = false;
         if (nextBtn) nextBtn.disabled = false;
       }
@@ -358,23 +362,23 @@
 
       // ── Update Evaluation Panel Slide Counter Box ──
       let globalSlideNum = 1;
-      const totalGlobalSlides = 38;
+      const totalGlobalSlides = 40;
 
       if (activePage === 0) {
         globalSlideNum = currentPptStep + 1; // 1..8
       } else if (activePage === 1) {
-        globalSlideNum = 8 + currentProjStep + 1; // 9..12
+        globalSlideNum = 8 + currentProjStep + 1; // 9..13
       } else if (activePage === 2) {
         if (sp2ViewMode === 'map') {
-          if (currentGmLevel === 1) globalSlideNum = 13;
-          else if (currentGmLevel === 2) globalSlideNum = 15;
-          else if (currentGmLevel === 3) globalSlideNum = 17;
-          else if (currentGmLevel === 4) globalSlideNum = 20;
-          else if (currentGmLevel === 5) globalSlideNum = 24;
+          if (currentGmLevel === 1) globalSlideNum = 14;
+          else if (currentGmLevel === 2) globalSlideNum = 16;
+          else if (currentGmLevel === 3) globalSlideNum = 18;
+          else if (currentGmLevel === 4) globalSlideNum = 21;
+          else if (currentGmLevel === 5) globalSlideNum = 25;
           else if (currentGmLevel === 6) {
-            globalSlideNum = (typeof sp2CompletedNodes !== 'undefined' && sp2CompletedNodes.has(6)) ? 30 : 27;
+            globalSlideNum = (typeof sp2CompletedNodes !== 'undefined' && sp2CompletedNodes.has(6)) ? 31 : 28;
           } else {
-            globalSlideNum = 13;
+            globalSlideNum = 14;
           }
         } else {
           let activePane = currentGmLevel;
@@ -385,27 +389,27 @@
               break;
             }
           }
-          if (activePane === 1) globalSlideNum = 14;
-          else if (activePane === 2) globalSlideNum = 16;
-          else if (activePane === 3) globalSlideNum = 18;
-          else if (activePane === 6) globalSlideNum = 19;
-          else if (activePane === 4) globalSlideNum = 21;
-          else if (activePane === 7) globalSlideNum = 22;
-          else if (activePane === 11) globalSlideNum = 23;
-          else if (activePane === 5) globalSlideNum = 25;
-          else if (activePane === 8) globalSlideNum = 26;
-          else if (activePane === 9) globalSlideNum = 28;
-          else if (activePane === 10) globalSlideNum = 29;
-          else globalSlideNum = 13;
+          if (activePane === 1) globalSlideNum = 15;
+          else if (activePane === 2) globalSlideNum = 17;
+          else if (activePane === 3) globalSlideNum = 19;
+          else if (activePane === 6) globalSlideNum = 20;
+          else if (activePane === 4) globalSlideNum = 22;
+          else if (activePane === 7) globalSlideNum = 23;
+          else if (activePane === 11) globalSlideNum = 24;
+          else if (activePane === 5) globalSlideNum = 26;
+          else if (activePane === 8) globalSlideNum = 27;
+          else if (activePane === 9) globalSlideNum = 29;
+          else if (activePane === 10) globalSlideNum = 30;
+          else globalSlideNum = 14;
         }
       } else if (activePage === 3) {
-        globalSlideNum = 30 + currentChallengeStep + 1; // 31..35
+        globalSlideNum = 31 + currentChallengeStep + 1; // 32..36
       } else if (activePage === 4) {
-        globalSlideNum = 35 + currentSp5SlideIdx; // 36..37
+        globalSlideNum = 36 + currentSp5SlideIdx; // 37..39
         const outroOverlay = document.getElementById('theatrical-outro-overlay');
         const finaleBanner = document.getElementById('presentation-finale-banner');
         if ((outroOverlay && outroOverlay.classList.contains('open')) || (finaleBanner && finaleBanner.style.display !== 'none')) {
-          globalSlideNum = 38;
+          globalSlideNum = 40;
         }
       }
 
@@ -463,6 +467,7 @@
       forceResetBibleModal();
       closeChristmasCinema(false);
       closeTwoDaysVideo(false);
+      if (typeof closeDayVideo === 'function') closeDayVideo();
       closeTheatricalThanksOutro();
       closeGuitarDetails();
       closeCinematicZoom();
@@ -896,14 +901,16 @@
           } else if (currentProjStep === 1) {
             goToProjStep(2);
           } else if (currentProjStep === 2) {
-            // Slide 11: Open guitar strings sequentially on Space / Next
+            goToProjStep(3);
+          } else if (currentProjStep === 3) {
+            // Slide 12 (Classical Harp): Open harp strings sequentially on Space / Next
             if (currentGuitarStringIdx < 9) {
               selectGuitarString(currentGuitarStringIdx + 1);
             } else {
-              goToProjStep(3);
+              goToProjStep(4);
             }
-          } else if (currentProjStep === 3) {
-            // Slide 12: Start video playing on Space / Next without clicking play button
+          } else if (currentProjStep === 4) {
+            // Slide 13 (Recap Video): Start video playing on Space / Next without clicking play button
             if (!isTwoDaysVideoExpanded) {
               openTwoDaysVideo();
               return;
@@ -912,22 +919,24 @@
             }
           }
         } else {
-          if (currentProjStep === 3) {
+          if (currentProjStep === 4) {
             if (isTwoDaysVideoExpanded) {
               closeTwoDaysVideo(false);
               return;
             } else {
-              goToProjStep(2);
+              goToProjStep(3);
               selectGuitarString(9);
             }
-          } else if (currentProjStep === 2) {
+          } else if (currentProjStep === 3) {
             if (currentGuitarStringIdx > 0) {
               selectGuitarString(currentGuitarStringIdx - 1);
             } else if (currentGuitarStringIdx === 0) {
               closeGuitarDetails();
             } else {
-              goToProjStep(1);
+              goToProjStep(2);
             }
+          } else if (currentProjStep === 2) {
+            goToProjStep(1);
           } else if (currentProjStep === 1) {
             goToProjStep(0);
             goToRejectedStep(6);
@@ -1173,14 +1182,31 @@
         }
       } else if (activePage === 4) {
         if (direction > 0) {
-          if (currentSp5SlideIdx < 2) {
-            goToSp5Slide(currentSp5SlideIdx + 1, true);
-          } else {
+          if (currentSp5SlideIdx === 1) {
+            goToSp5Slide(2, true);
+          } else if (currentSp5SlideIdx === 2) {
+            if (!isGrandCurtainOpened) {
+              triggerGrandCollabReveal();
+              isGrandCurtainOpened = true;
+            } else {
+              goToSp5Slide(3, true);
+            }
+          } else if (currentSp5SlideIdx === 3) {
             celebratePresentationCompletion();
           }
         } else {
-          if (currentSp5SlideIdx > 1) {
-            goToSp5Slide(currentSp5SlideIdx - 1, true);
+          if (currentSp5SlideIdx === 3) {
+            goToSp5Slide(2, true);
+            triggerGrandCollabReveal();
+            isGrandCurtainOpened = true;
+          } else if (currentSp5SlideIdx === 2) {
+            if (isGrandCurtainOpened) {
+              clearGrandRevealTimers();
+              resetGrandCollabCurtain();
+              isGrandCurtainOpened = false;
+            } else {
+              goToSp5Slide(1, true);
+            }
           } else {
             stepToNextChord(3, 5); // Back to Chord 4 (التحديات last step 5)
           }
@@ -1264,6 +1290,16 @@
         } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
           e.preventDefault();
           advanceGlobalPresentation(-1);
+          return;
+        }
+      }
+
+      // 0.58 Service Day Video Modal check (Day 1 & Day 2)
+      const serviceDayOverlay = document.getElementById('service-day-video-overlay');
+      if (serviceDayOverlay && serviceDayOverlay.style.display !== 'none') {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeDayVideo();
           return;
         }
       }
@@ -2047,8 +2083,8 @@
       updateUniversalHud();
       const counterEl = document.getElementById('ppt-counter-badge-1');
       if (counterEl) {
-        const arabicNums = ['١', '٢', '٣', '٤'];
-        counterEl.textContent = `${arabicNums[currentProjStep] || (currentProjStep + 1)} / ٤`;
+        const arabicNums = ['١', '٢', '٣', '٤', '٥'];
+        counterEl.textContent = `${arabicNums[currentProjStep] || (currentProjStep + 1)} / ٥`;
       }
 
       const prevBtn = document.getElementById('ppt-prev-btn-1');
@@ -2063,15 +2099,15 @@
         closeRejectedReasonModal();
         highlightRejectedCard(-1);
       }
-      if (currentProjStep === 2) {
+      if (currentProjStep === 3) {
         init10StringGuitar();
-      } else if (currentProjStep === 3) {
+      } else if (currentProjStep === 4) {
         closeGuitarDetails();
       }
     }
 
     function goToProjStep(step) {
-      if (step < 0 || step > 3) return;
+      if (step < 0 || step > 4) return;
       currentProjStep = step;
       updateProjPresentation();
     }
@@ -2221,17 +2257,19 @@
     let isGuitarInitialized = false;
     const guitarActiveAnimations = {};
 
+    const exploredHarpStrings = new Set();
+
     const guitarStringCoordinates = [
-      { x1: 241, y1: 96, x2: 234, y2: 520 }, // 0
-      { x1: 247, y1: 96, x2: 242, y2: 520 }, // 1
-      { x1: 253, y1: 96, x2: 250, y2: 520 }, // 2
-      { x1: 260, y1: 96, x2: 258, y2: 520 }, // 3
-      { x1: 267, y1: 96, x2: 266, y2: 520 }, // 4
-      { x1: 273, y1: 96, x2: 274, y2: 520 }, // 5
-      { x1: 280, y1: 96, x2: 282, y2: 520 }, // 6
-      { x1: 286, y1: 96, x2: 290, y2: 520 }, // 7
-      { x1: 293, y1: 96, x2: 298, y2: 520 }, // 8
-      { x1: 299, y1: 96, x2: 306, y2: 520 }  // 9
+      { x1: 155, y1: 78, x2: 230, y2: 580 }, // 0: الروحي
+      { x1: 185, y1: 70, x2: 252, y2: 575 }, // 1: الأخلاقي
+      { x1: 215, y1: 68, x2: 274, y2: 570 }, // 2: الميزانيه
+      { x1: 245, y1: 72, x2: 296, y2: 560 }, // 3: اللوجيستيات
+      { x1: 275, y1: 82, x2: 318, y2: 545 }, // 4: الألعاب
+      { x1: 305, y1: 98, x2: 340, y2: 520 }, // 5: قائد اليوم الأول
+      { x1: 335, y1: 120, x2: 362, y2: 490 }, // 6: قائد اليوم التاني
+      { x1: 365, y1: 148, x2: 384, y2: 450 }, // 7: كرافتس
+      { x1: 395, y1: 180, x2: 406, y2: 400 }, // 8: الفقره الافتتاحيه
+      { x1: 425, y1: 218, x2: 428, y2: 335 }  // 9: الاكل
     ];
 
     function animateGuitarVectorString(idx, pathEl, glowEl, amp = 14, decay = 3.0, freq = 220) {
@@ -2386,6 +2424,15 @@
         `).join('');
       }
 
+      // Track explored strings for radiant harp illumination
+      exploredHarpStrings.add(idx);
+      if (exploredHarpStrings.size >= 10) {
+        const harpWrap = document.getElementById('acoustic-guitar-svg-wrap');
+        if (harpWrap) {
+          harpWrap.classList.add('all-strings-opened', 'radiant-glow');
+        }
+      }
+
       // Audio chord feedback
       pluckHarpString(data.freq, 0.7);
       setTimeout(() => pluckHarpString(data.freq * 1.25, 0.45), 70);
@@ -2406,7 +2453,7 @@
         return;
       }
       if (direction > 0 && currentGuitarStringIdx === 9) {
-        goToProjStep(3);
+        goToProjStep(4);
         return;
       }
       if (direction < 0 && currentGuitarStringIdx === 0) {
@@ -2416,6 +2463,48 @@
       const newIdx = Math.max(0, Math.min(9, currentGuitarStringIdx + direction));
       selectGuitarString(newIdx);
     }
+
+    // ── 10.15 Service Day Video Modal Controller (Day 1 & Day 2) ──
+    function openDayVideo(dayNum) {
+      const modal = document.getElementById('service-day-video-overlay');
+      const video = document.getElementById('service-day-video-player');
+      const title = document.getElementById('service-day-video-title');
+      const badge = document.getElementById('service-day-cinema-badge');
+      if (!modal || !video) return;
+
+      if (dayNum === 1) {
+        video.src = 'assets/first day vidddd.mp4';
+        if (title) title.textContent = 'اليوم الأول: كنيسة السيدة العذراء في السلام 🎬';
+        if (badge) badge.style.color = '#72efb6';
+      } else if (dayNum === 2) {
+        video.src = 'assets/second day vidddd.mp4';
+        if (title) title.textContent = 'اليوم الثاني: كنيسة البطحة 🎬';
+        if (badge) badge.style.color = '#38bdf8';
+      }
+
+      modal.style.display = 'flex';
+      video.currentTime = 0;
+      video.muted = false;
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(e => console.log('Autoplay deferred/blocked:', e));
+      }
+      pluckHarpString(392.00, 0.6);
+    }
+
+    function closeDayVideo() {
+      const modal = document.getElementById('service-day-video-overlay');
+      const video = document.getElementById('service-day-video-player');
+      if (video) {
+        video.pause();
+        video.src = '';
+      }
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+    window.openDayVideo = openDayVideo;
+    window.closeDayVideo = closeDayVideo;
 
     // ── 10.2 Two Days Recap Video Modal Controller ──
     let isTwoDaysVideoExpanded = false;
@@ -2467,10 +2556,12 @@
 
     // ── 10.3 Theatrical Vintage Outro Credits (Curtain Pull Down) ──
     function handleValanceCurtainClick(e) {
-      const curtainsWrap = document.getElementById('collab-curtains-wrap');
-      if (curtainsWrap && curtainsWrap.classList.contains('opened')) {
-        if (e) e.stopPropagation();
-        openTheatricalThanksOutro();
+      if (e) e.stopPropagation();
+      if (!isGrandCurtainOpened) {
+        triggerGrandCollabReveal();
+        isGrandCurtainOpened = true;
+      } else {
+        goToSp5Slide(3, true);
       }
     }
 
@@ -4864,15 +4955,16 @@
       grandRevealTimers.push(t1);
     }
 
-    // ── 15. Chord 5 (الدروس والمستقبل) 2-Slide Presentation Controller ──
-    let currentSp5SlideIdx = 1; // 1 to 2
+    // ── 15. Chord 5 (الدروس والمستقبل) 3-Slide Presentation Controller ──
+    let isGrandCurtainOpened = false;
+    let currentSp5SlideIdx = 1; // 1 to 3
 
     function goToSp5Slide(slideNum, playSound = true) {
-      if (slideNum < 1 || slideNum > 2) return;
+      if (slideNum < 1 || slideNum > 3) return;
       currentSp5SlideIdx = slideNum;
 
       // Switch Panes
-      for (let i = 1; i <= 2; i++) {
+      for (let i = 1; i <= 3; i++) {
         const pane = document.getElementById(`sp5-slide-${i}`);
         const pill = document.getElementById(`sp5-pill-${i}`);
         if (pane) {
@@ -4887,24 +4979,27 @@
       // Update counter badge
       const counter = document.getElementById('ppt-counter-badge-4') || document.getElementById('ppt-counter-badge-5');
       if (counter) {
-        const arabicNums = ['١', '٢'];
-        counter.textContent = `${arabicNums[slideNum - 1]} / ٢`;
+        const arabicNums = ['١', '٢', '٣'];
+        counter.textContent = `${arabicNums[slideNum - 1]} / ٣`;
       }
 
       if (playSound && slideNum === 1) {
-        const freqs = [392.00, 440.00];
+        const freqs = [392.00, 440.00, 523.25];
         pluckHarpString(freqs[slideNum - 1] || 440.00, 0.7);
       }
 
-      // Slide 2: Trigger Grand Theatrical Curtain Reveal with Drums & Smashes!
+      // Slide 2: Keep curtains closed until user triggers with Space / Next / Click
       if (slideNum === 2) {
-        const tLaunch = setTimeout(() => {
-          triggerGrandCollabReveal();
-        }, 150);
-        grandRevealTimers.push(tLaunch);
+        clearGrandRevealTimers();
+        resetGrandCollabCurtain();
+        isGrandCurtainOpened = false;
       } else if (slideNum === 1) {
         clearGrandRevealTimers();
         resetGrandCollabCurtain();
+        isGrandCurtainOpened = false;
+      } else if (slideNum === 3) {
+        clearGrandRevealTimers();
+        if (playSound) pluckHarpString(523.25, 0.75);
       }
 
       updateUniversalHud();
@@ -4919,7 +5014,7 @@
     }
 
     function goToSp5PptStep(step, playSound = true) {
-      const slide = Math.min(2, Math.max(1, step + 1));
+      const slide = Math.min(3, Math.max(1, step + 1));
       goToSp5Slide(slide, playSound);
     }
 

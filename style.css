@@ -7625,7 +7625,7 @@ body.editor-mode-active #editor-floating-banner {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* ── AMBIENT FLOATING MUSIC NOTES (BLUE & GREEN MAP PANES) ── */
+/* ── AMBIENT FLOATING MUSIC NOTES (MAP PANES - CHORD 3) ── */
 .floating-notes-layer {
   position: absolute;
   inset: 0;
@@ -7633,29 +7633,42 @@ body.editor-mode-active #editor-floating-banner {
   overflow: hidden;
   z-index: 1;
 }
-.map-ambient-note {
+
+.map-ambient-note,
+.floating-note-item {
   position: absolute;
   font-family: "Segoe UI Symbol", "Tajawal", "Cairo", sans-serif;
-  font-size: var(--note-size, 18px);
+  font-size: var(--note-size, 20px);
   line-height: 1;
-  animation: mapNoteDrift linear infinite;
+  animation-name: mapNoteFloatingDrift;
+  animation-duration: var(--drift-dur, 9s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
   pointer-events: none;
   user-select: none;
   z-index: 1;
+  will-change: transform, opacity;
 }
-@keyframes mapNoteDrift {
-  from {
-    transform: translateY(105%) rotate(0deg) scale(0.65);
+
+.floating-note-item {
+  --drift-dur: 11s;
+  color: #72efb6;
+  text-shadow: 0 0 10px rgba(114, 239, 182, 0.75), 0 0 20px rgba(78, 168, 222, 0.35);
+}
+
+@keyframes mapNoteFloatingDrift {
+  0% {
+    transform: translateY(700px) rotate(0deg) scale(0.65);
     opacity: 0;
   }
-  18% {
-    opacity: var(--note-opacity, 0.7);
+  15% {
+    opacity: var(--note-opacity, 0.85);
   }
   80% {
-    opacity: calc(var(--note-opacity, 0.7) * 0.85);
+    opacity: calc(var(--note-opacity, 0.85) * 0.9);
   }
-  to {
-    transform: translateY(-40px) rotate(var(--note-rot, 20deg)) scale(1.15);
+  100% {
+    transform: translateY(-80px) rotate(var(--note-rot, 30deg)) scale(1.2);
     opacity: 0;
   }
 }
@@ -9043,24 +9056,30 @@ body.editor-mode-active #editor-floating-banner {
   position: absolute;
   font-family: "Segoe UI Symbol", "Tajawal", "Cairo", sans-serif;
   color: inherit;
-  opacity: 0.6;
-  text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
-  animation: floatMapNote linear infinite alternate;
+  font-size: var(--note-size, 20px);
+  opacity: 0.75;
+  text-shadow: 0 0 8px currentColor, 0 0 18px currentColor;
+  animation: mapDriftUp linear infinite;
+  animation-duration: 9s;
   user-select: none;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
-@keyframes floatMapNote {
+@keyframes mapDriftUp {
   0% {
-    transform: translateY(0px) rotate(-10deg) scale(0.9);
-    opacity: 0.4;
+    transform: translateY(400px) rotate(0deg) scale(0.7);
+    opacity: 0;
   }
-  50% {
+  18% {
     opacity: 0.85;
   }
+  80% {
+    opacity: 0.75;
+  }
   100% {
-    transform: translateY(-24px) rotate(14deg) scale(1.15);
-    opacity: 0.5;
+    transform: translateY(-400px) rotate(30deg) scale(1.25);
+    opacity: 0;
   }
 }
 
@@ -10810,6 +10829,35 @@ body.editor-mode-active #editor-floating-banner {
   }
 }
 
+/* ── BIBLE PAPERS SHUFFLE: BLANK DURING SHUFFLE, SCRIPTURE REVEAL ON SETTLE ── */
+.bible-book-container:not(.settled-open) .bible-spread-page .parchment-inner > *:not(.parchment-gold-frame) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
+}
+
+.bible-book-container.settled-open .bible-spread-page .parchment-inner > *:not(.parchment-gold-frame) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: bibleScriptureMaterialize 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bibleScriptureMaterialize {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+    filter: blur(4px);
+  }
+  60% {
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 .bible-book-container.closing-book .page-right {
   animation: pageRightCloseShut 0.42s cubic-bezier(0.5, 0, 0.2, 1) forwards;
   transform-origin: left center;
@@ -11473,6 +11521,433 @@ body.editor-mode-active #editor-floating-banner {
     width: 100%;
     justify-content: flex-end;
   }
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   CHORD 2: CHURCHES STAGE (2 SERVED CHURCHES + 2 FUTURE UNKNOWN)
+   ═════════════════════════════════════════════════════════════════════ */
+.churches-quad-stage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 12px;
+}
+
+.churches-quad-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(220, 160, 56, 0.35);
+  border-radius: 12px;
+  padding: 8px 18px;
+  flex-shrink: 0;
+}
+
+.churches-quad-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.churches-quad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.church-quad-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(14, 20, 30, 0.88);
+  border: 1.5px solid rgba(78, 168, 222, 0.3);
+  border-radius: 14px;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  position: relative;
+}
+
+.church-quad-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 169, 60, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.church-quad-card.served {
+  border-color: rgba(72, 202, 139, 0.4);
+}
+
+.church-quad-card.future {
+  border-color: rgba(148, 163, 184, 0.3);
+  background: rgba(18, 22, 28, 0.88);
+}
+
+.church-quad-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.church-quad-pill.served-pill {
+  background: rgba(72, 202, 139, 0.22);
+  color: #72efb6;
+  border: 1px solid rgba(72, 202, 139, 0.4);
+}
+
+.church-quad-pill.future-pill {
+  background: rgba(148, 163, 184, 0.18);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.church-quad-name {
+  margin: 6px 0 2px 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+}
+
+.church-quad-date {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffd875;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.church-quad-media-box {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #080d14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.church-quad-media-box img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.church-quad-card:hover .church-quad-media-box img {
+  transform: scale(1.05);
+}
+
+/* Future Church Monochrome Drawing & Question Mark */
+.future-church-sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.98) 100%);
+}
+
+.future-qmark-glow {
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgba(226, 232, 240, 0.85);
+  text-shadow: 0 0 20px rgba(148, 163, 184, 0.65), 0 0 40px rgba(255, 255, 255, 0.4);
+  animation: pulseQmark 2.2s infinite ease-in-out alternate;
+  z-index: 2;
+}
+
+@keyframes pulseQmark {
+  from { transform: scale(1); opacity: 0.75; }
+  to { transform: scale(1.12); opacity: 1; }
+}
+
+/* Play Badge Overlay on Clickable Day Images */
+.church-play-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.88;
+  transition: opacity 0.25s ease, background 0.25s ease;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.church-quad-card:hover .church-play-overlay,
+.church-large-photo-box:hover .church-play-overlay {
+  opacity: 1;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+.church-play-btn-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(220, 160, 56, 0.9);
+  color: #1a0a03;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(220, 160, 56, 0.75);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.church-play-btn-circle svg {
+  margin-left: 2px;
+}
+
+.church-quad-card:hover .church-play-btn-circle,
+.church-large-photo-box:hover .church-play-btn-circle {
+  transform: scale(1.14);
+  background: #ffd875;
+}
+
+.church-play-label {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.5);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   CLASSICAL WATAR HARP ("قيثارة" LOGO REPLICA) & RADIANT GLOW MODE
+   ═════════════════════════════════════════════════════════════════════ */
+.watar-classical-harp-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.watar-classical-harp-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 570px;
+  overflow: visible;
+  filter: drop-shadow(0 14px 28px rgba(0,0,0,0.7));
+  transition: filter 0.5s ease;
+}
+
+/* Radiant glow when all 10 strings are explored or on video slide */
+.watar-classical-harp-wrap.radiant-glow .watar-classical-harp-svg,
+.watar-classical-harp-wrap.all-strings-opened .watar-classical-harp-svg {
+  filter: drop-shadow(0 0 25px rgba(245, 184, 66, 0.8)) drop-shadow(0 0 50px rgba(229, 169, 60, 0.6)) drop-shadow(0 14px 30px rgba(0,0,0,0.9));
+  animation: harpRadiancePulse 2.4s infinite ease-in-out alternate;
+}
+
+@keyframes harpRadiancePulse {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(245, 184, 66, 0.75)) drop-shadow(0 0 40px rgba(229, 169, 60, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 38px rgba(255, 235, 120, 0.95)) drop-shadow(0 0 70px rgba(245, 184, 66, 0.8)) drop-shadow(0 0 100px rgba(220, 140, 20, 0.45));
+  }
+}
+
+.watar-harp-light-rays {
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.22) 0%, rgba(229, 169, 60, 0.08) 50%, transparent 75%);
+  pointer-events: none;
+  animation: spinSlowRays 28s linear infinite;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.watar-classical-harp-wrap.radiant-glow .watar-harp-light-rays,
+.watar-classical-harp-wrap.all-strings-opened .watar-harp-light-rays {
+  opacity: 1;
+}
+
+@keyframes spinSlowRays {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.harp-video-prompt-badge {
+  position: absolute;
+  bottom: 22px;
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.95), rgba(180, 100, 20, 0.95));
+  color: #1a0a03;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 25px rgba(245, 184, 66, 0.9);
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: bouncePrompt 1.4s infinite ease-in-out alternate;
+}
+
+@keyframes bouncePrompt {
+  from { transform: translateY(0); }
+  to { transform: translateY(-8px); }
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   CHORD 5: SLIDE 3 - DRAMATIC THANKING TEXT ON RED VELVET CURTAINS
+   ═════════════════════════════════════════════════════════════════════ */
+.curtain-thanks-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 24px 32px;
+}
+
+.curtain-thanks-backdrop {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 30%, rgba(139, 0, 0, 0.5) 0%, rgba(45, 0, 0, 0.95) 75%, #120000 100%),
+    repeating-linear-gradient(90deg, rgba(160, 10, 10, 0.4) 0px, rgba(100, 5, 5, 0.6) 28px, rgba(70, 0, 0, 0.7) 56px);
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.85);
+  z-index: 0;
+}
+
+.curtain-thanks-valance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: linear-gradient(180deg, #600202 0%, #3a0000 100%);
+  border-bottom: 3.5px solid #d4af37;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+  z-index: 2;
+}
+
+.curtain-thanks-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.curtain-thanks-emblem {
+  font-size: 26px;
+  color: #ffd875;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+  margin-bottom: 4px;
+}
+
+.curtain-thanks-title {
+  font-family: 'Amiri', 'Cairo', serif;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  background: linear-gradient(180deg, #fff7d6 0%, #ffd700 45%, #dfa438 80%, #995c10 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.95)) drop-shadow(0 0 16px rgba(255, 215, 0, 0.45));
+  letter-spacing: 0.5px;
+}
+
+.curtain-thanks-desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #fce7b0;
+  max-width: 820px;
+  margin: 0 0 14px 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.95);
+  font-weight: 600;
+}
+
+.curtain-thanks-names-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px 14px;
+  width: 100%;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.curtain-thanks-name-chip {
+  background: rgba(20, 0, 0, 0.65);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5), inset 0 0 10px rgba(212, 175, 55, 0.12);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.curtain-thanks-name-chip:hover {
+  transform: scale(1.05);
+  border-color: #ffd700;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
+}
+
+.curtain-thanks-name-chip.highlight {
+  border-color: rgba(255, 215, 0, 0.85);
+  background: rgba(45, 10, 10, 0.85);
+  color: #ffd875;
+}
+
+.curtain-thanks-quote {
+  font-family: 'Amiri', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: #fef08a;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.95);
+  margin: 4px 0 6px 0;
+}
+
+.curtain-thanks-sign {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #dfa438;
+  letter-spacing: 0.5px;
 }
 
 
