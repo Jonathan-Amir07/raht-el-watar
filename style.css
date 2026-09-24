@@ -865,11 +865,12 @@ body {
   gap: 16px;
 }
 
-.stage-badge-wrap {
-  display: none !important;
-}
-
-.stage-badge {
+.stage-badge-wrap,
+.stage-badge,
+#sp2-p1-detail-badge,
+#sp2-p2-detail-badge,
+.gm-slice-detail-badge:empty,
+span:empty:not(.staff-lines span):not(.g-dot) {
   display: none !important;
 }
 

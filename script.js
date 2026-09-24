@@ -379,20 +379,20 @@
           if (activePane === 1) globalSlideNum = 14;
           else if (activePane === 2) globalSlideNum = 15;
           else if (activePane === 3) globalSlideNum = 16;
-          else if (activePane === 4) globalSlideNum = 17;
-          else if (activePane === 11) globalSlideNum = 18;
-          else if (activePane === 5) globalSlideNum = 19;
-          else if (activePane === 9) globalSlideNum = 20;
-          else if (activePane === 6) globalSlideNum = 22;
-          else if (activePane === 7) globalSlideNum = 23;
-          else if (activePane === 8) globalSlideNum = 24;
-          else if (activePane === 10) globalSlideNum = 25;
-          else globalSlideNum = (currentLoopRotation === 1) ? 13 : 21;
+          else if (activePane === 6) globalSlideNum = 17;
+          else if (activePane === 4) globalSlideNum = 18;
+          else if (activePane === 7) globalSlideNum = 19;
+          else if (activePane === 11) globalSlideNum = 20;
+          else if (activePane === 5) globalSlideNum = 21;
+          else if (activePane === 8) globalSlideNum = 22;
+          else if (activePane === 9) globalSlideNum = 23;
+          else if (activePane === 10) globalSlideNum = 24;
+          else globalSlideNum = (currentLoopRotation === 1) ? 13 : 24;
         }
       } else if (activePage === 3) {
-        globalSlideNum = 25 + currentChallengeStep + 1; // 26..30
+        globalSlideNum = 24 + currentChallengeStep + 1; // 25..29
       } else if (activePage === 4) {
-        globalSlideNum = 30 + currentSp5SlideIdx; // 31..32
+        globalSlideNum = 29 + currentSp5SlideIdx; // 30..31
       }
 
       if (evalBox) {
@@ -931,8 +931,12 @@
         if (direction > 0) {
           // ── NEXT ──
           if (sp2ViewMode === 'map') {
-            // In map mode, pressing Next enters the currently highlighted node
-            selectGameLevel(currentGmLevel, true);
+            // In map mode, pressing Next enters the currently highlighted node, or advances to Chord 4 if all completed
+            if (currentGmLevel === 6 && sp2CompletedNodes.has(6)) {
+              stepToNextChord(3, 0); // Advances to Chord 4 (التحديات)
+            } else {
+              selectGameLevel(currentGmLevel, true);
+            }
           } else {
             // In pane mode, advance through sub-steps or complete node and seamlessly progress
             let activePane = currentGmLevel;
@@ -953,7 +957,7 @@
                 playMilestoneCompletionSound();
                 currentGmLevel = 2;
                 currentNodeDay = 1;
-                openSp2Node(2, true, true);
+                showSp2Map(2, true); // Return to Map highlighting Node 2
               }
             } else if (activePane === 2) {
               // Slide 15: 4 Preparation Pillars (8 sub-steps)
@@ -964,7 +968,7 @@
                 playMilestoneCompletionSound();
                 currentGmLevel = 3;
                 currentNodeDay = 1;
-                openSp2Node(3, true, true); // Node 3: Program Day 1
+                showSp2Map(3, true); // Return to Map highlighting Node 3
               }
             } else if (activePane === 3) {
               // برنامج فعاليات اليوم الأول (5 sub-steps)
@@ -983,10 +987,9 @@
                 closeCinematicZoom();
                 sp2CompletedNodes.add(3);
                 playMilestoneCompletionSound();
-                // ── FINISHED DAY 2 OF PROGRAM -> ADVANCE TO NODE 4 (التحضيرات) DAY 1 ──
                 currentGmLevel = 4;
                 currentNodeDay = 1;
-                openSp2Node(4, true, true);
+                showSp2Map(4, true); // Return to Map highlighting Node 4
               }
             } else if (activePane === 4) {
               // تحضيرات اليوم الأول (3 cards, 6 sub-steps: highlight -> zoom)
@@ -994,25 +997,25 @@
                 goToSp2Prep1Step(currentSp2Prep1Step + 1);
               } else {
                 closeCinematicZoom();
-                // ── ADVANCE TO CHURCHES / LOCATIONS SLIDE (pane 11) ──
-                openSp2Node(11, true, true);
+                // ── ADVANCE TO DAY 2 PREPARATIONS (pane 7) ──
+                switchNodeDay(2, true);
               }
-            } else if (activePane === 11) {
-              // اماكن الخدمة على مدار يومين -> FINISHED DAY 1 OF NODE 4 -> AUTOMATICALLY GO TO DAY 2
-              switchNodeDay(2, true);
             } else if (activePane === 7) {
               // تحضيرات اليوم الثاني (3 cards, 6 sub-steps: highlight -> zoom)
               if (currentSp2Prep2Step < 6) {
                 goToSp2Prep2Step(currentSp2Prep2Step + 1);
               } else {
                 closeCinematicZoom();
-                sp2CompletedNodes.add(4);
-                playMilestoneCompletionSound();
-                // ── FINISHED DAY 2 OF PREPARATIONS -> ADVANCE TO NODE 5 (الميزانية) DAY 1 ──
-                currentGmLevel = 5;
-                currentNodeDay = 1;
-                openSp2Node(5, true, true);
+                // ── ADVANCE TO CHURCHES / LOCATIONS SLIDE (pane 11) ──
+                openSp2Node(11, true, true);
               }
+            } else if (activePane === 11) {
+              // اماكن الخدمة على مدار يومين -> FINISHED NODE 4
+              sp2CompletedNodes.add(4);
+              playMilestoneCompletionSound();
+              currentGmLevel = 5;
+              currentNodeDay = 1;
+              showSp2Map(5, true); // Return to Map highlighting Node 5
             } else if (activePane === 5) {
               // ميزانية اليوم الأول (7 slices)
               const maxSlice = (gmBudgetData[1] && gmBudgetData[1].items) ? gmBudgetData[1].items.length - 1 : 6;
@@ -1030,19 +1033,18 @@
               } else {
                 sp2CompletedNodes.add(5);
                 playMilestoneCompletionSound();
-                // ── FINISHED DAY 2 OF BUDGET -> ADVANCE TO NODE 6 (التقييم) DAY 1 ──
                 currentGmLevel = 6;
                 currentNodeDay = 1;
-                openSp2Node(9, true, true);
+                showSp2Map(6, true); // Return to Map highlighting Node 6
               }
             } else if (activePane === 9) {
               // التقييم الخارجي (اليوم الأول) -> FINISHED DAY 1 -> AUTOMATICALLY GO TO DAY 2
               switchNodeDay(2, true);
             } else if (activePane === 10) {
-              // التقييم الداخلي (اليوم الثاني) -> FINISHED NODE 6 -> ADVANCE TO CHORD 4
+              // التقييم الداخلي (اليوم الثاني) -> FINISHED NODE 6
               sp2CompletedNodes.add(6);
               playMilestoneCompletionSound();
-              stepToNextChord(3, 0); // Advances to Chord 4 (التحديات)
+              showSp2Map(6, true); // Return to completed Map with celebratory fanfare
             }
           }
         } else {
@@ -1069,12 +1071,8 @@
               // From Node 6 Day 2 back to Node 6 Day 1
               switchNodeDay(1, true);
             } else if (activePane === 9) {
-              // From Node 6 Day 1 back to Node 5 Day 2 (last slice)
-              currentGmLevel = 5;
-              currentNodeDay = 2;
-              openSp2Node(8, false, true);
-              const maxSlice = (gmBudgetData[2] && gmBudgetData[2].items) ? gmBudgetData[2].items.length - 1 : 5;
-              selectBudgetSlice(maxSlice, true);
+              // From Node 6 Day 1 back to Map Node 6
+              showSp2Map(6, true);
             } else if (activePane === 8) {
               if (currentGmBudgetSlice > 0) {
                 selectBudgetSlice(currentGmBudgetSlice - 1, true);
@@ -1088,33 +1086,30 @@
               if (currentGmBudgetSlice > 0) {
                 selectBudgetSlice(currentGmBudgetSlice - 1, true);
               } else {
-                // From Node 5 Day 1 back to Node 4 Day 2 (step 6)
-                currentGmLevel = 4;
-                currentNodeDay = 2;
-                openSp2Node(7, false, true);
-                goToSp2Prep2Step(6);
+                // From Node 5 Day 1 back to Map Node 5
+                showSp2Map(5, true);
               }
+            } else if (activePane === 11) {
+              // From Locations back to Pane 7 preps at step 6
+              currentGmLevel = 4;
+              currentNodeDay = 2;
+              openSp2Node(7, false, true);
+              goToSp2Prep2Step(6);
             } else if (activePane === 7) {
               if (currentSp2Prep2Step > 0) {
                 goToSp2Prep2Step(currentSp2Prep2Step - 1);
               } else {
-                // From Node 4 Day 2 back to Node 4 Day 1 (locations pane 11)
+                // From Node 4 Day 2 back to Node 4 Day 1 (preps pane 4 step 6)
                 switchNodeDay(1, true);
-                openSp2Node(11, true, true);
+                openSp2Node(4, false, true);
+                goToSp2Prep1Step(6);
               }
-            } else if (activePane === 11) {
-              // From Locations back to Pane 4 preps at step 6
-              openSp2Node(4, false, true);
-              goToSp2Prep1Step(6);
             } else if (activePane === 4) {
               if (currentSp2Prep1Step > 0) {
                 goToSp2Prep1Step(currentSp2Prep1Step - 1);
               } else {
-                // From Node 4 Day 1 back to Node 3 Day 2 (level 6)
-                currentGmLevel = 3;
-                currentNodeDay = 2;
-                openSp2Node(6, false, true);
-                selectSp2Day2ProgramLevel(6, true);
+                // From Node 4 Day 1 back to Map Node 4
+                showSp2Map(4, true);
               }
             } else if (activePane === 6) {
               if (currentSp2Day2ProgLvl > 1) {
@@ -1128,25 +1123,22 @@
               if (currentSp2Day1ProgLvl > 1) {
                 selectSp2Day1ProgramLevel(currentSp2Day1ProgLvl - 1, true);
               } else {
-                // From Node 3 Day 1 back to Node 2 (phase 8)
-                currentGmLevel = 2;
-                openSp2Node(2, false, true);
-                goToSp2FirstStepsPhase(8, true);
+                // From Node 3 Day 1 back to Map Node 3
+                showSp2Map(3, true);
               }
             } else if (activePane === 2) {
               if (currentSp2Step2Phase > 1) {
                 goToSp2FirstStepsPhase(currentSp2Step2Phase - 1, true);
               } else {
-                // From Node 2 back to Node 1 (step 6)
-                currentGmLevel = 1;
-                openSp2Node(1, false, true);
-                goToSp2EduStep(6);
+                // From Node 2 back to Map Node 2
+                showSp2Map(2, true);
               }
             } else if (activePane === 1) {
               if (currentSp2EduStep > 0) {
                 goToSp2EduStep(currentSp2EduStep - 1);
               } else {
-                stepToNextChord(1, 3); // Back to Chord 2 (Step 3: 2-days recap video)
+                // From Node 1 back to Map Node 1
+                showSp2Map(1, true);
               }
             }
           }
@@ -3113,17 +3105,17 @@
       },
       6: {
         badge: 'البرنامج • اليوم الثاني',
-        title: 'برنامج اليوم الثاني • كنيسة البطحة والفيلا',
+        title: 'برنامج اليوم الثاني • كنيسة البطحة ',
         chord: [293.66, 369.99, 440.00, 587.33]
       },
       7: {
         badge: 'التحضيرات • اليوم الثاني',
-        title: 'تحضيرات اليوم الثاني • كنيسة البطحة والفيلا',
+        title: 'تحضيرات اليوم الثاني • كنيسة البطحة ',
         chord: [329.63, 415.30, 493.88, 659.25]
       },
       8: {
         badge: 'الميزانية • اليوم الثاني',
-        title: 'ميزانية اليوم الثاني • كنيسة البطحة والفيلا (٢٨,٠٠٠ ج.م)',
+        title: 'ميزانية اليوم الثاني • كنيسة البطحة (٢٨,٠٠٠ ج.م)',
         chord: [349.23, 440.00, 523.25, 698.46]
       },
       9: {
@@ -3331,7 +3323,7 @@
         const p = document.getElementById(`gm-pane-${i}`);
         if (p && p.classList.contains('active')) { curPane = i; break; }
       }
-      const paneOrder = [1, 2, 3, 6, 4, 11, 7, 5, 8, 9, 10];
+      const paneOrder = [1, 2, 3, 6, 4, 7, 11, 5, 8, 9, 10];
       let curIdx = paneOrder.indexOf(curPane);
       if (curIdx === -1) curIdx = 0;
 
@@ -3918,11 +3910,13 @@
     // ══════════════════════════════════════════════════════════════
     // ── 13. Chord 3 (التحضيرات والتنفيذ) 28-Step Presentation Controller ──
     // ══════════════════════════════════════════════════════════════
+    // PROGRAM DATA STORE (Day 1 & Day 2 Process Node Content)
+    // ══════════════════════════════════════════════════════════════
     const sp2ProgramData = {
       1: {
         1: {
           badge: "",
-          title: "الافتتاح و الفطار",
+          title: "الافتتاح والفطار",
           time: "٠٩:٠٠ ص – ١٠:٠٠ ص",
           desc: "طابور الافتتاح الكشفي الصباحي وتحية العلم مع صيحات وترانيم كشفية حماسية، وتوزيع وجبة إفطار خفيفة متكاملة ومشروبات دافئة لبدء اليوم بنشاط وألفة.",
           img: "assets/opening day 1.jpg",
@@ -3930,7 +3924,7 @@
         },
         2: {
           badge: "",
-          title: "Games 1",
+          title: "ألعاب ١",
           time: "١٠:٠٠ ص – ١٢:٠٠ م",
           desc: "انطلاق الجولة الأولى من الألعاب الميدانية والمسابقات الحركية؛ دوري كرة القدم، مسار الموانع، وتحديات التتابع بين الفرق لإشعال روح المنافسة الشريفة.",
           img: "assets/games day 1.jpg",
@@ -3938,7 +3932,7 @@
         },
         3: {
           badge: "",
-          title: "ال",
+          title: "ورش عمل",
           time: "١٢:٠٠ م – ٠١:٣٠ م",
           desc: "ورش عمل حرفية وفنية لغرس قيم العمل اليدوي، مع جلسات تفاعلية عن روح الفريق والتعاون الكشفي وصناعة تذكارات بأيديهم.",
           img: "assets/ethics session day 1.jpg",
@@ -3946,7 +3940,7 @@
         },
         4: {
           badge: "",
-          title: "",
+          title: "ألعاب ٢",
           time: "٠١:٣٠ م – ٠٣:٣٠ م",
           desc: "الجولة الثانية من الألعاب الكبرى؛ ألعاب التيليب ماتش بالبالونات والمياه، سباقات الحبال والموانع الهوائية التي أشعلت حماس الأطفال.",
           img: "assets/games day 1.jpg",
@@ -3954,7 +3948,7 @@
         },
         5: {
           badge: "",
-          title: "",
+          title: "غداء وصورة اليوم",
           time: "٠٣:٣٠ م – ٠٤:٣٠ م",
           desc: "التجمع الختامي لليوم الأول؛ تناول وجبة غداء كشفية ساخنة وشهية معاً، وتكريم الأطفال وتوزيع الهدايا والتقاط الصورة التذكارية الملحمية لرهط الوتر.",
           img: "assets/first day raht image.jpg",
@@ -3972,7 +3966,7 @@
         },
         2: {
           badge: "المرحلة ٢ من ٦ • اليوم الثاني",
-          title: "الفقرة الروحية وورش العمل و الاشغال اليدوية",
+          title: "ورش العمل",
           time: "٠١:٠٠ م – ٠٢:٠٠ م",
           desc: "قصة روحية مشوقة عن الرجاء والمحبة، تلتها ورش عمل حرفية وأشغال يدوية صنع فيها الأطفال تذكارات بأيديهم، مع غرس القيم السلوكية والأخلاقية.",
           img: "assets/religous session day 2.jpg",
@@ -4071,7 +4065,10 @@
         const title = document.getElementById('sp2-p1-detail-title');
         const img = document.getElementById('sp2-p1-detail-img');
         const desc = document.getElementById('sp2-p1-detail-desc');
-        if (badge) badge.textContent = data.badge;
+        if (badge) {
+          badge.textContent = data.badge || '';
+          badge.style.display = data.badge ? 'inline-block' : 'none';
+        }
         if (time) time.textContent = data.time;
         if (title) title.textContent = data.title;
         if (img) {
@@ -4144,7 +4141,10 @@
         const title = document.getElementById('sp2-p2-detail-title');
         const img = document.getElementById('sp2-p2-detail-img');
         const desc = document.getElementById('sp2-p2-detail-desc');
-        if (badge) badge.textContent = data.badge;
+        if (badge) {
+          badge.textContent = data.badge || '';
+          badge.style.display = data.badge ? 'inline-block' : 'none';
+        }
         if (time) time.textContent = data.time;
         if (title) title.textContent = data.title;
         if (img) {
