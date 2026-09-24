@@ -565,12 +565,13 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px 32px;
+  padding: 10px 28px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-wrap: wrap;
   direction: rtl;
   position: relative;
   z-index: 10;
+  flex-shrink: 0;
 }
 
 .sp-left-actions {
@@ -716,31 +717,60 @@ body {
 }
 
 /* ── CHORD 0: WHO WE ARE (IDENTITY & MUSICAL TIMELINE) ── */
+#sp-0 .sp-body,
+#sp-1 .sp-body {
+  height: calc(100vh - 66px);
+  padding: 8px clamp(16px, 2.5vw, 40px) 12px !important;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
 .sp0-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 1140px;
+  gap: 12px;
+  max-width: min(96vw, 1420px);
   margin: 0 auto;
   width: 100%;
-  padding-bottom: 24px;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
+  padding-bottom: 0;
+  box-sizing: border-box;
 }
 
 /* 1. Presentation Stage Container & PPT Transitions */
 .presentation-stage {
   position: relative;
   width: 100%;
-  min-height: 460px;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .stage-slide {
   display: none;
   width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
   animation: pptSlideIn 0.45s cubic-bezier(0.2, 0.9, 0.3, 1) both;
 }
 
 .stage-slide.active {
-  display: block;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes pptSlideIn {
@@ -799,15 +829,19 @@ body {
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(220, 160, 56, 0.25);
   border-radius: 22px;
-  padding: 30px 34px;
+  padding: clamp(16px, 2.4vh, 28px) clamp(20px, 2.5vw, 36px);
   display: grid;
   grid-template-columns: 1.15fr 1fr;
-  gap: 34px;
+  gap: clamp(18px, 2.5vw, 34px);
   align-items: center;
   backdrop-filter: blur(12px);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 125px);
+  box-sizing: border-box;
 }
 
 .stage-card::before {
@@ -976,7 +1010,8 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 340px;
+  min-height: 240px;
+  max-height: calc(100vh - 165px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -986,8 +1021,8 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 330px;
-  max-height: 400px;
+  min-height: 240px;
+  max-height: calc(100vh - 165px);
   border-radius: 18px;
   overflow: hidden;
   border: 2px solid rgba(220, 160, 56, 0.35);
@@ -1141,12 +1176,17 @@ body {
   );
   border: 1px solid rgba(220, 160, 56, 0.28);
   border-radius: 20px;
-  padding: 26px 28px;
+  padding: clamp(10px, 1.6vh, 20px) clamp(14px, 2vw, 26px);
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: clamp(8px, 1.2vh, 16px);
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 125px);
+  box-sizing: border-box;
+  justify-content: space-between;
 }
 
 .timeline-header {
@@ -1180,8 +1220,8 @@ body {
 /* Musical Staff Lines & Nodes */
 .music-staff-wrap {
   position: relative;
-  padding: 24px 10px;
-  margin: 6px 0;
+  padding: 8px 10px;
+  margin: 0;
 }
 
 .staff-lines {
@@ -1224,11 +1264,11 @@ body {
   background: #090c17;
   border: 2px solid rgba(220, 160, 56, 0.35);
   border-radius: 14px;
-  padding: 12px 8px;
+  padding: clamp(6px, 1vh, 10px) 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   cursor: pointer;
   color: #fff;
   font-family: inherit;
@@ -1333,24 +1373,33 @@ body {
   position: relative;
 }
 
-/* ── 3D Perspective Milestone Transitions in Scene 4 ── */
 .showcase-stage {
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(220, 160, 56, 0.18);
   border-radius: 18px;
-  padding: 26px 30px;
-  min-height: 320px;
+  padding: clamp(8px, 1.4vh, 18px) clamp(14px, 2vw, 24px);
+  flex: 1;
+  min-height: 0;
+  max-height: calc(100vh - 280px);
   position: relative;
   perspective: 1200px;
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .milestone-slide {
   display: none;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 32px;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(14px, 2vw, 26px);
   align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .milestone-slide.active {
@@ -1477,9 +1526,10 @@ body {
   background: #05070e;
   border: 2px solid rgba(220, 160, 56, 0.35);
   border-radius: 18px;
-  aspect-ratio: 16 / 10;
   width: 100%;
-  min-height: 240px;
+  height: 100%;
+  min-height: 160px;
+  max-height: calc(100vh - 330px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1800,14 +1850,17 @@ body {
 }
 
 /* ══════════════ SECOND CHORD: ELABORATE PROJECT PRESENTATION (NO EMOJIS) ══════════════ */
-/* ══════════════ SECOND CHORD: ELABORATE PROJECT PRESENTATION (NO EMOJIS) ══════════════ */
 .stage-card.stage-card-full,
 .stage-card.stage-card-vertical,
 .stage-card:not(:has(.stage-media-slot)) {
-  display: block !important;
-  grid-template-columns: 1fr !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
   width: 100% !important;
   max-width: 100% !important;
+  height: 100% !important;
+  max-height: calc(100vh - 125px) !important;
+  box-sizing: border-box !important;
 }
 
 .stage-full-width {
@@ -1853,9 +1906,11 @@ body {
 .rejected-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 22px;
+  gap: clamp(12px, 1.5vw, 22px);
+  margin-top: clamp(8px, 1.2vh, 18px);
   width: 100%;
+  flex: 1;
+  align-items: stretch;
 }
 
 .rejected-card {
@@ -1865,14 +1920,14 @@ body {
     rgba(14, 18, 30, 0.85) 75%
   );
   border: 1px solid rgba(245, 184, 66, 0.25);
-  border-radius: 20px;
-  padding: 34px 22px 28px;
+  border-radius: 18px;
+  padding: clamp(14px, 2vh, 24px) clamp(14px, 1.5vw, 20px);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 14px;
-  min-height: 320px;
+  gap: clamp(6px, 1vh, 12px);
+  min-height: 220px;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(12px);
@@ -1964,7 +2019,8 @@ body {
 }
 
 .gm-edu-card.spotlight-active,
-.gm-prep1-card.spotlight-active {
+.gm-prep1-card.spotlight-active,
+.gm-prep2-card.spotlight-active {
   border-color: #72efb6 !important;
   box-shadow:
     0 0 35px rgba(114, 239, 182, 0.55),
@@ -1975,7 +2031,8 @@ body {
 }
 
 .gm-edu-grid.has-spotlight .gm-edu-card:not(.spotlight-active),
-.gm-prep1-grid.has-spotlight .gm-prep1-card:not(.spotlight-active) {
+.gm-prep1-grid.has-spotlight .gm-prep1-card:not(.spotlight-active),
+.gm-prep2-grid.has-spotlight .gm-prep2-card:not(.spotlight-active) {
   opacity: 0.45;
   transform: scale(0.98);
   filter: grayscale(20%);
@@ -5318,19 +5375,13 @@ body.editor-mode-active .challenge-circle {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  padding: 14px 24px 18px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(78, 168, 222, 0.4) transparent;
+  overflow: hidden !important;
+  padding: 8px 24px 12px !important;
+  scrollbar-width: none;
 }
 
 .gm-drawer-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.gm-drawer-content::-webkit-scrollbar-thumb {
-  background: rgba(78, 168, 222, 0.4);
-  border-radius: 4px;
+  display: none;
 }
 
 /* ── FULL-SCREEN MAP SECTION (Game Levels Road) ── */
@@ -5404,9 +5455,9 @@ body.editor-mode-active .challenge-circle {
 /* Map Stage Canvas Area (Horizontal Widescreen Layout) */
 .gm-map-stage {
   position: relative;
-  width: 96%;
-  max-width: 1240px;
-  height: 84%;
+  width: 98%;
+  max-width: 1440px;
+  height: 88%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6699,7 +6750,7 @@ body.editor-mode-active .challenge-circle {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 6px auto 16px;
+  margin: 2px auto 8px;
   width: 100%;
   max-width: 900px;
 }
@@ -6712,13 +6763,13 @@ body.editor-mode-active .challenge-circle {
   width: 100%;
   position: relative;
   background: radial-gradient(ellipse at 50% 50%, rgba(177, 133, 219, 0.1) 0%, rgba(9, 14, 28, 0) 70%);
-  padding: 12px 0 8px;
+  padding: 6px 0 4px;
 }
 
 .feedback-paper-stage {
   position: relative;
   width: min(94%, 560px);
-  height: 310px;
+  height: clamp(190px, 25vh, 255px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6729,8 +6780,8 @@ body.editor-mode-active .challenge-circle {
 /* Horizontal / Landscape Paper Cards */
 .feedback-paper-card {
   position: absolute;
-  width: min(90%, 460px);
-  height: 270px;
+  width: min(90%, 420px);
+  height: clamp(170px, 22vh, 230px);
   background: #ffffff;
   padding: 6px 6px 26px 6px;
   border-radius: 8px;
@@ -7680,9 +7731,23 @@ body.editor-mode-active #editor-floating-banner {
   flex-direction: column;
 }
 
-.gm-drawer-content:has(#gm-pane-2.active) {
+.gm-drawer-content:has(#gm-pane-2.active),
+.gm-drawer-content:has(#gm-pane-3.active),
+.gm-drawer-content:has(#gm-pane-6.active) {
   overflow: hidden !important;
-  padding: 10px 24px 14px !important;
+  padding: 8px 24px 12px !important;
+}
+
+.gm-prog-viewport-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .gm-first-steps-wrapper {
@@ -9007,6 +9072,8 @@ body.editor-mode-active #editor-floating-banner {
 .guitar-slide-container {
   width: 100%;
   height: 100%;
+  max-height: calc(100vh - 125px);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -9052,6 +9119,7 @@ body.editor-mode-active #editor-floating-banner {
   width: 100%;
   flex: 1;
   min-height: 0;
+  max-height: calc(100vh - 165px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9073,7 +9141,8 @@ body.editor-mode-active #editor-floating-banner {
 
 .acoustic-guitar-svg-wrap {
   width: 100%;
-  height: clamp(380px, 75vh, 660px);
+  height: 100%;
+  max-height: calc(100vh - 170px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9082,6 +9151,7 @@ body.editor-mode-active #editor-floating-banner {
 
 #acoustic-guitar-svg {
   height: 100%;
+  max-height: calc(100vh - 175px);
   width: auto;
   max-width: 100%;
   filter: drop-shadow(0 16px 36px rgba(0,0,0,0.85));
@@ -9203,7 +9273,8 @@ body.editor-mode-active #editor-floating-banner {
 }
 
 .guitar-interactive-workspace.split-active .acoustic-guitar-svg-wrap {
-  height: clamp(380px, 76vh, 680px);
+  height: 100%;
+  max-height: calc(100vh - 170px);
 }
 
 .guitar-interactive-workspace.split-active .guitar-details-panel {
@@ -9211,8 +9282,9 @@ body.editor-mode-active #editor-floating-banner {
   flex: 1;
   width: 62%;
   max-width: 900px;
-  min-height: clamp(420px, 72vh, 680px);
-  max-height: clamp(480px, 80vh, 760px);
+  height: 100%;
+  max-height: calc(100vh - 165px);
+  min-height: 0;
   opacity: 1;
   transform: translateX(0);
 }

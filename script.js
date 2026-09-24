@@ -310,11 +310,19 @@
           } else if (activePane === 6) {
             chordTitle = 'الوتر الثالث: برنامج اليوم الثاني';
             curStep = currentSp2Day2ProgLvl || 1;
-            totalSteps = 7;
+            totalSteps = 6;
           } else if (activePane === 7) {
-            chordTitle = 'الوتر الثالث: تحضيرات اليوم الثاني';
-            curStep = 1;
-            totalSteps = 1;
+            if (typeof currentSp2Prep2Step !== 'undefined' && currentSp2Prep2Step > 0) {
+              const cardIdx = Math.floor((currentSp2Prep2Step - 1) / 2);
+              const cardTitles = ['الفقرة الروحية', 'تقويم السلوك والجلسات', 'الترفيه والمسابقات'];
+              chordTitle = 'الوتر الثالث: ' + (cardTitles[cardIdx] || 'تحضيرات اليوم الثاني');
+              curStep = currentSp2Prep2Step;
+              totalSteps = 6;
+            } else {
+              chordTitle = 'الوتر الثالث: تحضيرات اليوم الثاني';
+              curStep = 1;
+              totalSteps = 6;
+            }
           } else if (activePane === 8) {
             chordTitle = 'الوتر الثالث: ميزانية اليوم الثاني';
             curStep = (currentGmBudgetSlice || 0) + 1;
@@ -968,8 +976,8 @@
                 switchNodeDay(2, true);
               }
             } else if (activePane === 6) {
-              // برنامج فعاليات اليوم الثاني (7 sub-steps)
-              if (currentSp2Day2ProgLvl < 7) {
+              // برنامج فعاليات اليوم الثاني (6 sub-steps)
+              if (currentSp2Day2ProgLvl < 6) {
                 selectSp2Day2ProgramLevel(currentSp2Day2ProgLvl + 1, true);
               } else {
                 closeCinematicZoom();
@@ -993,12 +1001,18 @@
               // اماكن الخدمة على مدار يومين -> FINISHED DAY 1 OF NODE 4 -> AUTOMATICALLY GO TO DAY 2
               switchNodeDay(2, true);
             } else if (activePane === 7) {
-              // تحضيرات اليوم الثاني -> FINISHED DAY 2 OF PREPARATIONS -> ADVANCE TO NODE 5 (الميزانية) DAY 1
-              sp2CompletedNodes.add(4);
-              playMilestoneCompletionSound();
-              currentGmLevel = 5;
-              currentNodeDay = 1;
-              openSp2Node(5, true, true);
+              // تحضيرات اليوم الثاني (3 cards, 6 sub-steps: highlight -> zoom)
+              if (currentSp2Prep2Step < 6) {
+                goToSp2Prep2Step(currentSp2Prep2Step + 1);
+              } else {
+                closeCinematicZoom();
+                sp2CompletedNodes.add(4);
+                playMilestoneCompletionSound();
+                // ── FINISHED DAY 2 OF PREPARATIONS -> ADVANCE TO NODE 5 (الميزانية) DAY 1 ──
+                currentGmLevel = 5;
+                currentNodeDay = 1;
+                openSp2Node(5, true, true);
+              }
             } else if (activePane === 5) {
               // ميزانية اليوم الأول (7 slices)
               const maxSlice = (gmBudgetData[1] && gmBudgetData[1].items) ? gmBudgetData[1].items.length - 1 : 6;
@@ -1074,15 +1088,20 @@
               if (currentGmBudgetSlice > 0) {
                 selectBudgetSlice(currentGmBudgetSlice - 1, true);
               } else {
-                // From Node 5 Day 1 back to Node 4 Day 2
+                // From Node 5 Day 1 back to Node 4 Day 2 (step 6)
                 currentGmLevel = 4;
                 currentNodeDay = 2;
-                openSp2Node(7, true, true);
+                openSp2Node(7, false, true);
+                goToSp2Prep2Step(6);
               }
             } else if (activePane === 7) {
-              // From Node 4 Day 2 back to Node 4 Day 1 (locations pane 11)
-              switchNodeDay(1, true);
-              openSp2Node(11, true, true);
+              if (currentSp2Prep2Step > 0) {
+                goToSp2Prep2Step(currentSp2Prep2Step - 1);
+              } else {
+                // From Node 4 Day 2 back to Node 4 Day 1 (locations pane 11)
+                switchNodeDay(1, true);
+                openSp2Node(11, true, true);
+              }
             } else if (activePane === 11) {
               // From Locations back to Pane 4 preps at step 6
               openSp2Node(4, false, true);
@@ -1091,11 +1110,11 @@
               if (currentSp2Prep1Step > 0) {
                 goToSp2Prep1Step(currentSp2Prep1Step - 1);
               } else {
-                // From Node 4 Day 1 back to Node 3 Day 2 (level 7)
+                // From Node 4 Day 1 back to Node 3 Day 2 (level 6)
                 currentGmLevel = 3;
                 currentNodeDay = 2;
                 openSp2Node(6, false, true);
-                selectSp2Day2ProgramLevel(7, true);
+                selectSp2Day2ProgramLevel(6, true);
               }
             } else if (activePane === 6) {
               if (currentSp2Day2ProgLvl > 1) {
@@ -1277,8 +1296,10 @@
           e.preventDefault();
           if (activePage === 2 && currentGmLevel === 1 && currentSp2EduStep > 0) {
             goToSp2EduStep(currentSp2EduStep - 1);
-          } else if (activePage === 2 && currentGmLevel === 4 && currentSp2Prep1Step > 0) {
+          } else if (activePage === 2 && currentGmLevel === 4 && currentNodeDay === 1 && currentSp2Prep1Step > 0) {
             goToSp2Prep1Step(currentSp2Prep1Step - 1);
+          } else if (activePage === 2 && currentGmLevel === 4 && currentNodeDay === 2 && currentSp2Prep2Step > 0) {
+            goToSp2Prep2Step(currentSp2Prep2Step - 1);
           } else {
             closeCinematicZoom();
           }
@@ -1649,6 +1670,92 @@
       } else {
         // Second tap on the already highlighted card: open larger popup
         goToSp2Prep1Step(cardIdx * 2 + 2);
+      }
+    }
+
+    // ── Preparations Day 2 (Node 4 Day 2 • كنيسة البطحة والفيلا) ──
+    let currentSp2Prep2Step = 0; // 0: none, 1: card 0 spotlight, 2: card 0 zoom, 3: card 1 spotlight, 4: card 1 zoom, 5: card 2 spotlight, 6: card 2 zoom
+    let currentHighlightedPrep2Card = -1;
+
+    const prep2CardsData = [
+      {
+        img: 'assets/religous session day 2.jpg',
+        title: 'المحبة والرجاء',
+        tag: 'الفقرة الروحية • اليوم الثاني',
+        desc: 'المحاضرة الروحية وترانيم الفرح مع أطفال كنيسة البطحة'
+      },
+      {
+        img: 'assets/session john and mira.jpg',
+        title: 'إدارة المشاعر وضبط النفس',
+        tag: 'تقويم السلوك • اليوم الثاني',
+        desc: 'ورشة عملية في إدارة المشاعر وبناء السلوك الإيجابي للأطفال'
+      },
+      {
+        img: 'assets/games boys day 2.jpg',
+        title: 'المسبح وتحديات الملاعب',
+        tag: 'الترفيه والمسابقات • اليوم الثاني',
+        desc: 'أنشطة حمام السباحة والتناوب مع ألعاب ومسابقات الملاعب الخضراء بالفيلا'
+      }
+    ];
+
+    function highlightPrep2Card(cardIdx) {
+      currentHighlightedPrep2Card = cardIdx;
+      const grid = document.querySelector('.gm-prep2-grid');
+      if (grid) {
+        grid.classList.toggle('has-spotlight', cardIdx >= 0);
+      }
+      for (let i = 0; i < 3; i++) {
+        const card = document.getElementById(`gm-prep2-card-${i}`);
+        if (card) {
+          card.classList.toggle('spotlight-active', i === cardIdx);
+        }
+      }
+      if (cardIdx >= 0) {
+        pluckHarpString(293.66 + cardIdx * 45, 0.55);
+      }
+    }
+
+    function openPrep2CardZoom(cardIdx) {
+      const data = prep2CardsData[cardIdx];
+      if (!data) return;
+      openCinematicZoom(data.img, data.title, data.tag, data.desc);
+      pluckHarpString(349.23 + cardIdx * 40, 0.65);
+    }
+
+    function goToSp2Prep2Step(step) {
+      currentSp2Prep2Step = step;
+      if (step === 0) {
+        closeCinematicZoom();
+        highlightPrep2Card(-1);
+      } else if (step === 1) {
+        closeCinematicZoom();
+        highlightPrep2Card(0);
+      } else if (step === 2) {
+        highlightPrep2Card(0);
+        openPrep2CardZoom(0);
+      } else if (step === 3) {
+        closeCinematicZoom();
+        highlightPrep2Card(1);
+      } else if (step === 4) {
+        highlightPrep2Card(1);
+        openPrep2CardZoom(1);
+      } else if (step === 5) {
+        closeCinematicZoom();
+        highlightPrep2Card(2);
+      } else if (step === 6) {
+        highlightPrep2Card(2);
+        openPrep2CardZoom(2);
+      }
+      updateUniversalHud();
+    }
+
+    function handlePrep2CardTap(cardIdx) {
+      if (currentHighlightedPrep2Card !== cardIdx) {
+        // First tap: highlight this card
+        goToSp2Prep2Step(cardIdx * 2 + 1);
+      } else {
+        // Second tap on the already highlighted card: open larger popup
+        goToSp2Prep2Step(cardIdx * 2 + 2);
       }
     }
 
@@ -3011,7 +3118,7 @@
       },
       7: {
         badge: 'التحضيرات • اليوم الثاني',
-        title: 'تحضيرات اليوم الثاني • الخطوات الأولى واستكشاف الميدان',
+        title: 'تحضيرات اليوم الثاني • كنيسة البطحة والفيلا',
         chord: [329.63, 415.30, 493.88, 659.25]
       },
       8: {
@@ -3161,7 +3268,7 @@
         } else if (paneId === 6) {
           selectSp2Day2ProgramLevel(1, false);
         } else if (paneId === 7) {
-          // Day 2 preparations (single step)
+          if (typeof goToSp2Prep2Step === 'function') goToSp2Prep2Step(0);
         } else if (paneId === 8) {
           renderBudgetPieChart(2);
           selectBudgetSlice(0, false);
@@ -3251,6 +3358,10 @@
     window.selectGameLevel = selectGameLevel;
     window.showSp2Map = showSp2Map;
     window.toggleGameMapDrawer = toggleGameMapDrawer;
+    window.goToSp2Prep1Step = goToSp2Prep1Step;
+    window.handlePrep1CardTap = handlePrep1CardTap;
+    window.goToSp2Prep2Step = goToSp2Prep2Step;
+    window.handlePrep2CardTap = handlePrep2CardTap;
 
     function updateDrawerToggleBtn(isOpen) {
       // Backward compatibility stub
@@ -3810,15 +3921,15 @@
     const sp2ProgramData = {
       1: {
         1: {
-          badge: "المرحلة ١ من ٥ • اليوم الأول",
-          title: "Opening and Breakfast",
+          badge: "",
+          title: "الافتتاح و الفطار",
           time: "٠٩:٠٠ ص – ١٠:٠٠ ص",
           desc: "طابور الافتتاح الكشفي الصباحي وتحية العلم مع صيحات وترانيم كشفية حماسية، وتوزيع وجبة إفطار خفيفة متكاملة ومشروبات دافئة لبدء اليوم بنشاط وألفة.",
           img: "assets/opening day 1.jpg",
           caption: "طابور الافتتاح الكشفي وتحية العلم واستقبال أطفال كنيسة السلام"
         },
         2: {
-          badge: "المرحلة ٢ من ٥ • اليوم الأول",
+          badge: "",
           title: "Games 1",
           time: "١٠:٠٠ ص – ١٢:٠٠ م",
           desc: "انطلاق الجولة الأولى من الألعاب الميدانية والمسابقات الحركية؛ دوري كرة القدم، مسار الموانع، وتحديات التتابع بين الفرق لإشعال روح المنافسة الشريفة.",
@@ -3826,24 +3937,24 @@
           caption: "بطولات الملاعب والمسابقات الحركية والتنافس بين فرق الأولاد والبنات"
         },
         3: {
-          badge: "المرحلة ٣ من ٥ • اليوم الأول",
-          title: "Sessions",
+          badge: "",
+          title: "ال",
           time: "١٢:٠٠ م – ٠١:٣٠ م",
           desc: "ورش عمل حرفية وفنية لغرس قيم العمل اليدوي، مع جلسات تفاعلية عن روح الفريق والتعاون الكشفي وصناعة تذكارات بأيديهم.",
           img: "assets/ethics session day 1.jpg",
           caption: "ورش العمل الحرفية وتطبيقات السلوك الإيجابي والتعاون بين الأطفال"
         },
         4: {
-          badge: "المرحلة ٤ من ٥ • اليوم الأول",
-          title: "Games 2",
+          badge: "",
+          title: "",
           time: "٠١:٣٠ م – ٠٣:٣٠ م",
           desc: "الجولة الثانية من الألعاب الكبرى؛ ألعاب التيليب ماتش بالبالونات والمياه، سباقات الحبال والموانع الهوائية التي أشعلت حماس الأطفال.",
           img: "assets/games day 1.jpg",
           caption: "مهرجان الألعاب الحركية ومسابقات التيليب ماتش الحماسية بالملاعب"
         },
         5: {
-          badge: "المرحلة ٥ من ٥ • اليوم الأول",
-          title: "Lunch",
+          badge: "",
+          title: "",
           time: "٠٣:٣٠ م – ٠٤:٣٠ م",
           desc: "التجمع الختامي لليوم الأول؛ تناول وجبة غداء كشفية ساخنة وشهية معاً، وتكريم الأطفال وتوزيع الهدايا والتقاط الصورة التذكارية الملحمية لرهط الوتر.",
           img: "assets/first day raht image.jpg",
@@ -3852,50 +3963,49 @@
       },
       2: {
         1: {
-          title: "(Breakfast & Opening)",
-          time: "١١:٤٥ ص – ١٢:٣٠ م",
+          badge: "المرحلة ١ من ٦ • اليوم الثاني",
+          title: "الافطار و الافتتاح",
+          time: "١٢:٠٠ م – ٠١:٠٠ م",
           desc: "استقبال حافل للأطفال بأناشيد الكشافة وصيحات رهط الوتر لكسر الجليد، ثم توزيع وجبة إفطار خفيفة ومشروبات دافئة لبدء يوم الفيلا والمسبح بحماس.",
           img: "assets/opening day 2.jpg",
           caption: "الافتتاح الكشفي الصباحي واستقبال الأطفال وتناول وجبة الإفطار الجماعية بكنيسة البطحة"
         },
         2: {
-          title: "(Ro7y, Crafts & Ethics)",
-          time: "١٢:٣٠ م – ٠٢:٠٠ م",
+          badge: "المرحلة ٢ من ٦ • اليوم الثاني",
+          title: "الفقرة الروحية وورش العمل و الاشغال اليدوية",
+          time: "٠١:٠٠ م – ٠٢:٠٠ م",
           desc: "قصة روحية مشوقة عن الرجاء والمحبة، تلتها ورش عمل حرفية وأشغال يدوية صنع فيها الأطفال تذكارات بأيديهم، مع غرس القيم السلوكية والأخلاقية.",
           img: "assets/religous session day 2.jpg",
           caption: "الفقرة الروحية وورش العمل والأشغال اليدوية وتنمية المهارات"
         },
         3: {
-          title: "(Lebs Maiohat)",
-          time: "٠٢:٠٠ م – ٠٢:٣٠ م",
-          desc: "تجهيز وارتداء ملابس السباحة للأطفال والاستعداد للنزول في حمام السباحة وسط إشراف كامل وتجهيز سترات النجاة.",
-          img: "assets/swimwear-prep.jpg",
-          caption: "الاستعداد للنزول في البيسين بكامل العتاد والجاهزية!"
-        },
-        4: {
-          title: "(Girls Pool / Boys Games)",
-          time: "٠٢:٣٠ م – ٠٤:٠٠ م",
+          badge: "المرحلة ٣ من ٦ • اليوم الثاني",
+          title: "مسبح بنات / ألعاب أولاد",
+          time: "٠٢:٠٠ م – ٠٣:٣٠ م",
           desc: "نظام التناوب الأول؛ استمتاع كامل للبنات بحمام السباحة والزحاليق المائية في خصوصية وأمان تام تحت إشراف المنقذات والخادمات، وتنافس حماسي للأولاد في الملاعب.",
           img: "assets/games boys day 2.jpg",
           caption: "فترة التناوب الأولى: ألعاب ومسابقات ملاعب اليوم الثاني للأولاد بالتوازي مع مسبح البنات"
         },
-        5: {
-          title: "(Boys Pool & Girls Games)",
-          time: "٠٤:٠٠ م – ٠٥:٣٠ م",
+        4: {
+          badge: "المرحلة ٤ من ٦ • اليوم الثاني",
+          title: "مسبح أولاد / ألعاب بنات",
+          time: "٠٣:٣٠ م – ٠٥:٠٠ م",
           desc: "عكس التناوب؛ انطلاق الأولاد للمسبح والألعاب المائية والكرات المنفوخة، بينما تخوض البنات مسابقات تفاعلية مبهجة في الملاعب الخضراء المجهزة.",
           img: "assets/games girls day 2.jpg",
           caption: "فترة التناوب الثانية: ألعاب ومسابقات الملاعب للبنات بالتوازي مع مسبح الأولاد"
         },
-        6: {
-          title: "Showering",
-          time: "٠٥:٣٠ م – ٠٦:٠٠ م",
-          desc: "الانتهاء من نشاط البركة، أخذ شاور دافئ، تجفيف وتبديل الملابس والاستعداد لمائدة العشاء.",
+        5: {
+          badge: "المرحلة ٥ من ٦ • اليوم الثاني",
+          title: "استحمام ولبس",
+          time: "٠٥:٠٠ م – ٠٥:٣٠ م",
+          desc: "الانتهاء من نشاط البركة، أخذ شاور دافئ، تجفيف وتبديل الملابس والاستعداد لمائدة الغداء.",
           img: "assets/showering-care.jpg",
-          caption: "الشكل بعد الخروج من البيسين والشاور الساقع!"
+          caption: "الانتهاء من نشاط حمام السباحة وأخذ الشاور وتجفيف الملابس"
         },
-        7: {
-          title: "(Lunch & Soret El Yom)",
-          time: "٠٦:٠٠ م – ٠٦:٣٠ م",
+        6: {
+          badge: "المرحلة ٦ من ٦ • اليوم الثاني",
+          title: "غداء وصورة اليوم",
+          time: "٠٥:٣٠ م – ٠٦:٠٠ م",
           desc: "التجمع الكشفي الأخير حول مائدة غداء شهية كعائلة واحدة، ثم التقاط الصورة التذكارية الملحمية لرهط الوتر مع الأطفال والخدام، وتوزيع هدايا اليوم وتكريم الجميع.",
           img: "assets/second day raht image.jpeg",
           caption: "صورة اليوم التذكارية ومشاركة مائدة الغداء الكشفية وتكريم الجميع"
@@ -3981,11 +4091,11 @@
     }
 
     function selectSp2Day2ProgramLevel(lvl, playSound = true) {
-      if (lvl < 1 || lvl > 7) return;
+      if (lvl < 1 || lvl > 6) return;
       currentSp2Day2ProgLvl = lvl;
 
       // Update Node active states
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 1; i <= 6; i++) {
         const node = document.getElementById(`sp2-p2-node-${i}`);
         const orb = document.getElementById(`sp2-p2-orb-${i}`);
         if (node) {
@@ -4009,16 +4119,16 @@
         }
       }
 
-      // Smooth scroll map pane: starts from bottom at Node 1 (880px) and moves up smoothly to Node 7 (70px)
+      // Smooth scroll map pane: starts from bottom at Node 1 (730px) and moves up smoothly to Node 6 (80px)
       const scrollPane = document.getElementById('sp2-prog2-scroll-pane');
       if (scrollPane) {
-        const nodePositions = [880, 745, 610, 475, 340, 205, 70];
-        const nodeY = nodePositions[lvl - 1] !== undefined ? nodePositions[lvl - 1] : 880;
+        const nodePositions = [730, 600, 470, 340, 210, 80];
+        const nodeY = nodePositions[lvl - 1] !== undefined ? nodePositions[lvl - 1] : 730;
         const updateScroll = () => {
           const containerHeight = (scrollPane.parentElement && scrollPane.parentElement.clientHeight > 0)
             ? scrollPane.parentElement.clientHeight
             : 480;
-          const maxScroll = Math.max(0, 980 - containerHeight);
+          const maxScroll = Math.max(0, 850 - containerHeight);
           const offY = Math.max(0, Math.min(maxScroll, Math.round(nodeY - containerHeight * 0.5)));
           scrollPane.style.transform = `translateY(-${offY}px)`;
         };
@@ -4045,7 +4155,7 @@
       }
 
       if (playSound) {
-        const freqs = [293.66, 329.63, 369.99, 392.00, 440.00, 493.88, 523.25];
+        const freqs = [293.66, 329.63, 369.99, 415.30, 466.16, 523.25];
         pluckHarpString(freqs[lvl - 1] || 392.00, 0.6);
       }
 
@@ -4057,7 +4167,7 @@
       const lvl = dayNum === 1 ? currentSp2Day1ProgLvl : currentSp2Day2ProgLvl;
       const data = sp2ProgramData[dayNum] && sp2ProgramData[dayNum][lvl];
       if (data) {
-        openCinematicZoom(data.img, data.title, data.time, data.caption || data.desc);
+        openCinematicZoom(data.img, data.title, data.time, '');
       }
     }
 

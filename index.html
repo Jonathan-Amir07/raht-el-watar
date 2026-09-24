@@ -1246,9 +1246,9 @@
           <div class="gm-drawer-content">
 
             <!-- ══════════════ LEVEL 1: الجلسات التعليمية ══════════════ -->
-            <div class="gm-level-pane active" id="gm-pane-1">
-              <!-- 3 Core Educational Pillars Grid (Integrated & Compact) -->
-              <div class="gm-edu-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; height: calc(100vh - 215px); min-height: 280px; max-height: 520px;">
+            <div class="gm-level-pane active" id="gm-pane-1" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
+              <!-- 3 Core Educational Pillars Grid (Full-Height Responsive Grid) -->
+              <div class="gm-edu-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 150px); box-sizing: border-box;">
                 <!-- Part 1: كورس إعداد القادة -->
                 <div class="gm-rule-card gm-edu-card" id="gm-edu-card-0" onclick="handleEduCardTap(0)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden;">
                   <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
@@ -1468,9 +1468,9 @@
             </div>
 
             <!-- ══════════════ LEVEL 3: برنامج اليوم الأول ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-3">
-              <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Extended to bottom) -->
-              <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 12px; height: calc(100vh - 245px); min-height: 280px; max-height: 440px;">
+            <div class="gm-level-pane" id="gm-pane-3" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
+              <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Expanded Downwards, Full Height Fit) -->
+              <div class="gm-prog-viewport-grid" style="display: grid; grid-template-columns: 3fr 2fr; gap: 14px; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
                 <!-- Map Container (Snippet Viewport) -->
                 <div style="position: relative; background: rgba(16, 24, 20, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 12px; overflow: hidden; height: 100%;">
                   <div class="floating-notes-layer" style="color: #72efb6;">
@@ -1553,16 +1553,16 @@
                 </div>
 
                 <!-- Detail Panel (Extended & Bold Viewable, 1-View Fit) -->
-                <div style="background: rgba(20, 28, 24, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; overflow: hidden; gap: 6px;">
+                <div style="background: rgba(20, 28, 24, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; height: 100%; min-height: 0; box-sizing: border-box; overflow: hidden; gap: 8px;">
                   <div style="flex-shrink: 0;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
-                      <span id="sp2-p1-detail-badge" style="background: rgba(72,202,139,0.2); color: #72efb6; border: 1px solid rgba(72,202,139,0.4); border-radius: 8px; padding: 2px 8px; font-size: 12px; font-weight: 600;">المرحلة ١ من ٥ • اليوم الأول</span>
-                      <span id="sp2-p1-detail-time" style="color: #6ee7b7; font-size: 14px; font-weight: 700; background: rgba(72,202,139,0.15); padding: 2px 8px; border-radius: 8px; border: 1px solid rgba(72,202,139,0.3);">٠٩:٠٠ ص – ١٠:٠٠ ص</span>
+                      <span id="sp2-p1-detail-badge" style="background: rgba(72,202,139,0.2); color: #72efb6; border: 1px solid rgba(72,202,139,0.4); border-radius: 8px; padding: 2px 10px; font-size: 12px; font-weight: 700;">المرحلة ١ من ٥ • اليوم الأول</span>
+                      <span id="sp2-p1-detail-time" style="color: #6ee7b7; font-size: 14px; font-weight: 700; background: rgba(72,202,139,0.15); padding: 2px 10px; border-radius: 8px; border: 1px solid rgba(72,202,139,0.3);">٠٩:٠٠ ص – ١٠:٠٠ ص</span>
                     </div>
-                    <h3 id="sp2-p1-detail-title" style="margin: 2px 0 0 0; font-size: 1.25rem; font-weight: 800; color: #fff; line-height: 1.2;">Opening and Breakfast</h3>
+                    <h3 id="sp2-p1-detail-title" style="margin: 2px 0 0 0; font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1.2;">الافتتاح والفطار</h3>
                   </div>
 
-                  <div id="sp2-p1-media-wrap" style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden; border: 1.5px solid rgba(72,202,139,0.4); flex: 1; min-height: 0; background: #07130e;"
+                  <div id="sp2-p1-media-wrap" style="cursor: pointer; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(72,202,139,0.4); flex: 1; min-height: 0; width: 100%; height: 100%; background: #07130e;"
                     onclick="zoomSp2ProgramMedia(1)" title="تكبير اللقطة">
                     <img id="sp2-p1-detail-img" src="assets/opening day 1.jpg" alt="Opening and Breakfast" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
@@ -1571,9 +1571,9 @@
             </div>
 
             <!-- ══════════════ LEVEL 4: تحضيرات اليوم الأول ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-4">
+            <div class="gm-level-pane" id="gm-pane-4" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
               <!-- 3 Core Pillars for Day 1 (Full-Height Responsive Grid with Spotlight & Zoom) -->
-              <div class="gm-edu-grid gm-prep1-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: calc(100vh - 215px); min-height: 280px; max-height: 520px;">
+              <div class="gm-edu-grid gm-prep1-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 150px); box-sizing: border-box;">
                 <!-- 1. الروحي -->
                 <div class="gm-rule-card gm-edu-card gm-prep1-card" id="gm-prep1-card-0" onclick="handlePrep1CardTap(0)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
                   <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
@@ -1581,8 +1581,7 @@
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                     </div>
                     <div>
-                      <div style="color: #72efb6; font-size: 11px; font-weight: 700; line-height: 1.2;">الفقرة الروحية • اليوم الأول</div>
-                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">أنت غالي ومحبوب في عين ربنا</h4>
+                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">عرص قانا الجليل</h4>
                     </div>
                   </div>
                   <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
@@ -1597,8 +1596,7 @@
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
                     <div>
-                      <div style="color: #4ea8de; font-size: 11px; font-weight: 700; line-height: 1.2;">تقويم السلوك • اليوم الأول</div>
-                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">ورشة الأمانة والاحترام العملي</h4>
+                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;"> الأمانة والاحترام</h4>
                     </div>
                   </div>
                   <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
@@ -1613,8 +1611,7 @@
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
                     </div>
                     <div>
-                      <div style="color: #ffd166; font-size: 11px; font-weight: 700; line-height: 1.2;">الترفيه والمسابقات • اليوم الأول</div>
-                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">الزحليقة المائية وتيليب ماتش</h4>
+                      <h4 style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">النطاطات</h4>
                     </div>
                   </div>
                   <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
@@ -1625,9 +1622,9 @@
             </div>
 
             <!-- ══════════════ LEVEL 4b: أماكن الخدمة على مدار يومين ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-11">
+            <div class="gm-level-pane" id="gm-pane-11" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
               <!-- 2 Large Church Photo Cards (Day 1: كنيسة السلام & Day 2: كنيسة البطحة) -->
-              <div class="churches-grid-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: calc(100vh - 215px); min-height: 280px; max-height: 520px; margin-top: 4px;">
+              <div class="churches-grid-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 150px); box-sizing: border-box; margin-top: 2px;">
                 <!-- Church 1: كنيسة السلام (اليوم الأول) -->
                 <div class="church-pillar-card church-card-1" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 12px 16px; overflow: hidden;">
                   <div class="church-header-row" style="margin-bottom: 8px; flex-shrink: 0;">
@@ -1756,9 +1753,9 @@
             </div>
 
             <!-- ══════════════ LEVEL 6: برنامج اليوم الثاني ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-6">
-              <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Extended to bottom, 1-View Fit) -->
-              <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 12px; height: calc(100vh - 245px); min-height: 280px; max-height: 440px;">
+            <div class="gm-level-pane" id="gm-pane-6" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
+              <!-- Viewport Split: 60% Candy Crush Map : 40% Details (Expanded Downwards, Full Height Fit) -->
+              <div class="gm-prog-viewport-grid" style="display: grid; grid-template-columns: 3fr 2fr; gap: 14px; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
                 <!-- Map Container (Snippet Viewport) -->
                 <div style="position: relative; background: rgba(16, 24, 20, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 12px; overflow: hidden; height: 100%;">
                   <div class="floating-notes-layer" style="color: #72efb6;">
@@ -1780,216 +1777,139 @@
                     <span class="floating-note-item" style="top: 92%; left: 85%; animation-delay: 0.3s; font-size: 24px;">♪</span>
                   </div>
 
-                  <div id="sp2-prog2-scroll-pane" style="position: absolute; inset: 0; height: 980px; width: 100%; transform: translateY(-400px); transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);">
-                    <svg style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;" viewBox="0 0 300 980" preserveAspectRatio="none">
-                      <path d="M 150,880 C 110,830 70,780 90,730 C 110,680 230,630 210,580 C 190,530 70,480 90,430 C 110,380 230,330 210,280 C 190,230 75,180 95,140 L 150,70"
+                  <div id="sp2-prog2-scroll-pane" style="position: absolute; inset: 0; height: 850px; width: 100%; transform: translateY(-400px); transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);">
+                    <svg style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;" viewBox="0 0 300 850" preserveAspectRatio="none">
+                      <path d="M 150,730 C 110,680 70,630 90,600 C 110,570 230,520 210,470 C 190,420 70,370 90,340 C 110,310 230,260 210,210 C 190,160 110,120 150,80"
                         fill="none" stroke="rgba(72,202,139,0.25)" stroke-width="12" filter="blur(4px)" />
-                      <path d="M 150,880 C 110,830 70,780 90,730 C 110,680 230,630 210,580 C 190,530 70,480 90,430 C 110,380 230,330 210,280 C 190,230 75,180 95,140 L 150,70"
+                      <path d="M 150,730 C 110,680 70,630 90,600 C 110,570 230,520 210,470 C 190,420 70,370 90,340 C 110,310 230,260 210,210 C 190,160 110,120 150,80"
                         fill="none" stroke="#143022" stroke-width="7" />
-                      <path d="M 150,880 C 110,830 70,780 90,730 C 110,680 230,630 210,580 C 190,530 70,480 90,430 C 110,380 230,330 210,280 C 190,230 75,180 95,140 L 150,70"
+                      <path d="M 150,730 C 110,680 70,630 90,600 C 110,570 230,520 210,470 C 190,420 70,370 90,340 C 110,310 230,260 210,210 C 190,160 110,120 150,80"
                         fill="none" stroke="#48ca8b" stroke-width="3.5" stroke-dasharray="9 6" />
                     </svg>
 
-                    <!-- 7 Milestone Nodes for Day 2 -->
+                    <!-- 6 Milestone Nodes for Day 2 -->
                     <div style="position: absolute; inset: 0;">
                       <!-- Node 1 -->
-                      <div class="sp4-level-node active" id="sp2-p2-node-1" onclick="selectSp2Day2ProgramLevel(1)" style="position: absolute; top: 880px; left: 50%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
+                      <div class="sp4-level-node active" id="sp2-p2-node-1" onclick="selectSp2Day2ProgramLevel(1)" style="position: absolute; top: 730px; left: 50%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
                         <div class="sp4-node-orb" id="sp2-p2-orb-1" style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #48ca8b, #1b5e3d); display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 0 20px rgba(72,202,139,0.85); border: 2.5px solid #fff; color: #fff;">
                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">١. فطار وافتتاح</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">١١:٤٥ ص – ١٢:٣٠ م</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">١. الافطار و الافتتاح</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">١٢:٠٠ م – ٠١:٠٠ م</div>
                       </div>
 
                       <!-- Node 2 -->
-                      <div class="sp4-level-node" id="sp2-p2-node-2" onclick="selectSp2Day2ProgramLevel(2)" style="position: absolute; top: 745px; left: 30%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 150px;">
+                      <div class="sp4-level-node" id="sp2-p2-node-2" onclick="selectSp2Day2ProgramLevel(2)" style="position: absolute; top: 600px; left: 30%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
                         <div class="sp4-node-orb" id="sp2-p2-orb-2" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M7 8h10"></path></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٢. روحي وسلوك وأشغال</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">١٢:٣٠ م – ٠٢:٠٠ م</div>
+                        <div style="font-size: 14.5px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٢. الفقرة الروحية وورش العمل و الاشغال اليدوية</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠١:٠٠ م – ٠٢:٠٠ م</div>
                       </div>
 
                       <!-- Node 3 -->
-                      <div class="sp4-level-node" id="sp2-p2-node-3" onclick="selectSp2Day2ProgramLevel(3)" style="position: absolute; top: 610px; left: 70%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 150px;">
+                      <div class="sp4-level-node" id="sp2-p2-node-3" onclick="selectSp2Day2ProgramLevel(3)" style="position: absolute; top: 470px; left: 70%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
                         <div class="sp4-node-orb" id="sp2-p2-orb-3" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2.5-3 5.5-3 8 0s5.5 3 8 0 4-2 4-2"></path><path d="M2 18c2.5-3 5.5-3 8 0s5.5 3 8 0 4-2 4-2"></path></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٣. لبس المايوهات</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٢:٠٠ م – ٠٢:٣٠ م</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٣. مسبح بنات / ألعاب أولاد</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٢:٠٠ م – ٠٣:٣٠ م</div>
                       </div>
 
                       <!-- Node 4 -->
-                      <div class="sp4-level-node" id="sp2-p2-node-4" onclick="selectSp2Day2ProgramLevel(4)" style="position: absolute; top: 475px; left: 30%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 150px;">
+                      <div class="sp4-level-node" id="sp2-p2-node-4" onclick="selectSp2Day2ProgramLevel(4)" style="position: absolute; top: 340px; left: 30%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
                         <div class="sp4-node-orb" id="sp2-p2-orb-4" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2.5-3 5.5-3 8 0s5.5 3 8 0 4-2 4-2"></path><path d="M2 18c2.5-3 5.5-3 8 0s5.5 3 8 0 4-2 4-2"></path></svg>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٤. مسبح بنات / ألعاب أولاد</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٢:٣٠ م – ٠٤:٠٠ م</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٤. مسبح أولاد / ألعاب بنات</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٣:٣٠ م – ٠٥:٠٠ م</div>
                       </div>
 
                       <!-- Node 5 -->
-                      <div class="sp4-level-node" id="sp2-p2-node-5" onclick="selectSp2Day2ProgramLevel(5)" style="position: absolute; top: 340px; left: 70%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 150px;">
+                      <div class="sp4-level-node" id="sp2-p2-node-5" onclick="selectSp2Day2ProgramLevel(5)" style="position: absolute; top: 210px; left: 70%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
                         <div class="sp4-node-orb" id="sp2-p2-orb-5" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path><path d="M12 12v9"></path><path d="m8 17 4 4 4-4"></path></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٥. مسبح أولاد / ألعاب بنات</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٤:٠٠ م – ٠٥:٣٠ م</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٥. استحمام ولبس</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٥:٠٠ م – ٠٥:٣٠ م</div>
                       </div>
 
                       <!-- Node 6 -->
-                      <div class="sp4-level-node" id="sp2-p2-node-6" onclick="selectSp2Day2ProgramLevel(6)" style="position: absolute; top: 205px; left: 30%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 150px;">
+                      <div class="sp4-level-node" id="sp2-p2-node-6" onclick="selectSp2Day2ProgramLevel(6)" style="position: absolute; top: 80px; left: 50%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 170px;">
                         <div class="sp4-node-orb" id="sp2-p2-orb-6" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path><path d="M12 12v9"></path><path d="m8 17 4 4 4-4"></path></svg>
-                        </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٦. استحمام ولبس</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٥:٣٠ م – ٠٦:٠٠ م</div>
-                      </div>
-
-                      <!-- Node 7 -->
-                      <div class="sp4-level-node" id="sp2-p2-node-7" onclick="selectSp2Day2ProgramLevel(7)" style="position: absolute; top: 70px; left: 50%; transform: translate(-50%, -50%); cursor: pointer; text-align: center; min-width: 150px;">
-                        <div class="sp4-node-orb" id="sp2-p2-orb-7" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(22, 45, 33, 0.9); display: flex; align-items: center; justify-content: center; margin: 0 auto; border: 2px solid rgba(72,202,139,0.5); color: #72efb6;">
                           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="4"></circle><path d="M5 7h2l2-3h6l2 3h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path></svg>
                         </div>
-                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٧. غداء وصورة اليوم</div>
-                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٦:٠٠ م – ٠٦:٣٠ م</div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.95); letter-spacing: 0.2px;">٦. غداء وصورة اليوم</div>
+                        <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; text-shadow: 0 2px 6px rgba(0,0,0,0.95); margin-top: 2px;">٠٥:٣٠ م – ٠٦:٠٠ م</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <!-- Detail Panel (Extended & Bold Viewable, 1-View Fit) -->
-                <div style="background: rgba(20, 28, 24, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; overflow: hidden; gap: 6px;">
+                <div style="background: rgba(20, 28, 24, 0.85); border: 1.5px solid rgba(72,202,139,0.35); border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; height: 100%; min-height: 0; box-sizing: border-box; overflow: hidden; gap: 8px;">
                   <div style="flex-shrink: 0;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
-                      <span id="sp2-p2-detail-badge" style="background: rgba(72,202,139,0.2); color: #72efb6; border: 1px solid rgba(72,202,139,0.4); border-radius: 8px; padding: 2px 8px; font-size: 12px; font-weight: 600;">المرحلة ١ من ٧ • اليوم الثاني</span>
-                      <span id="sp2-p2-detail-time" style="color: #6ee7b7; font-size: 14px; font-weight: 700; background: rgba(72,202,139,0.15); padding: 2px 8px; border-radius: 8px; border: 1px solid rgba(72,202,139,0.3);">١١:٤٥ ص – ١٢:٣٠ م</span>
+                      <span id="sp2-p2-detail-badge" style="background: rgba(72,202,139,0.2); color: #72efb6; border: 1px solid rgba(72,202,139,0.4); border-radius: 8px; padding: 2px 10px; font-size: 12px; font-weight: 700;">المرحلة ١ من ٦ • اليوم الثاني</span>
+                      <span id="sp2-p2-detail-time" style="color: #6ee7b7; font-size: 14px; font-weight: 700; background: rgba(72,202,139,0.15); padding: 2px 10px; border-radius: 8px; border: 1px solid rgba(72,202,139,0.3);">١٢:٠٠ م – ٠١:٠٠ م</span>
                     </div>
-                    <h3 id="sp2-p2-detail-title" style="margin: 2px 0 0 0; font-size: 1.25rem; font-weight: 800; color: #fff; line-height: 1.2;">الاستقبال والإفطار والافتتاح الكشفي</h3>
+                    <h3 id="sp2-p2-detail-title" style="margin: 2px 0 0 0; font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1.2;">الافطار و الافتتاح</h3>
                   </div>
 
-                  <div id="sp2-p2-media-wrap" style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden; border: 1.5px solid rgba(72,202,139,0.4); flex: 1; min-height: 0; background: #07130e;"
+                  <div id="sp2-p2-media-wrap" style="cursor: pointer; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(72,202,139,0.4); flex: 1; min-height: 0; width: 100%; height: 100%; background: #07130e;"
                     onclick="zoomSp2ProgramMedia(2)" title="تكبير اللقطة">
                     <img id="sp2-p2-detail-img" src="assets/opening day 2.jpg" alt="لقطة المرحلة" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
-
-                  <p id="sp2-p2-detail-desc" style="margin: 0; color: #cbd5e1; font-size: 12px; line-height: 1.35; flex-shrink: 0;">
-                    استقبال حافل للأطفال بأناشيد الكشافة وصيحات رهط الوتر لكسر الجليد، ثم توزيع وجبة إفطار خفيفة ومشروبات دافئة لبدء يوم الفيلا والمسبح بحماس.
-                  </p>
                 </div>
               </div>
             </div>
 
             <!-- ══════════════ LEVEL 7: تحضيرات اليوم الثاني ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-7">
-              <!-- 4 Preparation Pillars Grid (Matching the attached screenshot) -->
-              <div class="gm-first-steps-grid" style="margin-bottom: 12px;">
-                <!-- 1. الكنائس المرشحة -->
-                <div class="gm-step-box-card">
-                  <div class="gm-step-box-header">
-                    <div class="gm-step-box-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 21h18"></path>
-                        <path d="M5 21V7l7-4 7 4v14"></path>
-                        <path d="M9 10a3 3 0 0 1 6 0v11"></path>
-                      </svg>
-                    </div>
-                    <h4 class="gm-step-box-title">الكنائس المرشحة</h4>
-                  </div>
-                  <p class="gm-step-box-desc">
-                    • حصرنا الكنائس الأكثر احتياجاً ونسقنا كل التفاصيل مع الآباء والخدام.
-                  </p>
-                </div>
-
-                <!-- 2. الأراضي والأماكن -->
-                <div class="gm-step-box-card">
-                  <div class="gm-step-box-header">
-                    <div class="gm-step-box-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
-                    </div>
-                    <h4 class="gm-step-box-title">الأراضي والأماكن</h4>
-                  </div>
-                  <p class="gm-step-box-desc">
-                    • عاينا الفلل والملاعب والمسبح وتأكدنا بنفسنا من الأمان والخصوصية.
-                  </p>
-                </div>
-
-                <!-- 3. العشور والتمويل -->
-                <div class="gm-step-box-card">
-                  <div class="gm-step-box-header">
-                    <div class="gm-step-box-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 6v12M15 9.5a3 3 0 0 0-3-2.5h-1a2.5 2.5 0 0 0 0 5h2a2.5 2.5 0 0 1 0 5h-1a3 3 0 0 1-3-2.5"></path>
-                      </svg>
-                    </div>
-                    <h4 class="gm-step-box-title">العشور والتمويل</h4>
-                  </div>
-                  <p class="gm-step-box-desc">
-                    • جمعنا تكاليف اليومين كاملة من عشور الرهط بدون ما نحمّل الكنيسة مليم.
-                  </p>
-                </div>
-
-                <!-- 4. البرنامج المقترح -->
-                <div class="gm-step-box-card">
-                  <div class="gm-step-box-header">
-                    <div class="gm-step-box-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                      </svg>
-                    </div>
-                    <h4 class="gm-step-box-title">البرنامج المقترح</h4>
-                  </div>
-                  <p class="gm-step-box-desc">
-                    • ظبطنا جدول اليوم بالدقيقة من فترات الملاعب للمسبح وتوزيع القادة.
-                  </p>
-                </div>
-              </div>
-
-              <!-- 3 Core Pillars for Day 2 -->
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 4px;">
+            <div class="gm-level-pane" id="gm-pane-7" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden;">
+              <!-- 3 Core Pillars for Day 2 (Full-Height Responsive Grid with Spotlight & Zoom) -->
+              <div class="gm-edu-grid gm-prep2-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 150px); box-sizing: border-box;">
                 <!-- 1. الروحي -->
-                <div style="background: rgba(22, 30, 26, 0.85); border: 1px solid rgba(78, 168, 222, 0.35); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                  <div style="height: 140px; cursor: pointer; overflow: hidden;"
-                    onclick="openCinematicZoom('assets/religous session day 2.jpg', 'المحاضرة الروحية • كنيسة البطحة', 'اللقاء الروحي والتأمل وترانيم الفرح مع أطفال كنيسة البطحة', 'الفقرة الروحية • اليوم الثاني')">
-                    <img src="assets/religous session day 2.jpg" alt="المحاضرة الروحية" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                <div class="gm-rule-card gm-edu-card gm-prep2-card" id="gm-prep2-card-0" onclick="handlePrep2CardTap(0)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
+                  <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
+                    <div class="gm-rule-icon" style="background: rgba(114, 239, 182, 0.18); color: #72efb6; border-radius: 8px; padding: 6px; display: flex;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    </div>
+                    <div>
+                      <h4 id="gm-prep2-title-0" style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">المحبة والرجاء</h4>
+                    </div>
                   </div>
-                  <div style="padding: 10px 12px;">
-                    <div style="color: #72efb6; font-size: 11px; font-weight: 700; margin-bottom: 2px;">الفقرة الروحية • اليوم الثاني</div>
-                    <h4 style="margin: 0 0 4px 0; font-size: 13.5px; color: #fff; font-weight: 700;">المحبة والعطاء وترانيم الدفوف</h4>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 11.5px; line-height: 1.45;">قعدة محبة عن العطاء وترانيم كشفية مبهجة بالدفوف والتسقيف مع الأولاد داخل الكنيسة.</p>
-                  </div>
-                </div>
-
-                <!-- 2. تقويم السلوك -->
-                <div style="background: rgba(22, 30, 26, 0.85); border: 1px solid rgba(78, 168, 222, 0.35); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                  <div style="height: 140px; cursor: pointer; overflow: hidden;"
-                    onclick="openCinematicZoom('assets/session john and mira.jpg', 'المحاضرة الأخلاقية • كنيسة البطحة', 'ورشة إدارة المشاعر والتحكم في الغضب للأطفال', 'جلسة الأخلاق والسلوك')">
-                    <img src="assets/session john and mira.jpg" alt="جلسة الأخلاق والسلوك" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-                  </div>
-                  <div style="padding: 10px 12px;">
-                    <div style="color: #4ea8de; font-size: 11px; font-weight: 700; margin-bottom: 2px;">تقويم السلوك • اليوم الثاني</div>
-                    <h4 style="margin: 0 0 4px 0; font-size: 13.5px; color: #fff; font-weight: 700;">ورشة إدارة المشاعر وضبط النفس</h4>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 11.5px; line-height: 1.45;">ورشة عملية إزاي نتحكم في مشاعرنا وغضبنا ونتصرف صح في المواقف الصعبة بروح المحبة.</p>
+                  <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
+                    <img src="assets/religous session day 2.jpg" alt="المحاضرة الروحية • اليوم الثاني" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
                 </div>
 
-                <!-- 3. الترفيه -->
-                <div style="background: rgba(22, 30, 26, 0.85); border: 1px solid rgba(78, 168, 222, 0.35); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
-                  <div style="height: 140px; cursor: pointer; overflow: hidden;"
-                    onclick="openCinematicZoom('assets/games boys day 2.jpg', 'الألعاب الكبرى • كنيسة البطحة', 'مهرجان الألعاب الكشفية وتحديات التيليب ماتش', 'ألعاب ومسابقات اليوم الثاني')">
-                    <img src="assets/games boys day 2.jpg" alt="الألعاب الكبرى" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                <!-- 2. تقويم السلوك / الجلسات -->
+                <div class="gm-rule-card gm-edu-card gm-prep2-card" id="gm-prep2-card-1" onclick="handlePrep2CardTap(1)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
+                  <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
+                    <div class="gm-rule-icon" style="background: rgba(78, 168, 222, 0.2); color: #4ea8de; border-radius: 8px; padding: 6px; display: flex;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div>
+                      <h4 id="gm-prep2-title-1" style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">إدارة المشاعر وضبط النفس</h4>
+                    </div>
                   </div>
-                  <div style="padding: 10px 12px;">
-                    <div style="color: #ffd166; font-size: 11px; font-weight: 700; margin-bottom: 2px;">الترفيه والمسابقات • اليوم الثاني</div>
-                    <h4 style="margin: 0 0 4px 0; font-size: 13.5px; color: #fff; font-weight: 700;">الألعاب الكشفية والمسبح والتناوب</h4>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 11.5px; line-height: 1.45;">مسابقات كشفية وسباقات جري وشد حبل ومسبح بالتناوب اختتمت بتوزيع الميداليات للجميع.</p>
+                  <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
+                    <img src="assets/session john and mira.jpg" alt="جلسة الأخلاق والسلوك • اليوم الثاني" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  </div>
+                </div>
+
+                <!-- 3. الترفيه / المسبح والألعاب -->
+                <div class="gm-rule-card gm-edu-card gm-prep2-card" id="gm-prep2-card-2" onclick="handlePrep2CardTap(2)" style="display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding: 10px 12px; overflow: hidden; cursor: pointer;">
+                  <div class="gm-rule-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-shrink: 0;">
+                    <div class="gm-rule-icon" style="background: rgba(255, 209, 102, 0.18); color: #ffd166; border-radius: 8px; padding: 6px; display: flex;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <div>
+                      <h4 id="gm-prep2-title-2" style="margin: 0; font-size: 14.5px; color: #fff; font-weight: 800; line-height: 1.2;">المسبح وتحديات الملاعب</h4>
+                    </div>
+                  </div>
+                  <div style="position: relative; border-radius: 8px; overflow: hidden; flex: 1; min-height: 0; width: 100%; background: #07130e;">
+                    <img src="assets/games boys day 2.jpg" alt="الألعاب والمسبح • اليوم الثاني" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
                   </div>
                 </div>
               </div>
@@ -2071,7 +1991,7 @@
             </div>
 
             <!-- ══════════════ LEVEL 9: التقييم الخارجي (اليوم الأول) ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-9">
+            <div class="gm-level-pane" id="gm-pane-9" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; justify-content: space-between;">
               <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
                 <button class="sp4-day-tab-btn active" id="gm-feedback-pill-1" onclick="openSp2Node(9)" style="border-radius: 20px; padding: 6px 16px; font-size: 13px;">
                   الشريحة ١ • التقييم الخارجي (قادة • خدام • أطفال)
@@ -2173,8 +2093,8 @@
             </div>
 
             <!-- ══════════════ LEVEL 10: التقييم الداخلي (اليوم الثاني) ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-10">
-              <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+            <div class="gm-level-pane" id="gm-pane-10" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; justify-content: center;">
+              <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
                 <button class="sp4-day-tab-btn" id="gm-feedback-pill-1b" onclick="openSp2Node(9)" style="border-radius: 20px; padding: 6px 16px; font-size: 13px;">
                   الشريحة ١ • التقييم الخارجي (قادة • خدام • أطفال)
                 </button>
@@ -2183,7 +2103,7 @@
                 </button>
               </div>
 
-              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 980px; margin: 30px auto;">
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; max-width: 1280px; margin: 10px auto; height: 100%; max-height: calc(100vh - 200px); align-items: stretch;">
                 <!-- 1. الشمس -->
                 <div class="gm-rule-card" style="background: rgba(32, 20, 42, 0.82); border: 1px solid rgba(251,191,36,0.4); border-radius: 16px; padding: 26px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.35); transition: all 0.3s ease;">
                   <div style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-radius: 14px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(245,158,11,0.3);">
