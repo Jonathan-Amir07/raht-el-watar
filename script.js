@@ -205,7 +205,7 @@
         if (currentPptStep === 6) {
           if (isChristmasVideoExpanded) {
             chordTitle = 'الوتر الأول: فيديو لقاء الكريسماس';
-          } else if (typeof isBondingVideoExpanded !== 'undefined' && isBondingVideoExpanded) {
+          } else if (isBondingVideoExpanded) {
             chordTitle = 'الوتر الأول: فيديو النشاط الرياضي';
           } else {
             chordTitle = 'الوتر الأول: الترابط';
@@ -215,7 +215,7 @@
         }
         curStep = currentPptStep + 1;
         totalSteps = 8;
-        if (prevBtn) prevBtn.disabled = (currentPptStep === 0 && !isChristmasVideoExpanded);
+        if (prevBtn) prevBtn.disabled = (currentPptStep === 0 && !isChristmasVideoExpanded && !isBondingVideoExpanded);
         if (nextBtn) nextBtn.disabled = false;
       } else if (activePage === 1) {
         if (currentProjStep === 0) {
@@ -237,7 +237,13 @@
         } else if (currentProjStep === 2) {
           curStep = 3;
           totalSteps = 5;
-          chordTitle = 'الوتر الثاني: محطات الخدمة والكنائس';
+          if (isDayVideoOpen && currentDayVideoNum === 1) {
+            chordTitle = 'الوتر الثاني: فيديو كنيسة السلام (اليوم الأول)';
+          } else if (isDayVideoOpen && currentDayVideoNum === 2) {
+            chordTitle = 'الوتر الثاني: فيديو كنيسة البطحة (اليوم الثاني)';
+          } else {
+            chordTitle = 'الوتر الثاني: محطات الخدمة والكنائس';
+          }
         } else if (currentProjStep === 3) {
           curStep = 4;
           totalSteps = 5;
@@ -521,13 +527,16 @@
       }, 480);
     }
 
-    // ── Christmas Video Cinema Spotlight Mode ──
+    // ── Christmas & Bonding Video Cinema Spotlight Mode (Slide 7: الترابط) ──
     let isChristmasVideoExpanded = false;
+    let isBondingVideoExpanded = false;
+    let hasWatchedChristmasInSlide7 = false;
 
     function openChristmasCinema() {
       const overlay = document.getElementById('christmas-cinema-overlay');
       const player = document.getElementById('christmas-cinema-player');
       if (!overlay) return;
+      hasWatchedChristmasInSlide7 = true;
       isChristmasVideoExpanded = true;
       overlay.style.display = 'flex';
       requestAnimationFrame(() => {
@@ -561,7 +570,7 @@
       }, 400);
 
       if (autoAdvance) {
-        goToPptStep(7, true);
+        openBondingVideo();
       } else {
         updateUniversalHud();
       }
@@ -574,6 +583,62 @@
         openChristmasCinema();
       }
     }
+
+    function openBondingVideo() {
+      const overlay = document.getElementById('bonding-cinema-overlay');
+      const player = document.getElementById('bonding-video-player');
+      if (!overlay) return;
+      isBondingVideoExpanded = true;
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => {
+        overlay.classList.add('open');
+      });
+      if (player) {
+        player.currentTime = 0;
+        player.muted = false;
+        const p = player.play();
+        if (p !== undefined) {
+          p.catch(e => console.log('Autoplay deferred/blocked:', e));
+        }
+      }
+      pluckHarpString(392.00, 0.6);
+      updateUniversalHud();
+    }
+
+    function closeBondingVideo(autoAdvance = false) {
+      const overlay = document.getElementById('bonding-cinema-overlay');
+      const player = document.getElementById('bonding-video-player');
+      if (!overlay) return;
+      isBondingVideoExpanded = false;
+      overlay.classList.remove('open');
+      if (player) {
+        player.pause();
+      }
+      setTimeout(() => {
+        if (!isBondingVideoExpanded) {
+          overlay.style.display = 'none';
+        }
+      }, 400);
+
+      if (autoAdvance) {
+        goToPptStep(7, true);
+      } else {
+        updateUniversalHud();
+      }
+    }
+
+    function toggleBondingVideo() {
+      if (isBondingVideoExpanded) {
+        closeBondingVideo(false);
+      } else {
+        openBondingVideo();
+      }
+    }
+
+    window.openChristmasCinema = openChristmasCinema;
+    window.closeChristmasCinema = closeChristmasCinema;
+    window.openBondingVideo = openBondingVideo;
+    window.closeBondingVideo = closeBondingVideo;
 
     // ── 3D Cinematic Holy Bible & Verse Controller (Stage 1 • تسمية «رهط الوتر») ──
     let isBibleOpenOnStage1 = false;
@@ -863,12 +928,23 @@
             }
           }
 
-          if (currentPptStep === 6 && !isChristmasVideoExpanded) {
-            openChristmasCinema();
-            return;
-          }
-          if (isChristmasVideoExpanded) {
-            closeChristmasCinema(false);
+          // Slide 7 (Station 3: الترابط - Christmas Video & Sports Padel Video in sequence)
+          if (currentPptStep === 6) {
+            if (!hasWatchedChristmasInSlide7 && !isChristmasVideoExpanded && !isBondingVideoExpanded) {
+              openChristmasCinema();
+              return;
+            } else if (isChristmasVideoExpanded) {
+              closeChristmasCinema(false);
+              openBondingVideo();
+              return;
+            } else if (!isBondingVideoExpanded) {
+              openBondingVideo();
+              return;
+            } else if (isBondingVideoExpanded) {
+              closeBondingVideo(false);
+              goToPptStep(7, true);
+              return;
+            }
           }
           if (currentPptStep < 7) {
             goToPptStep(currentPptStep + 1, true);
@@ -879,6 +955,11 @@
           // If Bible is open or animating, dismiss back to slide 1 view
           if (currentPptStep === 1 && (isBibleOpenOnStage1 || isBibleAnimating)) {
             closeAndDismissBible(false);
+            return;
+          }
+
+          if (isBondingVideoExpanded) {
+            closeBondingVideo(false);
             return;
           }
 
@@ -913,12 +994,17 @@
               goToProjStep(4);
             }
           } else if (currentProjStep === 4) {
-            // Slide 13 (Recap Video): Start video playing on Space / Next without clicking play button
-            if (!isTwoDaysVideoExpanded) {
+            // Slide 13 (Recap Video): Play video on Next, close on next Next, advance on subsequent Next
+            if (isTwoDaysVideoExpanded) {
+              closeTwoDaysVideo(false);
+              slide13VideoPlayed = true;
+              return;
+            } else if (!slide13VideoPlayed) {
               openTwoDaysVideo();
+              slide13VideoPlayed = true;
               return;
             } else {
-              closeTwoDaysVideo(true);
+              stepToNextChord(2, 0);
             }
           }
         } else {
@@ -927,6 +1013,7 @@
               closeTwoDaysVideo(false);
               return;
             } else {
+              slide13VideoPlayed = false;
               goToProjStep(3);
               selectGuitarString(9);
             }
@@ -1297,22 +1384,36 @@
         }
       }
 
-      // 0.55 Bonding Sports Video Modal check (Chord 1 • Slide 7)
-      const bondingOverlay = document.getElementById('bonding-cinema-overlay');
-      if (bondingOverlay && bondingOverlay.style.display !== 'none') {
+      // 0.55 Bonding Sports Video Modal check (Chord 0 • Slide 7)
+      if (isBondingVideoExpanded) {
         if (e.key === 'Escape') {
           e.preventDefault();
-          closeBondingVideo();
+          closeBondingVideo(false);
+          return;
+        } else if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          advanceGlobalPresentation(1);
+          return;
+        } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          advanceGlobalPresentation(-1);
           return;
         }
       }
 
       // 0.58 Service Day Video Modal check (Day 1 & Day 2)
-      const serviceDayOverlay = document.getElementById('service-day-video-overlay');
-      if (serviceDayOverlay && serviceDayOverlay.style.display !== 'none') {
+      if (isDayVideoOpen) {
         if (e.key === 'Escape') {
           e.preventDefault();
           closeDayVideo();
+          return;
+        } else if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          advanceGlobalPresentation(1);
+          return;
+        } else if (e.key === 'ArrowRight' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'Backspace') {
+          e.preventDefault();
+          advanceGlobalPresentation(-1);
           return;
         }
       }
@@ -2023,6 +2124,12 @@
       if (step !== 6 && isChristmasVideoExpanded) {
         closeChristmasCinema(false);
       }
+      if (step !== 6 && isBondingVideoExpanded) {
+        closeBondingVideo(false);
+      }
+      if (step !== 6) {
+        hasWatchedChristmasInSlide7 = false;
+      }
       currentPptStep = step;
       updatePptPresentation(isManual);
     }
@@ -2048,17 +2155,17 @@
     const rejectedCardsData = [
       {
         title: 'حملة التوعية النفسية',
-        reason: 'الجلسات محتاجة ومتخصصين مش إحنا',
+        reason: 'المشروع محتاج للمتخصصين اكثر من افراد الرهط',
         iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>'
       },
       {
         title: 'رحلات الهايكينج للآخرين',
-        reason: 'الرحلات مكنش فيها خدمة ولا أثر حقيقي للأولاد',
+        reason: 'زيادة التكلفة علي الافراد',
         iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 22 22 22 12 2"></polygon><path d="M12 12l4 7H8z"></path></svg>'
       },
       {
         title: 'فريق الأنشطة الرياضية',
-        reason: 'تنظيم الملاعب والألعاب أصلاً شغل قادة المعسكر',
+        reason: 'رفدة من قائد العشيرة',
         iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>'
       }
     ];
@@ -2157,6 +2264,16 @@
 
     function goToProjStep(step) {
       if (step < 0 || step > 4) return;
+      if (currentProjStep === 2 && step !== 2) {
+        closeDayVideo();
+        slide11VideoStep = 0;
+      }
+      if (step === 2) {
+        slide11VideoStep = 0;
+      }
+      if (step === 4) {
+        slide13VideoPlayed = false;
+      }
       currentProjStep = step;
       updateProjPresentation();
     }
@@ -2309,16 +2426,16 @@
     const exploredHarpStrings = new Set();
 
     const guitarStringCoordinates = [
-      { x1: 155, y1: 78, x2: 230, y2: 580 }, // 0: الروحي
-      { x1: 185, y1: 70, x2: 252, y2: 575 }, // 1: الأخلاقي
-      { x1: 215, y1: 68, x2: 274, y2: 570 }, // 2: الميزانيه
-      { x1: 245, y1: 72, x2: 296, y2: 560 }, // 3: اللوجيستيات
-      { x1: 275, y1: 82, x2: 318, y2: 545 }, // 4: الألعاب
-      { x1: 305, y1: 98, x2: 340, y2: 520 }, // 5: قائد اليوم الأول
-      { x1: 335, y1: 120, x2: 362, y2: 490 }, // 6: قائد اليوم التاني
-      { x1: 365, y1: 148, x2: 384, y2: 450 }, // 7: كرافتس
-      { x1: 395, y1: 180, x2: 406, y2: 400 }, // 8: الفقره الافتتاحيه
-      { x1: 425, y1: 218, x2: 428, y2: 335 }  // 9: الاكل
+      { x1: 155, y1: 78, x2: 205, y2: 580 }, // 0: الروحي
+      { x1: 185, y1: 70, x2: 230, y2: 574 }, // 1: الأخلاقي
+      { x1: 215, y1: 68, x2: 255, y2: 562 }, // 2: الميزانيه
+      { x1: 245, y1: 72, x2: 280, y2: 544 }, // 3: اللوجيستيات
+      { x1: 275, y1: 82, x2: 305, y2: 518 }, // 4: الألعاب
+      { x1: 305, y1: 98, x2: 330, y2: 484 }, // 5: قائد اليوم الأول
+      { x1: 335, y1: 120, x2: 355, y2: 442 }, // 6: قائد اليوم التاني
+      { x1: 365, y1: 148, x2: 380, y2: 392 }, // 7: كرافتس
+      { x1: 395, y1: 180, x2: 405, y2: 332 }, // 8: الفقره الافتتاحيه
+      { x1: 425, y1: 218, x2: 428, y2: 260 }  // 9: الاكل
     ];
 
     function animateGuitarVectorString(idx, pathEl, glowEl, amp = 14, decay = 3.0, freq = 220) {
@@ -2513,41 +2630,7 @@
       selectGuitarString(newIdx);
     }
 
-    // ── 10.12 Bonding Sports Video Controller (Slide 7: الترابط) ──
-    let isBondingVideoExpanded = false;
 
-    function openBondingVideo() {
-      const overlay = document.getElementById('bonding-cinema-overlay');
-      const player = document.getElementById('bonding-video-player');
-      if (!overlay) return;
-      isBondingVideoExpanded = true;
-      overlay.style.display = 'flex';
-      if (player) {
-        player.currentTime = 0;
-        player.muted = false;
-        const p = player.play();
-        if (p !== undefined) {
-          p.catch(e => console.log('Autoplay deferred/blocked:', e));
-        }
-      }
-      pluckHarpString(392.00, 0.6);
-      updateUniversalHud();
-    }
-
-    function closeBondingVideo() {
-      const overlay = document.getElementById('bonding-cinema-overlay');
-      const player = document.getElementById('bonding-video-player');
-      isBondingVideoExpanded = false;
-      if (player) {
-        player.pause();
-      }
-      if (overlay) {
-        overlay.style.display = 'none';
-      }
-      updateUniversalHud();
-    }
-    window.openBondingVideo = openBondingVideo;
-    window.closeBondingVideo = closeBondingVideo;
 
     // ── 10.14 Program Map Locked Hiding Slide Controller (Chord 3) ──
     let isDay1GateUnlocked = false;
@@ -2602,6 +2685,10 @@
     window.resetProgramGate = resetProgramGate;
 
     // ── 10.15 Service Day Video Modal Controller (Day 1 & Day 2) ──
+    let isDayVideoOpen = false;
+    let slide11VideoStep = 0;
+    let currentDayVideoNum = 0;
+
     function openDayVideo(dayNum) {
       const modal = document.getElementById('service-day-video-overlay');
       const video = document.getElementById('service-day-video-player');
@@ -2609,17 +2696,39 @@
       const badge = document.getElementById('service-day-cinema-badge');
       if (!modal || !video) return;
 
+      isDayVideoOpen = true;
+      currentDayVideoNum = dayNum;
+
+      if (activePage === 1 && currentProjStep === 2) {
+        if (dayNum === 1) slide11VideoStep = 1;
+        else if (dayNum === 2) slide11VideoStep = 3;
+      }
+
       if (dayNum === 1) {
         video.src = 'assets/first day vidddd.mp4';
+        video.poster = 'assets/first day raht image.jpg';
         if (title) title.textContent = 'اليوم الأول: كنيسة السيدة العذراء في السلام 🎬';
-        if (badge) badge.style.color = '#72efb6';
+        if (badge) {
+          badge.style.background = 'rgba(72,202,139,0.2)';
+          badge.style.borderColor = 'rgba(72,202,139,0.4)';
+          badge.style.color = '#72efb6';
+        }
       } else if (dayNum === 2) {
         video.src = 'assets/second day vidddd.mp4';
+        video.poster = 'assets/second day raht image.jpeg';
         if (title) title.textContent = 'اليوم الثاني: كنيسة البطحة 🎬';
-        if (badge) badge.style.color = '#38bdf8';
+        if (badge) {
+          badge.style.background = 'rgba(56,189,248,0.2)';
+          badge.style.borderColor = 'rgba(56,189,248,0.4)';
+          badge.style.color = '#38bdf8';
+        }
       }
 
       modal.style.display = 'flex';
+      requestAnimationFrame(() => {
+        modal.classList.add('open');
+      });
+
       video.currentTime = 0;
       video.muted = false;
       const p = video.play();
@@ -2627,30 +2736,48 @@
         p.catch(e => console.log('Autoplay deferred/blocked:', e));
       }
       pluckHarpString(392.00, 0.6);
+      updateUniversalHud();
     }
 
     function closeDayVideo() {
       const modal = document.getElementById('service-day-video-overlay');
       const video = document.getElementById('service-day-video-player');
+      isDayVideoOpen = false;
+      if (modal) {
+        modal.classList.remove('open');
+      }
       if (video) {
         video.pause();
-        video.src = '';
       }
-      if (modal) {
-        modal.style.display = 'none';
+      setTimeout(() => {
+        if (!isDayVideoOpen && modal) {
+          modal.style.display = 'none';
+          if (video) video.src = '';
+        }
+      }, 400);
+
+      if (activePage === 1 && currentProjStep === 2) {
+        if (currentDayVideoNum === 1 && slide11VideoStep < 2) {
+          slide11VideoStep = 2;
+        } else if (currentDayVideoNum === 2 && slide11VideoStep < 4) {
+          slide11VideoStep = 4;
+        }
       }
+      updateUniversalHud();
     }
     window.openDayVideo = openDayVideo;
     window.closeDayVideo = closeDayVideo;
 
     // ── 10.2 Two Days Recap Video Modal Controller ──
     let isTwoDaysVideoExpanded = false;
+    let slide13VideoPlayed = false;
 
     function openTwoDaysVideo() {
       const overlay = document.getElementById('two-days-cinema-overlay');
       const player = document.getElementById('two-days-video-player');
       if (!overlay) return;
       isTwoDaysVideoExpanded = true;
+      slide13VideoPlayed = true;
       overlay.style.display = 'flex';
       requestAnimationFrame(() => {
         overlay.classList.add('open');
@@ -2674,6 +2801,7 @@
       const player = document.getElementById('two-days-video-player');
       if (!overlay) return;
       isTwoDaysVideoExpanded = false;
+      slide13VideoPlayed = true;
       overlay.classList.remove('open');
       if (player) {
         player.pause();
@@ -3357,7 +3485,7 @@
       },
       8: {
         badge: 'الميزانية • اليوم الثاني',
-        title: 'ميزانية اليوم الثاني • كنيسة البطحة (٢٨,٠٠٠ ج.م)',
+        title: 'ميزانية اليوم الثاني • كنيسة البطحة (٢٩,٠٠٠ ج.م)',
         chord: [349.23, 440.00, 523.25, 698.46]
       },
       9: {
@@ -3545,6 +3673,35 @@
         }
       } catch (e) {}
     }
+
+    function openFullEvaluationSheet(event) {
+      if (event) event.stopPropagation();
+      const candidates = [
+        'assets/comment blank.jpg',
+        'assets/comment blank.png',
+        'assets/comment blank.jpeg',
+        'assets/feedback day 2.1.png'
+      ];
+
+      function tryLoadCandidate(idx) {
+        if (idx >= candidates.length) {
+          openStageZoom('assets/feedback day 2.1.png', 'التقييم كامل • النموذج الشامل', 'استمارة التقييم الميدانية الكاملة', 'النموذج الشامل لتقييمات المشاركين وكافة الملاحظات الميدانية');
+          return;
+        }
+        const candidate = candidates[idx];
+        const img = new Image();
+        img.onload = function() {
+          openStageZoom(candidate, 'التقييم كامل • النموذج الشامل', 'استمارة التقييم الميدانية الكاملة', 'النموذج الشامل لتقييمات المشاركين وكافة الملاحظات الميدانية');
+        };
+        img.onerror = function() {
+          tryLoadCandidate(idx + 1);
+        };
+        img.src = candidate;
+      }
+
+      tryLoadCandidate(0);
+    }
+    window.openFullEvaluationSheet = openFullEvaluationSheet;
 
     function selectGameLevel(levelIdx, playAudio = true) {
       // Called when user clicks a node on the map -> opens that node full-screen at Day 1
@@ -3877,131 +4034,118 @@
         totalNum: '٣٨,٧٨٠',
         totalNumRaw: 38780,
         totalLabel: 'إجمالي الميزانية (ج.م)',
-        totalSpent: '٣٢,٦١٥',
-        totalSpentRaw: 32615,
-        remainingBudget: '٦,١٦٥',
-        remainingBudgetRaw: 6165,
+        totalSpent: '٣٢,٠١٥',
+        totalSpentRaw: 32015,
+        remainingBudget: '٦,٧٦٥',
+        remainingBudgetRaw: 6765,
         items: [
           {
-            name: 'الوجبات والتغذية (food)',
+            name: 'الوجبات',
             amount: '١٢,٥٠٠ ج.م',
             percent: '٣٢.٢٪',
-            spentPercent: '٣٨.٣٪ من المنصرف',
             val: 32.233,
             color: '#00b4d8',
             desc: 'توفير وجبات فطار طازجة، ووجبات غداء متكاملة، ومشروبات وسناكس وعصائر طوال فعاليات اليوم الأول بكنيسة السلام.'
           },
           {
-            name: 'المكان والمقر (location)',
-            amount: '٨,١٠٠ ج.م',
-            percent: '٢٠.٩٪',
-            spentPercent: '٢٤.٨٪ من المنصرف',
-            val: 20.887,
+            name: 'الارض',
+            amount: '٧,٥٠٠ ج.م',
+            percent: '١٩.٣٪',
+            val: 19.340,
             color: '#3a86ff',
             desc: 'حجز وتجهيز مقر الاستضافة والملاعب والقاعات وتأمين الموقع لراحة وسلامة أطفال كنيسة العزراء بالسلام.'
           },
           {
-            name: 'الترامبولين والألعاب (Trampoline)',
+            name: 'الألعاب',
             amount: '٦,٥٠٠ ج.م',
             percent: '١٦.٨٪',
-            spentPercent: '١٩.٩٪ من المنصرف',
             val: 16.761,
             color: '#ffd166',
             desc: 'استئجار وتجهيز الترامبولين الهوائي الضخم وألعاب التيليب ماتش الحماسية وتأمين الفنيين ومسابقات الحركة.'
           },
           {
-            name: 'الأدوات والخامات (materials)',
+            name: 'المشتريات',
             amount: '٢,٨١٥ ج.م',
             percent: '٧.٣٪',
-            spentPercent: '٨.٦٪ من المنصرف',
             val: 7.259,
             color: '#b5179e',
             desc: 'مستلزمات التنظيم وتجهيزات الإسعافات الأولية والبطاريات وحبال ومعدات الفعاليات الميدانية والأنشطة.'
           },
           {
-            name: 'الهدايا التذكارية (Souvenir)',
+            name: 'الهدايا',
             amount: '١,٦٠٠ ج.م',
             percent: '٤.١٪',
-            spentPercent: '٤.٩٪ من المنصرف',
             val: 4.126,
             color: '#f72585',
             desc: 'هدايا تذكارية عينية وشارات كشفية خاصة تم توزيعها على جميع أطفال كنيسة السلام لتبقى ذكرى مفرحة تدوم.'
           },
           {
-            name: 'الأشغال اليدوية (Crafts)',
+            name: 'الانشطة اليدوية اليدوية',
             amount: '١,١٠٠ ج.م',
             percent: '٢.٨٪',
-            spentPercent: '٣.٤٪ من المنصرف',
-            val: 2.836,
+            val: 2.837,
             color: '#f77f00',
             desc: 'خامات وورق مقوى وألوان وأدوات كرافت لورشة الأشغال اليدوية وتنمية الإبداع والمهارات الفنية للأطفال.'
           },
           {
-            name: 'المتبقي من الميزانية (فائض)',
-            amount: '٦,١٦٥ ج.م',
-            percent: '١٥.٩٪',
-            spentPercent: 'فائض غير منصرف',
-            val: 15.897,
+            name: 'المتبقي من الميزانية',
+            amount: '٦,٧٦٥ ج.م',
+            percent: '١٧.٤٪',
+            val: 17.445,
             color: '#06d6a0',
             desc: 'فائض مالي متبقي ومحفوظ من إجمالي الميزانية المعتمدة (٣٨,٧٨٠ ج.م) بعد سداد كافة الالتزامات بنجاح وكفاءة.'
           }
         ]
       },
       2: {
-        totalNum: '٢٨,٠٠٠',
-        totalNumRaw: 28000,
+        totalNum: '٢٩,٠٠٠',
+        totalNumRaw: 29000,
         totalLabel: 'إجمالي الميزانية (ج.م)',
-        totalSpent: '٢٤,٨٧٥',
-        totalSpentRaw: 24875,
-        remainingBudget: '٣,١٢٥',
-        remainingBudgetRaw: 3125,
+        totalSpent: '٢٦,٠١٥',
+        totalSpentRaw: 26015,
+        remainingBudget: '٢,٩٨٥',
+        remainingBudgetRaw: 2985,
         items: [
           {
-            name: 'المكان والمقر (location)',
+            name: 'الارض',
             amount: '١٢,٨٦٠ ج.م',
-            percent: '٤٥.٩٪',
-            spentPercent: '٥١.٧٪ من المنصرف',
-            val: 45.929,
+            percent: '٤٤.٣٪',
+            val: 44.345,
             color: '#3a86ff'
           },
           {
-            name: 'الترامبولين والألعاب (Trampoline)',
-            amount: '٤,٩٠٠ ج.م',
-            percent: '١٧.٥٪',
-            spentPercent: '١٩.٧٪ من المنصرف',
-            val: 17.5,
+            name: 'الألعاب',
+            amount: '٦,٠٠٠ ج.م',
+            percent: '٢٠.٧٪',
+            val: 20.690,
             color: '#ffd166'
           },
           {
-            name: 'الوجبات والتغذية (food)',
-            amount: '٤,١١٥ ج.م',
-            percent: '١٤.٧٪',
-            spentPercent: '١٦.٥٪ من المنصرف',
-            val: 14.696,
+            name: 'الوجبات ',
+            amount: '٤,١٥٥ ج.م',
+            percent: '١٤.٣٪',
+            val: 14.328,
             color: '#00b4d8'
           },
           {
-            name: 'الأشغال اليدوية (Crafts)',
+            name: 'الأنشطة اليدوية',
             amount: '١,٥٠٠ ج.م',
-            percent: '٥.٤٪',
-            spentPercent: '٦.٠٪ من المنصرف',
-            val: 5.357,
+            percent: '٥.٢٪',
+            val: 5.172,
             color: '#f77f00'
           },
           {
-            name: 'الهدايا التذكارية (Souvenir)',
+            name: 'الهدايا',
             amount: '١,٥٠٠ ج.م',
-            percent: '٥.٤٪',
-            spentPercent: '٦.٠٪ من المنصرف',
-            val: 5.357,
+            percent: '٥.٢٪',
+            val: 5.172,
             color: '#f72585'
           },
           {
-            name: 'المتبقي من الميزانية (فائض)',
-            amount: '٣,١٢٥ ج.م',
-            percent: '١١.٢٪',
-            spentPercent: 'فائض غير منصرف',
-            val: 11.161,
+            name: 'المتبقي من الميزانية',
+            amount: '٢,٩٨٥ ج.م',
+            percent: '١٠.٣٪',
+            val: 10.293,
             color: '#06d6a0'
           }
         ]
@@ -4119,7 +4263,6 @@
       const title = document.getElementById(`gm-slice-title${suffix}`) || document.getElementById('gm-slice-title');
       const amount = document.getElementById(`gm-slice-amount${suffix}`) || document.getElementById('gm-slice-amount');
       const percent = document.getElementById(`gm-slice-percent${suffix}`) || document.getElementById('gm-slice-percent');
-      const spentPercent = document.getElementById(`gm-slice-spent-percent${suffix}`);
       const desc = document.getElementById(`gm-slice-desc${suffix}`) || document.getElementById('gm-slice-desc');
 
       if (badge) {
@@ -4133,14 +4276,6 @@
         amount.style.color = item.color;
       }
       if (percent) percent.textContent = item.percent;
-      if (spentPercent && item.spentPercent) {
-        spentPercent.textContent = item.spentPercent;
-        spentPercent.style.color = (idx === data.items.length - 1) ? '#72efb6' : '#ffd166';
-      }
-      const spentLabel = document.querySelector(`#gm-slice-spent-box${suffix} .gm-stat-label`);
-      if (spentLabel) {
-        spentLabel.textContent = (idx === data.items.length - 1) ? 'حالة البند / الفائض' : 'النسبة من المنصرف';
-      }
       if (desc) desc.textContent = item.desc;
 
       if (playSound) {
@@ -5252,16 +5387,8 @@
 
     function restoreEditorEdits() {
       try {
-        const saved = localStorage.getItem('raht_presentation_custom_edits');
-        if (!saved) return;
-        const edits = JSON.parse(saved);
-        const elements = document.querySelectorAll('h1, h2, h3, h4, h5, p, li, .card-title, .card-sub, .stage-title, .stage-desc, .ch-title, .ch-desc, .gm-node-label');
-        elements.forEach((el, idx) => {
-          const key = el.id || ('elem_' + idx);
-          if (edits[key]) {
-            el.innerHTML = edits[key];
-          }
-        });
+        // Clear legacy editor cache key so old text doesn't override updated source code
+        localStorage.removeItem('raht_presentation_custom_edits');
       } catch (e) { }
     }
 
@@ -5588,13 +5715,13 @@
         fieldLabel: 'سبب استبعاد الفكرة الأولى',
         chordIdx: 1,
         stepIdx: 0,
-        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0] ? rejectedCardsData[0].reason : 'الجلسات محتاجة ومتخصصين مش إحنا'),
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0] ? rejectedCardsData[0].reason : 'المشروع محتاج للمتخصصين اكثر من افراد الرهط'),
         setter: (v) => {
           if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[0]) rejectedCardsData[0].reason = v;
           const el = document.getElementById('rej-modal-reason-text');
           if (el) el.textContent = v;
         },
-        getDefault: () => 'الجلسات محتاجة ومتخصصين مش إحنا'
+        getDefault: () => 'المشروع محتاج للمتخصصين اكثر من افراد الرحط'
       },
       {
         id: 'c1_rej_card_2_title',
@@ -5620,11 +5747,11 @@
         fieldLabel: 'سبب استبعاد الفكرة الثانية',
         chordIdx: 1,
         stepIdx: 0,
-        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1] ? rejectedCardsData[1].reason : 'الرحلات مكنش فيها خدمة ولا أثر حقيقي للأولاد'),
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1] ? rejectedCardsData[1].reason : 'زيادة التكلفة علي الافراد'),
         setter: (v) => {
           if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[1]) rejectedCardsData[1].reason = v;
         },
-        getDefault: () => 'الرحلات مكنش فيها خدمة ولا أثر حقيقي للأولاد'
+        getDefault: () => 'زيادة التكلفة علي الافراد'
       },
       {
         id: 'c1_rej_card_3_title',
@@ -5650,11 +5777,11 @@
         fieldLabel: 'سبب استبعاد الفكرة الثالثة',
         chordIdx: 1,
         stepIdx: 0,
-        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2] ? rejectedCardsData[2].reason : 'تنظيم الملاعب والألعاب أصلاً شغل قادة المعسكر'),
+        getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2] ? rejectedCardsData[2].reason : 'رفدة من قائد العشيرة'),
         setter: (v) => {
           if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2]) rejectedCardsData[2].reason = v;
         },
-        getDefault: () => 'تنظيم الملاعب والألعاب أصلاً شغل قادة المعسكر'
+        getDefault: () => 'رفدة من قائد العشيرة'
       },
       {
         id: 'c1_goal_label',
@@ -6154,9 +6281,16 @@
     // Restore All Edits on Startup
     function restoreAllContentEdits() {
       try {
+        // Clean out legacy obsolete localStorage keys
+        localStorage.removeItem('raht_presentation_custom_edits');
+        
         const saved = localStorage.getItem('raht_presentation_custom_edits_v2');
         if (!saved) return;
         cmSavedEdits = JSON.parse(saved);
+        
+        // Purge old cached rejection reasons if they still exist in localStorag
+        localStorage.setItem('raht_presentation_custom_edits_v2', JSON.stringify(cmSavedEdits));
+
         CM_REGISTRY.forEach(item => {
           if (cmSavedEdits[item.id] !== undefined) {
             setCmItemValue(item, cmSavedEdits[item.id]);

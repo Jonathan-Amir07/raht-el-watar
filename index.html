@@ -443,10 +443,20 @@
               <h3 class="stage-title">تسمية «رهط الوتر»</h3>
 
               <div class="quote-card" onclick="openBibleVerseModal()" style="cursor: pointer;" title="آية التسمية">
-                <span class="quote-symbol">❝</span>
-                <p class="quote-text">
-                الوتر: تنوّعٌ في المواهب، ووحدةٌ في الروح، علشان نعمل لحناً يئثار القلوب
-                </p>
+                <ul class="stage-bullets-list">
+                  <li>
+                    <span class="stage-bullet-dot">•</span>
+                    <span><strong>الوتر</strong> جزء أساسي من الآلة الموسيقية، ولكل وتر نغمته ودوره المميز.</span>
+                  </li>
+                  <li>
+                    <span class="stage-bullet-dot">•</span>
+                    <span>تتكامل الأوتار معًا لتصنع موسيقى متناسقة.</span>
+                  </li>
+                  <li>
+                    <span class="stage-bullet-dot">•</span>
+                    <span>كذلك نتكامل نحن، رغم اختلافنا، لنكوّن فريقًا واحدًا.</span>
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="stage-media-slot"
@@ -734,27 +744,39 @@
 
         <!-- Stage 1: فكرة المشروع المعتمدة وإبراز الهدف الجوهري (The Approved Project & Core Goal) -->
         <div class="stage-slide" id="stage-proj-1">
-          <div class="stage-card" style="grid-template-columns: 60% 40%;">
+          <div class="stage-card stage-goal-card-layout">
             <div class="stage-content">
               <!-- THE CORE GOAL SPOTLIGHT (Very Important Highlight) -->
               <div class="mission-goal-card">
                 <div class="goal-header">
                   <div class="goal-icon-wrap">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" style="width: 56px; height: 56px; margin-left: 8px;">
+                      stroke-linejoin="round">
                       <circle cx="12" cy="12" r="10"></circle>
                       <circle cx="12" cy="12" r="6"></circle>
                       <circle cx="12" cy="2" r="2"></circle>
                     </svg>
                   </div>
-                  <span class="goal-label" style="font-size: 1.4rem;">الهدف الأساسي</span>
+                  <span class="goal-label">الهدف الأساسي</span>
                 </div>
                 <div class="goal-quote-box">
                   <span class="goal-quote-symbol">«</span>
-                  <h4 class="goal-main-text" style="font-size: 1.4rem; line-height: 1.6;">
-                    "نمنحهم يومًا استثنائيًّا لا يُنسى" 
-                  </h4>
+                  <h3 class="goal-main-text">
+                    نمنحهم يومًا استثنائيًّا لا يُنسى
+                  </h3>
                   <span class="goal-quote-symbol">»</span>
+                </div>
+
+                <!-- Sub-points -->
+                <div class="goal-sub-points">
+                  <div class="goal-sub-item">
+                    <span class="goal-sub-num">١</span>
+                    <span class="goal-sub-text">نُسعد قلوب الأطفال المحتاجين</span>
+                  </div>
+                  <div class="goal-sub-item">
+                    <span class="goal-sub-num">٢</span>
+                    <span class="goal-sub-text">نُنمّي روح العطاء في الخُدّام</span>
+                  </div>
                 </div>
               </div>
 
@@ -763,16 +785,15 @@
             <div class="stage-media-slot"
               onclick="openStageZoom('assets/project idea day.jpg', 'رسالة الخدمة • المشروع المعتمد', 'خدمة الكنائس المحتاجة', 'اليوم الذي ولدت فيه فكرة مشروع خدمة الكنائس المحتاجة')"
               style="cursor:pointer;">
-              <div class="stage-image-wrapper">
-                <img src="assets/project idea day.jpg" alt="يوم ولادة فكرة المشروع" class="stage-img" />
-                
+              <div class="stage-image-wrapper stage-image-wrapper-contain">
+                <img src="assets/project idea day.jpg" alt="يوم ولادة فكرة المشروع" class="stage-img stage-img-contain" />
               </div>
             </div>
           </div>
         </div>
 
         <!-- Stage Churches: محطات الخدمة والكنائس المستهدفة (كنيستان تمت خدمتهما + كنيستان قيد التنسيق) -->
-        <div class="stage-slide" id="stage-proj-churches" style="display: none;">
+        <div class="stage-slide" id="stage-proj-churches">
           <div class="churches-quad-stage">
             <div class="churches-quad-header">
               <h3 class="churches-quad-title">
@@ -791,14 +812,8 @@
                   <span>📅</span>
                   <span>15/8/2026</span>
                 </div>
-                <div class="church-quad-media-box" onclick="openDayVideo(1)" title="تشغيل فيديو كنيسة السلام">
+                <div class="church-quad-media-box" style="cursor: default;" title="كنيسة السيدة العذراء في السلام">
                   <img src="assets/first day raht image.jpg" alt="كنيسة السيدة العذراء في السلام" />
-                  <div class="church-play-overlay">
-                    <div class="church-play-btn-circle">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                    </div>
-                    <span class="church-play-label">مشاهدة الفيديو 🎬</span>
-                  </div>
                 </div>
               </div>
 
@@ -810,14 +825,8 @@
                   <span>📅</span>
                   <span>18/9/2026</span>
                 </div>
-                <div class="church-quad-media-box" onclick="openDayVideo(2)" title="تشغيل فيديو كنيسة البطحة">
+                <div class="church-quad-media-box" style="cursor: default;" title="كنيسة البطحة">
                   <img src="assets/second day raht image.jpeg" alt="كنيسة البطحة" />
-                  <div class="church-play-overlay">
-                    <div class="church-play-btn-circle">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                    </div>
-                    <span class="church-play-label">مشاهدة الفيديو 🎬</span>
-                  </div>
                 </div>
               </div>
 
@@ -911,9 +920,19 @@
                       <!-- Soundbox Warm Resonance Wood Gradient -->
                       <linearGradient id="soundboxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#2a1005" />
-                        <stop offset="40%" stop-color="#6a2c0c" />
-                        <stop offset="80%" stop-color="#a44e19" />
-                        <stop offset="100%" stop-color="#240c03" />
+                        <stop offset="35%" stop-color="#5c260a" />
+                        <stop offset="70%" stop-color="#8c3d14" />
+                        <stop offset="90%" stop-color="#5a2208" />
+                        <stop offset="100%" stop-color="#1f0a02" />
+                      </linearGradient>
+
+                      <!-- Soundboard Acoustic Spruce/Cedar Face Gradient -->
+                      <linearGradient id="soundboardFaceGrad" x1="0%" y1="0%" x2="90%" y2="100%">
+                        <stop offset="0%" stop-color="#6a2a0a" />
+                        <stop offset="30%" stop-color="#a6521a" />
+                        <stop offset="65%" stop-color="#d4792d" />
+                        <stop offset="85%" stop-color="#994412" />
+                        <stop offset="100%" stop-color="#481804" />
                       </linearGradient>
 
                       <!-- Harmonic Neck Arch Wood Gradient -->
@@ -948,26 +967,44 @@
                       <rect x="74" y="622" width="388" height="6" rx="3" fill="url(#harpGoldGrad)" />
                       <rect x="86" y="594" width="364" height="4" rx="2" fill="url(#harpGoldGrad)" opacity="0.85" />
                       
-                      <!-- 2. RESONANT SOUNDBOX (صندوق الصوت الرنان على اليمين) -->
-                      <path d="M 444,190 
-                               C 458,260 472,400 460,592 
-                               L 355,592 
-                               C 362,450 390,300 422,212 Z" 
-                            fill="url(#soundboxGrad)" stroke="#78350f" stroke-width="2.5" />
+                      <!-- 2. RESONANT SOUNDBOX & ACOUSTIC SOUNDBOARD (صندوق ورنان القيثارة الأكوستيك الكامل) -->
+                      <!-- 2A. Soundbox Outer Resonant Body (الهيكل الخارجي الرنان للقيثارة) -->
+                      <path d="M 448,195 
+                               C 466,270 478,420 464,592 
+                               L 178,592 
+                               C 325,450 395,290 418,206 
+                               C 428,202 440,198 448,195 Z" 
+                            fill="url(#soundboxGrad)" stroke="#451a03" stroke-width="2.5" />
 
-                      <!-- Soundboard Inlay / Center Bridge Rib (مسار تثبيت الأوتار الذهبي) -->
-                      <path d="M 432,216 
-                               C 406,310 380,440 372,592" 
-                            fill="none" stroke="url(#harpGoldGrad)" stroke-width="7" stroke-linecap="round" />
-                      <path d="M 432,216 
-                               C 406,310 380,440 372,592" 
-                            fill="none" stroke="#2a1005" stroke-width="2.5" stroke-linecap="round" />
+                      <!-- 2B. Acoustic Soundboard Face (لوحة الصوت الأمامية المشعة) -->
+                      <path d="M 418,206 
+                               C 395,290 325,450 178,592 
+                               L 268,592 
+                               C 378,460 420,290 436,206 Z" 
+                            fill="url(#soundboardFaceGrad)" stroke="url(#harpGoldGrad)" stroke-width="1.4" opacity="0.85" />
 
-                      <!-- Soundbox Rosettes / Ornate Sound Openings -->
-                      <circle cx="438" cy="380" r="12" fill="#120602" stroke="url(#harpGoldGrad)" stroke-width="1.8" />
-                      <circle cx="438" cy="380" r="8" fill="none" stroke="#d97706" stroke-width="1" stroke-dasharray="3,2" />
-                      <circle cx="426" cy="480" r="16" fill="#120602" stroke="url(#harpGoldGrad)" stroke-width="2" />
-                      <circle cx="426" cy="480" r="11" fill="none" stroke="#d97706" stroke-width="1.2" stroke-dasharray="4,2" />
+                      <!-- Soundboard Golden Purfling Borders (حلية الذهب على حواف لوحة الصوت) -->
+                      <path d="M 417,208 C 394,291 324,451 180,590" fill="none" stroke="url(#harpGoldGrad)" stroke-width="1.2" opacity="0.75" />
+                      <path d="M 434,208 C 377,458 266,590 266,590" fill="none" stroke="url(#harpGoldGrad)" stroke-width="1.2" opacity="0.7" />
+
+                      <!-- 2C. Center Bridge Rib - Gilded Soundboard Strip (مسار تثبيت الأوتار الذهبي المتقوس) -->
+                      <!-- Bridge Under-Shadow -->
+                      <path d="M 428,260 C 404,335 330,482 205,580" 
+                            fill="none" stroke="#1c0801" stroke-width="9.5" stroke-linecap="round" />
+                      <!-- Golden Raised Bridge Rib -->
+                      <path d="M 428,260 C 404,335 330,482 205,580" 
+                            fill="none" stroke="url(#harpGoldGrad)" stroke-width="6.2" stroke-linecap="round" />
+                      <!-- Polished Center Glint Line -->
+                      <path d="M 428,260 C 404,335 330,482 205,580" 
+                            fill="none" stroke="#fff7d9" stroke-width="1.6" stroke-linecap="round" opacity="0.9" />
+
+                      <!-- 2D. Soundbox Ornate Rosettes (فتحات الرنين على جسم الصندوق الخلفي) -->
+                      <!-- Upper Rosette -->
+                      <circle cx="420" cy="415" r="13" fill="#120602" stroke="url(#harpGoldGrad)" stroke-width="2" />
+                      <circle cx="420" cy="415" r="8.5" fill="none" stroke="#d97706" stroke-width="1.1" stroke-dasharray="3,2" />
+                      <!-- Lower Rosette -->
+                      <circle cx="390" cy="515" r="16" fill="#120602" stroke="url(#harpGoldGrad)" stroke-width="2.2" />
+                      <circle cx="390" cy="515" r="11" fill="none" stroke="#d97706" stroke-width="1.2" stroke-dasharray="4,2" />
 
                       <!-- 3. FLUTED CLASSICAL PILLAR (العمود الروماني المُخدد على اليسار) -->
                       <!-- Pillar Base Torus Rings -->
@@ -1021,101 +1058,130 @@
                       <circle cx="395" cy="180" r="4" fill="url(#harpGoldGrad)" stroke="#522405" stroke-width="1" />
                       <circle cx="425" cy="218" r="4" fill="url(#harpGoldGrad)" stroke="#522405" stroke-width="1" />
 
-                      <!-- 10 Soundboard Eyelet Pins (مسامير التثبيت السفلية على الصندوق) -->
-                      <circle cx="230" cy="580" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="252" cy="575" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="274" cy="570" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="296" cy="560" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="318" cy="545" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="340" cy="520" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="362" cy="490" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="384" cy="450" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="406" cy="400" r="3.2" fill="url(#harpGoldGrad)" />
-                      <circle cx="428" cy="335" r="3.2" fill="url(#harpGoldGrad)" />
+                      <!-- 10 Soundboard Eyelet Pins on Golden Bridge Rib (عيون التثبيت النحاسية العشرة المثبتة على الجسر) -->
+                      <!-- Pin 0 -->
+                      <circle cx="205" cy="580" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="205" cy="580" r="1.8" fill="#180702" />
+                      <circle cx="204.2" cy="579.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 1 -->
+                      <circle cx="230" cy="574" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="230" cy="574" r="1.8" fill="#180702" />
+                      <circle cx="229.2" cy="573.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 2 -->
+                      <circle cx="255" cy="562" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="255" cy="562" r="1.8" fill="#180702" />
+                      <circle cx="254.2" cy="561.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 3 -->
+                      <circle cx="280" cy="544" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="280" cy="544" r="1.8" fill="#180702" />
+                      <circle cx="279.2" cy="543.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 4 -->
+                      <circle cx="305" cy="518" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="305" cy="518" r="1.8" fill="#180702" />
+                      <circle cx="304.2" cy="517.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 5 -->
+                      <circle cx="330" cy="484" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="330" cy="484" r="1.8" fill="#180702" />
+                      <circle cx="329.2" cy="483.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 6 -->
+                      <circle cx="355" cy="442" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="355" cy="442" r="1.8" fill="#180702" />
+                      <circle cx="354.2" cy="441.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 7 -->
+                      <circle cx="380" cy="392" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="380" cy="392" r="1.8" fill="#180702" />
+                      <circle cx="379.2" cy="391.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 8 -->
+                      <circle cx="405" cy="332" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="405" cy="332" r="1.8" fill="#180702" />
+                      <circle cx="404.2" cy="331.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                      <!-- Pin 9 -->
+                      <circle cx="428" cy="260" r="4.2" fill="url(#harpGoldGrad)" stroke="#3e1704" stroke-width="1" />
+                      <circle cx="428" cy="260" r="1.8" fill="#180702" />
+                      <circle cx="427.2" cy="259.2" r="0.8" fill="#fff9d6" opacity="0.85" />
 
                     </g>
 
-                    <!-- 5. THE 10 INTERACTIVE CLASSICAL HARP STRINGS (أوتار القيثارة العشرة) -->
+                    <!-- 5. THE 10 INTERACTIVE CLASSICAL HARP STRINGS (أوتار القيثارة العشرة المتناسقة) -->
                     <!-- S0: الروحي (E2 - 130.81 Hz) -->
                     <g class="guitar-str-group" data-idx="0" data-name="الروحي" data-freq="130.81" data-color="#e5a93c"
                        style="--gstr-color:#e5a93c; --gstr-glow:rgba(229,169,60,0.85);">
-                      <path class="guitar-str-hit-area" d="M 155,78 L 230,580" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 155,78 L 230,580" stroke="#e5a93c" stroke-width="7" />
-                      <path class="guitar-str-line" d="M 155,78 L 230,580" stroke="#e5a93c" stroke-width="3.4" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 155,78 L 205,580" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 155,78 L 205,580" stroke="#e5a93c" stroke-width="7" />
+                      <path class="guitar-str-line" d="M 155,78 L 205,580" stroke="#e5a93c" stroke-width="3.4" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S1: الأخلاقي (G2 - 146.83 Hz) -->
                     <g class="guitar-str-group" data-idx="1" data-name="الأخلاقي" data-freq="146.83" data-color="#38bdf8"
                        style="--gstr-color:#38bdf8; --gstr-glow:rgba(56,189,248,0.85);">
-                      <path class="guitar-str-hit-area" d="M 185,70 L 252,575" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 185,70 L 252,575" stroke="#38bdf8" stroke-width="6.5" />
-                      <path class="guitar-str-line" d="M 185,70 L 252,575" stroke="#38bdf8" stroke-width="3.2" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 185,70 L 230,574" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 185,70 L 230,574" stroke="#38bdf8" stroke-width="6.5" />
+                      <path class="guitar-str-line" d="M 185,70 L 230,574" stroke="#38bdf8" stroke-width="3.2" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S2: الميزانيه (A2 - 164.81 Hz) -->
                     <g class="guitar-str-group" data-idx="2" data-name="الميزانيه" data-freq="164.81" data-color="#4ade80"
                        style="--gstr-color:#4ade80; --gstr-glow:rgba(74,222,128,0.85);">
-                      <path class="guitar-str-hit-area" d="M 215,68 L 274,570" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 215,68 L 274,570" stroke="#4ade80" stroke-width="6" />
-                      <path class="guitar-str-line" d="M 215,68 L 274,570" stroke="#4ade80" stroke-width="3.0" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 215,68 L 255,562" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 215,68 L 255,562" stroke="#4ade80" stroke-width="6" />
+                      <path class="guitar-str-line" d="M 215,68 L 255,562" stroke="#4ade80" stroke-width="3.0" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S3: اللوجيستيات (C3 - 196.00 Hz) -->
                     <g class="guitar-str-group" data-idx="3" data-name="اللوجيستيات" data-freq="196.00" data-color="#f472b6"
                        style="--gstr-color:#f472b6; --gstr-glow:rgba(244,114,182,0.85);">
-                      <path class="guitar-str-hit-area" d="M 245,72 L 296,560" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 245,72 L 296,560" stroke="#f472b6" stroke-width="5.8" />
-                      <path class="guitar-str-line" d="M 245,72 L 296,560" stroke="#f472b6" stroke-width="2.7" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 245,72 L 280,544" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 245,72 L 280,544" stroke="#f472b6" stroke-width="5.8" />
+                      <path class="guitar-str-line" d="M 245,72 L 280,544" stroke="#f472b6" stroke-width="2.7" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S4: الألعاب (D3 - 220.00 Hz) -->
                     <g class="guitar-str-group" data-idx="4" data-name="الألعاب" data-freq="220.00" data-color="#fb923c"
                        style="--gstr-color:#fb923c; --gstr-glow:rgba(251,146,60,0.85);">
-                      <path class="guitar-str-hit-area" d="M 275,82 L 318,545" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 275,82 L 318,545" stroke="#fb923c" stroke-width="5.5" />
-                      <path class="guitar-str-line" d="M 275,82 L 318,545" stroke="#fb923c" stroke-width="2.5" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 275,82 L 305,518" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 275,82 L 305,518" stroke="#fb923c" stroke-width="5.5" />
+                      <path class="guitar-str-line" d="M 275,82 L 305,518" stroke="#fb923c" stroke-width="2.5" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S5: قائد اليوم الأول (E3 - 246.94 Hz) -->
                     <g class="guitar-str-group" data-idx="5" data-name="قائد اليوم الأول" data-freq="246.94" data-color="#a78bfa"
                        style="--gstr-color:#a78bfa; --gstr-glow:rgba(167,139,250,0.85);">
-                      <path class="guitar-str-hit-area" d="M 305,98 L 340,520" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 305,98 L 340,520" stroke="#a78bfa" stroke-width="5.2" />
-                      <path class="guitar-str-line" d="M 305,98 L 340,520" stroke="#a78bfa" stroke-width="2.3" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 305,98 L 330,484" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 305,98 L 330,484" stroke="#a78bfa" stroke-width="5.2" />
+                      <path class="guitar-str-line" d="M 305,98 L 330,484" stroke="#a78bfa" stroke-width="2.3" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S6: قائد اليوم التاني (G3 - 293.66 Hz) -->
                     <g class="guitar-str-group" data-idx="6" data-name="قائد اليوم التاني" data-freq="293.66" data-color="#34d399"
                        style="--gstr-color:#34d399; --gstr-glow:rgba(52,211,153,0.85);">
-                      <path class="guitar-str-hit-area" d="M 335,120 L 362,490" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 335,120 L 362,490" stroke="#34d399" stroke-width="5.0" />
-                      <path class="guitar-str-line" d="M 335,120 L 362,490" stroke="#34d399" stroke-width="2.1" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 335,120 L 355,442" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 335,120 L 355,442" stroke="#34d399" stroke-width="5.0" />
+                      <path class="guitar-str-line" d="M 335,120 L 355,442" stroke="#34d399" stroke-width="2.1" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S7: كرافتس (A3 - 329.63 Hz) -->
                     <g class="guitar-str-group" data-idx="7" data-name="كرافتس" data-freq="329.63" data-color="#facc15"
                        style="--gstr-color:#facc15; --gstr-glow:rgba(250,204,21,0.85);">
-                      <path class="guitar-str-hit-area" d="M 365,148 L 384,450" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 365,148 L 384,450" stroke="#facc15" stroke-width="4.7" />
-                      <path class="guitar-str-line" d="M 365,148 L 384,450" stroke="#facc15" stroke-width="1.9" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 365,148 L 380,392" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 365,148 L 380,392" stroke="#facc15" stroke-width="4.7" />
+                      <path class="guitar-str-line" d="M 365,148 L 380,392" stroke="#facc15" stroke-width="1.9" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S8: الفقره الافتتاحيه (B3 - 392.00 Hz) -->
                     <g class="guitar-str-group" data-idx="8" data-name="الفقره الافتتاحيه" data-freq="392.00" data-color="#f87171"
                        style="--gstr-color:#f87171; --gstr-glow:rgba(248,113,113,0.85);">
-                      <path class="guitar-str-hit-area" d="M 395,180 L 406,400" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 395,180 L 406,400" stroke="#f87171" stroke-width="4.4" />
-                      <path class="guitar-str-line" d="M 395,180 L 406,400" stroke="#f87171" stroke-width="1.7" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 395,180 L 405,332" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 395,180 L 405,332" stroke="#f87171" stroke-width="4.4" />
+                      <path class="guitar-str-line" d="M 395,180 L 405,332" stroke="#f87171" stroke-width="1.7" filter="url(#guitarStringGlow)" />
                     </g>
 
                     <!-- S9: الاكل (D4 - 440.00 Hz) -->
                     <g class="guitar-str-group" data-idx="9" data-name="الاكل" data-freq="440.00" data-color="#60a5fa"
                        style="--gstr-color:#60a5fa; --gstr-glow:rgba(96,165,250,0.85);">
-                      <path class="guitar-str-hit-area" d="M 425,218 L 428,335" stroke-width="24" stroke="transparent" />
-                      <path class="guitar-str-glow" d="M 425,218 L 428,335" stroke="#60a5fa" stroke-width="4.2" />
-                      <path class="guitar-str-line" d="M 425,218 L 428,335" stroke="#60a5fa" stroke-width="1.5" filter="url(#guitarStringGlow)" />
+                      <path class="guitar-str-hit-area" d="M 425,218 L 428,260" stroke-width="24" stroke="transparent" />
+                      <path class="guitar-str-glow" d="M 425,218 L 428,260" stroke="#60a5fa" stroke-width="4.2" />
+                      <path class="guitar-str-line" d="M 425,218 L 428,260" stroke="#60a5fa" stroke-width="1.5" filter="url(#guitarStringGlow)" />
                     </g>
-                  </svg>
                   </svg>
                 </div>
               </div>
@@ -1164,9 +1230,282 @@
               <!-- Rotating God Rays Behind Harp -->
               <div class="watar-harp-light-rays"></div>
 
-              <!-- Reused Classical Harp SVG Silhouette -->
-              <svg class="watar-classical-harp-svg" viewBox="0 0 540 680" preserveAspectRatio="xMidYMid meet">
-                <use href="#acoustic-guitar-svg" />
+              <!-- Dedicated Full Classical Harp SVG with Radiant Glowing Effect -->
+              <svg id="recap-classical-harp-svg" class="watar-classical-harp-svg" viewBox="0 0 540 680" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <!-- Harp Gold Trim & Capitals Gradient -->
+                  <linearGradient id="harpGoldGrad-rc" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff6c8" />
+                    <stop offset="25%" stop-color="#e5a93c" />
+                    <stop offset="65%" stop-color="#9a5e12" />
+                    <stop offset="85%" stop-color="#ffd700" />
+                    <stop offset="100%" stop-color="#734105" />
+                  </linearGradient>
+
+                  <!-- Fluted Pillar Cylinder Shading -->
+                  <linearGradient id="pillarCylinderGrad-rc" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#602908" />
+                    <stop offset="25%" stop-color="#a6591f" />
+                    <stop offset="50%" stop-color="#f5c278" />
+                    <stop offset="75%" stop-color="#994d16" />
+                    <stop offset="100%" stop-color="#3d1503" />
+                  </linearGradient>
+
+                  <!-- Soundbox Warm Resonance Wood Gradient -->
+                  <linearGradient id="soundboxGrad-rc" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#2a1005" />
+                    <stop offset="35%" stop-color="#5c260a" />
+                    <stop offset="70%" stop-color="#8c3d14" />
+                    <stop offset="90%" stop-color="#5a2208" />
+                    <stop offset="100%" stop-color="#1f0a02" />
+                  </linearGradient>
+
+                  <!-- Soundboard Acoustic Spruce/Cedar Face Gradient -->
+                  <linearGradient id="soundboardFaceGrad-rc" x1="0%" y1="0%" x2="90%" y2="100%">
+                    <stop offset="0%" stop-color="#6a2a0a" />
+                    <stop offset="30%" stop-color="#a6521a" />
+                    <stop offset="65%" stop-color="#d4792d" />
+                    <stop offset="85%" stop-color="#994412" />
+                    <stop offset="100%" stop-color="#481804" />
+                  </linearGradient>
+
+                  <!-- Harmonic Neck Arch Wood Gradient -->
+                  <linearGradient id="harmonicNeckGrad-rc" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#7a3710" />
+                    <stop offset="50%" stop-color="#c9762a" />
+                    <stop offset="100%" stop-color="#542106" />
+                  </linearGradient>
+
+                  <!-- String Active Glow Filter -->
+                  <filter id="guitarStringGlow-rc" x="-60%" y="-20%" width="220%" height="140%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+
+                  <!-- Drop Shadow for Harp Structure -->
+                  <filter id="harpHaloShadow-rc" x="-15%" y="-10%" width="130%" height="120%">
+                    <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000000" flood-opacity="0.8" />
+                  </filter>
+                </defs>
+
+                <!-- HARP SHADOW & BODY GROUP -->
+                <g filter="url(#harpHaloShadow-rc)">
+                  
+                  <!-- 1. PEDESTAL BASE (قاعدة القيثارة الكلاسيكية المزدوجة) -->
+                  <path d="M 68,632 L 468,632 C 474,632 478,627 476,620 L 464,598 C 462,594 458,592 453,592 L 82,592 C 77,592 73,594 71,598 L 59,620 C 57,627 61,632 68,632 Z" 
+                        fill="url(#soundboxGrad-rc)" stroke="#451a03" stroke-width="2" />
+                  <!-- Golden Trim on Base -->
+                  <rect x="74" y="622" width="388" height="6" rx="3" fill="url(#harpGoldGrad-rc)" />
+                  <rect x="86" y="594" width="364" height="4" rx="2" fill="url(#harpGoldGrad-rc)" opacity="0.85" />
+                  
+                  <!-- 2. RESONANT SOUNDBOX & ACOUSTIC SOUNDBOARD -->
+                  <!-- 2A. Soundbox Outer Resonant Body -->
+                  <path d="M 448,195 
+                           C 466,270 478,420 464,592 
+                           L 178,592 
+                           C 325,450 395,290 418,206 
+                           C 428,202 440,198 448,195 Z" 
+                        fill="url(#soundboxGrad-rc)" stroke="#451a03" stroke-width="2.5" />
+
+                  <!-- 2B. Acoustic Soundboard Face -->
+                  <path d="M 418,206 
+                           C 395,290 325,450 178,592 
+                           L 268,592 
+                           C 378,460 420,290 436,206 Z" 
+                        fill="url(#soundboardFaceGrad-rc)" stroke="url(#harpGoldGrad-rc)" stroke-width="1.4" opacity="0.85" />
+
+                  <!-- Soundboard Golden Purfling Borders -->
+                  <path d="M 417,208 C 394,291 324,451 180,590" fill="none" stroke="url(#harpGoldGrad-rc)" stroke-width="1.2" opacity="0.75" />
+                  <path d="M 434,208 C 377,458 266,590 266,590" fill="none" stroke="url(#harpGoldGrad-rc)" stroke-width="1.2" opacity="0.7" />
+
+                  <!-- 2C. Center Bridge Rib - Gilded Soundboard Strip -->
+                  <path d="M 428,260 C 404,335 330,482 205,580" 
+                        fill="none" stroke="#1c0801" stroke-width="9.5" stroke-linecap="round" />
+                  <path d="M 428,260 C 404,335 330,482 205,580" 
+                        fill="none" stroke="url(#harpGoldGrad-rc)" stroke-width="6.2" stroke-linecap="round" />
+                  <path d="M 428,260 C 404,335 330,482 205,580" 
+                        fill="none" stroke="#fff7d9" stroke-width="1.6" stroke-linecap="round" opacity="0.9" />
+
+                  <!-- 2D. Soundbox Ornate Rosettes -->
+                  <circle cx="420" cy="415" r="13" fill="#120602" stroke="url(#harpGoldGrad-rc)" stroke-width="2" />
+                  <circle cx="420" cy="415" r="8.5" fill="none" stroke="#d97706" stroke-width="1.1" stroke-dasharray="3,2" />
+                  <circle cx="390" cy="515" r="16" fill="#120602" stroke="url(#harpGoldGrad-rc)" stroke-width="2.2" />
+                  <circle cx="390" cy="515" r="11" fill="none" stroke="#d97706" stroke-width="1.2" stroke-dasharray="4,2" />
+
+                  <!-- 3. FLUTED CLASSICAL PILLAR -->
+                  <ellipse cx="115" cy="582" rx="28" ry="8" fill="url(#harpGoldGrad-rc)" stroke="#6b3a09" stroke-width="1.5" />
+                  <ellipse cx="115" cy="568" rx="22" ry="6" fill="url(#harpGoldGrad-rc)" stroke="#6b3a09" stroke-width="1.2" />
+
+                  <rect x="98" y="106" width="34" height="460" fill="url(#pillarCylinderGrad-rc)" stroke="#451a03" stroke-width="1.5" />
+                  <line x1="104" y1="108" x2="104" y2="564" stroke="#ffe396" stroke-width="1.8" opacity="0.85" />
+                  <line x1="110" y1="108" x2="110" y2="564" stroke="#ffe396" stroke-width="2.2" opacity="0.95" />
+                  <line x1="116" y1="108" x2="116" y2="564" stroke="#fff4cf" stroke-width="2.6" opacity="0.9" />
+                  <line x1="122" y1="108" x2="122" y2="564" stroke="#602908" stroke-width="2.2" opacity="0.75" />
+                  <line x1="127" y1="108" x2="127" y2="564" stroke="#361302" stroke-width="1.8" opacity="0.85" />
+
+                  <!-- Pillar Capital -->
+                  <path d="M 94,106 C 90,92 78,88 82,78 C 86,68 102,74 115,74 C 128,74 144,68 148,78 C 152,88 140,92 136,106 Z" 
+                        fill="url(#harpGoldGrad-rc)" stroke="#683908" stroke-width="1.8" />
+                  <circle cx="86" cy="80" r="6" fill="#ffeaa7" stroke="#82510b" stroke-width="1.5" />
+                  <circle cx="144" cy="80" r="6" fill="#ffeaa7" stroke="#82510b" stroke-width="1.5" />
+                  <ellipse cx="115" cy="98" rx="14" ry="4" fill="#582404" />
+
+                  <!-- 4. HARMONIC NECK ARCH -->
+                  <path d="M 115,74 
+                           C 132,42 178,35 228,40 
+                           C 285,46 348,82 405,134 
+                           C 426,152 442,172 448,195 
+                           C 440,205 425,212 418,206 
+                           C 400,165 352,118 298,88 
+                           C 252,62 195,62 146,86 
+                           C 134,92 122,86 115,74 Z" 
+                        fill="url(#harmonicNeckGrad-rc)" stroke="#451a03" stroke-width="2.2" />
+
+                  <path d="M 130,68 
+                           C 148,48 186,44 230,48 
+                           C 284,54 344,88 398,138 
+                           C 416,154 430,172 436,188" 
+                        fill="none" stroke="url(#harpGoldGrad-rc)" stroke-width="4.5" stroke-linecap="round" />
+                  
+                  <!-- 10 Tuning Bridge Pegs on Harmonic Neck -->
+                  <circle cx="155" cy="78" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="185" cy="70" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="215" cy="68" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="245" cy="72" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="275" cy="82" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="305" cy="98" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="335" cy="120" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="365" cy="148" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="395" cy="180" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+                  <circle cx="425" cy="218" r="4" fill="url(#harpGoldGrad-rc)" stroke="#522405" stroke-width="1" />
+
+                  <!-- 10 Soundboard Eyelet Pins on Golden Bridge Rib -->
+                  <!-- Pin 0 -->
+                  <circle cx="205" cy="580" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="205" cy="580" r="1.8" fill="#180702" />
+                  <circle cx="204.2" cy="579.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 1 -->
+                  <circle cx="230" cy="574" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="230" cy="574" r="1.8" fill="#180702" />
+                  <circle cx="229.2" cy="573.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 2 -->
+                  <circle cx="255" cy="562" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="255" cy="562" r="1.8" fill="#180702" />
+                  <circle cx="254.2" cy="561.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 3 -->
+                  <circle cx="280" cy="544" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="280" cy="544" r="1.8" fill="#180702" />
+                  <circle cx="279.2" cy="543.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 4 -->
+                  <circle cx="305" cy="518" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="305" cy="518" r="1.8" fill="#180702" />
+                  <circle cx="304.2" cy="517.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 5 -->
+                  <circle cx="330" cy="484" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="330" cy="484" r="1.8" fill="#180702" />
+                  <circle cx="329.2" cy="483.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 6 -->
+                  <circle cx="355" cy="442" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="355" cy="442" r="1.8" fill="#180702" />
+                  <circle cx="354.2" cy="441.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 7 -->
+                  <circle cx="380" cy="392" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="380" cy="392" r="1.8" fill="#180702" />
+                  <circle cx="379.2" cy="391.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 8 -->
+                  <circle cx="405" cy="332" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="405" cy="332" r="1.8" fill="#180702" />
+                  <circle cx="404.2" cy="331.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+                  <!-- Pin 9 -->
+                  <circle cx="428" cy="260" r="4.2" fill="url(#harpGoldGrad-rc)" stroke="#3e1704" stroke-width="1" />
+                  <circle cx="428" cy="260" r="1.8" fill="#180702" />
+                  <circle cx="427.2" cy="259.2" r="0.8" fill="#fff9d6" opacity="0.85" />
+
+                </g>
+
+                <!-- 5. THE 10 RADIANT GLOWING HARP STRINGS (أوتار القيثارة العشرة المتوهجة شعاعياً) -->
+                <!-- S0: الروحي -->
+                <g class="guitar-str-group" data-idx="0" data-name="الروحي" data-freq="130.81" data-color="#e5a93c"
+                   style="--gstr-color:#e5a93c; --gstr-glow:rgba(229,169,60,0.95);">
+                  <path class="guitar-str-hit-area" d="M 155,78 L 205,580" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 155,78 L 205,580" stroke="#e5a93c" stroke-width="8" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 155,78 L 205,580" stroke="#e5a93c" stroke-width="3.6" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S1: الأخلاقي -->
+                <g class="guitar-str-group" data-idx="1" data-name="الأخلاقي" data-freq="146.83" data-color="#38bdf8"
+                   style="--gstr-color:#38bdf8; --gstr-glow:rgba(56,189,248,0.95);">
+                  <path class="guitar-str-hit-area" d="M 185,70 L 230,574" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 185,70 L 230,574" stroke="#38bdf8" stroke-width="7.5" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 185,70 L 230,574" stroke="#38bdf8" stroke-width="3.4" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S2: الميزانيه -->
+                <g class="guitar-str-group" data-idx="2" data-name="الميزانيه" data-freq="164.81" data-color="#4ade80"
+                   style="--gstr-color:#4ade80; --gstr-glow:rgba(74,222,128,0.95);">
+                  <path class="guitar-str-hit-area" d="M 215,68 L 255,562" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 215,68 L 255,562" stroke="#4ade80" stroke-width="7" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 215,68 L 255,562" stroke="#4ade80" stroke-width="3.2" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S3: اللوجيستيات -->
+                <g class="guitar-str-group" data-idx="3" data-name="اللوجيستيات" data-freq="196.00" data-color="#f472b6"
+                   style="--gstr-color:#f472b6; --gstr-glow:rgba(244,114,182,0.95);">
+                  <path class="guitar-str-hit-area" d="M 245,72 L 280,544" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 245,72 L 280,544" stroke="#f472b6" stroke-width="6.8" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 245,72 L 280,544" stroke="#f472b6" stroke-width="3.0" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S4: الألعاب -->
+                <g class="guitar-str-group" data-idx="4" data-name="الألعاب" data-freq="220.00" data-color="#fb923c"
+                   style="--gstr-color:#fb923c; --gstr-glow:rgba(251,146,60,0.95);">
+                  <path class="guitar-str-hit-area" d="M 275,82 L 305,518" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 275,82 L 305,518" stroke="#fb923c" stroke-width="6.5" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 275,82 L 305,518" stroke="#fb923c" stroke-width="2.8" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S5: قائد اليوم الأول -->
+                <g class="guitar-str-group" data-idx="5" data-name="قائد اليوم الأول" data-freq="246.94" data-color="#a78bfa"
+                   style="--gstr-color:#a78bfa; --gstr-glow:rgba(167,139,250,0.95);">
+                  <path class="guitar-str-hit-area" d="M 305,98 L 330,484" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 305,98 L 330,484" stroke="#a78bfa" stroke-width="6.2" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 305,98 L 330,484" stroke="#a78bfa" stroke-width="2.6" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S6: قائد اليوم التاني -->
+                <g class="guitar-str-group" data-idx="6" data-name="قائد اليوم التاني" data-freq="293.66" data-color="#34d399"
+                   style="--gstr-color:#34d399; --gstr-glow:rgba(52,211,153,0.95);">
+                  <path class="guitar-str-hit-area" d="M 335,120 L 355,442" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 335,120 L 355,442" stroke="#34d399" stroke-width="6.0" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 335,120 L 355,442" stroke="#34d399" stroke-width="2.4" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S7: كرافتس -->
+                <g class="guitar-str-group" data-idx="7" data-name="كرافتس" data-freq="329.63" data-color="#facc15"
+                   style="--gstr-color:#facc15; --gstr-glow:rgba(250,204,21,0.95);">
+                  <path class="guitar-str-hit-area" d="M 365,148 L 380,392" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 365,148 L 380,392" stroke="#facc15" stroke-width="5.8" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 365,148 L 380,392" stroke="#facc15" stroke-width="2.2" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S8: الفقره الافتتاحيه -->
+                <g class="guitar-str-group" data-idx="8" data-name="الفقره الافتتاحيه" data-freq="392.00" data-color="#f87171"
+                   style="--gstr-color:#f87171; --gstr-glow:rgba(248,113,113,0.95);">
+                  <path class="guitar-str-hit-area" d="M 395,180 L 405,332" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 395,180 L 405,332" stroke="#f87171" stroke-width="5.5" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 395,180 L 405,332" stroke="#f87171" stroke-width="2.0" filter="url(#guitarStringGlow-rc)" />
+                </g>
+
+                <!-- S9: الاكل -->
+                <g class="guitar-str-group" data-idx="9" data-name="الاكل" data-freq="440.00" data-color="#60a5fa"
+                   style="--gstr-color:#60a5fa; --gstr-glow:rgba(96,165,250,0.95);">
+                  <path class="guitar-str-hit-area" d="M 425,218 L 428,260" stroke-width="24" stroke="transparent" />
+                  <path class="guitar-str-glow" d="M 425,218 L 428,260" stroke="#60a5fa" stroke-width="5.2" opacity="0.95" />
+                  <path class="guitar-str-line" d="M 425,218 L 428,260" stroke="#60a5fa" stroke-width="1.8" filter="url(#guitarStringGlow-rc)" />
+                </g>
               </svg>
 
               <!-- Glowing Call to Action Badge -->
@@ -1476,22 +1815,14 @@
             <div class="gm-level-pane" id="gm-pane-3" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; position: relative;">
               <!-- ══════════════ DAY 1 LOCKED HIDING SLIDE (GATEWAY OVERLAY) ══════════════ -->
               <div class="program-map-gate-overlay" id="day1-program-gate" onclick="unlockProgramGate(1)">
-                <div class="program-gate-card" onclick="event.stopPropagation();">
-                  <!-- Grand Lock in Background -->
+                <div class="program-gate-card" onclick="unlockProgramGate(1)" title="انقر أو اضغط Space / Next لفتح البرنامج">
+                  <!-- Grand Lock in Background (Ghost periodic shimmer animation) -->
                   <svg class="program-gate-lock-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                     <rect class="gate-shackle" x="6" y="2" width="12" height="10" rx="5" ry="5"></rect>
                     <rect x="3" y="11" width="18" height="11" rx="3" ry="3" fill="currentColor" fill-opacity="0.15"></rect>
                     <circle cx="12" cy="16" r="1.5" fill="currentColor"></circle>
                     <path d="M12 17.5v2" stroke-width="2"></path>
                   </svg>
-
-                  <div class="program-gate-lock-badge">
-                    <svg class="gate-shackle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                    <span>بوابة البرنامج المقفلة • اليوم الأول</span>
-                  </div>
 
                   <h3 class="gate-church-title">كنيسة السيدة العذراء في السلام</h3>
                   <div class="gate-day-slogan">«عايزين نبقى شبهك»</div>
@@ -1511,14 +1842,6 @@
                       <span>قادة اليوم: جوناثان أمير • جون ماجد</span>
                     </div>
                   </div>
-
-                  <button class="gate-unlock-prompt-btn" onclick="unlockProgramGate(1)">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                    </svg>
-                    <span>فتح القفل واستكشاف خريطة البرنامج (Space / Next)</span>
-                  </button>
                 </div>
               </div>
 
@@ -1655,11 +1978,11 @@
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>تعلم الطاعة:</strong> الخضوع والاستجابة الفورية بوصية أم النور «مهما قال لكم فافعلوه».</span>
+                          <span><strong>تعلم الطاعة</strong></span>
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>التشبه بالمسيح:</strong> في صنع المعجزات بروح المحبة وبث الفرح في قلوب المخدومين.</span>
+                          <span><strong>التشبه بالمسيح</strong></span>
                         </div>
                       </div>
                     </div>
@@ -1678,11 +2001,11 @@
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>نحسسهم بأهميتهم:</strong> ترسيخ القيمة الذاتية وأن كل طفل محبوب ومميز جداً عند الله.</span>
+                          <span><strong>نحسسهم بأهميتهم</strong></span>
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>نشجعهم يدوروا على هدف:</strong> إيقاظ الوزنات الكامنة وتوجيه الطاقات نحو رسالة إيجابية.</span>
+                          <span><strong>نشجعهم يدوروا على هدف</strong></span>
                         </div>
                       </div>
                     </div>
@@ -1706,11 +2029,11 @@
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>قوة العمل الجماعي:</strong> إيد على إيد تشيل، ومساندة الرفيق وقت الشدة والتحدي.</span>
+                          <span><strong>قوة العمل الجماعي</strong></span>
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>تكامل الأدوار:</strong> النجاح الحقيقي يتحقق بتوحد الطاقات ونبذ الفردية والأنانية.</span>
+                          <span><strong>تكامل الأدوار</strong></span>
                         </div>
                       </div>
                     </div>
@@ -1729,11 +2052,11 @@
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>الأمانة في القليل:</strong> صدق الكلمة وحفظ الوعد والمسؤولية في أداء المهام الموكلة.</span>
+                          <span><strong>الأمانة في القليل</strong></span>
                         </div>
                         <div class="prep-lesson-item">
                           <span>✦</span>
-                          <span><strong>نزاهة السلوك والضمير:</strong> التصرف بأمانة أمام الله والناس لبناء جسور الثقة الراسخة.</span>
+                          <span><strong>نزاهة السلوك والضمير</strong></span>
                         </div>
                       </div>
                     </div>
@@ -1892,17 +2215,10 @@
                   </div>
 
                   <div class="church-large-photo-box"
-                    onclick="openDayVideo(1)"
-                    title="تشغيل فيديو فعاليات اليوم الأول • كنيسة السلام"
-                    style="cursor: pointer; padding: 0; border: 2px solid rgba(72,202,139,0.4); background: transparent; flex: 1; min-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
+                    title="صورة الرهط • كنيسة السلام"
+                    style="cursor: default; padding: 0; border: 2px solid rgba(72,202,139,0.4); background: transparent; flex: 1; min-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
                     <img src="assets/first day raht image.jpg" alt="صورة الرهط بالكامل • كنيسة السلام"
                       style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
-                    <div class="church-play-overlay">
-                      <div class="church-play-btn-circle">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                      </div>
-                      <span class="church-play-label">مشاهدة فيديو اليوم الأول 🎬</span>
-                    </div>
                   </div>
                 </div>
 
@@ -1924,17 +2240,10 @@
                   </div>
 
                   <div class="church-large-photo-box"
-                    onclick="openDayVideo(2)"
-                    title="تشغيل فيديو فعاليات اليوم الثاني • كنيسة البطحة"
-                    style="cursor: pointer; padding: 0; border: 2px solid rgba(72,202,139,0.4); background: transparent; flex: 1; min-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
+                    title="صورة الرهط • كنيسة البطحة"
+                    style="cursor: default; padding: 0; border: 2px solid rgba(72,202,139,0.4); background: transparent; flex: 1; min-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
                     <img src="assets/second day raht image.jpeg" alt="صورة الرهط بالكامل • كنيسة البطحة"
                       style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
-                    <div class="church-play-overlay">
-                      <div class="church-play-btn-circle">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                      </div>
-                      <span class="church-play-label">مشاهدة فيديو اليوم الثاني 🎬</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1946,26 +2255,26 @@
               <div class="gm-budget-kpi-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 12px; flex-shrink: 0;">
                 <div style="background: rgba(58, 134, 255, 0.14); border: 1.5px solid rgba(58, 134, 255, 0.4); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 18px rgba(0,0,0,0.25);">
                   <div>
-                    <span style="color: #90e0ef; font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 2px;">🏛️ إجمالي الميزانية المعتمدة</span>
-                    <span style="color: #fff; font-size: 24px; font-weight: 900; letter-spacing: 0.5px;">٣٨,٧٨٠ ج.م</span>
+                    <span style="color: #90e0ef; font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px;">🏛️ إجمالي الميزانية المعتمدة</span>
+                    <span style="color: #fff; font-size: 30px; font-weight: 900; letter-spacing: 0.5px;">٣٨,٧٨٠ ج.م</span>
                   </div>
-                  <span style="background: rgba(58, 134, 255, 0.28); color: #38bdf8; font-size: 13.5px; font-weight: 800; padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(58,134,255,0.4);">١٠٠٪</span>
+                  <span style="background: rgba(58, 134, 255, 0.28); color: #38bdf8; font-size: 15px; font-weight: 800; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(58,134,255,0.4);">١٠٠٪</span>
                 </div>
 
                 <div style="background: rgba(247, 37, 133, 0.14); border: 1.5px solid rgba(247, 37, 133, 0.4); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 18px rgba(0,0,0,0.25);">
                   <div>
-                    <span style="color: #f472b6; font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 2px;">💳 المنصرف الفعلي اليوم</span>
-                    <span style="color: #fff; font-size: 24px; font-weight: 900; letter-spacing: 0.5px;">٣٢,٦١٥ ج.م</span>
+                    <span style="color: #f472b6; font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px;">💳 المنصرف الفعلي اليوم</span>
+                    <span style="color: #fff; font-size: 30px; font-weight: 900; letter-spacing: 0.5px;">٣٢,٠١٥ ج.م</span>
                   </div>
-                  <span style="background: rgba(247, 37, 133, 0.28); color: #f472b6; font-size: 13.5px; font-weight: 800; padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(247,37,133,0.4);">٨٤.١٪</span>
+                  <span style="background: rgba(247, 37, 133, 0.28); color: #f472b6; font-size: 15px; font-weight: 800; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(247,37,133,0.4);">٨٢.٦٪</span>
                 </div>
 
                 <div style="background: rgba(6, 214, 160, 0.14); border: 1.5px solid rgba(6, 214, 160, 0.4); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 18px rgba(0,0,0,0.25);">
                   <div>
-                    <span style="color: #6ee7b7; font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 2px;">💰 المتبقي من الميزانية (فائض)</span>
-                    <span style="color: #72efb6; font-size: 24px; font-weight: 900; letter-spacing: 0.5px;">٦,١٦٥ ج.م</span>
+                    <span style="color: #6ee7b7; font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px;">💰 المتبقي من الميزانية (فائض)</span>
+                    <span style="color: #72efb6; font-size: 30px; font-weight: 900; letter-spacing: 0.5px;">٦,٧٦٥ ج.م</span>
                   </div>
-                  <span style="background: rgba(6, 214, 160, 0.28); color: #72efb6; font-size: 13.5px; font-weight: 800; padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(6,214,160,0.4);">١٥.٩٪</span>
+                  <span style="background: rgba(6, 214, 160, 0.28); color: #72efb6; font-size: 15px; font-weight: 800; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(6,214,160,0.4);">١٧.٤٪</span>
                 </div>
               </div>
 
@@ -1978,8 +2287,8 @@
                       <!-- Dynamic Slices inserted by renderBudgetPieChart(1) -->
                     </svg>
                     <div class="gm-pie-center-hole" style="position: absolute; width: 135px; height: 135px; border-radius: 50%; background: radial-gradient(circle, #0e172e 0%, #080d1e 100%); border: 2.5px solid rgba(78, 168, 222, 0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: inset 0 0 18px rgba(0,0,0,0.85), 0 0 20px rgba(78,168,222,0.25); pointer-events: none; z-index: 10;">
-                      <span class="gm-hole-total-num" style="font-size: 1.65rem; font-weight: 900; color: #ffd166; letter-spacing: 0.5px;">٣٨,٧٨٠</span>
-                      <span class="gm-hole-total-label" style="font-size: 11.5px; font-weight: 700; color: rgba(255, 255, 255, 0.7); margin-top: 1px;">إجمالي الميزانية (ج.م)</span>
+                      <span class="gm-hole-total-num" style="font-size: 2.1rem; font-weight: 900; color: #ffd166; letter-spacing: 0.5px;">٣٨,٧٨٠</span>
+                      <span class="gm-hole-total-label" style="font-size: 12.5px; font-weight: 700; color: rgba(255, 255, 255, 0.7); margin-top: 2px;">إجمالي الميزانية (ج.م)</span>
                     </div>
                   </div>
 
@@ -1988,21 +2297,17 @@
                     <div>
                       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                       </div>
-                      <h4 class="gm-slice-detail-title" id="gm-slice-title-1" style="font-size: clamp(1.7rem, 2.2vw, 2.25rem); font-weight: 900; color: #fff; margin: 4px 0 12px 0; line-height: 1.25;">الوجبات والتغذية (food)</h4>
+                      <h4 class="gm-slice-detail-title" id="gm-slice-title-1" style="font-size: clamp(1.7rem, 2.2vw, 2.25rem); font-weight: 900; color: #fff; margin: 4px 0 12px 0; line-height: 1.25;">الوجبات والتغذية</h4>
                     </div>
 
-                    <div class="gm-slice-stats-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 14px 0; border-top: 1.5px solid rgba(255, 255, 255, 0.12); border-bottom: 1.5px solid rgba(255, 255, 255, 0.12); margin: 6px 0;">
+                    <div class="gm-slice-stats-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 18px 0; border-top: 1.5px solid rgba(255, 255, 255, 0.12); border-bottom: 1.5px solid rgba(255, 255, 255, 0.12); margin: 8px 0;">
                       <div class="gm-slice-stat-item">
-                        <span class="gm-stat-label" style="font-size: 13.5px; color: rgba(255, 255, 255, 0.65); font-weight: 700; margin-bottom: 3px;">المبلغ المخصص</span>
-                        <span class="gm-stat-value" id="gm-slice-amount-1" style="font-size: clamp(1.8rem, 2.3vw, 2.3rem); font-weight: 900; color: #00b4d8; line-height: 1.1;">١٢,٥٠٠ ج.م</span>
+                        <span class="gm-stat-label" style="font-size: 15px; color: rgba(255, 255, 255, 0.75); font-weight: 700; margin-bottom: 5px;">المبلغ المخصص</span>
+                        <span class="gm-stat-value" id="gm-slice-amount-1" style="font-size: clamp(2.4rem, 3.2vw, 3.2rem); font-weight: 900; color: #00b4d8; line-height: 1.1;">١٢,٥٠٠ ج.م</span>
                       </div>
                       <div class="gm-slice-stat-item">
-                        <span class="gm-stat-label" style="font-size: 13.5px; color: rgba(255, 255, 255, 0.65); font-weight: 700; margin-bottom: 3px;">النسبة من الميزانية</span>
-                        <span class="gm-slice-percent" id="gm-slice-percent-1" style="font-size: clamp(1.8rem, 2.3vw, 2.3rem); font-weight: 900; color: #fff; line-height: 1.1;">٣٢.٢٪</span>
-                      </div>
-                      <div class="gm-slice-stat-item" id="gm-slice-spent-box-1">
-                        <span class="gm-stat-label" style="font-size: 13.5px; color: rgba(255, 255, 255, 0.65); font-weight: 700; margin-bottom: 3px;">النسبة من المنصرف</span>
-                        <span class="gm-stat-value" id="gm-slice-spent-percent-1" style="font-size: clamp(1.5rem, 1.9vw, 1.95rem); font-weight: 900; color: #ffd166; line-height: 1.1;">٣٨.٣٪ من المنصرف</span>
+                        <span class="gm-stat-label" style="font-size: 15px; color: rgba(255, 255, 255, 0.75); font-weight: 700; margin-bottom: 5px;">النسبة من الميزانية</span>
+                        <span class="gm-slice-percent" id="gm-slice-percent-1" style="font-size: clamp(2.4rem, 3.2vw, 3.2rem); font-weight: 900; color: #fff; line-height: 1.1;">٣٢.٢٪</span>
                       </div>
                     </div>
 
@@ -2019,22 +2324,14 @@
             <div class="gm-level-pane" id="gm-pane-6" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; position: relative;">
               <!-- ══════════════ DAY 2 LOCKED HIDING SLIDE (GATEWAY OVERLAY) ══════════════ -->
               <div class="program-map-gate-overlay" id="day2-program-gate" onclick="unlockProgramGate(2)">
-                <div class="program-gate-card" onclick="event.stopPropagation();">
-                  <!-- Grand Lock in Background -->
+                <div class="program-gate-card" onclick="unlockProgramGate(2)" title="انقر أو اضغط Space / Next لفتح البرنامج">
+                  <!-- Grand Lock in Background (Ghost periodic shimmer animation) -->
                   <svg class="program-gate-lock-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
                     <rect class="gate-shackle" x="6" y="2" width="12" height="10" rx="5" ry="5"></rect>
                     <rect x="3" y="11" width="18" height="11" rx="3" ry="3" fill="currentColor" fill-opacity="0.15"></rect>
                     <circle cx="12" cy="16" r="1.5" fill="currentColor"></circle>
                     <path d="M12 17.5v2" stroke-width="2"></path>
                   </svg>
-
-                  <div class="program-gate-lock-badge" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.55); color: #bae6fd;">
-                    <svg class="gate-shackle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                    <span>بوابة البرنامج المقفلة • اليوم الثاني</span>
-                  </div>
 
                   <h3 class="gate-church-title">كنيسة البطحة</h3>
                   <div class="gate-day-slogan" style="color: #7dd3fc; background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35);">«المراية»</div>
@@ -2054,14 +2351,6 @@
                       <span>قادة اليوم: حنا رفعت • توماس تامر</span>
                     </div>
                   </div>
-
-                  <button class="gate-unlock-prompt-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff; box-shadow: 0 4px 18px rgba(2, 132, 199, 0.45);" onclick="unlockProgramGate(2)">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                    </svg>
-                    <span>فتح القفل واستكشاف خريطة البرنامج (Space / Next)</span>
-                  </button>
                 </div>
               </div>
 
@@ -2231,26 +2520,26 @@
               <div class="gm-budget-kpi-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 12px; flex-shrink: 0;">
                 <div style="background: rgba(58, 134, 255, 0.14); border: 1.5px solid rgba(58, 134, 255, 0.4); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 18px rgba(0,0,0,0.25);">
                   <div>
-                    <span style="color: #90e0ef; font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 2px;">🏛️ إجمالي الميزانية المعتمدة</span>
-                    <span style="color: #fff; font-size: 24px; font-weight: 900; letter-spacing: 0.5px;">٢٨,٠٠٠ ج.م</span>
+                    <span style="color: #90e0ef; font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px;">🏛️ إجمالي الميزانية المعتمدة</span>
+                    <span style="color: #fff; font-size: 30px; font-weight: 900; letter-spacing: 0.5px;">٢٩,٠٠٠ ج.م</span>
                   </div>
-                  <span style="background: rgba(58, 134, 255, 0.28); color: #38bdf8; font-size: 13.5px; font-weight: 800; padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(58,134,255,0.4);">١٠٠٪</span>
+                  <span style="background: rgba(58, 134, 255, 0.28); color: #38bdf8; font-size: 15px; font-weight: 800; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(58,134,255,0.4);">١٠٠٪</span>
                 </div>
 
                 <div style="background: rgba(247, 37, 133, 0.14); border: 1.5px solid rgba(247, 37, 133, 0.4); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 18px rgba(0,0,0,0.25);">
                   <div>
-                    <span style="color: #f472b6; font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 2px;">💳 المنصرف الفعلي اليوم</span>
-                    <span style="color: #fff; font-size: 24px; font-weight: 900; letter-spacing: 0.5px;">٢٤,٨٧٥ ج.م</span>
+                    <span style="color: #f472b6; font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px;">💳 المنصرف الفعلي اليوم</span>
+                    <span style="color: #fff; font-size: 30px; font-weight: 900; letter-spacing: 0.5px;">٢٦,٠١٥ ج.م</span>
                   </div>
-                  <span style="background: rgba(247, 37, 133, 0.28); color: #f472b6; font-size: 13.5px; font-weight: 800; padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(247,37,133,0.4);">٨٨.٨٪</span>
+                  <span style="background: rgba(247, 37, 133, 0.28); color: #f472b6; font-size: 15px; font-weight: 800; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(247,37,133,0.4);">٨٩.٧٪</span>
                 </div>
 
                 <div style="background: rgba(6, 214, 160, 0.14); border: 1.5px solid rgba(6, 214, 160, 0.4); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 18px rgba(0,0,0,0.25);">
                   <div>
-                    <span style="color: #6ee7b7; font-size: 13.5px; font-weight: 700; display: block; margin-bottom: 2px;">💰 المتبقي من الميزانية (فائض)</span>
-                    <span style="color: #72efb6; font-size: 24px; font-weight: 900; letter-spacing: 0.5px;">٣,١٢٥ ج.م</span>
+                    <span style="color: #6ee7b7; font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px;">💰 المتبقي من الميزانية (فائض)</span>
+                    <span style="color: #72efb6; font-size: 30px; font-weight: 900; letter-spacing: 0.5px;">٢,٩٨٥ ج.م</span>
                   </div>
-                  <span style="background: rgba(6, 214, 160, 0.28); color: #72efb6; font-size: 13.5px; font-weight: 800; padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(6,214,160,0.4);">١١.٢٪</span>
+                  <span style="background: rgba(6, 214, 160, 0.28); color: #72efb6; font-size: 15px; font-weight: 800; padding: 5px 16px; border-radius: 20px; border: 1px solid rgba(6,214,160,0.4);">١٠.٣٪</span>
                 </div>
               </div>
 
@@ -2263,8 +2552,8 @@
                       <!-- Dynamic Slices inserted by renderBudgetPieChart(2) -->
                     </svg>
                     <div class="gm-pie-center-hole" style="position: absolute; width: 135px; height: 135px; border-radius: 50%; background: radial-gradient(circle, #0e172e 0%, #080d1e 100%); border: 2.5px solid rgba(78, 168, 222, 0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: inset 0 0 18px rgba(0,0,0,0.85), 0 0 20px rgba(78,168,222,0.25); pointer-events: none; z-index: 10;">
-                      <span class="gm-hole-total-num" style="font-size: 1.65rem; font-weight: 900; color: #ffd166; letter-spacing: 0.5px;">٢٨,٠٠٠</span>
-                      <span class="gm-hole-total-label" style="font-size: 11.5px; font-weight: 700; color: rgba(255, 255, 255, 0.7); margin-top: 1px;">إجمالي الميزانية (ج.م)</span>
+                      <span class="gm-hole-total-num" style="font-size: 2.1rem; font-weight: 900; color: #ffd166; letter-spacing: 0.5px;">٢٩,٠٠٠</span>
+                      <span class="gm-hole-total-label" style="font-size: 12.5px; font-weight: 700; color: rgba(255, 255, 255, 0.7); margin-top: 2px;">إجمالي الميزانية (ج.م)</span>
                     </div>
                   </div>
 
@@ -2273,21 +2562,17 @@
                     <div>
                       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                       </div>
-                      <h4 class="gm-slice-detail-title" id="gm-slice-title-2" style="font-size: clamp(1.7rem, 2.2vw, 2.25rem); font-weight: 900; color: #fff; margin: 4px 0 12px 0; line-height: 1.25;">المكان والمقر (location)</h4>
+                      <h4 class="gm-slice-detail-title" id="gm-slice-title-2" style="font-size: clamp(1.7rem, 2.2vw, 2.25rem); font-weight: 900; color: #fff; margin: 4px 0 12px 0; line-height: 1.25;">المكان والمقر</h4>
                     </div>
 
-                    <div class="gm-slice-stats-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 14px 0; border-top: 1.5px solid rgba(255, 255, 255, 0.12); border-bottom: 1.5px solid rgba(255, 255, 255, 0.12); margin: 6px 0;">
+                    <div class="gm-slice-stats-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 18px 0; border-top: 1.5px solid rgba(255, 255, 255, 0.12); border-bottom: 1.5px solid rgba(255, 255, 255, 0.12); margin: 8px 0;">
                       <div class="gm-slice-stat-item">
-                        <span class="gm-stat-label" style="font-size: 13.5px; color: rgba(255, 255, 255, 0.65); font-weight: 700; margin-bottom: 3px;">المبلغ المخصص</span>
-                        <span class="gm-stat-value" id="gm-slice-amount-2" style="font-size: clamp(1.8rem, 2.3vw, 2.3rem); font-weight: 900; color: #3a86ff; line-height: 1.1;">١٢,٨٦٠ ج.م</span>
+                        <span class="gm-stat-label" style="font-size: 15px; color: rgba(255, 255, 255, 0.75); font-weight: 700; margin-bottom: 5px;">المبلغ المخصص</span>
+                        <span class="gm-stat-value" id="gm-slice-amount-2" style="font-size: clamp(2.4rem, 3.2vw, 3.2rem); font-weight: 900; color: #3a86ff; line-height: 1.1;">١٢,٨٦٠ ج.م</span>
                       </div>
                       <div class="gm-slice-stat-item">
-                        <span class="gm-stat-label" style="font-size: 13.5px; color: rgba(255, 255, 255, 0.65); font-weight: 700; margin-bottom: 3px;">النسبة من الميزانية</span>
-                        <span class="gm-slice-percent" id="gm-slice-percent-2" style="font-size: clamp(1.8rem, 2.3vw, 2.3rem); font-weight: 900; color: #fff; line-height: 1.1;">٤٥.٩٪</span>
-                      </div>
-                      <div class="gm-slice-stat-item" id="gm-slice-spent-box-2">
-                        <span class="gm-stat-label" style="font-size: 13.5px; color: rgba(255, 255, 255, 0.65); font-weight: 700; margin-bottom: 3px;">النسبة من المنصرف</span>
-                        <span class="gm-stat-value" id="gm-slice-spent-percent-2" style="font-size: clamp(1.5rem, 1.9vw, 1.95rem); font-weight: 900; color: #ffd166; line-height: 1.1;">٥١.٧٪ من المنصرف</span>
+                        <span class="gm-stat-label" style="font-size: 15px; color: rgba(255, 255, 255, 0.75); font-weight: 700; margin-bottom: 5px;">النسبة من الميزانية</span>
+                        <span class="gm-slice-percent" id="gm-slice-percent-2" style="font-size: clamp(2.4rem, 3.2vw, 3.2rem); font-weight: 900; color: #fff; line-height: 1.1;">٤٤.٣٪</span>
                       </div>
                     </div>
 
@@ -2301,8 +2586,8 @@
             </div>
 
             <!-- ══════════════ LEVEL 9: التقييم الخارجي (اليوم الأول) ══════════════ -->
-            <div class="gm-level-pane" id="gm-pane-9" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow: hidden; justify-content: space-between;">
-              <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+            <div class="gm-level-pane" id="gm-pane-9" style="display: flex; flex-direction: column; height: 100%; flex: 1; min-height: 0; box-sizing: border-box; overflow-y: auto; justify-content: space-between; gap: 8px;">
+              <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; flex-shrink: 0;">
                 <button class="sp4-day-tab-btn active" id="gm-feedback-pill-1" onclick="openSp2Node(9)" style="border-radius: 20px; padding: 6px 16px; font-size: 13px;">
                   الشريحة ١ • التقييم الخارجي (قادة • خدام • أطفال)
                 </button>
@@ -2311,92 +2596,374 @@
                 </button>
               </div>
 
-              <!-- Center Paper Pile Showcase (3 Feedback Images stacked with angle & throwing animation) -->
-              <div class="feedback-pile-section">
-                <div class="feedback-pile-stage-container">
-                  <div class="feedback-paper-stage throw-active" id="feedback-paper-stage">
-                    <!-- Paper 1 (Bottom of pile) -->
-                    <div class="feedback-paper-card paper-card-1" id="fb-paper-1" onclick="openStageZoom('assets/feedback 1.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (١)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ١">
-                      <div class="paper-pin"></div>
-                      <img src="assets/feedback 1.jpg" alt="استمارة تقييم 1" />
-                      <div class="paper-footer-badge">
-                        <span>استمارة تقييم ١</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                      </div>
+              <!-- Middle Showcase: Bar Chart (Right) | 5-Paper Pile + Toolbar (Center) | Pie Chart (Left) -->
+              <div class="feedback-middle-showcase-grid">
+                <!-- 1. Right Side: Dual-Audience Rating Bar Chart (Kids & Servants) -->
+                <div class="eval-chart-widget eval-barchart-card">
+                  <div class="eval-widget-header">
+                    <div class="eval-widget-title-row">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffd875" stroke-width="2.4"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                      <span class="eval-widget-title">مؤشر التقييم الرقمي • أطفال وخدام</span>
                     </div>
-
-                    <!-- Paper 2 (Middle of pile) -->
-                    <div class="feedback-paper-card paper-card-2" id="fb-paper-2" onclick="openStageZoom('assets/feedback 2.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٢)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ٢">
-                      <div class="paper-pin"></div>
-                      <img src="assets/feedback 2.jpg" alt="استمارة تقييم 2" />
-                      <div class="paper-footer-badge">
-                        <span>استمارة تقييم ٢</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                      </div>
-                    </div>
-
-                    <!-- Paper 3 (Top of pile) -->
-                    <div class="feedback-paper-card paper-card-3" id="fb-paper-3" onclick="openStageZoom('assets/feedback 3.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٣)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ٣">
-                      <div class="paper-pin"></div>
-                      <img src="assets/feedback 3.jpg" alt="استمارة تقييم 3" />
-                      <div class="paper-footer-badge">
-                        <span>استمارة تقييم ٣</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                      </div>
-                    </div>
+                    <span class="eval-widget-sub">توزيع الأصوات من ٥ نجوم إلى ١ ونسبة عدم التصويت</span>
                   </div>
 
-                  <!-- Toolbar & Hint -->
-                  <div class="feedback-pile-toolbar">
-                    <span class="pile-toolbar-hint">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                      أوراق واستمارات التقييم الميدانية
+                  <div class="eval-widget-legend-row">
+                    <span class="eval-legend-chip chip-kids">
+                      <span class="eval-legend-dot"></span>
+                      <span>الأطفال (إجمالي ٨٠)</span>
                     </span>
-                    <button class="pile-rethrow-btn" onclick="replayFeedbackPaperThrow(event)" title="إعادة تشغيل حركة رمي الأوراق">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                      <span>إعادة الرمي</span>
-                    </button>
+                    <span class="eval-legend-chip chip-servants">
+                      <span class="eval-legend-dot"></span>
+                      <span>الخدام (إجمالي ١٠)</span>
+                    </span>
+                  </div>
+
+                  <div class="eval-barchart-container">
+                    <svg class="eval-barchart-svg" viewBox="0 0 350 185">
+                      <defs>
+                        <linearGradient id="bar-kids-grad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#fde047"/>
+                          <stop offset="100%" stop-color="#d97706"/>
+                        </linearGradient>
+                        <linearGradient id="bar-servants-grad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#e879f9"/>
+                          <stop offset="100%" stop-color="#7c3aed"/>
+                        </linearGradient>
+                        <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+                          <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#fbbf24" flood-opacity="0.6"/>
+                        </filter>
+                        <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+                          <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#c084fc" flood-opacity="0.6"/>
+                        </filter>
+                      </defs>
+
+                      <!-- Grid Lines across Plot (X: 34 to 316) -->
+                      <line x1="34" y1="22" x2="316" y2="22" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 3"/>
+                      <line x1="34" y1="54" x2="316" y2="54" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 3"/>
+                      <line x1="34" y1="86" x2="316" y2="86" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 3"/>
+                      <line x1="34" y1="118" x2="316" y2="118" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3 3"/>
+                      <line x1="30" y1="150" x2="320" y2="150" stroke="rgba(177,133,219,0.4)" stroke-width="1.5"/>
+
+                      <!-- Y-Axis (Right - Kids scale 0 to 80) -->
+                      <text x="340" y="16" fill="#ffd875" font-size="9" font-weight="900" text-anchor="middle">أطفال</text>
+                      <text x="340" y="25" fill="#fde047" font-size="8.5" font-weight="700" text-anchor="middle">80</text>
+                      <text x="340" y="57" fill="#fde047" font-size="8.5" font-weight="700" text-anchor="middle">60</text>
+                      <text x="340" y="89" fill="#fde047" font-size="8.5" font-weight="700" text-anchor="middle">40</text>
+                      <text x="340" y="121" fill="#fde047" font-size="8.5" font-weight="700" text-anchor="middle">20</text>
+                      <text x="340" y="153" fill="#fde047" font-size="8.5" font-weight="700" text-anchor="middle">0</text>
+
+                      <!-- Y-Axis (Left - Servants scale 0 to 10) -->
+                      <text x="14" y="16" fill="#d8b4fe" font-size="9" font-weight="900" text-anchor="middle">خدام</text>
+                      <text x="14" y="25" fill="#c084fc" font-size="8.5" font-weight="700" text-anchor="middle">10</text>
+                      <text x="14" y="51" fill="#c084fc" font-size="8.5" font-weight="700" text-anchor="middle">8</text>
+                      <text x="14" y="77" fill="#c084fc" font-size="8.5" font-weight="700" text-anchor="middle">6</text>
+                      <text x="14" y="103" fill="#c084fc" font-size="8.5" font-weight="700" text-anchor="middle">4</text>
+                      <text x="14" y="129" fill="#c084fc" font-size="8.5" font-weight="700" text-anchor="middle">2</text>
+                      <text x="14" y="153" fill="#c084fc" font-size="8.5" font-weight="700" text-anchor="middle">0</text>
+
+                      <!-- X-Axis Labels (Ratings 5 down to 1 & no vote) -->
+                      <!-- Slot 1 (Rightmost): 5 Stars -->
+                      <g class="eval-bar-group">
+                        <!-- Servants Bar: 8/10 (80%) -> Height 102.4px, Y = 47.6 -->
+                        <rect class="eval-bar-item" x="277" y="47.6" width="13" height="102.4" rx="3" fill="url(#bar-servants-grad)" filter="url(#glow-purple)">
+                          <title>الخدام: ٨ أصوات (تقييم ٥ نجوم)</title>
+                        </rect>
+                        <text x="283.5" y="42" fill="#d8b4fe" font-size="11" font-weight="900" text-anchor="middle">٨</text>
+
+                        <!-- Kids Bar: 70/80 (87.5%) -> Height 112px, Y = 38 -->
+                        <rect class="eval-bar-item" x="293" y="38" width="13" height="112" rx="3" fill="url(#bar-kids-grad)" filter="url(#glow-gold)">
+                          <title>الأطفال: ٧٠ صوتاً (تقييم ٥ نجوم)</title>
+                        </rect>
+                        <text x="299.5" y="32" fill="#ffd875" font-size="11" font-weight="900" text-anchor="middle">٧٠</text>
+                        <text x="291.5" y="166" fill="#ffd875" font-size="10.5" font-weight="800" text-anchor="middle">5 ★</text>
+                      </g>
+
+                      <!-- Slot 2: 4 Stars -->
+                      <g class="eval-bar-group">
+                        <!-- Servants Bar: 2/10 (20%) -> Height 25.6px, Y = 124.4 -->
+                        <rect class="eval-bar-item" x="229" y="124.4" width="13" height="25.6" rx="2.5" fill="url(#bar-servants-grad)" filter="url(#glow-purple)">
+                          <title>الخدام: صوتان (تقييم ٤ نجوم)</title>
+                        </rect>
+                        <text x="235.5" y="119" fill="#d8b4fe" font-size="10" font-weight="800" text-anchor="middle">٢</text>
+
+                        <!-- Kids Bar: 5/80 (6.25%) -> Height 8px, Y = 142 -->
+                        <rect class="eval-bar-item" x="245" y="142" width="13" height="8" rx="2" fill="url(#bar-kids-grad)" filter="url(#glow-gold)">
+                          <title>الأطفال: ٥ أصوات (تقييم ٤ نجوم)</title>
+                        </rect>
+                        <text x="251.5" y="137" fill="#ffd875" font-size="10" font-weight="800" text-anchor="middle">٥</text>
+                        <text x="243.5" y="166" fill="#cbd5e1" font-size="10" font-weight="700" text-anchor="middle">4 ★</text>
+                      </g>
+
+                      <!-- Slot 3: 3 Stars (0 votes) -->
+                      <g class="eval-bar-group">
+                        <circle cx="196" cy="150" r="2" fill="rgba(255,255,255,0.25)"/>
+                        <text x="196" y="166" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">3 ★</text>
+                      </g>
+
+                      <!-- Slot 4: 2 Stars (0 votes) -->
+                      <g class="eval-bar-group">
+                        <circle cx="148" cy="150" r="2" fill="rgba(255,255,255,0.25)"/>
+                        <text x="148" y="166" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">2 ★</text>
+                      </g>
+
+                      <!-- Slot 5: 1 Star (0 votes) -->
+                      <g class="eval-bar-group">
+                        <circle cx="100" cy="150" r="2" fill="rgba(255,255,255,0.25)"/>
+                        <text x="100" y="166" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">1 ★</text>
+                      </g>
+
+                      <!-- Slot 6: Didn't Vote (لم يصوت) -->
+                      <g class="eval-bar-group">
+                        <!-- Kids Bar: 5/80 (6.25%) -> Height 8px, Y = 142 -->
+                        <rect class="eval-bar-item" x="52" y="142" width="13" height="8" rx="2" fill="url(#bar-kids-grad)" filter="url(#glow-gold)">
+                          <title>الأطفال: ٥ أطفال لم يصوتوا</title>
+                        </rect>
+                        <text x="58.5" y="137" fill="#ffd875" font-size="10" font-weight="800" text-anchor="middle">٥</text>
+                        <text x="58.5" y="166" fill="#94a3b8" font-size="9.5" font-weight="700" text-anchor="middle">لم يصوّت</text>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- 2. Center: 5-Card Thrown Paper Pile Showcase + Toolbar -->
+                <div class="feedback-pile-section">
+                  <div class="feedback-pile-stage-container">
+                    <div class="feedback-paper-stage throw-active" id="feedback-paper-stage">
+                      <!-- Paper 1 -->
+                      <div class="feedback-paper-card paper-card-1" id="fb-paper-1" onclick="openStageZoom('assets/feedback 1.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (١)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ١">
+                        <div class="paper-pin"></div>
+                        <img src="assets/feedback 1.jpg" alt="استمارة تقييم 1" />
+                        <div class="paper-footer-badge">
+                          <span>استمارة تقييم ١</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                      </div>
+
+                      <!-- Paper 2 -->
+                      <div class="feedback-paper-card paper-card-2" id="fb-paper-2" onclick="openStageZoom('assets/feedback 2.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٢)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ٢">
+                        <div class="paper-pin"></div>
+                        <img src="assets/feedback 2.jpg" alt="استمارة تقييم 2" />
+                        <div class="paper-footer-badge">
+                          <span>استمارة تقييم ٢</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                      </div>
+
+                      <!-- Paper 3 -->
+                      <div class="feedback-paper-card paper-card-3" id="fb-paper-3" onclick="openStageZoom('assets/feedback 3.jpg', 'استمارات التقييم الميدانية • اليوم الأول', 'استمارة تقييم المشاركين (٣)', 'شهادة ورأي مكتوب بخط اليد من اليوم الأول')" title="استمارة تقييم ٣">
+                        <div class="paper-pin"></div>
+                        <img src="assets/feedback 3.jpg" alt="استمارة تقييم 3" />
+                        <div class="paper-footer-badge">
+                          <span>استمارة تقييم ٣</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                      </div>
+
+                      <!-- Paper 4 (New) -->
+                      <div class="feedback-paper-card paper-card-4" id="fb-paper-4" onclick="openStageZoom('assets/feedback day 2.1.png', 'استمارات التقييم الميدانية • اليوم الثاني', 'استمارة تقييم المشاركين (٤)', 'شهادة ورأي وتقييم من اليوم الثاني')" title="استمارة تقييم ٤">
+                        <div class="paper-pin"></div>
+                        <img src="assets/feedback day 2.1.png" alt="استمارة تقييم 4" onerror="this.src='assets/feedback 2.jpg'" />
+                        <div class="paper-footer-badge">
+                          <span>استمارة تقييم ٤</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                      </div>
+
+                      <!-- Paper 5 (New) -->
+                      <div class="feedback-paper-card paper-card-5" id="fb-paper-5" onclick="openStageZoom('assets/feedback 1.jpg', 'استمارات التقييم الميدانية • اليوم الثاني', 'استمارة تقييم المشاركين (٥)', 'شهادة وتقييم إضافي من فعاليات اليوم')" title="استمارة تقييم ٥">
+                        <div class="paper-pin"></div>
+                        <img src="assets/feedback 1.jpg" alt="استمارة تقييم 5" onerror="this.src='assets/feedback 3.jpg'" />
+                        <div class="paper-footer-badge">
+                          <span>استمارة تقييم ٥</span>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Toolbar with Re-throw & Full Evaluation Buttons -->
+                    <div class="feedback-pile-toolbar">
+                      <button class="pile-rethrow-btn" onclick="replayFeedbackPaperThrow(event)" title="إعادة تشغيل حركة رمي الأوراق">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <span>إعادة الرمي</span>
+                      </button>
+                      <button class="pile-full-eval-btn" onclick="openFullEvaluationSheet(event)" title="عرض استمارة التقييم الميدانية الكاملة">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <span>التقييم كامل</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3. Left Side: Comments Categories Pie Chart -->
+                <div class="eval-chart-widget eval-piechart-card">
+                  <div class="eval-widget-header">
+                    <div class="eval-widget-title-row">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.4"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                      <span class="eval-widget-title">تحليل رغبات واقتراحات المشاركين</span>
+                    </div>
+                    <span class="eval-widget-sub">توزيع الملاحظات والطلبات الواردة (١٠٠٪)</span>
+                  </div>
+
+                  <div class="eval-pie-layout">
+                    <!-- Donut SVG (Circumference = 276.46) -->
+                    <div class="eval-pie-svg-wrap">
+                      <svg class="eval-pie-svg" viewBox="0 0 140 140">
+                        <defs>
+                          <filter id="pie-glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#06b6d4" flood-opacity="0.7"/>
+                          </filter>
+                          <filter id="pie-glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#a855f7" flood-opacity="0.7"/>
+                          </filter>
+                          <filter id="pie-glow-pink" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#f43f5e" flood-opacity="0.7"/>
+                          </filter>
+                          <filter id="pie-glow-amber" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#f59e0b" flood-opacity="0.7"/>
+                          </filter>
+                          <filter id="pie-glow-emerald" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#10b981" flood-opacity="0.7"/>
+                          </filter>
+                        </defs>
+
+                        <!-- Background Ring -->
+                        <circle cx="70" cy="70" r="44" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="22"/>
+
+                        <!-- Slice 1: Pool (60%) -> 165.88 -->
+                        <circle class="eval-pie-slice" cx="70" cy="70" r="44" fill="none" stroke="#06b6d4" stroke-width="22"
+                          stroke-dasharray="165.88 276.46" stroke-dashoffset="0" filter="url(#pie-glow-cyan)">
+                          <title>٦٠٪ طلب مسبح وحمام سباحة</title>
+                        </circle>
+
+                        <!-- Slice 2: More Days (15%) -> 41.47 -->
+                        <circle class="eval-pie-slice" cx="70" cy="70" r="44" fill="none" stroke="#a855f7" stroke-width="22"
+                          stroke-dasharray="41.47 276.46" stroke-dashoffset="-165.88" filter="url(#pie-glow-purple)">
+                          <title>١٥٪ طلب زيادة عدد الأيام</title>
+                        </circle>
+
+                        <!-- Slice 3: More Colors (10%) -> 27.65 -->
+                        <circle class="eval-pie-slice" cx="70" cy="70" r="44" fill="none" stroke="#f43f5e" stroke-width="22"
+                          stroke-dasharray="27.65 276.46" stroke-dashoffset="-207.35" filter="url(#pie-glow-pink)">
+                          <title>١٠٪ طلب أنشطة وألوان ورسم</title>
+                        </circle>
+
+                        <!-- Slice 4: Inflatables (10%) -> 27.65 -->
+                        <circle class="eval-pie-slice" cx="70" cy="70" r="44" fill="none" stroke="#f59e0b" stroke-width="22"
+                          stroke-dasharray="27.65 276.46" stroke-dashoffset="-235.00" filter="url(#pie-glow-amber)">
+                          <title>١٠٪ طلب نطاطات وألعاب هوائية</title>
+                        </circle>
+
+                        <!-- Slice 5: Perfect / No Comments (5%) -> 13.82 -->
+                        <circle class="eval-pie-slice" cx="70" cy="70" r="44" fill="none" stroke="#10b981" stroke-width="22"
+                          stroke-dasharray="13.82 276.46" stroke-dashoffset="-262.65" filter="url(#pie-glow-emerald)">
+                          <title>٥٪ ممتاز وبدون أي ملاحظات</title>
+                        </circle>
+                      </svg>
+
+                      <!-- Center Hole Badge -->
+                      <div class="eval-pie-center-badge">
+                        <span class="eval-pie-center-val">١٠٠٪</span>
+                        <span class="eval-pie-center-sub">المقترحات</span>
+                      </div>
+                    </div>
+
+                    <!-- Legend List -->
+                    <div class="eval-pie-legend">
+                      <div class="eval-pie-legend-item">
+                        <span class="eval-pie-legend-label">
+                          <span class="eval-pie-dot" style="background:#06b6d4; box-shadow:0 0 6px #06b6d4;"></span>
+                          <span>🏊‍♂️ مسبح ومياه</span>
+                        </span>
+                        <span class="eval-pie-legend-pct" style="color:#22d3ee;">٦٠٪</span>
+                      </div>
+
+                      <div class="eval-pie-legend-item">
+                        <span class="eval-pie-legend-label">
+                          <span class="eval-pie-dot" style="background:#a855f7; box-shadow:0 0 6px #a855f7;"></span>
+                          <span>📅 أيام إضافية</span>
+                        </span>
+                        <span class="eval-pie-legend-pct" style="color:#c084fc;">١٥٪</span>
+                      </div>
+
+                      <div class="eval-pie-legend-item">
+                        <span class="eval-pie-legend-label">
+                          <span class="eval-pie-dot" style="background:#f43f5e; box-shadow:0 0 6px #f43f5e;"></span>
+                          <span>🎨 ألوان ورسم</span>
+                        </span>
+                        <span class="eval-pie-legend-pct" style="color:#fb7185;">١٠٪</span>
+                      </div>
+
+                      <div class="eval-pie-legend-item">
+                        <span class="eval-pie-legend-label">
+                          <span class="eval-pie-dot" style="background:#f59e0b; box-shadow:0 0 6px #f59e0b;"></span>
+                          <span>🎪 ألعاب هوائية</span>
+                        </span>
+                        <span class="eval-pie-legend-pct" style="color:#fbbf24;">١٠٪</span>
+                      </div>
+
+                      <div class="eval-pie-legend-item">
+                        <span class="eval-pie-legend-label">
+                          <span class="eval-pie-dot" style="background:#10b981; box-shadow:0 0 6px #10b981;"></span>
+                          <span>⭐ ممتاز بدون ملاحظات</span>
+                        </span>
+                        <span class="eval-pie-legend-pct" style="color:#34d399;">٥٪</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
-                <!-- Column 1: تقييم القادة الكبار -->
-                <div class="gm-rule-card" style="background: rgba(32, 20, 42, 0.75); border: 1px solid rgba(177,133,219,0.35); border-radius: 14px; padding: 18px;">
-                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                    <div style="background: rgba(177,133,219,0.2); color: #d8b4fe; border-radius: 10px; padding: 8px; display: flex;">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-                    </div>
-                    <h4 style="margin: 0; font-size: 16px; color: #fff;">تقييم القادة الكبار</h4>
-                  </div>
-                  <ul style="margin: 0; padding-right: 18px; color: #cbd5e1; font-size: 13.5px; line-height: 1.7;">
-                    <li>إشادة بانضباط الجوالة الميداني وإن اليوم عدا كامل من غير غلطة ولا إصابة واحدة.</li>
-                  </ul>
-                </div>
-
-                <!-- Column 2: تقييم خدام الكنائس -->
-                <div class="gm-rule-card" style="background: rgba(32, 20, 42, 0.75); border: 1px solid rgba(177,133,219,0.35); border-radius: 14px; padding: 18px;">
-                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                    <div style="background: rgba(177,133,219,0.2); color: #d8b4fe; border-radius: 10px; padding: 8px; display: flex;">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
-                    </div>
-                    <h4 style="margin: 0; font-size: 16px; color: #fff;">تقييم خدام الكنائس</h4>
-                  </div>
-                  <ul style="margin: 0; padding-right: 18px; color: #cbd5e1; font-size: 13.5px; line-height: 1.7;">
-                    <li>شكرونا جداً إننا شلنا عنهم تعب اليوم واتعلموا أفكار كشفية جديدة هيكملوا بيها.</li>
-                  </ul>
-                </div>
-
-                <!-- Column 3: تقييم الأطفال -->
-                <div class="gm-rule-card" style="background: rgba(32, 20, 42, 0.75); border: 1px solid rgba(177,133,219,0.35); border-radius: 14px; padding: 18px;">
-                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                    <div style="background: rgba(177,133,219,0.2); color: #d8b4fe; border-radius: 10px; padding: 8px; display: flex;">
+              <!-- Bottom 3 Taller Cards: 1. تقييم الأطفال -> 2. تقييم الكنائس الكبيرة -> 3. تقييم خدام الكنائس -->
+              <div class="feedback-bottom-cards-grid">
+                <!-- 1. تقييم الأطفال (First) -->
+                <div class="gm-rule-card gm-eval-tall-card">
+                  <div class="eval-tall-header">
+                    <div class="eval-tall-icon kids-icon">
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
                     </div>
-                    <h4 style="margin: 0; font-size: 16px; color: #fff;">تقييم الأطفال</h4>
+                    <div class="eval-tall-title-group">
+                      <h4 class="eval-tall-title">تقييم الأطفال</h4>
+                      <span class="eval-tall-pill pill-gold">★★★★★ (٥ / ٥) • انبهار تام</span>
+                    </div>
                   </div>
-                  <ul style="margin: 0; padding-right: 18px; color: #cbd5e1; font-size: 13.5px; line-height: 1.7;">
-                    <li>فرحة مش طبيعية من الأولاد وقالوا ده أحلى يوم في حياتهم وبكوا وإحنا بنودعهم.</li>
+                  <ul class="eval-tall-list">
+                    <li>فرحة غير عادية وانبهار عارم من الأولاد؛ عبّروا بصدق إنه «أحلى يوم في حياتهم» وذرفوا الدموع أثناء الوداع لحظة انتهاء المعسكر.</li>
+                    <li>تفاعل وحماس استثنائي في كافة الأنشطة والمحطات الكشفية والألعاب التنافسية بدون أي ملل طوال اليوم.</li>
+                  </ul>
+                </div>
+
+                <!-- 2. تقييم الكنائس الكبيرة (Then) -->
+                <div class="gm-rule-card gm-eval-tall-card">
+                  <div class="eval-tall-header">
+                    <div class="eval-tall-icon churches-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                    </div>
+                    <div class="eval-tall-title-group">
+                      <h4 class="eval-tall-title">تقييم الكنائس الكبيرة</h4>
+                      <span class="eval-tall-pill pill-cyan">انضباط كشفي ١٠٠٪ • صفر إصابات</span>
+                    </div>
+                  </div>
+                  <ul class="eval-tall-list">
+                    <li>إشادة رسمية رفيعة من قادة ومسؤولي الكنائس الكبرى بالانضباط الميداني الصارم للجوالة والتحكم الكامل في حركة المجموعات.</li>
+                    <li>اليوم بالكامل سار بامتياز تنظيمي واحترافي ودقة زمنية عالية دون وقوع أي خطأ تنظيمي أو تسجيل إصابة واحدة.</li>
+                  </ul>
+                </div>
+
+                <!-- 3. تقييم خدام الكنائس (Then) -->
+                <div class="gm-rule-card gm-eval-tall-card">
+                  <div class="eval-tall-header">
+                    <div class="eval-tall-icon servants-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                    </div>
+                    <div class="eval-tall-title-group">
+                      <h4 class="eval-tall-title">تقييم خدام الكنائس</h4>
+                      <span class="eval-tall-pill pill-purple">إسناد ميداني • أفكار كشفية ملهمة</span>
+                    </div>
+                  </div>
+                  <ul class="eval-tall-list">
+                    <li>تقدير وشكر بالغ لرهط الوتر لتحمل عبء اليوم الميداني بالكامل وتفريغ الخدام للتفاعل الروحي ومتابعة المخدومين.</li>
+                    <li>اكتساب خبرات وأساليب تربوية وكشفية جديدة أكد الخدام أنهم سينقلونها ويطبقونها في أنشطة كنائسهم.</li>
                   </ul>
                 </div>
               </div>
@@ -3181,20 +3748,20 @@
   </div>
 
   <!-- ══════════════ BONDING SPORTS VIDEO CINEMA MODAL ══════════════ -->
-  <div class="two-days-cinema-overlay" id="bonding-cinema-overlay" style="display: none;" onclick="closeBondingVideo()">
+  <div class="two-days-cinema-overlay" id="bonding-cinema-overlay" style="display: none;" onclick="closeBondingVideo(false)">
     <div class="two-days-cinema-card" onclick="event.stopPropagation();">
       <div class="cinema-header">
         <div class="cinema-badge" style="background: rgba(245,184,66,0.2); border: 1px solid rgba(245,184,66,0.4); color: #ffd875;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
           <span style="font-size: 13.5px; font-weight: 700; margin-right: 6px;">فيديو النشاط الرياضي والترابط 🎬</span>
         </div>
-        <button class="cinema-close-btn" onclick="closeBondingVideo()" title="إغلاق الفيديو">
+        <button class="cinema-close-btn" onclick="closeBondingVideo(false)" title="إغلاق الفيديو">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
 
       <div class="cinema-video-wrapper">
-        <video id="bonding-video-player" controls preload="metadata">
+        <video id="bonding-video-player" controls preload="auto" poster="assets/post padel.jpg">
           <source src="assets/bond.mp4" type="video/mp4">
           متصفحك لا يدعم تشغيل هذا الفيديو مباشرة
         </video>
@@ -3216,7 +3783,7 @@
       </div>
 
       <div class="cinema-video-wrapper">
-        <video id="two-days-video-player" controls preload="metadata">
+        <video id="two-days-video-player" controls preload="auto" onended="closeTwoDaysVideo(false)">
           <source src="assets/2 days viddd.mp4" type="video/mp4">
           متصفحك لا يدعم تشغيل هذا الفيديو مباشرة
         </video>
@@ -3338,7 +3905,7 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
           <span>سبب استبعاد الفكرة:</span>
         </div>
-        <p class="rej-modal-reason-text" id="rej-modal-reason-text">الجلسات محتاجة ومتخصصين مش إحنا</p>
+        <p class="rej-modal-reason-text" id="rej-modal-reason-text">المشروع محتاج للمتخصصين اكثر من افراد الرحط</p>
       </div>
     </div>
   </div>
