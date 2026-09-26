@@ -1136,16 +1136,31 @@ function advanceGlobalPresentation(direction) {
             }
           }
         } else if (activePane === 11) {
+          // Slide 24: اماكن الخدمة على مدار يومين (2 Videos Sequence)
           if (typeof isDayVideoOpen !== 'undefined' && isDayVideoOpen) {
             closeDayVideo();
             return;
           }
-          // اماكن الخدمة على مدار يومين -> FINISHED NODE 4
-          sp2CompletedNodes.add(4);
-          playMilestoneCompletionSound();
-          currentGmLevel = 5;
-          currentNodeDay = 1;
-          showSp2Map(5, true); // Return to Map highlighting Node 5
+
+          if (slide24VideoStep === 0) {
+            // First tap on slide: open Day 1 video
+            slide24VideoStep = 1;
+            openDayVideo(1);
+            return;
+          } else if (slide24VideoStep === 1) {
+            // After Day 1 video closed, next tap opens Day 2 video
+            slide24VideoStep = 2;
+            openDayVideo(2);
+            return;
+          } else {
+            // After both videos explored, advance to Node 5 (الميزانية)
+            slide24VideoStep = 0;
+            sp2CompletedNodes.add(4);
+            playMilestoneCompletionSound();
+            currentGmLevel = 5;
+            currentNodeDay = 1;
+            showSp2Map(5, true); // Return to Map highlighting Node 5
+          }
         } else if (activePane === 5) {
           // ميزانية اليوم الأول (7 slices)
           const maxSlice = (gmBudgetData[1] && gmBudgetData[1].items) ? gmBudgetData[1].items.length - 1 : 6;
@@ -1224,6 +1239,11 @@ function advanceGlobalPresentation(direction) {
             closeDayVideo();
             return;
           }
+          if (slide24VideoStep > 1) {
+            slide24VideoStep = 1;
+            return;
+          }
+          slide24VideoStep = 0;
           // From Slide 24 Locations back to Slide 22 (pane 4: Station 2 Entertainment)
           currentGmLevel = 4;
           currentNodeDay = 1;
@@ -1364,6 +1384,41 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     e.stopPropagation();
     toggleContentManagerModal();
+    return;
+  }
+
+  // 0.05 Universal Presentation Auto-Scaler Hotkeys
+  // Alt + Plus / Ctrl + Alt + Plus / Ctrl + Shift + Plus -> Zoom In (+5%)
+  const isScaleInc = (e.altKey && (e.key === '=' || e.key === '+' || e.code === 'Equal' || e.code === 'NumpadAdd')) ||
+    ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === '=' || e.key === '+' || e.code === 'Equal' || e.code === 'NumpadAdd')) ||
+    ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === '=' || e.key === '+' || e.code === 'Equal' || e.code === 'NumpadAdd'));
+
+  // Alt + Minus / Ctrl + Alt + Minus / Ctrl + Shift + Minus -> Zoom Out (-5%)
+  const isScaleDec = (e.altKey && (e.key === '-' || e.key === '_' || e.code === 'Minus' || e.code === 'NumpadSubtract')) ||
+    ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === '-' || e.key === '_' || e.code === 'Minus' || e.code === 'NumpadSubtract')) ||
+    ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === '-' || e.key === '_' || e.code === 'Minus' || e.code === 'NumpadSubtract'));
+
+  // Alt + 0 / Ctrl + Alt + 0 / Ctrl + Shift + 0 -> Reset to Auto Scale (100%)
+  const isScaleReset = (e.altKey && (e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0')) ||
+    ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0')) ||
+    ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === '0' || e.code === 'Digit0' || e.code === 'Numpad0'));
+
+  if (isScaleInc) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof adjustPresentationScaleNudge === 'function') adjustPresentationScaleNudge(0.05);
+    return;
+  }
+  if (isScaleDec) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof adjustPresentationScaleNudge === 'function') adjustPresentationScaleNudge(-0.05);
+    return;
+  }
+  if (isScaleReset) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof resetPresentationScaleNudge === 'function') resetPresentationScaleNudge();
     return;
   }
 
@@ -2192,7 +2247,7 @@ const rejectedCardsData = [
     iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 22 22 22 12 2"></polygon><path d="M12 12l4 7H8z"></path></svg>'
   },
   {
-    title: 'فريق الأنشطة الرياضية',
+    title: 'فريق الأنشطة الرياضية للكشافة',
     reason: 'رفض من قائد العشيرة',
     iconSvg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>'
   }
@@ -2316,6 +2371,32 @@ function prevProjStep() {
 
 // ── 10.1 Ten-String Acoustic Guitar Responsibilities System ──
 const guitarStringsData = [
+  // ── القيادة أولاً ──
+  {
+    name: 'قائد اليوم الأول',
+    title: 'قيادة اليوم الأول (العذراء بالسلام)',
+    desc: '',
+    color: '#a78bfa',
+    freq: 246.94,
+    icon: '⚜️',
+    members: [
+      { name: 'جون ماجد', role: 'قائد اليوم الأول' },
+      { name: 'جونثان امير', role: 'قائد اليوم الأول' }
+    ]
+  },
+  {
+    name: 'قائد اليوم التاني',
+    title: 'قيادة اليوم التاني (خدمة السلام)',
+    desc: '',
+    color: '#34d399',
+    freq: 293.66,
+    icon: '⚜️',
+    members: [
+      { name: 'حنا رفعت', role: 'قائد اليوم الثاني' },
+      { name: 'توماس تامر', role: 'قائد اليوم الثاني' }
+    ]
+  },
+  // ── بقية المسؤوليات ──
   {
     name: 'الروحي',
     title: 'الفقرة الروحية',
@@ -2383,30 +2464,6 @@ const guitarStringsData = [
     ]
   },
   {
-    name: 'قائد اليوم الأول',
-    title: 'قيادة اليوم الأول (العذراء بالسلام)',
-    desc: '',
-    color: '#a78bfa',
-    freq: 246.94,
-    icon: '⚜️',
-    members: [
-      { name: 'جون ماجد', role: 'قائد اليوم الأول' },
-      { name: 'جونثان امير', role: 'قائد اليوم الأول' }
-    ]
-  },
-  {
-    name: 'قائد اليوم التاني',
-    title: 'قيادة اليوم التاني (خدمة السلام)',
-    desc: '',
-    color: '#34d399',
-    freq: 293.66,
-    icon: '⚜️',
-    members: [
-      { name: 'حنا رفعت', role: 'قائد اليوم الثاني' },
-      { name: 'توماس تامر', role: 'قائد اليوم الثاني' }
-    ]
-  },
-  {
     name: 'كرافتس',
     title: 'ورش الكرافتس',
     desc: '',
@@ -2454,16 +2511,16 @@ const guitarActiveAnimations = {};
 const exploredHarpStrings = new Set();
 
 const guitarStringCoordinates = [
-  { x1: 155, y1: 78, x2: 205, y2: 580 }, // 0: الروحي
-  { x1: 185, y1: 70, x2: 230, y2: 574 }, // 1: الأخلاقي
-  { x1: 215, y1: 68, x2: 255, y2: 562 }, // 2: الميزانيه
-  { x1: 245, y1: 72, x2: 280, y2: 544 }, // 3: اللوجيستيات
-  { x1: 275, y1: 82, x2: 305, y2: 518 }, // 4: الألعاب
-  { x1: 305, y1: 98, x2: 330, y2: 484 }, // 5: قائد اليوم الأول
-  { x1: 335, y1: 120, x2: 355, y2: 442 }, // 6: قائد اليوم التاني
-  { x1: 365, y1: 148, x2: 380, y2: 392 }, // 7: كرافتس
-  { x1: 395, y1: 180, x2: 405, y2: 332 }, // 8: الفقره الافتتاحيه
-  { x1: 425, y1: 218, x2: 428, y2: 260 }  // 9: الاكل
+  { x1: 155, y1: 78, x2: 205, y2: 580 },  // 0: قائد اليوم الأول (الوتر الأول - أقصى اليسار)
+  { x1: 185, y1: 70, x2: 230, y2: 574 },  // 1: قائد اليوم التاني (الوتر الثاني)
+  { x1: 215, y1: 68, x2: 255, y2: 562 },  // 2: الروحي (الوتر الثالث)
+  { x1: 245, y1: 72, x2: 280, y2: 544 },  // 3: الأخلاقي (الوتر الرابع)
+  { x1: 275, y1: 82, x2: 305, y2: 518 },  // 4: الميزانيه (الوتر الخامس)
+  { x1: 305, y1: 98, x2: 330, y2: 484 },  // 5: اللوجيستيات (الوتر السادس)
+  { x1: 335, y1: 120, x2: 355, y2: 442 }, // 6: الألعاب (الوتر السابع)
+  { x1: 365, y1: 148, x2: 380, y2: 392 }, // 7: كرافتس (الوتر الثامن)
+  { x1: 395, y1: 180, x2: 405, y2: 332 }, // 8: الفقره الافتتاحيه (الوتر التاسع)
+  { x1: 425, y1: 218, x2: 428, y2: 260 }  // 9: الاكل (الوتر العاشر - أقصى اليمين)
 ];
 
 function animateGuitarVectorString(idx, pathEl, glowEl, amp = 14, decay = 3.0, freq = 220) {
@@ -2576,15 +2633,20 @@ function selectGuitarString(idx) {
   const workspace = document.getElementById('guitar-workspace');
   if (workspace) workspace.classList.add('split-active');
 
-  // Highlight active string in SVG
-  document.querySelectorAll('.guitar-str-group').forEach((g, i) => {
-    g.classList.toggle('active', i === idx);
-    const line = g.querySelector('.guitar-str-line');
-    const glow = g.querySelector('.guitar-str-glow');
-    if (i === idx) {
-      animateGuitarVectorString(idx, line, glow, 16, 2.6, data.freq);
-    }
-  });
+  // Highlight active string in SVG (#acoustic-guitar-svg)
+  const harpSvg = document.getElementById('acoustic-guitar-svg');
+  if (harpSvg) {
+    harpSvg.querySelectorAll('.guitar-str-group').forEach(g => {
+      const gIdx = parseInt(g.dataset.idx, 10);
+      const isActive = (gIdx === idx);
+      g.classList.toggle('active', isActive);
+      if (isActive) {
+        const line = g.querySelector('.guitar-str-line');
+        const glow = g.querySelector('.guitar-str-glow');
+        animateGuitarVectorString(idx, line, glow, 16, 2.6, data.freq);
+      }
+    });
+  }
 
   // Highlight active pill
   document.querySelectorAll('.g-pill').forEach((pill, i) => {
@@ -2616,15 +2678,6 @@ function selectGuitarString(idx) {
             <span class="g-member-role-chip" style="color: ${data.color}; background: rgba(255,255,255,0.08);">${m.role}</span>
           </div>
         `).join('');
-  }
-
-  // Track explored strings for radiant harp illumination
-  exploredHarpStrings.add(idx);
-  if (exploredHarpStrings.size >= 10) {
-    const harpWrap = document.getElementById('acoustic-guitar-svg-wrap');
-    if (harpWrap) {
-      harpWrap.classList.add('all-strings-opened', 'radiant-glow');
-    }
   }
 
   // Audio chord feedback
@@ -2715,6 +2768,7 @@ window.resetProgramGate = resetProgramGate;
 // ── 10.15 Service Day Video Modal Controller (Day 1 & Day 2) ──
 let isDayVideoOpen = false;
 let slide11VideoStep = 0;
+let slide24VideoStep = 0;
 let currentDayVideoNum = 0;
 
 function openDayVideo(dayNum) {
@@ -6123,7 +6177,7 @@ var CM_REGISTRY = [
     fieldLabel: 'عنوان الفكرة المستبعدة الثالثة',
     chordIdx: 1,
     stepIdx: 0,
-    getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2] ? rejectedCardsData[2].title : 'فريق الأنشطة الرياضية'),
+    getter: () => (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2] ? rejectedCardsData[2].title : 'فريق الأنشطة الرياضية للكشافة'),
     setter: (v) => {
       if (typeof rejectedCardsData !== 'undefined' && rejectedCardsData[2]) rejectedCardsData[2].title = v;
       const el = document.querySelectorAll('.rej-card-title')[2];
@@ -6177,11 +6231,11 @@ var CM_REGISTRY = [
     fieldLabel: 'مسؤولو الروحي (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[0] ? guitarStringsData[0].members.map(m => m.name).join(' , ') : 'جونثان امير , كيرلس مشيل , فيلوباتير عصام'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[2] ? guitarStringsData[2].members.map(m => m.name).join(' , ') : 'جونثان امير , كيرلس مشيل , فيلوباتير عصام'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[0]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[2]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[0].members = names.map(n => ({ name: n, role: 'الفقرة الروحية' }));
+        guitarStringsData[2].members = names.map(n => ({ name: n, role: 'الفقرة الروحية' }));
       }
     },
     getDefault: () => 'جونثان امير , كيرلس مشيل , فيلوباتير عصام'
@@ -6194,11 +6248,11 @@ var CM_REGISTRY = [
     fieldLabel: 'مسؤولو الأخلاقي (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[1] ? guitarStringsData[1].members.map(m => m.name).join(', ') : 'مينا كريم, أبرأم نعيم, مايكل هاني, كيرلس سامي'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[3] ? guitarStringsData[3].members.map(m => m.name).join(', ') : 'مينا كريم, أبرأم نعيم, مايكل هاني, كيرلس سامي'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[1]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[3]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[1].members = names.map(n => ({ name: n, role: 'الفقرة الأخلاقية' }));
+        guitarStringsData[3].members = names.map(n => ({ name: n, role: 'الفقرة الأخلاقية' }));
       }
     },
     getDefault: () => 'مينا كريم, أبرأم نعيم, مايكل هاني, كيرلس سامي'
@@ -6211,11 +6265,11 @@ var CM_REGISTRY = [
     fieldLabel: 'مسؤولو الميزانية (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[2] ? guitarStringsData[2].members.map(m => m.name).join(', ') : 'جون ماجد, ابرام مدحت'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[4] ? guitarStringsData[4].members.map(m => m.name).join(', ') : 'جون ماجد, ابرام مدحت'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[2]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[4]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[2].members = names.map(n => ({ name: n, role: 'الميزانية والحسابات' }));
+        guitarStringsData[4].members = names.map(n => ({ name: n, role: 'الميزانية والحسابات' }));
       }
     },
     getDefault: () => 'جون ماجد, ابرام مدحت'
@@ -6228,11 +6282,11 @@ var CM_REGISTRY = [
     fieldLabel: 'مسؤولو اللوجيستيات (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[3] ? guitarStringsData[3].members.map(m => m.name).join(', ') : 'توماس تامر, حنا رفعت'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[5] ? guitarStringsData[5].members.map(m => m.name).join(', ') : 'توماس تامر, حنا رفعت'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[3]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[5]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[3].members = names.map(n => ({ name: n, role: 'اللوجيستيات والتجهيز' }));
+        guitarStringsData[5].members = names.map(n => ({ name: n, role: 'اللوجيستيات والتجهيز' }));
       }
     },
     getDefault: () => 'توماس تامر, حنا رفعت'
@@ -6245,11 +6299,11 @@ var CM_REGISTRY = [
     fieldLabel: 'مسؤولو الألعاب (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[4] ? guitarStringsData[4].members.map(m => m.name).join(', ') : 'حنا رفعت, ابرام مدحت, فيلوباتير عصام, ابرام نعيم, كيرلس سامي'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[6] ? guitarStringsData[6].members.map(m => m.name).join(', ') : 'حنا رفعت, ابرام مدحت, فيلوباتير عصام, ابرام نعيم, كيرلس سامي'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[4]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[6]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[4].members = names.map(n => ({ name: n, role: 'الألعاب والمسابقات' }));
+        guitarStringsData[6].members = names.map(n => ({ name: n, role: 'الألعاب والمسابقات' }));
       }
     },
     getDefault: () => 'حنا رفعت, ابرام مدحت, فيلوباتير عصام, ابرام نعيم, كيرلس سامي'
@@ -6262,11 +6316,11 @@ var CM_REGISTRY = [
     fieldLabel: 'قادة اليوم الأول (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[5] ? guitarStringsData[5].members.map(m => m.name).join(' , ') : 'جون ماجد , جونثان امير'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[0] ? guitarStringsData[0].members.map(m => m.name).join(' , ') : 'جون ماجد , جونثان امير'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[5]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[0]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[5].members = names.map(n => ({ name: n, role: 'قائد اليوم الأول' }));
+        guitarStringsData[0].members = names.map(n => ({ name: n, role: 'قائد اليوم الأول' }));
       }
     },
     getDefault: () => 'جون ماجد , جونثان امير'
@@ -6279,11 +6333,11 @@ var CM_REGISTRY = [
     fieldLabel: 'قادة اليوم الثاني (الأسماء)',
     chordIdx: 1,
     stepIdx: 2,
-    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[6] ? guitarStringsData[6].members.map(m => m.name).join(', ') : 'حنا رفعت, توماس تامر'),
+    getter: () => (typeof guitarStringsData !== 'undefined' && guitarStringsData[1] ? guitarStringsData[1].members.map(m => m.name).join(', ') : 'حنا رفعت, توماس تامر'),
     setter: (v) => {
-      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[6]) {
+      if (typeof guitarStringsData !== 'undefined' && guitarStringsData[1]) {
         const names = v.split(/[,،]/).map(s => s.trim()).filter(Boolean);
-        guitarStringsData[6].members = names.map(n => ({ name: n, role: 'قائد اليوم الثاني' }));
+        guitarStringsData[1].members = names.map(n => ({ name: n, role: 'قائد اليوم الثاني' }));
       }
     },
     getDefault: () => 'حنا رفعت, توماس تامر'
@@ -6690,4 +6744,242 @@ function escapeHtml(str) {
 window.addEventListener('DOMContentLoaded', () => {
   restoreAllContentEdits();
 });
+
+// ═════════════════════════════════════════════════════════════════════════════
+// ── UNIVERSAL PRESENTATION AUTO-SCALER ENGINE (ADAPTIVE CANVAS SCALING) ──
+// ═════════════════════════════════════════════════════════════════════════════
+
+const PPT_SCALER_CONFIG = {
+  baseWidth: 1440,
+  baseHeight: 860,
+  minScale: 0.55,
+  maxScale: 3.5,
+  step: 0.05,
+  storageKey: 'raht_presentation_scale_nudge_v1'
+};
+
+let pptUserScaleNudge = 1.0;
+let currentPresentationScale = 1.0;
+let pptHudIdleTimeout = null;
+let pptToastTimeout = null;
+
+// Load user custom nudge if previously saved
+try {
+  const savedNudge = localStorage.getItem(PPT_SCALER_CONFIG.storageKey);
+  if (savedNudge !== null) {
+    const val = parseFloat(savedNudge);
+    if (!isNaN(val) && val >= 0.5 && val <= 2.5) {
+      pptUserScaleNudge = Math.round(val * 100) / 100;
+    }
+  }
+} catch (e) {
+  // localStorage disabled or private browsing
+}
+
+/**
+ * Computes optimal scale based on current window dimensions
+ */
+function computePresentationScale() {
+  const winW = window.innerWidth || document.documentElement.clientWidth || screen.width;
+  const winH = window.innerHeight || document.documentElement.clientHeight || screen.height;
+
+  const ratioW = winW / PPT_SCALER_CONFIG.baseWidth;
+  const ratioH = winH / PPT_SCALER_CONFIG.baseHeight;
+
+  // Best fit: take the smaller ratio so all content stays within visible canvas
+  const autoScale = Math.min(ratioW, ratioH);
+
+  // Apply user nudge multiplier
+  let finalScale = autoScale * pptUserScaleNudge;
+  finalScale = Math.max(PPT_SCALER_CONFIG.minScale, Math.min(PPT_SCALER_CONFIG.maxScale, finalScale));
+
+  return {
+    autoScale,
+    finalScale,
+    winW,
+    winH
+  };
+}
+
+/**
+ * Applies the calculated scale across the presentation
+ */
+function applyPresentationScale() {
+  const { autoScale, finalScale, winW, winH } = computePresentationScale();
+  currentPresentationScale = finalScale;
+
+  // 1. Primary engine: Apply zoom to document.documentElement
+  if ('zoom' in document.documentElement.style) {
+    document.documentElement.style.zoom = finalScale.toFixed(4);
+  } else {
+    // Fallback for browsers without CSS zoom on documentElement
+    document.body.style.transform = `scale(${finalScale.toFixed(4)})`;
+    document.body.style.transformOrigin = 'top center';
+    document.body.style.width = `${(winW / finalScale).toFixed(1)}px`;
+    document.body.style.height = `${(winH / finalScale).toFixed(1)}px`;
+  }
+
+  // 2. Set dynamic CSS variables for exact scaled viewport calculations
+  const scaledViewportW = winW / finalScale;
+  const scaledViewportH = winH / finalScale;
+  document.documentElement.style.setProperty('--app-vw', `${scaledViewportW.toFixed(1)}px`);
+  document.documentElement.style.setProperty('--app-vh', `${scaledViewportH.toFixed(1)}px`);
+  document.documentElement.style.setProperty('--ppt-scale', finalScale.toFixed(4));
+
+  // 3. Update HUD UI elements
+  updatePresentationScalerHud(finalScale, pptUserScaleNudge);
+}
+
+/**
+ * Update the on-screen scaler HUD badge
+ */
+function updatePresentationScalerHud(scale, nudge) {
+  const hudText = document.getElementById('ppt-hud-scale-text');
+  const autoTag = document.getElementById('ppt-hud-auto-tag');
+  const hudPill = document.getElementById('ppt-scaler-hud');
+  if (!hudText) return;
+
+  const percentage = Math.round(scale * 100);
+  hudText.textContent = `${percentage}%`;
+
+  if (autoTag) {
+    if (Math.abs(nudge - 1.0) < 0.01) {
+      autoTag.textContent = 'تلقائي';
+      autoTag.className = 'ppt-hud-auto-tag';
+    } else {
+      const diff = Math.round((nudge - 1.0) * 100);
+      autoTag.textContent = diff > 0 ? `+${diff}%` : `${diff}%`;
+      autoTag.className = 'ppt-hud-auto-tag custom';
+    }
+  }
+
+  // Flash HUD temporarily on update
+  if (hudPill) {
+    hudPill.classList.add('hud-active');
+    clearTimeout(pptHudIdleTimeout);
+    pptHudIdleTimeout = setTimeout(() => {
+      hudPill.classList.remove('hud-active');
+    }, 3500);
+  }
+}
+
+/**
+ * Adjust user scale nudge by delta (e.g. +0.05 or -0.05)
+ */
+function adjustPresentationScaleNudge(delta) {
+  pptUserScaleNudge = Math.round((pptUserScaleNudge + delta) * 100) / 100;
+  pptUserScaleNudge = Math.max(0.5, Math.min(2.0, pptUserScaleNudge));
+
+  try {
+    localStorage.setItem(PPT_SCALER_CONFIG.storageKey, pptUserScaleNudge.toString());
+  } catch (e) {}
+
+  applyPresentationScale();
+
+  const percentage = Math.round(currentPresentationScale * 100);
+  const diff = Math.round((pptUserScaleNudge - 1.0) * 100);
+  const msg = diff === 0
+    ? `مقياس العرض: ${percentage}% (تلقائي)`
+    : `مقياس العرض: ${percentage}% (${diff > 0 ? '+' : ''}${diff}%)`;
+
+  showScaleToast(msg);
+}
+
+/**
+ * Reset scale to 100% automatic fit
+ */
+function resetPresentationScaleNudge() {
+  pptUserScaleNudge = 1.0;
+  try {
+    localStorage.removeItem(PPT_SCALER_CONFIG.storageKey);
+  } catch (e) {}
+
+  applyPresentationScale();
+
+  const percentage = Math.round(currentPresentationScale * 100);
+  showScaleToast(`تم استعادة المقياس التلقائي: ${percentage}%`);
+}
+
+/**
+ * Display toast message for presentation scaler
+ */
+function showScaleToast(msg) {
+  const toast = document.getElementById('ppt-scale-toast');
+  const msgEl = document.getElementById('ppt-scale-toast-msg');
+  if (!toast || !msgEl) return;
+
+  msgEl.textContent = msg;
+  toast.classList.add('show');
+
+  clearTimeout(pptToastTimeout);
+  pptToastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2600);
+}
+
+/**
+ * Toggle Fullscreen mode
+ */
+function togglePresentationFullscreen() {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+/**
+ * Initialize Presentation Auto-Scaler listeners
+ */
+function initPresentationAutoScaler() {
+  // Apply initial scaling immediately
+  applyPresentationScale();
+
+  // Resize listener using requestAnimationFrame to ensure smooth 60fps adjustments
+  let resizeRaf = null;
+  window.addEventListener('resize', () => {
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      applyPresentationScale();
+    });
+  }, { passive: true });
+
+  // Orientation and Fullscreen listeners
+  window.addEventListener('orientationchange', () => {
+    setTimeout(applyPresentationScale, 150);
+  }, { passive: true });
+
+  document.addEventListener('fullscreenchange', () => {
+    setTimeout(applyPresentationScale, 100);
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    setTimeout(applyPresentationScale, 100);
+  });
+
+  // Reveal HUD on mouse movement, fade out after 3.5s of inactivity
+  window.addEventListener('mousemove', () => {
+    const hudPill = document.getElementById('ppt-scaler-hud');
+    if (!hudPill) return;
+    hudPill.classList.add('hud-active');
+    clearTimeout(pptHudIdleTimeout);
+    pptHudIdleTimeout = setTimeout(() => {
+      hudPill.classList.remove('hud-active');
+    }, 3500);
+  }, { passive: true });
+}
+
+// Immediately launch Auto-Scaler
+initPresentationAutoScaler();
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initPresentationAutoScaler);
+}
+
 
